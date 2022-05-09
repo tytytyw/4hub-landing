@@ -12,7 +12,7 @@ import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabin
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { fileProps, filePickProps } from "../../../../../types/WorkElements";
+import { fileProps, filePickProps } from "../../../../../types/File";
 
 const FileBar = ({ file, chosen, setChosenFile }) => {
   const dispatch = useDispatch();

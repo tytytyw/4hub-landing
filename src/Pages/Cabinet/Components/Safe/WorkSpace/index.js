@@ -22,8 +22,8 @@ import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps, filePickProps, fileProps } from "../../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { filePreviewProps, filePickProps, fileProps } from "../../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../../types/File";
 import { actionProps } from "../../../../../types/Action";
 
 const WorkSpace = ({

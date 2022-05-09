@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps, filePickProps } from "../../../../types/WorkElements";
+import { fileProps, filePickProps } from "../../../../types/File";
 import { mouseParamsProps } from "../../../../types/MouseParams";
 
 export const share_types = {

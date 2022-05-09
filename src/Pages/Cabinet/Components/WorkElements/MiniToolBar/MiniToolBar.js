@@ -40,7 +40,7 @@ import WhiteMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/pho
 import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../types/WorkElements";
+import { fileProps } from "../../../../../types/File";
 
 const MiniToolBar = ({
   file,

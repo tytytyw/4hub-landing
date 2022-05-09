@@ -14,7 +14,7 @@ import TopMessage from "./Components/TopMessage/TopMessage";
 import ContextModal from "../ContextMenuComponents/ContextModal";
 import FileAccessRights from "./Components/FileAccessRights/FileAccessRights";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 function Modals({

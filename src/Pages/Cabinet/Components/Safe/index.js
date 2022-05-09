@@ -27,9 +27,9 @@ import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
-import { filePreviewProps } from "../../../../types/WorkElements";
+import { filePreviewProps } from "../../../../types/File";
 
 const Safe = ({
   menuItem,

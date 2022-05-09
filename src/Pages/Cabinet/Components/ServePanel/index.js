@@ -40,8 +40,7 @@ import { useLocation } from "react-router";
 import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePickProps, fileProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePickProps, fileProps, fileAddCustomizationProps } from "../../../../types/File";
 import { deviceProps, contactProps } from "../../../../types/Device";
 
 const ServePanel = ({

@@ -19,7 +19,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const FileLoader = ({

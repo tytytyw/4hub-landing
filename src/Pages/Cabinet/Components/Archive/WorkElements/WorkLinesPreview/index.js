@@ -9,7 +9,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../../types/File";
 import { folderProps } from "../../../../../../types/Folder";
 
 const WorkLinesPreview = ({

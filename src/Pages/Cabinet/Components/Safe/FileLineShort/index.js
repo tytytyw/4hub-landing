@@ -5,7 +5,7 @@ import File from "../../../../../generalComponents/Files";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/File";
 
 const FileLineShort = ({
   file,

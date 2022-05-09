@@ -19,8 +19,7 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps, fileProps } from "../../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { filePreviewProps, fileProps, fileAddCustomizationProps } from "../../../../../types/File";
 import { actionProps } from "../../../../../types/Action";
 import { folderProps } from "../../../../../types/Folder";
 

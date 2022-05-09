@@ -13,7 +13,7 @@ import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/File";
 
 function FilesGroup({
   fileList,

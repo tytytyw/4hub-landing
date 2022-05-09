@@ -10,7 +10,7 @@ import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { folderProps } from "../../../../../types/Folder";
 

@@ -12,7 +12,7 @@ import OptionalDate from "./OptionalDate";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
 import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
 
 const FileLine = ({
   file,

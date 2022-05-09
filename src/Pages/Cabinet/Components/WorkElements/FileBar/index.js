@@ -7,7 +7,7 @@ import { onSetModals, setDragged } from "../../../../../Store/actions/CabinetAct
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../types/File";
 
 const FileBar = ({
   file,

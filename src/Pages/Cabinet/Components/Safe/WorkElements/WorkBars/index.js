@@ -9,7 +9,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../../types/WorkElements";
+import { filePickProps } from "../../../../../../types/File";
 
 const WorkBars = ({
   children,

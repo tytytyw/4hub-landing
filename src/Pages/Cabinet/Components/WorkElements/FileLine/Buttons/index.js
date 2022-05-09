@@ -15,8 +15,8 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
-// import { fileProps, fileSharedProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
+// import { fileProps, fileSharedProps } from "../../../../../../types/File";
 
 const Buttons = ({
   file,

@@ -12,7 +12,7 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../../types/File";
 
 function FilesGroup({
   fileList,

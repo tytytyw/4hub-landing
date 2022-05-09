@@ -26,7 +26,7 @@ import { useLocales } from "react-localized";
 import classnames from "classnames";
 
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 

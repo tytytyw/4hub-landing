@@ -116,3 +116,12 @@ export const fileSharedProps = PropTypes.exact({
   user_name: PropTypes.string,
   user_sname: PropTypes.string
 });
+
+export const fileAddCustomizationProps = PropTypes.exact({
+  file: PropTypes.object,
+  files: PropTypes.array,
+  several: PropTypes.bool,
+  show: PropTypes.bool,
+  create: PropTypes.bool,
+  options: PropTypes.object
+});

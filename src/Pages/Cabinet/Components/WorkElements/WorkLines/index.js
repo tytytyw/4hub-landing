@@ -7,7 +7,7 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../types/WorkElements";
+import { filePickProps } from "../../../../../types/File";
 
 const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesPage }) => {
   const { __ } = useLocales();

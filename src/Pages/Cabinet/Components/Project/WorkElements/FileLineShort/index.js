@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../../types/File";
 
 const FileLineShort = ({ file, setChosenFile, chosen, setMouseParams, filePick, setFilePick, fileCollapsed }) => {
   const size = useSelector((state) => state.Cabinet.size);

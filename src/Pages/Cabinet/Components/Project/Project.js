@@ -35,7 +35,7 @@ import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFil
 import { getIcon } from "./helpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const Project = ({

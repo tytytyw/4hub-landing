@@ -7,7 +7,7 @@ import { useScrollElementOnScreen } from "../../../../../../generalComponents/Ho
 import styles from "./WorkLines.module.sass";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../../types/WorkElements";
+import { filePickProps } from "../../../../../../types/File";
 
 const WorkLines = ({
   children,

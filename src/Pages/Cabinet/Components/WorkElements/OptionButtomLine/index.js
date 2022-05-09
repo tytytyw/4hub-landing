@@ -7,7 +7,7 @@ import { share_types } from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../types/File";
 
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();

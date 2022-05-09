@@ -12,7 +12,7 @@ import { useScrollElementOnScreen } from "../../../../../../generalComponents/Ho
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../../types/File";
 
 const WorkLinesPreview = ({
   file,

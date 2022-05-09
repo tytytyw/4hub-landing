@@ -10,7 +10,7 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
-import { fileSharedProps } from "../../../../../../types/WorkElements";
+import { fileSharedProps } from "../../../../../../types/File";
 
 //eslint-disable-next-line
 const CONTEXT = {

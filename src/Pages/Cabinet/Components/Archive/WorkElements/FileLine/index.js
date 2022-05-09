@@ -12,7 +12,7 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePreviewProps, fileProps } from "../../../../../../types/File";
 
 const FileLine = ({ file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview }) => {
   const { __ } = useLocales();

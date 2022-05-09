@@ -18,8 +18,8 @@ import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const MyFiles = ({

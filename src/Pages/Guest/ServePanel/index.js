@@ -33,8 +33,7 @@ import { useContextMenuCreateFile, useContextMenuFilters } from "../../../genera
 import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../types/FileAddCustomization";
+import { filePickProps, fileProps, fileAddCustomizationProps } from "../../../types/File";
 import { contactProps, deviceProps } from "../../../types/Device";
 
 const ServePanel = ({

@@ -10,7 +10,7 @@ import File from "../../../../../../generalComponents/Files";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 const WorkBarsPreview = ({
   children,

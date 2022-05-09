@@ -7,7 +7,7 @@ import File from "../../../../generalComponents/Files";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { getIcon } from "../Project/helpers";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
+import { filePreviewProps } from "../../../../types/File";
 
 const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallback, width }) => {
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);

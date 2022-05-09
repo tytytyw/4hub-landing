@@ -5,8 +5,8 @@ import List from "../List";
 import { useLocales } from "react-localized";
 import WorkSpace from "./WorkSpace/WorkSpace";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../types/File";
 
 function Library({
   menuItem,

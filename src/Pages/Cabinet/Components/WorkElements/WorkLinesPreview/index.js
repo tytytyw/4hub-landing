@@ -12,7 +12,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../types/File";
 
 const WorkLinesPreview = ({
   file,

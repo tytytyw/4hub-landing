@@ -9,7 +9,7 @@ import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../types/WorkElements";
+import { fileProps } from "../../../../../types/File";
 import { folderProps } from "../../../../../types/Folder";
 
 const CustomFolderItem = ({

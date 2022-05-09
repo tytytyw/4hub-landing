@@ -7,7 +7,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import { onChooseFiles, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../types/File";
 
 // TODO - add 'params'
 const FileLineShort = ({
