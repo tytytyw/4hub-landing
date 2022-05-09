@@ -7,7 +7,15 @@ import TextButton from "../../../../../generalComponents/TextButton";
 import CustomFolderItem from "../../MyFolders/CustomFolderItem";
 import FileLineShort from "../../WorkElements/FileLineShort";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import { onGetFolders, onChooseFiles, clearFileList, onSortFile } from "../../../../../Store/actions/CabinetActions";
+import { MODALS } from "../../../../../generalComponents/globalVariables";
+import { useLocales } from "react-localized";
+import {
+  onGetFolders,
+  onChooseFiles,
+  clearFileList,
+  onSortFile,
+  onSetModals
+} from "../../../../../Store/actions/CabinetActions";
 import { useFolders } from "../../../../../generalComponents/collections";
 
 const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) => {
@@ -18,6 +26,7 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
   const fileList = useSelector((state) => state.Cabinet.fileList?.files);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
   const dispatch = useDispatch();
+  const { __ } = useLocales();
 
   const [chosenFolder, setChosenFolder] = useState(null);
   const [chosenFiles, setChosenFiles] = useState(attachedFiles ?? []);
@@ -27,9 +36,12 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
   const addChosenFile = (f) => {
     const file = { ...f, kind: "file" };
 
-    setChosenFiles((prevFiles) =>
-      FileIsChosen(f) ? prevFiles.filter((prveFile) => prveFile.fid !== file.fid) : [...prevFiles, file]
-    );
+    if (!FileIsChosen(f) && chosenFiles.length > 19)
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Максимум 20 файлов") }));
+    else
+      setChosenFiles((prevFiles) =>
+        FileIsChosen(f) ? prevFiles.filter((prveFile) => prveFile.fid !== file.fid) : [...prevFiles, file]
+      );
   };
 
   const renderLoader = () => (
