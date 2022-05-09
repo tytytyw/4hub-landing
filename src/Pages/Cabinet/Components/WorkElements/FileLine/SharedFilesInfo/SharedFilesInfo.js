@@ -75,7 +75,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 
   const renderUser = (file) => {
     return file?.user_icon?.[0] ? (
-      <img src={file?.user_icon?.[0]} className={styles.userIcon} /> //eslint-disable-line
+      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
     ) : (
       <UserIcon title={file.user_name} />
     );

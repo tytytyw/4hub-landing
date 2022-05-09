@@ -13,6 +13,7 @@ import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../../types/File";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 function FilesGroup({
   fileList,
@@ -124,16 +125,7 @@ FilesGroup.propTypes = {
   fileList: PropTypes.arrayOf(PropTypes.element),
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
-  callbackArrMain: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.exact({
-        type: PropTypes.string,
-        name: PropTypes.string,
-        text: PropTypes.string,
-        callback: PropTypes.func
-      })
-    )
-  ),
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
   setChosenFile: PropTypes.func,
   filePick: filePickProps,

@@ -20,6 +20,7 @@ import { filePickProps, filePreviewProps, fileProps } from "../../../../../types
 import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const WorkSpace = ({
   chosenFile,
@@ -185,16 +186,7 @@ WorkSpace.propTypes = {
   action: actionProps,
   setAction: PropTypes.func,
   nullifyFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.exact({
-        type: PropTypes.string,
-        name: PropTypes.string,
-        text: PropTypes.string,
-        callback: PropTypes.func
-      })
-    )
-  ),
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   fileSelect: PropTypes.func,

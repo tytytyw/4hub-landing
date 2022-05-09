@@ -13,6 +13,7 @@ import { MODALS } from "../../../../../generalComponents/globalVariables";
 import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const FileLine = ({
   file,
@@ -105,16 +106,7 @@ FileLine.propTypes = {
   setAction: PropTypes.func,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.exact({
-        type: PropTypes.string,
-        name: PropTypes.string,
-        text: PropTypes.string,
-        callback: PropTypes.func
-      })
-    )
-  ),
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   folderSelect: PropTypes.func,
   openFolderMenu: PropTypes.func,
   successLoad: PropTypes.func,

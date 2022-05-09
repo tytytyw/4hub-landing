@@ -113,6 +113,7 @@ const ItemsList = ({
       );
     });
   };
+  // TODO - fix unused variable - Type
   //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
     if (!list) return null;

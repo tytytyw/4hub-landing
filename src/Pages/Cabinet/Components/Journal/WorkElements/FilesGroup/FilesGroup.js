@@ -14,6 +14,7 @@ import SideList from "../../../SharedFiles/SideList/SideList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/File";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 function FilesGroup({
   fileList,
@@ -129,16 +130,7 @@ FilesGroup.propTypes = {
   fileList: PropTypes.array,
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
-  callbackArrMain: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.exact({
-        type: PropTypes.string,
-        name: PropTypes.string,
-        text: PropTypes.string,
-        callback: PropTypes.func
-      })
-    )
-  ),
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   filePick: filePickProps,

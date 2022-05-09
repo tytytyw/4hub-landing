@@ -35,6 +35,7 @@ const FileLoader = ({
   setFileErrors,
   menuItem
 }) => {
+  console.log(loadingFile);
   const { __ } = useLocales();
   const [collapsed, setCollapsed] = useState(false);
   const [processing, setProcessing] = useState(0);
