@@ -1,38 +1,31 @@
 import React from "react";
-
+import "theme/theme.sass";
 import styles from "./SideMenu.module.sass";
 import { useHistory, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { themes } from "./themes";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { clearRecentFiles } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
   const history = useHistory();
 
-  const theme = useSelector((state) => state.user.userInfo?.theme);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
-
-  const getThemeBg = () => {
-    if (theme) {
-      return themes?.[theme];
-    }
-    return themes?.["blue"];
-  };
 
   const renderMenuItems = () => {
     return data.map((item) => {
       return (
         <div
-          className={`
-                ${styles.menuItem} 
-                ${pathname === item.path ? styles.menuItemChosen : undefined} 
-                ${collapsed ? styles.menuItemCollapsed : undefined}
-              `}
+          className={classNames(styles.menuItem, `menuItem-${theme}`, {
+            [styles.menuItemChosen]: pathname === item.path,
+            [`menuItemChosen-${theme}`]: pathname === item.path,
+            [styles.menuItemCollapsed]: collapsed
+          })}
           key={item.name}
           onClick={() => {
             history.push(item.path);
@@ -52,10 +45,10 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
 
   return (
     <aside
-      className={collapsed ? styles.collapsed : styles.asideWrap}
-      style={{
-        background: getThemeBg()
-      }}
+      className={classNames(`linear-${theme}`, {
+        [styles.collapsed]: collapsed,
+        [styles.asideWrap]: !collapsed
+      })}
     >
       <img
         className={collapsed ? styles.minIcon : styles.hubIcon}

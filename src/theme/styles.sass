@@ -1,4 +1,34 @@
+@import "colors"
+
 @mixin flex-center
   display: flex
   justify-content: center
   align-items: center
+
+.menuItemChosen-blue
+  background: $color-blue-dark
+
+.menuItem-blue
+  &:hover
+    background: $color-blue-dark
+
+.menuItemChosen-orange
+  background: $color-secondary-dark-orange
+
+.menuItem-orange
+  &:hover
+    background: $color-secondary-dark-orange
+
+.menuItemChosen-turquoise
+  background: $color-secondary-dark-turquoise
+
+.menuItem-turquoise
+  &:hover
+    background: $color-secondary-dark-turquoise
+
+.menuItemChosen-dark
+  background: $color-secondary-light-dark
+
+.menuItem-dark
+  &:hover
+    background: $color-secondary-light-dark

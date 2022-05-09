@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import "theme/theme.sass";
 import styles from "./BottomPanel.module.sass";
-import { themes } from "../SideMenu/themes";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
+import classNames from "classnames";
 
 const BottomPanel = () => {
   const images = [
@@ -19,20 +19,13 @@ const BottomPanel = () => {
   const links = ["", "/calendar", "/chat", "", "", "", "/programs"];
 
   const history = useHistory();
-  const theme = useSelector((state) => state.user.userInfo?.theme);
+  const { theme } = useSelector((state) => state.user.userInfo);
 
   const [notifications] = useState({
     "mail.svg": "14",
     "calendar-5.svg": "2",
     "sms.svg": "5"
   });
-
-  const getThemeBg = () => {
-    if (theme) {
-      return themes?.[theme];
-    }
-    return themes?.["blue"];
-  };
 
   const renderIcons = () => {
     return images.map((el, i) => {
@@ -48,12 +41,7 @@ const BottomPanel = () => {
   };
 
   return (
-    <div
-      className={styles.buttomPanelWrap}
-      style={{
-        background: getThemeBg()
-      }}
-    >
+    <div className={classNames(styles.buttomPanelWrap, `linear-${theme}`)}>
       <div className={styles.curtain} />
       <div className={styles.icons}>{renderIcons()}</div>
     </div>
