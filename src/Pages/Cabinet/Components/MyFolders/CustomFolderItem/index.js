@@ -163,6 +163,7 @@ const CustomFolderItem = ({
           if (ev.target.className === styles.menuWrap) openMenu(ev, f);
         }, 0);
         if (!offDispatch) dispatch(onChooseFiles(f.path, "", 1, "", setGLoader));
+        if (offDispatch && renderFiles) dispatch(onChooseFiles(f.path, "", 1, "", setGLoader));
         if (!offDispatch) setFilesPage(1);
         if (offDispatch && newFolderInfo?.path) setNewFolderInfo((state) => ({ ...state, path: "" }));
       });
