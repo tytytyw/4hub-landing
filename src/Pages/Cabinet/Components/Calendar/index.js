@@ -21,7 +21,7 @@ const CalendarPage = () => {
   const dispatch = useDispatch();
   const events = useSelector((state) => state.Cabinet.calendarEvents);
 
-  const [viewType, setViewType] = useState("list");
+  const [viewType, setViewType] = useState("full");
   const [createTask, setCreateTask] = useState(false);
 
   const [event, setEvent] = useState({});
@@ -50,7 +50,7 @@ const CalendarPage = () => {
             <img
               onClick={() => setCreateTask(true)}
               className={styles.addTaskIcon}
-              src={imageSrc + "./assets/PrivateCabinet/folders/add.svg"}
+              src={imageSrc + "./assets/PrivateCabinet/folders/plus-white.svg"}
               alt="Add Task Icon"
             />
           </div>

@@ -1,39 +1,25 @@
 import React, { useEffect, useState } from "react";
-import styles from "../CalendarPage.module.sass";
-import ListTaskItem from "../ListTaskItem";
 import { useSelector } from "react-redux";
-import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import TasksGroup from "../TasksGroup";
 
-const SidebarTasks = ({ data, listCollapsed }) => {
-  const { __ } = useLocales();
+const SidebarTasks = ({ data }) => {
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const getEventsByDay = (data) => {
     return data.filter((event) => {
       return event?.date.getDate() === calendarDate.getDate();
     });
   };
-
+  //eslint-disable-next-line
   const [events, setEvents] = useState(getEventsByDay(data));
 
   useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
-
-  const getStrDate = () => {
-    const day = `${calendarDate.getDate()}`.length < 2 ? `0${calendarDate.getDate()}` : calendarDate.getDate();
-    const month = `${calendarDate.getMonth()}`.length < 2 ? `0${calendarDate.getMonth()}` : calendarDate.getMonth();
-    return `${day}.${month}.${calendarDate.getFullYear()}`;
-  };
-
+  const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
   return (
     <>
-      <div className={styles.myTasksBlock}>
-        <p className={styles.title}>
-          {__("Мои задачи")} {!listCollapsed && <span>{getStrDate()}</span>}
-        </p>
-      </div>
-      {events?.map((event, i) => (
-        <ListTaskItem key={i} event={event} collapsed={listCollapsed} />
-      ))}
+      {tasksGroup.map((item, i) => {
+        return <TasksGroup key={i} title={item} events={data} />;
+      })}
     </>
   );
 };
