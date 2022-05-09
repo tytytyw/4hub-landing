@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./ContextMenuItem.module.sass";
 
 const ContextMenuItem = ({ width, height, color, text, imageSrc, callback }) => {
+  console.log(color);
   return (
     <div
       className={styles.itemWrap}
@@ -22,7 +23,7 @@ export default ContextMenuItem;
 ContextMenuItem.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  color: PropTypes.any,
+  color: PropTypes.string,
   text: PropTypes.string,
   imageSrc: PropTypes.string,
   callback: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
