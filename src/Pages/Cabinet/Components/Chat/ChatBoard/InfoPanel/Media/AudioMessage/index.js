@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import VoiceMessagePlayer from "../../../Message/VoiceMessagePlayer";
 
 const AudioMessage = ({ messageInfo }) => {
+  //TODO: get sender id
   const data = { ...messageInfo, id: "158" };
 
   const userId = useSelector((state) => state.Cabinet.chat.userId);
