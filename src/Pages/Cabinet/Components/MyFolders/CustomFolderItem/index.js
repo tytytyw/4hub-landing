@@ -138,6 +138,7 @@ const CustomFolderItem = ({
           foldersWidth={foldersWidth}
           disableChosenFolderStyles={disableChosenFolderStyles}
           renderLoader={renderLoader}
+          renderFiles={renderFiles}
         >
           {renderFiles && chosenFolder?.info?.path === f.path && Array.isArray(fileList.files) && fileList.files.length
             ? renderFiles(fileList.files, f)
