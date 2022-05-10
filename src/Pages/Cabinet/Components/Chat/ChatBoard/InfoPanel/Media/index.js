@@ -6,6 +6,7 @@ import SubOptionButton from "../styledComponents/SubOptionButton";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import FileMessage from "../../Message/FileMessage";
+import AudioMessage from "./AudioMessage";
 
 const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
@@ -34,6 +35,13 @@ const Media = ({ setActiveOption, activeOption }) => {
         )
       : [];
     return filesList.map((file, i) => <FileMessage key={i} file={file} size="small" />);
+  };
+
+  const renderVoiceMessages = () => {
+    const audio = files?.audio?.files.filter((item) => item.kind === "audio_message") ?? [];
+    return audio.map((info) => {
+      return <AudioMessage key={info.id} messageInfo={info} />;
+    });
   };
 
   const renderSubOptions = () =>
@@ -71,6 +79,8 @@ const Media = ({ setActiveOption, activeOption }) => {
           </div>
         </div>
       ) : null}
+
+      {activeSubOption?.id === "voiceMessages" ? renderVoiceMessages() : ""}
     </div>
   );
 };

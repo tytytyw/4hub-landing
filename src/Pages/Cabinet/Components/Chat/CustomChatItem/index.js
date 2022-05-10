@@ -21,10 +21,12 @@ const CustomChatItem = ({
   setMouseParams,
   contextMenuList,
   paddingRight,
-  notificationsCounter
+  notificationsCounter,
+  disableActions
 }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const onChatItemClick = (e, isMenu) => {
+    if (disableActions) return null;
     if (isMenu)
       setMouseParams({
         x: e.clientX,
@@ -49,7 +51,8 @@ const CustomChatItem = ({
           selectedContact?.id === chatItem.id &&
           !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
         [styles.disableHover]: disableHover,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.disableActions]: disableActions
       })}
       style={{ paddingRight }}
       onClick={onChatItemClick}
@@ -80,12 +83,12 @@ const CustomChatItem = ({
         >
           {notificationsCounter}
         </div>
-        {contextMenu === "contextMenu" ? (
+        {contextMenu === "contextMenu" && !disableActions ? (
           <div className={styles.menuWrap} onClick={(e) => onChatItemClick(e, true)}>
             <span className={styles.menu} />
           </div>
         ) : null}
-        {contextMenu === "checkBox" ? (
+        {contextMenu === "checkBox" && !disableActions ? (
           <div
             className={classNames({
               [styles.radioContact]: true,
@@ -107,12 +110,13 @@ CustomChatItem.defaultProps = {
   setMouseParams: () => {},
   contextMenuList: "",
   paddingRight: "",
-  notificationsCounter: null
+  notificationsCounter: null,
+  disableActions: false
 };
 
 CustomChatItem.propTypes = {
   selectedContact: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  setSelectedContact: PropTypes.func.isRequired,
+  setSelectedContact: PropTypes.func,
   sideMenuCollapsed: PropTypes.bool,
   chatItem: PropTypes.object.isRequired,
   title: PropTypes.string,
@@ -126,5 +130,6 @@ CustomChatItem.propTypes = {
   setMouseParams: PropTypes.func,
   contextMenuList: PropTypes.string,
   paddingRight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  notificationsCounter: PropTypes.number
+  notificationsCounter: PropTypes.number,
+  disableActions: PropTypes.bool
 };
