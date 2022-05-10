@@ -1,0 +1,53 @@
+.wrapper
+    display: flex
+    align-items: center
+    padding: 6px 12px
+    .button
+        margin-right: 10px
+        position: relative
+        width: 30px
+        height: 30px
+        flex: none
+        border: 2px solid #3F85EF
+        border-radius: 50%
+        cursor: pointer
+        .pauseIcon
+            height: 7px
+            width: 6px
+            top: 50%
+            left: 50%
+            position: relative
+            transform: translate(-50%, -50%)
+            &:before,
+            &:after
+                position: absolute
+                top: 0
+                content: ""
+                height: 7px
+                width: 1px
+                background: #3F85EF
+            &:before
+                left: 1px
+            &:after
+                right: 1px
+
+        svg
+            width: 8px
+            height: 9px
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%) rotate(180deg)
+            padding-right: 1px
+            path
+                fill: #3F85EF
+
+    .name
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+        max-width: 100%
+        font-size: 12px
+        user-select: none
+    .audio
+        display: none

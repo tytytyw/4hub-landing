@@ -7,6 +7,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import FileMessage from "../../Message/FileMessage";
 import AudioMessage from "./AudioMessage";
+import AudioPlayer from "./AudioPlayer";
 
 const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
@@ -41,6 +42,13 @@ const Media = ({ setActiveOption, activeOption }) => {
     const audio = files?.audio?.files.filter((item) => item.kind === "audio_message") ?? [];
     return audio.map((info) => {
       return <AudioMessage key={info.id} messageInfo={info} />;
+    });
+  };
+
+  const renderMusicFiles = () => {
+    const audio = files?.audio?.files.filter((item) => item.kind !== "audio_message") ?? [];
+    return audio.map((info) => {
+      return <AudioPlayer key={info.id} name={info.name} src={info.link} />;
     });
   };
 
@@ -79,8 +87,9 @@ const Media = ({ setActiveOption, activeOption }) => {
           </div>
         </div>
       ) : null}
-
+      {/* {TODO: add group by date} */}
       {activeSubOption?.id === "voiceMessages" ? renderVoiceMessages() : ""}
+      {activeSubOption?.id === "music" ? renderMusicFiles() : ""}
     </div>
   );
 };
