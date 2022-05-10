@@ -20,7 +20,7 @@ import {
 import { useFolders } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 
-const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) => {
+const SelectFile = ({ nullifyAction, attachedFiles, setAttachedFiles }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
@@ -34,14 +34,17 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
   const [chosenFiles, setChosenFiles] = useState(attachedFiles ?? []);
   const [loadingFiles, setLoadingFiles] = useState(false);
   const [filesPage, setFilesPage] = useState(1);
+  const maxFiles = 20;
 
   const FileIsChosen = (file) => chosenFiles.some((chosenFile) => chosenFile.fid === file.fid);
 
   const addChosenFile = (f) => {
     const file = { ...f, kind: "file" };
 
-    if (!FileIsChosen(f) && chosenFiles.length > 19)
-      dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Максимум 20 файлов") }));
+    if (!FileIsChosen(f) && chosenFiles.length > maxFiles - 1)
+      dispatch(
+        onSetModals(MODALS.TOP_MESSAGE, { open: true, type: "error", message: __(`Максимум ${maxFiles} файлов`) })
+      );
     else
       setChosenFiles((prevFiles) =>
         FileIsChosen(f) ? prevFiles.filter((prveFile) => prveFile.fid !== file.fid) : [...prevFiles, file]
@@ -194,11 +197,14 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
   return (
     <PopUp set={nullifyAction} background={chatTheme.name === "dark" ? "#292929" : ""}>
       <div className={styles.selectFileWrapper}>
-        <span className={styles.title}>{title}</span>
-        <div className={styles.crossWrapper} onClick={nullifyAction}>
-          <span className={styles.cross} />
+        <div className={styles.header}>
+          <div className={styles.filesCounter}>{`${chosenFiles.length}/${maxFiles}`}</div>
+          <span className={styles.title}>Выберите файлы</span>
+          <div className={styles.crossWrapper} onClick={nullifyAction}>
+            <span className={styles.cross} />
+          </div>
+          <div />
         </div>
-
         <div className={styles.contentWrap}>
           <div className={styles.folderListWrap}>
             {renderFolderList(global)}
