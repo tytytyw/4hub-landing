@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styles from "./TasksGroup.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import SidebarEventItem from "../SidebarEventItem";
-import { eventsProps } from "types/Events";
+import { eventShowProps } from "types/CalendarPage";
 
 const TasksGroup = ({ title, events }) => {
   const [isShowSubevents, setIsShowSubevents] = useState(false);
@@ -33,5 +33,5 @@ export default TasksGroup;
 
 TasksGroup.propTypes = {
   title: PropTypes.string,
-  events: PropTypes.arrayOf(eventsProps)
+  events: PropTypes.arrayOf(eventShowProps)
 };

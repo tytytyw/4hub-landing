@@ -4,6 +4,7 @@ import styles from "./TableTaskItem.module.sass";
 import { eventTypesColor } from "../helper";
 import PopoverTaskItem from "./PopoverTaskItem";
 import PropTypes from "prop-types";
+import { eventShowProps } from "types/CalendarPage";
 
 const TableTaskItem = ({ task, date }) => {
   const [visible, setVisible] = useState(false);
@@ -35,6 +36,6 @@ const TableTaskItem = ({ task, date }) => {
 export default TableTaskItem;
 
 TableTaskItem.propTypes = {
-  task: PropTypes.object,
-  date: PropTypes.string
+  task: eventShowProps,
+  date: PropTypes.objectOf(PropTypes.string)
 };

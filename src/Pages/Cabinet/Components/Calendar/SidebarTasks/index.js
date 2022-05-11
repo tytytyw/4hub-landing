@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import PropTypes from "prop-types";
 import TasksGroup from "../TasksGroup";
+import { eventShowProps } from "types/CalendarPage";
 
 const SidebarTasks = ({ data }) => {
-  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
-  const getEventsByDay = (data) => {
-    return data.filter((event) => {
-      return event?.date.getDate() === calendarDate.getDate();
-    });
-  };
-  //eslint-disable-next-line
-  const [events, setEvents] = useState(getEventsByDay(data));
-  useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
   const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
 
   return (
@@ -27,7 +18,6 @@ const SidebarTasks = ({ data }) => {
 export default SidebarTasks;
 
 SidebarTasks.propTypes = {
-  data: PropTypes.array,
-  listCollapsed: PropTypes.bool,
+  data: PropTypes.arrayOf(eventShowProps),
   tasksGroup: PropTypes.arrayOf(PropTypes.string)
 };
