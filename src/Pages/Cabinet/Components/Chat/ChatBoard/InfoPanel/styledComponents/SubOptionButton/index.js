@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./SubOptionButton.module.sass";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { DARK } from "../../../../../../../../generalComponents/globalVariables";
 
 const SubOptionButton = ({ subOption, activeSubOption, setActiveSubOption }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -11,12 +12,12 @@ const SubOptionButton = ({ subOption, activeSubOption, setActiveSubOption }) => 
     <div
       className={classNames({
         [styles.button]: true,
-        [styles.active]: subOption.id === activeSubOption.id,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.active]: subOption.name === activeSubOption.name,
+        [styles.darkTheme]: chatTheme.name === DARK
       })}
       onClick={() => setActiveSubOption(subOption)}
     >
-      {subOption.name}
+      {subOption.title}
     </div>
   );
 };

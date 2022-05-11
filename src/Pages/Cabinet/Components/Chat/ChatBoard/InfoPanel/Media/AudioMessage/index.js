@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./AudioMessage.module.sass";
 import { useSelector } from "react-redux";
 import CustomChatItem from "../../../../CustomChatItem";
-import { imageSrc } from "../../../../../../../../generalComponents/globalVariables";
+import { imageSrc, SIZE_SMALL } from "../../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import VoiceMessagePlayer from "../../../Message/VoiceMessagePlayer";
 
@@ -31,7 +31,7 @@ const AudioMessage = ({ messageInfo }) => {
         title={`${sender.sname} ${sender.name}`}
       />
       <div className={styles.playerWrapper}>
-        <VoiceMessagePlayer src={messageInfo.link} histogramData={messageInfo.histogramData} size={"small"} />
+        <VoiceMessagePlayer src={messageInfo.link} histogramData={messageInfo.histogramData} size={SIZE_SMALL} />
       </div>
     </div>
   );

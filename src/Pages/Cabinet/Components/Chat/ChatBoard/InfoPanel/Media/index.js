@@ -8,6 +8,15 @@ import PropTypes from "prop-types";
 import FileMessage from "../../Message/FileMessage";
 import AudioMessage from "./AudioMessage";
 import AudioPlayer from "./AudioPlayer";
+import {
+  SIZE_SMALL,
+  VIDEO_MESSAGE,
+  AUDIO_MESSAGE,
+  PHOTO,
+  FILES,
+  VOICE_MESSAGES,
+  MUSIC
+} from "../../../../../../../generalComponents/globalVariables";
 
 const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
@@ -30,23 +39,24 @@ const Media = ({ setActiveOption, activeOption }) => {
       ? Object.values(files).reduce(
           (prev, current) =>
             Array.isArray(current.files)
-              ? [...prev, ...current.files.filter((f) => f.kind !== "audio_message" && f.kind !== "video_message")]
+              ? [...prev, ...current.files.filter((f) => f.kind !== { AUDIO_MESSAGE } && f.kind !== { VIDEO_MESSAGE })]
               : prev,
           []
         )
       : [];
-    return filesList.map((file, i) => <FileMessage key={i} file={file} size="small" />);
+    return filesList.map((file, i) => <FileMessage key={i} file={file} size={SIZE_SMALL} />);
   };
 
   const renderVoiceMessages = () => {
-    const audio = files?.audio?.files.filter((item) => item.kind === "audio_message") ?? [];
+    const audio = files?.audio?.files.filter((item) => item.kind === AUDIO_MESSAGE) ?? [];
+
     return audio.map((info) => {
       return <AudioMessage key={info.id} messageInfo={info} />;
     });
   };
 
   const renderMusicFiles = () => {
-    const audio = files?.audio?.files.filter((item) => item.kind !== "audio_message") ?? [];
+    const audio = files?.audio?.files.filter((item) => item.kind !== AUDIO_MESSAGE) ?? [];
     return audio.map((info) => {
       return <AudioPlayer key={info.id} name={info.name} src={info.link} />;
     });
@@ -55,7 +65,7 @@ const Media = ({ setActiveOption, activeOption }) => {
   const renderSubOptions = () =>
     activeOption.subOptions.map((subOption) => (
       <SubOptionButton
-        key={subOption.id}
+        key={subOption.name}
         subOption={subOption}
         activeSubOption={activeSubOption}
         setActiveSubOption={setActiveSubOption}
@@ -70,7 +80,7 @@ const Media = ({ setActiveOption, activeOption }) => {
       ) : (
         ""
       )}
-      {activeSubOption?.id === "photo" ? (
+      {activeSubOption?.name === PHOTO ? (
         <div className={styles.content}>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
@@ -79,7 +89,7 @@ const Media = ({ setActiveOption, activeOption }) => {
         </div>
       ) : null}
 
-      {activeOption?.name === "files" ? (
+      {activeOption?.name === FILES ? (
         <div className={styles.content}>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
@@ -88,8 +98,8 @@ const Media = ({ setActiveOption, activeOption }) => {
         </div>
       ) : null}
       {/* {TODO: add group by date} */}
-      {activeSubOption?.id === "voiceMessages" ? renderVoiceMessages() : ""}
-      {activeSubOption?.id === "music" ? renderMusicFiles() : ""}
+      {activeSubOption?.name === VOICE_MESSAGES ? renderVoiceMessages() : ""}
+      {activeSubOption?.name === MUSIC ? renderMusicFiles() : ""}
     </div>
   );
 };
@@ -98,5 +108,11 @@ export default Media;
 
 Media.propTypes = {
   setActiveOption: PropTypes.func,
-  activeOption: PropTypes.object
+
+  activeOption: PropTypes.exact({
+    count: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    subOptions: PropTypes.arrayOf(PropTypes.exact({ name: PropTypes.string, title: PropTypes.string })),
+    title: PropTypes.string.isRequired
+  })
 };

@@ -1,9 +1,13 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import {
+  imageSrc,
+  DARK,
+  DELETE_CHAT_GROUP,
+  LEAVE_FROM_CHAT_GROUP
+} from "../../../../../../../generalComponents/globalVariables";
 import styles from "./MainPanel.module.sass";
-
 import { ReactComponent as TriangleIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -25,7 +29,7 @@ const MainPanel = ({ setAction, setActiveOption, options }) => {
           callback: () =>
             setAction({
               text: __(`Вы действительно хотите удалить группу ${selectedContact?.name}?`),
-              type: __("deleteChatGroup"),
+              type: DELETE_CHAT_GROUP,
               name: __("Удалить")
             })
         };
@@ -36,7 +40,7 @@ const MainPanel = ({ setAction, setActiveOption, options }) => {
           callback: () =>
             setAction({
               text: __(`Вы действительно хотите покинуть группу ${selectedContact?.name}?`),
-              type: "leaveFromChatGroup",
+              type: LEAVE_FROM_CHAT_GROUP,
               name: __("Покинуть")
             })
         };
@@ -59,7 +63,7 @@ const MainPanel = ({ setAction, setActiveOption, options }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.darkTheme]: chatTheme.name === DARK
       })}
     >
       <div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
@@ -143,5 +147,12 @@ export default MainPanel;
 MainPanel.propTypes = {
   setAction: PropTypes.func.isRequired,
   setActiveOption: PropTypes.func.isRequired,
-  options: PropTypes.array
+  options: PropTypes.arrayOf(
+    PropTypes.exact({
+      count: PropTypes.number,
+      name: PropTypes.string,
+      subOptions: PropTypes.arrayOf(PropTypes.exact({ name: PropTypes.string, title: PropTypes.string })),
+      title: PropTypes.string
+    })
+  )
 };

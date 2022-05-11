@@ -7,48 +7,62 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
+import {
+  PHOTO,
+  FILES,
+  VOICE_MESSAGES,
+  MUSIC,
+  LINKS,
+  MEDIA,
+  AUDIO,
+  VIDEO,
+  GIF,
+  DOCS,
+  DARK,
+  MAIN
+} from "../../../../../../generalComponents/globalVariables";
 
 const InfoPanel = ({ setAction }) => {
   const { __ } = useLocales();
 
-  const [activeOption, setActiveOption] = useState({ name: "main" });
+  const [activeOption, setActiveOption] = useState({ name: MAIN });
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const files = useSelector((state) => state.Cabinet.chat.files);
 
   const options = [
     {
-      name: "files",
+      name: FILES,
       title: __("Файлы"),
       subOptions: [],
       count: files ? Object.values(files).reduce((prev, current) => prev + current?.col ?? 0, 0) : 0
     },
     {
-      name: "media",
+      name: MEDIA,
       title: __("Мультимедиа"),
       subOptions: [
-        { name: __("Фото"), id: "photo" },
-        { name: __("Видео"), id: "video" },
-        { name: __("Gif"), id: "gif" }
+        { title: __("Фото"), name: PHOTO },
+        { title: __("Видео"), name: VIDEO },
+        { title: __("Gif"), name: GIF }
       ],
       count: files?.image?.col || 0 + files?.video?.col || 0 + files?.video?.gif || 0
     },
     {
-      name: "docs",
+      name: DOCS,
       title: __("Документы"),
       subOptions: [],
       count: -1
     },
     {
-      name: "audio",
+      name: AUDIO,
       title: __("Аудио"),
       subOptions: [
-        { name: __("Аудио смс"), id: "voiceMessages" },
-        { name: __("Музыка"), id: "music" }
+        { title: __("Аудио смс"), name: VOICE_MESSAGES },
+        { title: __("Музыка"), name: MUSIC }
       ],
       count: files?.audio?.col || 0
     },
     {
-      name: "links",
+      name: LINKS,
       title: __("Ссылки"),
       subOptions: [],
       count: -1
@@ -59,10 +73,10 @@ const InfoPanel = ({ setAction }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.darkTheme]: chatTheme.name === DARK
       })}
     >
-      {activeOption?.name === "main" ? (
+      {activeOption?.name === MAIN ? (
         <MainPanel setAction={setAction} setActiveOption={setActiveOption} options={options} />
       ) : (
         <Media setActiveOption={setActiveOption} activeOption={activeOption} />
