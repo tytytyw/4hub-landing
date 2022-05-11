@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import styles from "./SidebarEventItem.module.sass";
+import { eventShowProps } from "types/CalendarPage";
 
 const SidebarEventItem = ({ event, index }) => {
   return (
@@ -18,6 +19,6 @@ const SidebarEventItem = ({ event, index }) => {
 export default SidebarEventItem;
 
 SidebarEventItem.propTypes = {
-  event: PropTypes.object,
+  event: eventShowProps,
   index: PropTypes.number
 };
