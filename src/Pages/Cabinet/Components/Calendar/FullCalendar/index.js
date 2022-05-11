@@ -50,6 +50,8 @@ const FullCalendarTable = ({ events }) => {
         }}
         dayHeaderContent={renderHeaderCell}
         slotDuration="01:00"
+        slotMinTime="09:00"
+        slotMaxTime="23:00"
         slotLabelFormat={{
           hour: "numeric",
           minute: "2-digit",

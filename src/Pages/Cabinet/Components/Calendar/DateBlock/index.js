@@ -2,32 +2,28 @@ import React from "react";
 import styles from "./DateBlock.module.sass";
 import Select from "../../../../../generalComponents/Select/Select";
 import { getDays, getYears, months } from "../helper";
-import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalendarDate } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const DateBlock = ({ setViewType }) => {
+const DateBlock = () => {
   const { __ } = useLocales();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const dispatch = useDispatch();
-
   const onChangeDay = (day) => {
     const date = new Date(calendarDate);
     date.setDate(day);
     dispatch(setCalendarDate(date));
-    setViewType("list");
   };
 
-  const onChangeMonth = (item) => {
+  const onChangeMonth = (month) => {
     const date = new Date(calendarDate);
     if (date.getDate() === 31) {
       date.setDate(1);
     }
-    date.setMonth(item.id);
+    date.setMonth(month);
     dispatch(setCalendarDate(date));
-    setViewType("full");
   };
 
   const onChangeYear = (year) => {
@@ -59,22 +55,16 @@ const DateBlock = ({ setViewType }) => {
               onChange={(value) => onChangeDay(value)}
             />
           </div>
+          <div className={styles.monthSelect}>
+            <Select
+              placeholder={__("Выбрать месяц")}
+              className={styles.select}
+              classNameSelect={styles.selectContent}
+              data={months}
+              onChange={(value) => onChangeMonth(value)}
+            />
+          </div>
         </div>
-      </div>
-
-      <div className={styles.buttonsWrap}>
-        {months?.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => onChangeMonth(item)}
-            className={classNames({
-              [styles.button]: true,
-              [styles.active]: item.id === calendarDate.getMonth()
-            })}
-          >
-            {item.text}
-          </button>
-        ))}
       </div>
     </div>
   );

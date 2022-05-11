@@ -6,7 +6,6 @@ import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile/Profile";
 import DateBlock from "./DateBlock";
-import List from "./List";
 import WorkSpaceList from "./WorkSpaceList";
 import ListCalendar from "./ListCalendar";
 import CreateTask from "./CreateTask";
@@ -17,22 +16,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCalendarEvents } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { useLocales } from "react-localized";
+import { monthNameType } from "./helper";
+import classnames from "classnames";
 
 const CalendarPage = () => {
+  const { __ } = useLocales();
   const dispatch = useDispatch();
   const events = useSelector((state) => state.Cabinet.calendarEvents);
-
-  const [viewType, setViewType] = useState("list");
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  const { theme } = useSelector((state) => state.user.userInfo);
+  const [viewType, setViewType] = useState("full");
   const [createTask, setCreateTask] = useState(false);
 
   const [event, setEvent] = useState({});
   const [success, setSuccess] = useState(false);
-  const [listCollapsed, setListCollapsed] = useState(false);
 
   useEffect(() => {
     dispatch(setCalendarEvents());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getStrDate = () => {
+    return __(
+      `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
+    );
+  };
+
+  const getEventsCount = () => {
+    const findEvents = events.filter((event) => {
+      return event?.date.getDate() === calendarDate.getDate();
+    });
+    return findEvents?.length;
+  };
 
   return (
     <div className={styles.parentWrapper}>
@@ -46,27 +62,37 @@ const CalendarPage = () => {
       </div>
 
       <div className={styles.contentRight}>
-        <List
-          title="Мой календарь"
-          src="add-folder.svg"
-          listCollapsed={listCollapsed}
-          setListCollapsed={setListCollapsed}
-        >
+        <div className={classnames(styles.sideMenu, `scrollbar-vertical-thin-${theme}`)}>
           <div className={styles.addTaskBlock}>
-            <p>Создать задачу</p>
+            <p>{__("Создать задачу")}</p>
             <img
               onClick={() => setCreateTask(true)}
               className={styles.addTaskIcon}
-              src={imageSrc + "./assets/PrivateCabinet/folders/add.svg"}
+              src={imageSrc + "./assets/PrivateCabinet/folders/plus-white.svg"}
               alt="Add Task Icon"
             />
           </div>
-          <ListCalendar setViewType={setViewType} collapsed={listCollapsed} />
-          <SidebarTasks data={events} listCollapsed={listCollapsed} />
-        </List>
+          <ListCalendar setViewType={setViewType} />
+          <SidebarTasks data={events} />
+        </div>
+        <div className={classnames(styles.wrapper, `scrollbar-vertical-${theme}`)}>
+          <DateBlock />
+          <div className={styles.headerBlock}>
+            <p className={styles.date}>{getStrDate()}</p>
 
-        <div className={styles.wrapper}>
-          <DateBlock setViewType={setViewType} />
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>
+                {getEventsCount()} {__("задач")}
+              </button>
+            </div>
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>{__("1 новая задача")}</button>
+              <span className={styles.badge}>3</span>
+            </div>
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>{__("1 напоминание")}</button>
+            </div>
+          </div>
           {viewType === "full" && <FullCalendarTable events={events} />}
           {viewType === "list" && <WorkSpaceList events={events} />}
         </div>

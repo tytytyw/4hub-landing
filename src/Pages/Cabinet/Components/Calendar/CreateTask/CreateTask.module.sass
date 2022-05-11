@@ -34,9 +34,9 @@
 
 .createFolderWrap
   font-family: 'SF Pro Regular', sans-serif
+  padding: 40px
   position: relative
   width: 530px
-  margin: 5px 0 15px 0
   animation: showPopup 0.2s ease-in-out
 
 .content
@@ -45,16 +45,6 @@
   justify-content: flex-start
   align-items: center
   margin-bottom: 0
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    width: 8px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
 
   .cross
     position: absolute
@@ -91,8 +81,8 @@
   .redCross:after
     transform: rotate(-45deg)
   .title
-    font-size: 19px
-    margin: 20px 0 40px 0
+    font-size: 18px
+    margin-bottom: 30px
   .folderIconWrap
     display: flex
     width: 78%
@@ -151,8 +141,6 @@
   .inputFieldsWrap
     display: flex
     flex-direction: column
-    width: 78%
-    margin: 0 0 10px 0
 
     .description
       resize: none
@@ -170,9 +158,12 @@
       &:focus
         outline: none
 
-
+    .rangeDateLabel
+      margin-bottom: 10px
+      font-size: 13px
+      
     .rangeDateWrap
-      margin-bottom: 16px
+      margin-bottom: 15px
       display: flex
       align-items: center
       .rangeDateBlock
@@ -182,7 +173,7 @@
         display: flex
         align-items: center
         height: 45px
-        border-radius: 8px
+        border-radius: 5px
         border: 1px solid #bab8b8
         span
           font-size: 13px
@@ -200,7 +191,7 @@
     .selectWrap
       width: 100%
       height: 45px
-      margin-bottom: 16px
+      margin-bottom: 15px
       .eventsList
         margin: 0
         padding: 0 15px
@@ -225,7 +216,7 @@
             text-align: center
 
     .inputWrap
-      margin-bottom: 10px
+      margin-bottom: 15px
       position: relative
       .arrowInput
         cursor: pointer
@@ -236,8 +227,7 @@
     .tagPicker
       display: flex
       align-items: center
-      width: 101%
-      height: 40px
+      height: 45px
       position: relative
       border: 1px solid #bab8b8
       border-radius: 5px
@@ -247,7 +237,7 @@
       font-size: 14px
       padding: 0 15px
       box-sizing: border-box
-      margin-bottom: 10px
+      margin-bottom: 15px
       .inputField
         height: 90%
         width: 80%
@@ -261,15 +251,14 @@
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
         color: #bab8b8
-      .tagList::-webkit-scrollbar
-        width: 0
+
       .tagList
         display: none
         position: absolute
         z-index: 2
         left: -1px
         bottom: -137px
-        width: 100%
+        width: calc( 100% + 2px )
         height: 140px
         background: white
         overflow-x: hidden
@@ -279,6 +268,7 @@
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
         cursor: pointer
+
         div
           display: flex
           align-items: center
@@ -295,7 +285,7 @@
           top: 0
           height: 1px
           width: 90%
-          background: grey
+          background: #bab8b8
         div:hover
           background: linear-gradient(276deg, rgba(255,255,255,1) 0%, rgb(236, 236, 236) 50%, rgba(255,255,255,1) 100%)
       .inputField:focus ~ .tagList,
@@ -305,6 +295,11 @@
         z-index: 3
         animation: showTags 0.2s ease-in-out
 
+.customizeEvent
+  width: 100%
+  display: flex
+  flex-direction: column
+  gap: 15px
 
 .buttonsWrap
   display: flex
@@ -332,96 +327,3 @@
     color: white
   .add:hover
     background: #3b6dcb
-
-
-@media (max-width: 1600px)
-  .createFolderWrap
-    margin: 0
-    width: 430px
-    //height: 500px
-    animation: showPopup1420 0.2s ease-in-out
-    .content
-      margin-bottom: 0
-    .title
-      font-size: 15px
-      margin: 15px 0
-    .folderIconWrap
-      width: 78%
-      margin: 0 0 18px 0
-      .folderIcon
-        width: 51px
-        height: 42px
-      .picPreview
-        .folderName
-          font-size: 15px
-        .format
-          font-size: 11px
-          margin: 0 0 2px 0
-        .name
-          font-size: 12px
-          margin: 0 0 2px 0
-        .minitag
-          font-size: 11px
-        div
-          img
-            width: 15px
-        .circle
-          width: 15px
-          height: 15px
-        .lock
-          width: 12px
-
-    .inputFieldsWrap
-      margin-bottom: 10px
-
-      .rangeDateWrap
-        margin-bottom: 5px
-        .rangeDateBlock
-          height: 30px
-
-      .description
-        height: 50px
-        min-height: 30px
-        padding: 7px 18px
-        font-family: "SF Pro Light", sans-serif
-        font-size: 14px
-        color: #bab8b8
-
-      .inputWrap, .tagPicker
-        margin-bottom: 5px
-
-      .selectWrap
-        height: 30px
-        margin-bottom: 7px
-        .eventsList
-          padding: 0 10px
-          .eventItem
-            padding: 7px 10px 5px 10px
-            .eventIconWrap
-              width: 25px
-              margin-right: 10px
-              text-align: center
-
-      .tagPicker
-        height: 30px
-        font-size: 11px
-        .inputField
-          font-size: 12px
-        .tagList
-          height: 110px
-          bottom: -108px
-          div
-            display: flex
-            align-items: center
-            position: relative
-            background: white
-            width: 100%
-            height: 30px
-
-    .buttonsWrap
-      margin-bottom: 12px
-      div
-        width: 120px
-        height: 32px
-        font-size: 12px
-

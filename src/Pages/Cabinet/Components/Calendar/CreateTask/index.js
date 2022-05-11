@@ -9,11 +9,14 @@ import Emoji from "../../../../../generalComponents/Elements/Emoji";
 import Select from "./Select/Select";
 import PopUp from "../../../../../generalComponents/PopUp";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
 const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const tags = useTags();
   const [eventType, setEventType] = useState("");
   const [dateFrom, setDateFrom] = useState("");
@@ -88,10 +91,8 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
       <PopUp set={onCreate}>
         <div className={styles.createFolderWrap}>
           <span className={styles.cross} onClick={() => onCreate(false)} />
-
           <div className={styles.content}>
-            <span className={styles.title}>Добавить событие</span>
-
+            <span className={styles.title}>{__("Добавить событие")}</span>
             <div className={styles.inputFieldsWrap}>
               <div className={styles.selectWrap}>
                 <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
@@ -111,10 +112,10 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   </ul>
                 </Select>
               </div>
-
+              <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
               <div className={styles.rangeDateWrap}>
                 <div className={styles.rangeDateBlock}>
-                  <span>С:</span>
+                  <span>{__("С:")}</span>
                   <input
                     type="text"
                     className={styles.rangeInput}
@@ -137,7 +138,6 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   />
                 </div>
               </div>
-
               <div className={styles.inputWrap}>
                 <InputField
                   model="text"
@@ -152,7 +152,6 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   alt="Arrow Input"
                 />
               </div>
-
               <div className={styles.tagPicker}>
                 <span>#</span>
                 <input
@@ -166,9 +165,8 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   }}
                 />
                 <span>{tagOption.count}/30</span>
-                <div className={styles.tagList}>{renderTags()}</div>
+                <div className={classnames(styles.tagList, `scrollbar-vertical-thin-${theme}`)}>{renderTags()}</div>
               </div>
-
               <div className={styles.inputWrap}>
                 <textarea
                   placeholder={__("Опишите задачу")}
@@ -180,10 +178,11 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 </textarea>
               </div>
             </div>
-
-            <Colors color={color} setColor={setColor} />
-            <Signs sign={sign} setSign={setSign} />
-            <Emoji emoji={emoji} setEmoji={setEmoji} />
+            <div className={styles.customizeEvent}>
+              <Colors color={color} setColor={setColor} />
+              <Signs sign={sign} setSign={setSign} />
+              <Emoji emoji={emoji} setEmoji={setEmoji} />
+            </div>
           </div>
 
           <div className={styles.buttonsWrap}>
