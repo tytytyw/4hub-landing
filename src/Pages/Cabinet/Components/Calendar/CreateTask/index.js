@@ -111,7 +111,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   </ul>
                 </Select>
               </div>
-
+              <div className={styles.rangeDateLabel}>Срок выполнения</div>
               <div className={styles.rangeDateWrap}>
                 <div className={styles.rangeDateBlock}>
                   <span>С:</span>
@@ -137,7 +137,6 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   />
                 </div>
               </div>
-
               <div className={styles.inputWrap}>
                 <InputField
                   model="text"
@@ -152,7 +151,6 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   alt="Arrow Input"
                 />
               </div>
-
               <div className={styles.tagPicker}>
                 <span>#</span>
                 <input
@@ -168,7 +166,6 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 <span>{tagOption.count}/30</span>
                 <div className={styles.tagList}>{renderTags()}</div>
               </div>
-
               <div className={styles.inputWrap}>
                 <textarea
                   placeholder={__("Опишите задачу")}
@@ -180,10 +177,11 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 </textarea>
               </div>
             </div>
-
-            <Colors color={color} setColor={setColor} />
-            <Signs sign={sign} setSign={setSign} />
-            <Emoji emoji={emoji} setEmoji={setEmoji} />
+            <div className={styles.customizaEvent}>
+              <Colors color={color} setColor={setColor} />
+              <Signs sign={sign} setSign={setSign} />
+              <Emoji emoji={emoji} setEmoji={setEmoji} />
+            </div>
           </div>
 
           <div className={styles.buttonsWrap}>

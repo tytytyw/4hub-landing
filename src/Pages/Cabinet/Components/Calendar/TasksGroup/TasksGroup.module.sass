@@ -1,4 +1,4 @@
-.tasksGroupWrap
+.tasksGroup
   padding: 10px 20px
   min-height: 40px
   display: flex
@@ -9,11 +9,28 @@
   cursor: pointer
   &:hover
     background: #EBF2FD
+  .playButton
+    transform: rotateZ(-90deg)
+    cursor: pointer
+    margin: 0 10px 0 10px
+    width: 8px
+    &:hover path
+      fill: #477DE1
 
-.playButton
-  transform: rotateZ(-90deg)
-  cursor: pointer
-  margin: 0 10px 0 10px
-  width: 8px
-  &:hover path
-    fill: #477DE1
+.tasksGroupOpen
+  background: #EBF2FD
+  .playButton
+    transform: rotateZ(90deg)
+    cursor: pointer
+    margin: 0 10px 0 10px
+    width: 8px
+    path
+      fill: #477DE1
+
+
+
+.subeventsShow
+  display: block
+
+.subeventsHide
+  display: none

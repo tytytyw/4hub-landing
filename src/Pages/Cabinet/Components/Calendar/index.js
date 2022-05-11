@@ -16,11 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCalendarEvents } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { useLocales } from "react-localized";
+import { monthNameType } from "./helper";
 
 const CalendarPage = () => {
+  const { __ } = useLocales();
   const dispatch = useDispatch();
   const events = useSelector((state) => state.Cabinet.calendarEvents);
-
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  console.log(events);
   const [viewType, setViewType] = useState("full");
   const [createTask, setCreateTask] = useState(false);
 
@@ -31,6 +35,19 @@ const CalendarPage = () => {
     dispatch(setCalendarEvents());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getStrDate = () => {
+    return __(
+      `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
+    );
+  };
+
+  const getEventsCount = () => {
+    const findEvents = events.filter((event) => {
+      return event?.date.getDate() === calendarDate.getDate();
+    });
+    return findEvents?.length;
+  };
 
   return (
     <div className={styles.parentWrapper}>
@@ -59,6 +76,22 @@ const CalendarPage = () => {
         </div>
         <div className={styles.wrapper}>
           <DateBlock setViewType={setViewType} />
+          <div className={styles.headerBlock}>
+            <p className={styles.date}>{getStrDate()}</p>
+
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>
+                {getEventsCount()} {__("задач")}
+              </button>
+            </div>
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>{__("1 новая задача")}</button>
+              <span className={styles.badge}>3</span>
+            </div>
+            <div className={styles.headerBtnWrap}>
+              <button className={styles.headerBtn}>{__("1 напоминание")}</button>
+            </div>
+          </div>
           {viewType === "full" && <FullCalendarTable events={events} />}
           {viewType === "list" && <WorkSpaceList events={events} />}
         </div>

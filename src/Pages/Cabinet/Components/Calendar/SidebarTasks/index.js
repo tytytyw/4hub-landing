@@ -15,6 +15,7 @@ const SidebarTasks = ({ data }) => {
 
   useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
   const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
+
   return (
     <>
       {tasksGroup.map((item, i) => {

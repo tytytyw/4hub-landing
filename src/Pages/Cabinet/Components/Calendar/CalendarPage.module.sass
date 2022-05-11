@@ -9,12 +9,25 @@
   height: calc(100% - 90px)
 
 .sideMenu
-  width: 65%
-  border-right: 1px solid #CFCFCF;
-  overflow: auto;
-
+  border-right: 1px solid #CFCFCF
+  padding-bottom: 50px
+  width: 300px
+  overflow-y: auto
+  overflow-x: hidden
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 3px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+  
 .wrapper
   height: 100%
+  width: calc(100% - 300px)
   overflow-y: auto
   overflow-x: hidden
   &::-webkit-scrollbar-track
@@ -73,3 +86,51 @@
     min-width: 340px
     width: 400px
     max-width: 400px
+
+.headerBlock
+  display: flex
+  align-items: center
+  padding: 10px 20px
+  background: #FAFAFA
+  min-height: 52px
+  border-bottom: 1px solid #DFDFDF
+
+  .date
+    font-size: 14px
+    line-height: 19px
+    color: #606060
+    margin-right: 20px
+
+  .headerBtnWrap
+    position: relative
+
+    .badge
+      position: absolute
+      display: flex
+      align-items: center
+      justify-content: center
+      right: -5px
+      top: 0
+      width: 14px
+      height: 14px
+      border-radius: 50%
+      background: #D72419
+      font-size: 10px
+      line-height: 13px
+      color: #ffffff
+
+    .headerBtn
+      margin-left: 10px
+      display: block
+      min-width: 121px
+      height: 32px
+      background: #FFFFFF
+      font-size: 12px
+      line-height: 16px
+      color: #666666
+      border-radius: 16px
+      box-shadow: -1px 2px 5px #DFDFDF
+
+      &:hover
+        transition: all 0.2s ease
+        background: rgba(64, 134, 241, 0.1)

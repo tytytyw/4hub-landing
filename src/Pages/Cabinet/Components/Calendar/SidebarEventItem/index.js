@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import styles from "./SidebarEventItem.module.sass";
 
 const SidebarEventItem = ({ event, index }) => {
-  console.log(event);
   return (
     <div className={styles.eventWrap}>
       <div className={styles.event}>

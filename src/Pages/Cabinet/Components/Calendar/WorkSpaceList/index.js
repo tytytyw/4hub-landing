@@ -1,14 +1,12 @@
 import React from "react";
 import styles from "./WorkSpace.module.sass";
-import { hexToRgb, hours, eventTypesColor, monthNameType } from "../helper";
+import { hexToRgb, hours, eventTypesColor } from "../helper";
 import TableListTaskItem from "../TableListTaskItem";
 import { useSelector } from "react-redux";
-import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { eventShowProps } from "../../../../../types/CalendarPage";
 
 const WorkSpaceList = ({ events }) => {
-  const { __ } = useLocales();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const checkDateEvent = (event) => {
     if (!event) return false;
@@ -40,38 +38,8 @@ const WorkSpaceList = ({ events }) => {
     }
   };
 
-  const getStrDate = () => {
-    return __(
-      `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
-    );
-  };
-
-  const getEventsCount = () => {
-    const findEvents = events.filter((event) => {
-      return event?.date.getDate() === calendarDate.getDate();
-    });
-    return findEvents?.length;
-  };
-
   return (
     <div className={styles.wrapper}>
-      <div className={styles.headerBlock}>
-        <p className={styles.date}>{getStrDate()}</p>
-
-        <div className={styles.headerBtnWrap}>
-          <button className={styles.headerBtn}>
-            {getEventsCount()} {__("задач")}
-          </button>
-        </div>
-        <div className={styles.headerBtnWrap}>
-          <button className={styles.headerBtn}>{__("1 новая задача")}</button>
-          <span className={styles.badge}>3</span>
-        </div>
-        <div className={styles.headerBtnWrap}>
-          <button className={styles.headerBtn}>{__("1 напоминание")}</button>
-        </div>
-      </div>
-
       <div className={styles.list}>
         {hours?.map((hour, index) => {
           const event = getTask(hour.value);
