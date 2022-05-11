@@ -31,11 +31,7 @@ const AudioMessage = ({ messageInfo }) => {
         title={`${sender.sname} ${sender.name}`}
       />
       <div className={styles.playerWrapper}>
-        <VoiceMessagePlayer
-          src={messageInfo.link}
-          histogrammessageInfo={messageInfo.histogrammessageInfo}
-          size={"small"}
-        />
+        <VoiceMessagePlayer src={messageInfo.link} histogramData={messageInfo.histogramData} size={"small"} />
       </div>
     </div>
   );
@@ -44,5 +40,17 @@ const AudioMessage = ({ messageInfo }) => {
 export default AudioMessage;
 
 AudioMessage.propTypes = {
-  messageInfo: PropTypes.object.isRequired
+  messageInfo: PropTypes.exact({
+    error: PropTypes.number,
+    fid: PropTypes.string.isRequired,
+    histogramData: PropTypes.arrayOf(PropTypes.number),
+    id: PropTypes.string,
+    id_user: PropTypes.string.isRequired,
+    kind: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    size: PropTypes.number,
+    tmp_name: PropTypes.string,
+    type: PropTypes.string
+  })
 };
