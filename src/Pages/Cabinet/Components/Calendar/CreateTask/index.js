@@ -178,7 +178,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 </textarea>
               </div>
             </div>
-            <div className={styles.customizaEvent}>
+            <div className={styles.customizeEvent}>
               <Colors color={color} setColor={setColor} />
               <Signs sign={sign} setSign={setSign} />
               <Emoji emoji={emoji} setEmoji={setEmoji} />
