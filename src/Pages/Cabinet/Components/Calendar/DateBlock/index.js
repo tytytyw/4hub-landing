@@ -7,11 +7,10 @@ import { setCalendarDate } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const DateBlock = ({ setViewType }) => {
+const DateBlock = () => {
   const { __ } = useLocales();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const dispatch = useDispatch();
-  console.log(setViewType);
   const onChangeDay = (day) => {
     const date = new Date(calendarDate);
     date.setDate(day);
@@ -62,10 +61,7 @@ const DateBlock = ({ setViewType }) => {
               className={styles.select}
               classNameSelect={styles.selectContent}
               data={months}
-              onChange={(value) => {
-                console.log(value);
-                onChangeMonth(value);
-              }}
+              onChange={(value) => onChangeMonth(value)}
             />
           </div>
         </div>

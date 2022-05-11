@@ -18,13 +18,14 @@ import SidebarTasks from "./SidebarTasks";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
+import classnames from "classnames";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const events = useSelector((state) => state.Cabinet.calendarEvents);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
-  console.log(events);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const [viewType, setViewType] = useState("full");
   const [createTask, setCreateTask] = useState(false);
 
@@ -61,7 +62,7 @@ const CalendarPage = () => {
       </div>
 
       <div className={styles.contentRight}>
-        <div className={styles.sideMenu}>
+        <div className={classnames(styles.sideMenu, `scrollbar-vertical-thin-${theme}`)}>
           <div className={styles.addTaskBlock}>
             <p>{__("Создать задачу")}</p>
             <img
@@ -74,8 +75,8 @@ const CalendarPage = () => {
           <ListCalendar setViewType={setViewType} />
           <SidebarTasks data={events} />
         </div>
-        <div className={styles.wrapper}>
-          <DateBlock setViewType={setViewType} />
+        <div className={classnames(styles.wrapper, `scrollbar-vertical-${theme}`)}>
+          <DateBlock />
           <div className={styles.headerBlock}>
             <p className={styles.date}>{getStrDate()}</p>
 

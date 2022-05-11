@@ -12,7 +12,6 @@ const SidebarTasks = ({ data }) => {
   };
   //eslint-disable-next-line
   const [events, setEvents] = useState(getEventsByDay(data));
-
   useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
   const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
 
@@ -29,5 +28,6 @@ export default SidebarTasks;
 
 SidebarTasks.propTypes = {
   data: PropTypes.array,
-  listCollapsed: PropTypes.bool
+  listCollapsed: PropTypes.bool,
+  tasksGroup: PropTypes.arrayOf(PropTypes.string)
 };
