@@ -63,7 +63,7 @@ const CalendarPage = () => {
       <div className={styles.contentRight}>
         <div className={styles.sideMenu}>
           <div className={styles.addTaskBlock}>
-            <p>Создать задачу</p>
+            <p>{__("Создать задачу")}</p>
             <img
               onClick={() => setCreateTask(true)}
               className={styles.addTaskIcon}

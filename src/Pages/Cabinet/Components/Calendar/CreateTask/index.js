@@ -90,7 +90,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
           <span className={styles.cross} onClick={() => onCreate(false)} />
 
           <div className={styles.content}>
-            <span className={styles.title}>Добавить событие</span>
+            <span className={styles.title}>{__("Добавить событие")}</span>
 
             <div className={styles.inputFieldsWrap}>
               <div className={styles.selectWrap}>
@@ -111,7 +111,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   </ul>
                 </Select>
               </div>
-              <div className={styles.rangeDateLabel}>Срок выполнения</div>
+              <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
               <div className={styles.rangeDateWrap}>
                 <div className={styles.rangeDateBlock}>
                   <span>С:</span>
