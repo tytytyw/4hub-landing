@@ -8,7 +8,6 @@ import { eventsProps } from "types/Events";
 
 const TasksGroup = ({ title, events }) => {
   const [isShowSubevents, setIsShowSubevents] = useState(false);
-
   const toggleEvents = () => {
     setIsShowSubevents((prevState) => !prevState);
   };
