@@ -7,3 +7,40 @@
   height: 145px
   min-height: 145px
   border-bottom: 1px solid $color-border-grey
+  align-items: center
+  overflow-x: hidden
+  overflow-y: scroll
+  padding: 0 20px
+  .emptyNote
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    border: 1px solid $color-border-grey
+    width: 125px
+    height: 125px
+    cursor: pointer
+    position: relative
+    border-bottom-right-radius: 30px
+    &:before
+      content: ''
+      position: absolute
+      bottom: -1px
+      right: 2px
+      width: 30px
+      height: 30px
+      background: $color-white
+    .addIcon
+      width: 18px
+      height: 18px
+      margin: 0 0 10px 0
+
+.text
+  font-size: 10px
+  color: $color-text-grey
+  font-family: "SF Pro Regular", sans-serif
+.corner
+  position: absolute
+  bottom: -3px
+  right: -1px
+  z-index: 2
