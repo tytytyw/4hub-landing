@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import FileMessage from "../../Message/FileMessage";
 import AudioMessage from "./AudioMessage";
 import AudioPlayer from "./AudioPlayer";
+import { subOptionProps } from "../../../../../../../types/Chat";
 import {
   SIZE_SMALL,
   VIDEO_MESSAGE,
@@ -108,11 +109,5 @@ export default Media;
 
 Media.propTypes = {
   setActiveOption: PropTypes.func,
-
-  activeOption: PropTypes.exact({
-    count: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    subOptions: PropTypes.arrayOf(PropTypes.exact({ name: PropTypes.string, title: PropTypes.string })),
-    title: PropTypes.string.isRequired
-  })
+  activeOption: subOptionProps
 };

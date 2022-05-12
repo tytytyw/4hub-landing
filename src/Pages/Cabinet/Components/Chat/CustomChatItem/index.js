@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet/password.svg";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { DARK } from "../../../../../generalComponents/globalVariables";
 
 const CustomChatItem = ({
   selectedContact,
@@ -51,7 +52,7 @@ const CustomChatItem = ({
           selectedContact?.id === chatItem.id &&
           !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
         [styles.disableHover]: disableHover,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === DARK,
         [styles.disableActions]: disableActions
       })}
       style={{ paddingRight }}
