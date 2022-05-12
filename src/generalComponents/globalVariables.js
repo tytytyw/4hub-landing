@@ -65,6 +65,25 @@ export const TYPES = {
 
 export const MIDNIGHT = "00:00:00";
 
+//CHAT
+export const SIZE_SMALL = "small";
+export const AUDIO_MESSAGE = "audio_message";
+export const VIDEO_MESSAGE = "video_message";
+export const PHOTO = "photo";
+export const FILES = "files";
+export const VOICE_MESSAGES = "voiceMessages";
+export const MUSIC = "music";
+export const LINKS = "links";
+export const MEDIA = "media";
+export const VIDEO = "video";
+export const AUDIO = "audio";
+export const GIF = "gif";
+export const DOCS = "docs";
+export const DARK = "dark";
+export const MAIN = "main";
+export const DELETE_CHAT_GROUP = "deleteChatGroup";
+export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
+
 //Customable button
 export const BUTTON_TYPES = {
   LIGHT_LONG: "light-long"

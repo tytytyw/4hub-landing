@@ -55,6 +55,7 @@ import {
   RESENT_CHATS_LIST,
   CHAT_ID_USER,
   CHAT_GROUP_DELETE,
+  GET_CHAT_FILES,
   SECRET_CHAT_DELETE,
   CHAT_SELECTED_CONTACT,
   SECRET_CHATS_LIST,
@@ -1035,6 +1036,11 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (dis
                 payload: messages
               });
           if (typeof loadingMessages === "function") loadingMessages(messages);
+          if (page === 1)
+            dispatch({
+              type: GET_CHAT_FILES,
+              payload: response.data?.attachments ?? null
+            });
         }
       }
     })

@@ -51,6 +51,7 @@ import {
   SET_NEXT_FILES_TO_PREVIOUS,
   SET_PAINT,
   CHAT_GROUPS_LIST,
+  GET_CHAT_FILES,
   NEW_LAST_GROUP_MESSAGE,
   SET_NOTIFICATION_COUNTER,
   INCREASE_NOTIFICATION_COUNTER,
@@ -174,6 +175,7 @@ const INITIAL_STATE = {
     secretChatsList: [],
     selectedContact: null,
     userId: null,
+    files: null,
     messages: null,
     messageLifeTime: 3600,
     insertEmodji: "",
@@ -379,6 +381,12 @@ export default function startPage(state = INITIAL_STATE, action) {
       return {
         ...state,
         chat: { ...state.chat, messages: { today: [], ...action.payload } }
+      };
+    }
+    case GET_CHAT_FILES: {
+      return {
+        ...state,
+        chat: { ...state.chat, files: action.payload }
       };
     }
     case GET_PREVIUS_MESSAGES: {

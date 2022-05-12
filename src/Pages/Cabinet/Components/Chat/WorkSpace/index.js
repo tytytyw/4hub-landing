@@ -340,12 +340,7 @@ const WorkSpace = ({
       </div>
       {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia() : ""}
       {action?.type === "selectFile" ? (
-        <SelectFile
-          nullifyAction={nullifyAction}
-          title={action?.title}
-          attachedFiles={attachedFiles}
-          setAttachedFiles={setAttachedFiles}
-        />
+        <SelectFile nullifyAction={nullifyAction} attachedFiles={attachedFiles} setAttachedFiles={setAttachedFiles} />
       ) : (
         ""
       )}
