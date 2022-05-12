@@ -1,76 +1,106 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./Media.module.sass";
 import Header from "../styledComponents/Header";
 import SubOptionButton from "../styledComponents/SubOptionButton";
-import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import FileMessage from "../../Message/FileMessage";
+import AudioMessage from "./AudioMessage";
+import AudioPlayer from "./AudioPlayer";
+import { subOptionProps } from "../../../../../../../types/Chat";
+import {
+  SIZE_SMALL,
+  VIDEO_MESSAGE,
+  AUDIO_MESSAGE,
+  PHOTO,
+  FILES,
+  VOICE_MESSAGES,
+  MUSIC
+} from "../../../../../../../generalComponents/globalVariables";
 
-const Media = ({ setOption }) => {
+const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
-  const [subOption, setSubOption] = useState("photo");
-  const options = [
-    { name: __("Фото"), id: "photo" },
-    { name: __("Видео"), id: "video" },
-    { name: __("Gif"), id: "gif" }
-  ];
+  const [activeSubOption, setActiveSubOption] = useState(activeOption?.subOptions[0]);
+  const files = useSelector((state) => state.Cabinet.chat.files);
 
-  //TODO: temp
-  const images = [
-    "0.png",
-    "a.png",
-    "2.png",
-    "3.png",
-    "4.png",
-    "5.png",
-    "6.png",
-    "7.png",
-    "8.png",
-    "9.png",
-    "11.png",
-    "a.png",
-    "11.png",
-    "8.png"
-  ];
-
-  const renderImages = (images) => {
-    return images.map((src, i) => {
+  const renderImages = () => {
+    const images = files?.image?.files ?? [];
+    return images.map((img, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
-          <img src={`${imageSrc}assets/temp/${src}`} alt="pic"></img>
+          <img src={img.link} alt="pic"></img>
         </div>
       );
     });
   };
 
+  const renderFiles = () => {
+    const filesList = files
+      ? Object.values(files).reduce(
+          (prev, current) =>
+            Array.isArray(current.files)
+              ? [...prev, ...current.files.filter((f) => f.kind !== { AUDIO_MESSAGE } && f.kind !== { VIDEO_MESSAGE })]
+              : prev,
+          []
+        )
+      : [];
+    return filesList.map((file, i) => <FileMessage key={i} file={file} size={SIZE_SMALL} />);
+  };
+
+  const renderVoiceMessages = () => {
+    const audio = files?.audio?.files.filter((item) => item.kind === AUDIO_MESSAGE) ?? [];
+
+    return audio.map((info) => {
+      return <AudioMessage key={info.id} messageInfo={info} />;
+    });
+  };
+
+  const renderMusicFiles = () => {
+    const audio = files?.audio?.files.filter((item) => item.kind !== AUDIO_MESSAGE) ?? [];
+    return audio.map((info) => {
+      return <AudioPlayer key={info.id} name={info.name} src={info.link} />;
+    });
+  };
+
+  const renderSubOptions = () =>
+    activeOption.subOptions.map((subOption) => (
+      <SubOptionButton
+        key={subOption.name}
+        subOption={subOption}
+        activeSubOption={activeSubOption}
+        setActiveSubOption={setActiveSubOption}
+      />
+    ));
+
   return (
     <div className={styles.wrapper}>
-      <Header setOption={setOption} title={__("Мультимедиа")} />
-      <div className={styles.subOptions}>
-        {options.map((item) => {
-          return (
-            <SubOptionButton
-              name={item.name}
-              id={item.id}
-              key={item.id}
-              subOption={subOption}
-              setSubOption={setSubOption}
-            />
-          );
-        })}
-      </div>
-      {subOption === "photo" ? (
+      <Header setActiveOption={setActiveOption} title={activeOption?.title} />
+      {activeOption?.subOptions && Array.isArray(activeOption.subOptions) && activeOption?.subOptions.length ? (
+        <div className={styles.subOptions}>{renderSubOptions()}</div>
+      ) : (
+        ""
+      )}
+      {activeSubOption?.name === PHOTO ? (
         <div className={styles.content}>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
-            <div className={styles.picturesWrap}>{renderImages(images)}</div>
-          </div>
-          <div className={styles.groupByDate}>
-            <h5 className={styles.dateTitle}>{__("04.11.2021")}</h5>
-            <div className={styles.picturesWrap}>{renderImages([images[2], images[4]])}</div>
+            <div className={styles.picturesWrap}>{renderImages()}</div>
           </div>
         </div>
       ) : null}
+
+      {activeOption?.name === FILES ? (
+        <div className={styles.content}>
+          <div className={styles.groupByDate}>
+            <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
+            <div className={styles.picturesWrap}>{renderFiles()}</div>
+          </div>
+        </div>
+      ) : null}
+      {/* {TODO: add group by date} */}
+      {activeSubOption?.name === VOICE_MESSAGES ? renderVoiceMessages() : ""}
+      {activeSubOption?.name === MUSIC ? renderMusicFiles() : ""}
     </div>
   );
 };
@@ -78,5 +108,6 @@ const Media = ({ setOption }) => {
 export default Media;
 
 Media.propTypes = {
-  setOption: PropTypes.func.isRequired
+  setActiveOption: PropTypes.func,
+  activeOption: subOptionProps
 };

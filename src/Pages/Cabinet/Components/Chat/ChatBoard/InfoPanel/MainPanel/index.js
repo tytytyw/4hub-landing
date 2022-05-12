@@ -1,14 +1,18 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import {
+  imageSrc,
+  DARK,
+  DELETE_CHAT_GROUP,
+  LEAVE_FROM_CHAT_GROUP
+} from "../../../../../../../generalComponents/globalVariables";
 import styles from "./MainPanel.module.sass";
-
 import { ReactComponent as TriangleIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const MainPanel = ({ setAction, setOption }) => {
+const MainPanel = ({ setAction, setActiveOption, options }) => {
   const { __ } = useLocales();
   const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const [notificationsMute, setNotificationsMute] = useState(false);
@@ -25,7 +29,7 @@ const MainPanel = ({ setAction, setOption }) => {
           callback: () =>
             setAction({
               text: __(`Вы действительно хотите удалить группу ${selectedContact?.name}?`),
-              type: __("deleteChatGroup"),
+              type: DELETE_CHAT_GROUP,
               name: __("Удалить")
             })
         };
@@ -36,7 +40,7 @@ const MainPanel = ({ setAction, setOption }) => {
           callback: () =>
             setAction({
               text: __(`Вы действительно хотите покинуть группу ${selectedContact?.name}?`),
-              type: "leaveFromChatGroup",
+              type: LEAVE_FROM_CHAT_GROUP,
               name: __("Покинуть")
             })
         };
@@ -59,7 +63,7 @@ const MainPanel = ({ setAction, setOption }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.darkTheme]: chatTheme.name === DARK
       })}
     >
       <div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
@@ -68,45 +72,21 @@ const MainPanel = ({ setAction, setOption }) => {
       </div>
       <div className={styles.menu}>
         <div>
-          <div className={classNames(styles.menuItem, styles.borderBottom)} onClick={() => setOption("media")}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Мультимедиа")}</span>
+          {options.map((option) => (
+            <div
+              key={option.name}
+              className={classNames(styles.menuItem, styles.borderBottom)}
+              onClick={() => setActiveOption(option)}
+            >
+              <div className={styles.leftSide}>
+                <span className={styles.menuItemName}>{option.title}</span>
+              </div>
+              <div className={styles.leftSide}>
+                <span className={styles.menuItemText}>{option.count}</span>
+                <TriangleIcon className={styles.triangleIcon} />
+              </div>
             </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Документы")}</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>Аудио</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Ссылки")}</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
+          ))}
 
           {!selectedContact.is_secret_chat ? (
             <div className={classNames(styles.menuItem, styles.borderBottom, styles.hoverDisable)}>
@@ -166,5 +146,13 @@ export default MainPanel;
 
 MainPanel.propTypes = {
   setAction: PropTypes.func.isRequired,
-  setOption: PropTypes.func.isRequired
+  setActiveOption: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.exact({
+      count: PropTypes.number,
+      name: PropTypes.string,
+      subOptions: PropTypes.arrayOf(PropTypes.exact({ name: PropTypes.string, title: PropTypes.string })),
+      title: PropTypes.string
+    })
+  )
 };

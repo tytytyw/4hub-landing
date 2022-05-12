@@ -4,7 +4,7 @@ import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateC
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
+const VoiceMessagePlayer = ({ src, histogramData, inboxMessage, size }) => {
   const [playing, setPlaying] = useState(false);
   const [audio] = useState(new Audio(src));
   const [progress, setProgress] = useState(0);
@@ -85,6 +85,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
 
     return () => {
       if (audio) {
+        audio.pause();
         audio.removeEventListener("timeupdate", onTimeUpdate);
         audio.removeEventListener("ended", videoEnded);
         audio.removeEventListener("loadedmetadata", fixInfinityDuration);
@@ -94,7 +95,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, styles[size])}>
       <button
         onClick={buttonHandler}
         className={classNames({
@@ -102,7 +103,11 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
           [styles.inboxMessage]: inboxMessage
         })}
       >
-        {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
+        {playing ? (
+          <div className={styles.pauseIcon}></div>
+        ) : (
+          <PlayIcon style={size === "small" ? { width: 9, height: 9 } : {}} />
+        )}
       </button>
       <div
         className={classNames({
@@ -124,6 +129,7 @@ export default VoiceMessagePlayer;
 
 VoiceMessagePlayer.propTypes = {
   src: PropTypes.string.isRequired,
+  size: PropTypes.string,
   histogramData: (props, propName, componentName) => {
     if (Array.isArray(props[propName])) {
       if (props[propName].length !== 50) {

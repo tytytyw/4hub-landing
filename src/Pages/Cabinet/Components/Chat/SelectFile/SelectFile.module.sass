@@ -10,33 +10,43 @@
     cursor: default
     padding: 20px 0
 
-    .crossWrapper
-        cursor: pointer
-        position: absolute
-        top: 13px
-        right: 8px
-        width: 18px
-        height: 18px
-        .cross
-            &::before, &::after
-                content: ''
-                position: absolute
-                top: 0
-                right: 8px
-                width: 2px
-                height: 18px
-                border-radius: 10px
-                background: #C7C7C7
-            &::before
-                transform: rotate(45deg)
-
-            &::after
-                transform: rotate(135deg)
-    .title
-        font-size: 18px
-        font-family: "SF Pro Medium", sans-serif
+    .header
+        display: flex
+        align-items: center
+        justify-content: space-around
         margin: 0 0 20px 0
-        color: #2B353E
+        width: 100%
+        div
+            width: 40px
+        .filesCounter
+            font-size: 12px
+            color: #7a7a7a
+        .crossWrapper
+            cursor: pointer
+            position: absolute
+            top: 13px
+            right: 8px
+            width: 18px
+            height: 18px
+            .cross
+                &::before, &::after
+                    content: ''
+                    position: absolute
+                    top: 0
+                    right: 8px
+                    width: 2px
+                    height: 18px
+                    border-radius: 10px
+                    background: #C7C7C7
+                &::before
+                    transform: rotate(45deg)
+
+                &::after
+                    transform: rotate(135deg)
+        .title
+            font-size: 18px
+            font-family: "SF Pro Medium", sans-serif
+            color: #2B353E
 
     .contentWrap
         flex-grow: 1
