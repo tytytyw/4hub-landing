@@ -64,3 +64,8 @@ export const TYPES = {
 };
 
 export const MIDNIGHT = "00:00:00";
+
+//Customable button
+export const BUTTON_TYPES = {
+  LIGHT_LONG: "light-long"
+};

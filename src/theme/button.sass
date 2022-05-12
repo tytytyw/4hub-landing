@@ -16,6 +16,7 @@
   letter-spacing: -0.09px
   line-height: 13.3px
 
+//Simple button
 .button-blue
   @include flex-center
   @include standard-button
@@ -28,8 +29,71 @@
 .button-orange
   @include flex-center
   @include standard-button
-  background: $color-primary-orange
-  border: 1px solid $color-primary-orange
+  background: $color-primary
+  border: 1px solid $color-primary
   color: $color-white
   &:hover
-    background: $color-secondary-orange
+    background: $color-secondary
+
+.button-turquoise
+  @include flex-center
+  @include standard-button
+  background: $color-primary
+  border: 1px solid $color-primary
+  color: $color-white
+  &:hover
+    background: $color-secondary
+
+.button-dark
+  @include flex-center
+  @include standard-button
+  background: $color-primary
+  border: 1px solid $color-primary
+  color: $color-white
+  &:hover
+    background: $color-secondary
+
+//Button light color
+.button-light-blue
+  @include flex-center
+  @include standard-button
+  border: 1px solid $color-border-grey
+  background: $color-white
+  border-radius: 0
+  color: $color-text-grey
+  &:hover
+    background: $color-blue-light
+    border: 1px solid $color-scrollbar
+
+.button-light-orange
+  @include flex-center
+  @include standard-button
+  color: $color-text-grey
+  border: 1px solid $color-border-grey
+  background: $color-white
+  border-radius: 0
+  &:hover
+    background: $color-blue-light
+    border: 1px solid $color-scrollbar
+
+.button-light-turquoise
+  @include flex-center
+  @include standard-button
+  color: $color-text-grey
+  border: 1px solid $color-border-grey
+  background: $color-white
+  border-radius: 0
+  &:hover
+    background: $color-blue-light
+    border: 1px solid $color-scrollbar
+
+.button-light-dark
+  @include flex-center
+  @include standard-button
+  color: $color-text-grey
+  border: 1px solid $color-border-grey
+  background: $color-white
+  border-radius: 0
+  &:hover
+    background: $color-blue-light
+    border: 1px solid $color-scrollbar
