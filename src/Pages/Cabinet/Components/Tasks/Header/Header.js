@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Header.module.sass";
-import SearchField from "../../Components/SearchField";
-import StorageSize from "../../Components/StorageSize";
-import Notifications from "../../Components/Notifications";
-import Profile from "../../Components/Profile/Profile";
+import SearchField from "../../SearchField";
+import StorageSize from "../../StorageSize";
+import Notifications from "../../Notifications";
+import Profile from "../../Profile/Profile";
 
 function Header() {
   return (

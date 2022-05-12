@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Notes.module.sass";
 import { useLocales } from "react-localized";
-import { ReactComponent as AddIcon } from "../../../../assets/PrivateCabinet/plus-3.svg";
-import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
+import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
 function Notes() {
   const { __ } = useLocales();

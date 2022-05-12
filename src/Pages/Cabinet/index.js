@@ -25,7 +25,7 @@ import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
 import classNames from "classnames";
-import Tasks from "./Tasks/Tasks";
+import Tasks from "./Components/Tasks/Tasks";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
