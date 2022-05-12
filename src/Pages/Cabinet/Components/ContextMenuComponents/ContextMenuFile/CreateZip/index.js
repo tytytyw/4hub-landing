@@ -22,7 +22,6 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const { title, items, filesPage } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
-  console.log(items);
   const uid = useSelector((state) => state.user.uid);
   const fileList = useSelector((state) => state.Cabinet.fileList);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);

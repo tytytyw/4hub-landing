@@ -2,24 +2,20 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./ListCalendar.module.sass";
 import classNames from "classnames";
-import { getAllDays, getDays, getNextMonthDays, getPrevMonthDays } from "./helper";
+import { getDays, getNextMonthDays, getPrevMonthDays } from "./helper";
 import { months, weekDays } from "../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalendarDate } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
-import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ListCalendar = ({ setViewType, collapsed }) => {
-  const { __ } = useLocales();
+const ListCalendar = ({ setViewType }) => {
   const dispatch = useDispatch();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
 
   const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(calendarDate));
   const [days, setDays] = useState(getDays(calendarDate));
   const [nextMonthDays, setNextMonthDays] = useState(getNextMonthDays(calendarDate));
-
-  const allDays = getAllDays();
 
   useEffect(() => {
     setPrevMonthDays(getPrevMonthDays(calendarDate));
@@ -52,73 +48,49 @@ const ListCalendar = ({ setViewType, collapsed }) => {
         </p>
         <img src={`${imageSrc}assets/PrivateCabinet/calendar-9.svg`} className={styles.calendarIcon} alt="Calendar" />
       </div>
-
-      {!collapsed ? (
-        <div className={styles.content}>
-          {weekDays?.map((weekDay) => (
-            <div className={styles.weekDay} key={weekDay.id}>
-              {weekDay.name}
-            </div>
-          ))}
-
-          {prevMonthDays?.map((itemDay, index) => (
-            <div key={index} className={styles.dayWrap}>
-              <span
-                className={classNames(styles.day, styles.anotherDay)}
-                onClick={() => onChangeDay(itemDay, calendarDate.getMonth() - 1)}
-              >
-                {itemDay}
-              </span>
-            </div>
-          ))}
-
-          {days?.map((itemDay, index) => (
-            <div key={index} className={styles.dayWrap}>
-              <span
-                className={classNames({
-                  [styles.day]: true,
-                  [styles.selectedDay]: dayActive(itemDay)
-                })}
-                onClick={() => onChangeDay(itemDay)}
-              >
-                {itemDay}
-              </span>
-            </div>
-          ))}
-
-          {nextMonthDays?.map((itemDay, index) => (
-            <div key={index} className={styles.dayWrap}>
-              <span
-                className={classNames(styles.day, styles.anotherDay)}
-                onClick={() => onChangeDay(itemDay, calendarDate.getMonth() + 1)}
-              >
-                {itemDay}
-              </span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className={styles.contentCollapsed}>
-          <div className={styles.weekDay}>{__("Пн")}</div>
-
-          <div className={styles.daysWrap}>
-            {allDays?.map((itemDay, index) => (
-              <div key={index} className={styles.dayWrap}>
-                <span
-                  className={classNames({
-                    [styles.day]: true,
-                    [styles.anotherDay]: true,
-                    [styles.selectedDay]: dayActive(itemDay)
-                  })}
-                  onClick={() => onChangeDay(itemDay)}
-                >
-                  {itemDay}
-                </span>
-              </div>
-            ))}
+      <div className={styles.content}>
+        {weekDays?.map((weekDay) => (
+          <div className={styles.weekDay} key={weekDay.id}>
+            {weekDay.name}
           </div>
-        </div>
-      )}
+        ))}
+
+        {prevMonthDays?.map((itemDay, index) => (
+          <div key={index} className={styles.dayWrap}>
+            <span
+              className={classNames(styles.day, styles.anotherDay)}
+              onClick={() => onChangeDay(itemDay, calendarDate.getMonth() - 1)}
+            >
+              {itemDay}
+            </span>
+          </div>
+        ))}
+
+        {days?.map((itemDay, index) => (
+          <div key={index} className={styles.dayWrap}>
+            <span
+              className={classNames({
+                [styles.day]: true,
+                [styles.selectedDay]: dayActive(itemDay)
+              })}
+              onClick={() => onChangeDay(itemDay)}
+            >
+              {itemDay}
+            </span>
+          </div>
+        ))}
+
+        {nextMonthDays?.map((itemDay, index) => (
+          <div key={index} className={styles.dayWrap}>
+            <span
+              className={classNames(styles.day, styles.anotherDay)}
+              onClick={() => onChangeDay(itemDay, calendarDate.getMonth() + 1)}
+            >
+              {itemDay}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

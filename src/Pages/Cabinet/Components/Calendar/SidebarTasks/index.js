@@ -1,39 +1,16 @@
-import React, { useEffect, useState } from "react";
-import styles from "../CalendarPage.module.sass";
-import ListTaskItem from "../ListTaskItem";
-import { useSelector } from "react-redux";
-import { useLocales } from "react-localized";
+import React from "react";
 import PropTypes from "prop-types";
+import TasksGroup from "../TasksGroup";
+import { eventShowProps } from "types/CalendarPage";
 
-const SidebarTasks = ({ data, listCollapsed }) => {
-  const { __ } = useLocales();
-  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
-  const getEventsByDay = (data) => {
-    return data.filter((event) => {
-      return event?.date.getDate() === calendarDate.getDate();
-    });
-  };
-
-  const [events, setEvents] = useState(getEventsByDay(data));
-
-  useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
-
-  const getStrDate = () => {
-    const day = `${calendarDate.getDate()}`.length < 2 ? `0${calendarDate.getDate()}` : calendarDate.getDate();
-    const month = `${calendarDate.getMonth()}`.length < 2 ? `0${calendarDate.getMonth()}` : calendarDate.getMonth();
-    return `${day}.${month}.${calendarDate.getFullYear()}`;
-  };
+const SidebarTasks = ({ data }) => {
+  const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
 
   return (
     <>
-      <div className={styles.myTasksBlock}>
-        <p className={styles.title}>
-          {__("Мои задачи")} {!listCollapsed && <span>{getStrDate()}</span>}
-        </p>
-      </div>
-      {events?.map((event, i) => (
-        <ListTaskItem key={i} event={event} collapsed={listCollapsed} />
-      ))}
+      {tasksGroup.map((item, i) => {
+        return <TasksGroup key={i} title={item} events={data} />;
+      })}
     </>
   );
 };
@@ -41,6 +18,6 @@ const SidebarTasks = ({ data, listCollapsed }) => {
 export default SidebarTasks;
 
 SidebarTasks.propTypes = {
-  data: PropTypes.array,
-  listCollapsed: PropTypes.bool
+  data: PropTypes.arrayOf(eventShowProps),
+  tasksGroup: PropTypes.arrayOf(PropTypes.string)
 };
