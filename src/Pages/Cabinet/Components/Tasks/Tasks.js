@@ -12,6 +12,9 @@ function Tasks() {
       <Notes />
       <ManagementPanel />
       <BreadCrumbs path={["Рабочие задачи", "TEST", "PATH"]} />
+      <div className={styles.workSpace}>
+        <div className={styles.thinColumn}></div>
+      </div>
     </div>
   );
 }
