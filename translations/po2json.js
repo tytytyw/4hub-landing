@@ -4,8 +4,8 @@ const gettextParser = require("gettext-parser");
 
 const en = { file: fs.readFileSync(path.join(__dirname, "en.po")), name: "en" };
 const uk = { file: fs.readFileSync(path.join(__dirname, "uk.po")), name: "uk" };
-const pl = { file: fs.readFileSync(path.join(__dirname, "uk.po")), name: "pl" };
-const de = { file: fs.readFileSync(path.join(__dirname, "uk.po")), name: "de" };
+const pl = { file: fs.readFileSync(path.join(__dirname, "pl.po")), name: "pl" };
+const de = { file: fs.readFileSync(path.join(__dirname, "de.po")), name: "de" };
 
 // const enJson = gettextParser.po.parse(en);
 // const ukJson = gettextParser.po.parse(uk);
