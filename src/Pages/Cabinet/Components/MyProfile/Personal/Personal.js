@@ -14,7 +14,9 @@ const Personal = () => {
   const langs = [
     { id: "ru", text: __("Русский") },
     { id: "en", text: __("Английский") },
-    { id: "uk", text: __("Украинский") }
+    { id: "uk", text: __("Украинский") },
+    { id: "pl", text: __("Польский") },
+    { id: "de", text: __("Немецкий") }
   ];
 
   const dispatch = useDispatch();
