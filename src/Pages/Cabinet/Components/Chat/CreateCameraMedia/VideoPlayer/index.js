@@ -238,9 +238,9 @@ VideoPlayer.defaultProps = {
 
 VideoPlayer.propTypes = {
   source: PropTypes.string.isRequired,
-  videoPlayerRef: PropTypes.object,
+  videoPlayerRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   visualEffects: PropTypes.object,
   videoCutParams: PropTypes.object,
   setVideoCutParams: PropTypes.func,
-  canvasRef: PropTypes.object
+  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };

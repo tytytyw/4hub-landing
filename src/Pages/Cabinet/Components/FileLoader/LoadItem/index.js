@@ -136,7 +136,7 @@ const LoadItem = ({
 export default LoadItem;
 
 LoadItem.propTypes = {
-  list: PropTypes.array,
+  list: PropTypes.arrayOf(loadingFileProps),
   index: PropTypes.number,
   set: PropTypes.func,
   loaded: PropTypes.bool,
@@ -150,7 +150,7 @@ LoadItem.propTypes = {
   startLoading: PropTypes.func,
   setProcessing: PropTypes.func,
   error: PropTypes.bool,
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setFileErrors: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,

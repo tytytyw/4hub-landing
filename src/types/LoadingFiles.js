@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const loadingFileProps = {
+export const loadingFileProps = PropTypes.exact({
   file: PropTypes.exact({
     lastModified: PropTypes.number,
     lastModifiedDate: PropTypes.object,
@@ -15,4 +15,4 @@ export const loadingFileProps = {
     filePath: PropTypes.string,
     id_project: PropTypes.string
   })
-};
+});

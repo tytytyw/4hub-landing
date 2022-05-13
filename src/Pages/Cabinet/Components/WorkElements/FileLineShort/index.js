@@ -9,7 +9,6 @@ import { onChooseFiles, onSetModals } from "../../../../../Store/actions/Cabinet
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
 
-// TODO - add 'params'
 const FileLineShort = ({
   file,
   setChosenFile,
@@ -116,7 +115,8 @@ FileLineShort.propTypes = {
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   setGLoader: PropTypes.func,
-  params: PropTypes.any,
+  // eslint-disable-next-line
+  params: PropTypes.any, // TODO - add 'params'
   chooseItemNext: PropTypes.func,
   openFolderMenu: PropTypes.func,
   style: PropTypes.exact({

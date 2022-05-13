@@ -160,7 +160,7 @@ Previews.propTypes = {
   width: PropTypes.string,
   height: PropTypes.number,
   errorHandler: PropTypes.func,
-  canvasRef: PropTypes.object
+  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };
 Previews.defaultProps = {
   file: null,

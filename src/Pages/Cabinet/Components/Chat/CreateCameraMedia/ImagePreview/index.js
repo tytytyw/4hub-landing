@@ -45,7 +45,7 @@ export default ImagePreview;
 ImagePreview.propTypes = {
   image: PropTypes.string.isRequired,
   visualEffects: PropTypes.object,
-  imageRef: PropTypes.object,
+  imageRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   width: PropTypes.number,
   height: PropTypes.number,
   imageAspectRatio: PropTypes.number,

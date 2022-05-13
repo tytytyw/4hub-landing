@@ -243,7 +243,7 @@ WorkLinesPreview.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   hideFileList: PropTypes.bool,
   setLoadingType: PropTypes.func,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   gLoader: PropTypes.bool,
   filesPage: PropTypes.number,
   onSuccessLoading: PropTypes.func,

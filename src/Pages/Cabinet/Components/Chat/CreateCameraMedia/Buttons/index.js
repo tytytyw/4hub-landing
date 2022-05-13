@@ -367,10 +367,10 @@ Buttons.propTypes = {
   setOpenCropImage: PropTypes.func.isRequired,
   openCropImage: PropTypes.bool,
   setDrawImage: PropTypes.func,
-  drawCanvasRef: PropTypes.object,
-  contentWrapperRef: PropTypes.object,
-  imagePreview: PropTypes.array,
+  drawCanvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+  contentWrapperRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+  imagePreview: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   canvasToImagePreview: PropTypes.func.isRequired,
   drawImage: oneOfType([PropTypes.bool, PropTypes.string]),
-  videoPreviewRef: PropTypes.object
+  videoPreviewRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };

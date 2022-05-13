@@ -41,7 +41,11 @@ const CustomItem = ({ item, badge, onClick, listSize, collapsed }) => {
 export default CustomItem;
 
 CustomItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.exact({
+    name: PropTypes.string,
+    img: PropTypes.string,
+    symbol: PropTypes.string
+  }).isRequired,
   badge: PropTypes.number,
   onClick: PropTypes.func,
   listSize: PropTypes.string,

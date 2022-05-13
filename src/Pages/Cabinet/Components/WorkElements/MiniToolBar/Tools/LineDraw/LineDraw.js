@@ -184,8 +184,8 @@ function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow }) {
 export default LineDraw;
 
 LineDraw.propTypes = {
-  canvas: PropTypes.objectOf(PropTypes.object),
-  canvasWrapRef: PropTypes.object,
+  canvas: PropTypes.instanceOf(Element),
+  canvasWrapRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   onFinishDraw: PropTypes.func,
   addTool: PropTypes.func,
   isArrow: PropTypes.bool

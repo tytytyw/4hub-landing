@@ -369,7 +369,7 @@ ChatBoard.propTypes = {
   file: PropTypes.object,
   setFile: PropTypes.func.isRequired,
   socket: socketProps,
-  endMessagesRef: PropTypes.object.isRequired,
+  endMessagesRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   scrollToBottom: PropTypes.func.isRequired,
   editMessage: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,

@@ -125,3 +125,30 @@ export const fileAddCustomizationProps = PropTypes.exact({
   create: PropTypes.bool,
   options: PropTypes.object
 });
+
+export const fileListProps = PropTypes.exact({
+  files: PropTypes.objectOf(PropTypes.arrayOf(fileProps)),
+  path: PropTypes.string
+});
+
+export const loadedFileProps = PropTypes.exact({
+  file: PropTypes.exact({
+    fid: PropTypes.string,
+    gdir: PropTypes.string,
+    loaded: PropTypes.bool,
+    mtime: PropTypes.string,
+    name: PropTypes.string,
+    size: PropTypes.number,
+    size_now: PropTypes.string
+  }),
+  options: PropTypes.exact({
+    color: PropTypes.string,
+    destination: PropTypes.string,
+    dir: PropTypes.string,
+    emoji: PropTypes.string,
+    name: PropTypes.string,
+    pass: PropTypes.string,
+    symbol: PropTypes.string,
+    tag: PropTypes.string
+  })
+});

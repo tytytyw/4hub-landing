@@ -6,16 +6,7 @@ import { ReactComponent as AddIcon } from "../../../../../../../assets/PrivateCa
 import { ReactComponent as DeleteIcon } from "../../../../../../../assets/PrivateCabinet/delete.svg";
 import PropTypes from "prop-types";
 
-function ImagePanel({
-  images = [],
-  addImage = false,
-  pushImages = () => {},
-  deleteImage = () => {},
-  inputRef = null,
-  isChoosing = false,
-  addToChosen = () => {},
-  chosen = []
-}) {
+function ImagePanel({ images, addImage, pushImages, deleteImage, inputRef, isChoosing, addToChosen, chosen }) {
   const addImages = (e) => {
     let files = [];
     Object.values(e.target.files).forEach((f) => {
@@ -70,14 +61,14 @@ function ImagePanel({
 export default ImagePanel;
 
 ImagePanel.propTypes = {
-  images: PropTypes.array,
+  images: PropTypes.arrayOf(PropTypes.string),
   addImage: PropTypes.bool,
   pushImages: PropTypes.func,
   deleteImage: PropTypes.func,
-  inputRef: PropTypes.object,
+  inputRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   isChoosing: PropTypes.bool,
   addToChosen: PropTypes.func,
-  chosen: PropTypes.array
+  chosen: PropTypes.arrayOf(PropTypes.string)
 };
 
 ImagePanel.defaultProps = {

@@ -284,7 +284,7 @@ const ChatBoardFooter = ({
 export default ChatBoardFooter;
 
 ChatBoardFooter.propTypes = {
-  footerRef: PropTypes.object,
+  footerRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   isRecording: PropTypes.bool.isRequired,
   ducationTimer: PropTypes.number.isRequired,
   addMessage: PropTypes.func.isRequired,

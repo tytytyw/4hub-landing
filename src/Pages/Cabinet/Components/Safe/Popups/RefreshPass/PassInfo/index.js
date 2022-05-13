@@ -109,6 +109,6 @@ export default PassInfo;
 PassInfo.propTypes = {
   setVisible: PropTypes.func,
   value: PropTypes.string,
-  inputRef: PropTypes.object,
+  inputRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   setEnable: PropTypes.func
 };

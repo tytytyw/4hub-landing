@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./AccessRadio.module.sass";
 import PropTypes from "prop-types";
 
-const AccessRadio = ({ data = [], name, onChange }) => {
+const AccessRadio = ({ data, name, onChange }) => {
   const [value, setValue] = useState("");
 
   const handleCheck = (item) => {
@@ -41,7 +41,13 @@ export default AccessRadio;
 
 AccessRadio.propTypes = {
   name: PropTypes.string,
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.exact({
+      value: PropTypes.number,
+      label: PropTypes.string,
+      info: PropTypes.string
+    })
+  ),
   onChange: PropTypes.func
 };
 AccessRadio.defaultProps = {
