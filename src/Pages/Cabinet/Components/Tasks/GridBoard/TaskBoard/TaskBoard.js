@@ -5,11 +5,16 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { BOARDS, SCHEMA, STYLED_CLASSES } from "../../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
+import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
 
 function TaskBoard({ classNameWrap, type }) {
   const { theme } = useSelector((s) => s.user.userInfo);
 
-  return <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>{type}</div>;
+  return (
+    <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>
+      <BoardServicePanel type={type} />
+    </div>
+  );
 }
 
 export default TaskBoard;
