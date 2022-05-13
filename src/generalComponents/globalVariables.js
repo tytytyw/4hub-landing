@@ -88,3 +88,19 @@ export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 export const BUTTON_TYPES = {
   LIGHT_LONG: "light-long"
 };
+
+//TASKS Component
+export const BOARDS = {
+  MEETINGS_BOARD: "MEETINGS_BOARD",
+  CALLS_BOARD: "CALLS_BOARD",
+  LETTERS_BOARD: "LETTERS_BOARD",
+  TASKS_BOARD: "TASKS_BOARD"
+};
+
+export const SCHEMA = {
+  GRID_BAR: "grid-bar"
+};
+
+export const STYLED_CLASSES = {
+  [SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"]
+};

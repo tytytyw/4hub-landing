@@ -1,4 +1,5 @@
 import { useLocales } from "react-localized";
+import { BOARDS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -684,5 +685,15 @@ export function useFileSharedPeriods() {
     DAY: __("1 день"),
     WEEK: __("1 неделя"),
     MONTH: __("1 месяц")
+  };
+}
+
+export function useTaskBoardTitle() {
+  const { __ } = useLocales();
+  return {
+    [BOARDS.MEETINGS_BOARD]: __("Встречи"),
+    [BOARDS.CALLS_BOARD]: __("Звонки"),
+    [BOARDS.LETTERS_BOARD]: __("Письма"),
+    [BOARDS.TASKS_BOARD]: __("Мои задачи")
   };
 }

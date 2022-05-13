@@ -4,6 +4,7 @@ import Header from "./Header/Header";
 import Notes from "./Notes/Notes";
 import ManagementPanel from "./ManagementPanel/ManagementPanel";
 import BreadCrumbs from "../../../../generalComponents/BreadCrumbs/BreadCrumbs";
+import GridBoard from "./GridBoard/GridBoard";
 
 function Tasks() {
   return (
@@ -12,9 +13,7 @@ function Tasks() {
       <Notes />
       <ManagementPanel />
       <BreadCrumbs path={["Рабочие задачи", "TEST", "PATH"]} />
-      <div className={styles.workSpace}>
-        <div className={styles.thinColumn}></div>
-      </div>
+      <GridBoard />
     </div>
   );
 }
