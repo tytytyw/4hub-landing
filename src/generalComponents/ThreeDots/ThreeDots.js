@@ -12,6 +12,10 @@ function ThreeDots({ onClick }) {
 
 export default ThreeDots;
 
+ThreeDots.defaultProps = {
+  onClick: () => {}
+};
+
 ThreeDots.propTypes = {
   onClick: PropTypes.func
 };
