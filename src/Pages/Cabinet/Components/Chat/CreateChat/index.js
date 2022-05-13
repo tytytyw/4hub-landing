@@ -12,6 +12,7 @@ import { onGetChatGroups, onGetSecretChatsList } from "../../../../../Store/acti
 import api from "../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { userInfoProps } from "types/UserInfo";
 
 const CreateChat = ({
   title,
@@ -293,8 +294,8 @@ CreateChat.propTypes = {
   maxCountUsers: PropTypes.number,
   nullifyAction: PropTypes.func.isRequired,
   setShowSuccessPopup: PropTypes.func.isRequired,
-  selectedContact: PropTypes.object,
+  selectedContact: userInfoProps,
   componentType: PropTypes.string,
   currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
-  initialUser: PropTypes.object
+  initialUser: userInfoProps
 };

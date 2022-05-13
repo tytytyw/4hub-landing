@@ -20,6 +20,7 @@ import FileMessage from "./Message/FileMessage";
 import PropTypes from "prop-types";
 import { actionProps } from "../../../../../types/Action";
 import { socketProps } from "../../../../../types/Socket";
+import { fileProps } from "types/File";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -48,6 +49,7 @@ const ChatBoard = ({
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
   const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [ducationTimer, setDucationTimer] = useState(0);
@@ -79,7 +81,6 @@ const ChatBoard = ({
       );
     });
   };
-
   const renderGroups = useCallback(() => {
     if (selectedContact?.is_secret_chat && (messages === null || (messages && Object.keys(messages)?.length === 0)))
       return (
@@ -172,7 +173,6 @@ const ChatBoard = ({
   const recordEnd = () => {
     mediaRecorder?.stop();
   };
-
   const removeAttachedFile = (fid) => setAttachedFiles((prevFiles) => prevFiles.filter((file) => file.fid !== fid));
 
   const renderAttachedFiles = () => {
@@ -363,16 +363,16 @@ ChatBoard.propTypes = {
   action: actionProps,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
-  currentDate: PropTypes.object.isRequired,
+  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
   addMessage: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
-  file: PropTypes.object,
+  file: fileProps,
   setFile: PropTypes.func.isRequired,
   socket: socketProps,
   endMessagesRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   scrollToBottom: PropTypes.func.isRequired,
   editMessage: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
-  attachedFiles: PropTypes.array,
+  attachedFiles: PropTypes.arrayOf(fileProps),
   setAttachedFiles: PropTypes.func
 };

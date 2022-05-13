@@ -41,7 +41,7 @@ RadioCheck.defaultProps = {
 };
 
 RadioCheck.propTypes = {
-  item: PropTypes.object,
+  item: userInfoProps,
   name: PropTypes.string,
   selected: userInfoProps,
   onChange: PropTypes.func

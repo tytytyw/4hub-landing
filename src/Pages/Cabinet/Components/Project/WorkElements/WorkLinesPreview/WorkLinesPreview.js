@@ -206,7 +206,7 @@ WorkLinesPreview.propTypes = {
       ut: PropTypes.string
     })
   ),
-  children: PropTypes.any, // [{…}, Array(0)]
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   chosenFile: fileProps,
   fileCollapsed: PropTypes.bool
 };

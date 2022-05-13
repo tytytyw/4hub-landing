@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { previewFormats } from "../../../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { fileChatBoardProps } from "types/Chat";
+import { fileProps } from "types/File";
 
 const FileMessage = ({ file, size, style }) => {
   const dispatch = useDispatch();
@@ -54,7 +56,9 @@ const FileMessage = ({ file, size, style }) => {
 export default FileMessage;
 
 FileMessage.propTypes = {
-  file: PropTypes.object.isRequired,
+  file: PropTypes.oneOfType([fileChatBoardProps, fileProps]).isRequired,
   size: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.exact({
+    margin: PropTypes.number
+  })
 };

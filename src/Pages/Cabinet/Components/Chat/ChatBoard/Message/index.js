@@ -9,6 +9,8 @@ import VoiceMessagePlayer from "./VoiceMessagePlayer";
 import FileMessage from "./FileMessage";
 import VideoPlayer from "../../CreateCameraMedia/VideoPlayer";
 import PropTypes from "prop-types";
+import { userInfoProps } from "types/UserInfo";
+import { messageProps } from "types/Chat";
 
 function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
   const messageTime = useMessageTime();
@@ -130,9 +132,9 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
-  message: PropTypes.object.isRequired,
-  selectedContact: PropTypes.object.isRequired,
-  currentDate: PropTypes.object.isRequired,
+  message: messageProps.isRequired,
+  selectedContact: userInfoProps.isRequired,
+  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
   setMouseParams: PropTypes.func.isRequired,
   contextMenuList: PropTypes.string
 };

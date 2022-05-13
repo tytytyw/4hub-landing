@@ -48,7 +48,8 @@ export const fileProps = PropTypes.exact({
   sdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   size_now: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  tag2: PropTypes.string
+  tag2: PropTypes.string,
+  kind: PropTypes.string
 });
 
 export const fileChatProps = PropTypes.exact({

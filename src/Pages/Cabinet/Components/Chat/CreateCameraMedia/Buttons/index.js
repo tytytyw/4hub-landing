@@ -21,6 +21,7 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes, { oneOfType } from "prop-types";
 import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
+import { visualEffectsProps } from "types/Chat";
 
 const Buttons = ({
   state,
@@ -353,8 +354,15 @@ Buttons.propTypes = {
   takePicture: PropTypes.func.isRequired,
   ducationTimer: PropTypes.number,
   setInitialState: PropTypes.func.isRequired,
-  stream: PropTypes.object,
-  visualEffects: PropTypes.object,
+  stream: PropTypes.exact({
+    active: PropTypes.bool,
+    id: PropTypes.string,
+    onactive: PropTypes.object,
+    onaddtrack: PropTypes.object,
+    oninactive: PropTypes.object,
+    onremovetrack: PropTypes.object
+  }),
+  visualEffects: visualEffectsProps,
   setVisualEffects: PropTypes.func.isRequired,
   onRotateClick: PropTypes.func.isRequired,
   onMirrorClick: PropTypes.func.isRequired,
