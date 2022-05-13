@@ -27,8 +27,6 @@ const CustomChatItem = ({
   notificationsCounter,
   disableActions
 }) => {
-  //log
-  console.log(chatItem);
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const onChatItemClick = (e, isMenu) => {
     if (disableActions) return null;
