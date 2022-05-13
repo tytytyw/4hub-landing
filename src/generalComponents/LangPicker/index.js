@@ -14,7 +14,9 @@ const LangPicker = () => {
   const langs = [
     { lang: "ru", title: "ru", name: __("Русский") },
     { lang: "uk", title: "ua", name: __("Украинский") },
-    { lang: "en", title: "eng", name: __("Английский") }
+    { lang: "en", title: "eng", name: __("Английский") },
+    { lang: "pl", title: "pl", name: __("Польский") },
+    { lang: "de", title: "de", name: __("Немецкий") }
   ];
 
   const language = useSelector((s) => s.user?.userInfo?.lang) || getStorageItem("lang");
