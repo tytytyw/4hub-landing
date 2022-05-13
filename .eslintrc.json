@@ -28,7 +28,15 @@
         "endOfLine": "auto"
       }
     ],
-    "no-unused-vars": ["error", { "vars": "all", "varsIgnorePattern": "^(it|el|element|item|_)$", "args": "all", "argsIgnorePattern": "^(it|el|element|item|_)$", "caughtErrors":  "all", "caughtErrorsIgnorePattern": "^(it|el|element|item|_)$" }]
+    "no-unused-vars": ["error", { "vars": "all", "varsIgnorePattern": "^(it|el|element|item|_)$", "args": "all", "argsIgnorePattern": "^(it|el|element|item|_)$", "caughtErrors":  "all", "caughtErrorsIgnorePattern": "^(it|el|element|item|_)$" }],
+    "react/jsx-props-no-spreading": ["error", {
+      "html": "enforce",
+      "custom": "enforce",
+      "explicitSpread": "enforce"
+    }],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/forbid-prop-types": ["error"]
   },
   "settings": {
     "react": {
@@ -36,7 +44,13 @@
       "pragma": "React",
       "fragment": "Fragment",
       "flowVersion": "0.53",
-      "version": "detect"
+      "version": "detect",
+      "propWrapperFunctions": [
+        "forbidExtraProps",
+        {"property": "freeze", "object": "Object"},
+        {"property": "myFavoriteWrapper"},
+        {"property": "forbidExtraProps", "exact": true}
+      ]
     }
   }
 }
