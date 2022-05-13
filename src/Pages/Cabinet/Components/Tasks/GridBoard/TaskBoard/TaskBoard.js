@@ -7,12 +7,15 @@ import { BOARDS, SCHEMA, STYLED_CLASSES } from "../../../../../../generalCompone
 import { useSelector } from "react-redux";
 import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
 
-function TaskBoard({ classNameWrap, type }) {
+function TaskBoard({ classNameWrap, type, schema }) {
   const { theme } = useSelector((s) => s.user.userInfo);
 
   return (
     <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>
-      <BoardServicePanel type={type} />
+      <BoardServicePanel
+        type={type}
+        isLast={classNameWrap === STYLED_CLASSES[schema][STYLED_CLASSES[schema].length - 1]}
+      />
     </div>
   );
 }
