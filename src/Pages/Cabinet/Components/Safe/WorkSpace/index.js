@@ -22,7 +22,7 @@ import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps, filePickProps, fileProps } from "../../../../../types/File";
+import { filePreviewProps, filePickProps, fileProps, fileListProps } from "../../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { actionProps } from "../../../../../types/Action";
 
@@ -254,11 +254,7 @@ WorkSpace.propTypes = {
   fileSelect: PropTypes.func,
   action: actionProps,
   setAction: PropTypes.func,
-  fileList: PropTypes.shape({
-    files: PropTypes.array,
-    path: PropTypes.string,
-    find: PropTypes.func
-  }),
+  fileList: fileListProps,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,

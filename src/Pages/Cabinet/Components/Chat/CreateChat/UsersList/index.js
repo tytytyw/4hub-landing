@@ -4,6 +4,7 @@ import CustomChatItem from "../../CustomChatItem";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useCreateContactStatus } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
+import { userInfoProps } from "../../../../../../types/UserInfo";
 
 const UsersList = ({
   usersList,
@@ -62,11 +63,11 @@ const UsersList = ({
 export default UsersList;
 
 UsersList.propTypes = {
-  usersList: PropTypes.array,
+  usersList: PropTypes.arrayOf(userInfoProps),
   search: PropTypes.string,
-  selectedUsers: PropTypes.array,
+  selectedUsers: PropTypes.arrayOf(userInfoProps),
   setSelectedUsers: PropTypes.func.isRequired,
   userContextMenu: PropTypes.string,
   disableHover: PropTypes.bool,
-  currentDate: PropTypes.object
+  currentDate: PropTypes.objectOf(PropTypes.string)
 };

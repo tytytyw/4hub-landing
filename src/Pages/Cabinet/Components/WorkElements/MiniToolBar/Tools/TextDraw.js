@@ -102,7 +102,7 @@ function TextDraw({ canvas, onFinishDraw, addTool }) {
 export default TextDraw;
 
 TextDraw.propTypes = {
-  canvas: PropTypes.object,
+  canvas: PropTypes.instanceOf(Element),
   onFinishDraw: PropTypes.func,
   addTool: PropTypes.func
 };

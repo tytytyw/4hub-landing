@@ -28,7 +28,7 @@ const OptionButtomLine = ({ selectedDevices, onSubmit, onCancel }) => {
 export default OptionButtomLine;
 
 OptionButtomLine.propTypes = {
-  selectedDevices: PropTypes.array,
+  selectedDevices: PropTypes.arrayOf(PropTypes.string),
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func
 };

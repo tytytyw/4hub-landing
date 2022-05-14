@@ -12,7 +12,13 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../../types/File";
+import {
+  fileListProps,
+  filePickProps,
+  filePreviewProps,
+  fileProps,
+  fileSharedProps
+} from "../../../../../../types/File";
 import { callbackArrMain } from "types/CallbackArrMain";
 
 function FilesGroup({
@@ -122,7 +128,7 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.arrayOf(PropTypes.element),
+  fileList: fileListProps,
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { visualEffectsProps } from "types/Chat";
 
 const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   const { __ } = useLocales();
@@ -135,6 +136,6 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 export default FilterSettings;
 
 FilterSettings.propTypes = {
-  visualEffects: PropTypes.object.isRequired,
+  visualEffects: visualEffectsProps.isRequired,
   setVisualEffects: PropTypes.func.isRequired
 };

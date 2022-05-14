@@ -19,7 +19,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/File";
+import { fileAddCustomizationProps, loadedFileProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const FileLoader = ({
@@ -489,11 +489,11 @@ FileLoader.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
-  loaded: PropTypes.array,
+  loaded: PropTypes.arrayOf(loadedFileProps),
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setFileErrors: PropTypes.func,
   menuItem: PropTypes.string
 };

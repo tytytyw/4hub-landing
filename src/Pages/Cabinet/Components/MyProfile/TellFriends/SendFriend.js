@@ -66,7 +66,7 @@ const SendFriend = ({ set, selectedItem }) => {
           <div className={styles.profileWrap}>
             <img className={styles.profileImg} src={selectedItem?.icon?.[0] || emptyProfileImage} alt="pie-chart" />
             <span>
-              Поделиться контактом &nbsp;<b>{getContactName(selectedItem)}</b>
+              {__("Поделиться контактом")} &nbsp;<b>{getContactName(selectedItem)}</b>
             </span>
           </div>
           <span className={styles.close} onClick={() => set(false)}>

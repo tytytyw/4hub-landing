@@ -5,6 +5,8 @@ import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { DARK } from "../../../../../generalComponents/globalVariables";
+import { userInfoProps } from "types/UserInfo";
+import { chatItemProps } from "types/Chat";
 
 const CustomChatItem = ({
   selectedContact,
@@ -119,7 +121,7 @@ CustomChatItem.propTypes = {
   selectedContact: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   setSelectedContact: PropTypes.func,
   sideMenuCollapsed: PropTypes.bool,
-  chatItem: PropTypes.object.isRequired,
+  chatItem: PropTypes.oneOfType([chatItemProps, userInfoProps]).isRequired,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string.isRequired,

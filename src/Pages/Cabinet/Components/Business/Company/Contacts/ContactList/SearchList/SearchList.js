@@ -6,6 +6,7 @@ import { ReactComponent as PointerMenuImg } from "../../../../../../../../assets
 import { imageSrc } from "../../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../../../types/Contacts";
+import { userInfoProps } from "types/UserInfo";
 
 const SearchList = ({ data, selectedItem, setSelectedItem, getContactName, setMouseParams }) => {
   return (
@@ -46,7 +47,7 @@ const SearchList = ({ data, selectedItem, setSelectedItem, getContactName, setMo
 export default SearchList;
 
 SearchList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(userInfoProps),
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   getContactName: PropTypes.func,

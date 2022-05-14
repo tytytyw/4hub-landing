@@ -71,7 +71,14 @@ export default Comments;
 
 Comments.propTypes = {
   hideComments: PropTypes.func,
-  comments: PropTypes.array,
+  comments: PropTypes.arrayOf(
+    PropTypes.exact({
+      date: PropTypes.string,
+      from: PropTypes.string,
+      icon: PropTypes.string,
+      text: PropTypes.string
+    })
+  ),
   program: programItemProps
 };
 

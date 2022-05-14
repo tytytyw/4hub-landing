@@ -8,7 +8,6 @@ const Select = ({ data, initValue, onChange, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initValue);
   const ref = useRef();
-
   useEffect(() => {
     const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
@@ -90,7 +89,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
 export default Select;
 
 Select.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.string),
   initValue: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string

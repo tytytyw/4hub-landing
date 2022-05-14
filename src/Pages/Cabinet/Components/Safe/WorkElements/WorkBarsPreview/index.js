@@ -187,7 +187,7 @@ WorkBarsPreview.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   file: fileProps,
   setLoadingType: PropTypes.func,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   gLoader: PropTypes.bool,
   filesPage: PropTypes.number,
   onSuccessLoading: PropTypes.func,

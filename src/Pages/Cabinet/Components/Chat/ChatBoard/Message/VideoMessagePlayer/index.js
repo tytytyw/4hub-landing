@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./VideoMessagePlayer.module.sass";
 import { ReactComponent as SpeakerIcon } from "../../../../../../../assets/PrivateCabinet/speaker.svg";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
+import { mediaRecorderProps } from "types/Chat";
 
 const VideoMessagePlayer = ({ video }) => {
   const circleRadius = 150;
@@ -182,5 +182,5 @@ const VideoMessagePlayer = ({ video }) => {
 export default VideoMessagePlayer;
 
 VideoMessagePlayer.propTypes = {
-  video: PropTypes.object.isRequired
+  video: mediaRecorderProps.isRequired
 };

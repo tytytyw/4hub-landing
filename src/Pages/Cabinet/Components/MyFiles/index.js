@@ -307,9 +307,9 @@ MyFiles.propTypes = {
   setFilesPage: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
-  loaded: PropTypes.array,
+  loaded: PropTypes.arrayOf(loadingFileProps),
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setLoadingFile: PropTypes.func
 };

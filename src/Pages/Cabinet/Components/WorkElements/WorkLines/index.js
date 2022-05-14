@@ -16,7 +16,6 @@ const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesP
   const size = useSelector((state) => state.Cabinet.size);
 
   const [containerRef] = useScrollElementOnScreen(options, load);
-
   return (
     <div
       ref={fileRef}
@@ -69,7 +68,7 @@ export default WorkLines;
 WorkLines.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   filePick: filePickProps,
-  fileRef: PropTypes.objectOf(PropTypes.object),
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   gLoader: PropTypes.bool,
   load: PropTypes.func,
   options: PropTypes.exact({

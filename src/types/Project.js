@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 export const projectProps = PropTypes.exact({
   icon: PropTypes.string,
+  dir: PropTypes.string,
   id: PropTypes.string,
   id_color: PropTypes.string,
   id_emo: PropTypes.string,

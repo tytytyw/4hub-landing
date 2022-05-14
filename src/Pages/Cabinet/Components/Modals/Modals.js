@@ -100,11 +100,11 @@ Modals.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
-  loaded: PropTypes.array,
+  loaded: PropTypes.arrayOf(loadingFileProps),
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setFileErrors: PropTypes.func,
   menuItem: PropTypes.string,
   saveCustomizeSeveralFiles: PropTypes.func

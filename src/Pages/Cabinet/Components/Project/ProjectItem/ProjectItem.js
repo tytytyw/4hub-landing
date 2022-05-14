@@ -208,5 +208,5 @@ ProjectItem.propTypes = {
     fromRecent: PropTypes.bool
   }),
   setParams: PropTypes.func,
-  listRef: PropTypes.object
+  listRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };

@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 import { onEditChatMessage, onDeleteChatMessage } from "../../../../../Store/actions/CabinetActions";
 import classNames from "classnames";
 import { actionProps } from "../../../../../types/Action";
+import { fileChatProps } from "types/File";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -42,7 +43,6 @@ const WorkSpace = ({
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const [attachedFiles, setAttachedFiles] = useState(null);
-
   const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
 
@@ -358,10 +358,10 @@ WorkSpace.propTypes = {
   setShowSuccessPopup: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
   action: actionProps,
-  currentDate: PropTypes.object.isRequired,
+  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
-  file: PropTypes.object,
+  file: fileChatProps,
   setFile: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
   setShowSettings: PropTypes.func.isRequired

@@ -258,6 +258,6 @@ CustomizeFolder.propTypes = {
   setError: PropTypes.func,
   setGLoader: PropTypes.func,
   chosenFolder: folderProps,
-  chosenSubFolder: PropTypes.any,
+  chosenSubFolder: folderProps,
   successLoad: PropTypes.func
 };

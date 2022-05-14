@@ -3,8 +3,10 @@ import React from "react";
 import styles from "./ListMenu.module.sass";
 import ListItem from "./ListItem";
 import PropTypes from "prop-types";
+import { pageProps } from "types/Business/Page";
+import { dataProps } from "types/Business/Data";
 
-const ListMenu = ({ menuData = [], page, setPage, setPageOption }) => {
+const ListMenu = ({ menuData, page, setPage, setPageOption }) => {
   const renderItems = (data, isSub = false) => {
     return data.map((item) => (
       <ListItem
@@ -25,8 +27,8 @@ const ListMenu = ({ menuData = [], page, setPage, setPageOption }) => {
 export default ListMenu;
 
 ListMenu.propTypes = {
-  menuData: PropTypes.array,
-  page: PropTypes.object,
+  menuData: dataProps,
+  page: pageProps,
   setPage: PropTypes.func,
   setPageOption: PropTypes.func
 };

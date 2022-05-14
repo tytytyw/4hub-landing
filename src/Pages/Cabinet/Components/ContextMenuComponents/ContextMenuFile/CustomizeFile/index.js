@@ -23,6 +23,7 @@ import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { projectProps } from "types/Project";
 
 const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const { __ } = useLocales();
@@ -354,5 +355,5 @@ CustomizeFile.defaultProps = {
 CustomizeFile.propTypes = {
   setLoadingType: PropTypes.func,
   saveCustomizeSeveralFiles: PropTypes.func,
-  info: PropTypes.object
+  info: projectProps
 };

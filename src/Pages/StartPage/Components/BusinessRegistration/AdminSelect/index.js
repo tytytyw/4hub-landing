@@ -77,7 +77,13 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
 export default AdminSelect;
 
 AdminSelect.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number,
+      text: PropTypes.text,
+      info: PropTypes.text
+    })
+  ),
   initValue: PropTypes.string,
   error: PropTypes.bool,
   onSelect: PropTypes.func,

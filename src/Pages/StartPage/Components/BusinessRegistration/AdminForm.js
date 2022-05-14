@@ -253,7 +253,18 @@ const AdminForm = ({ mainFields, setMainFields, setStep, compare, setCompare, se
 export default AdminForm;
 
 AdminForm.propTypes = {
-  mainFields: PropTypes.object,
+  mainFields: PropTypes.objectOf(
+    PropTypes.exact({
+      admin: PropTypes.number,
+      email: PropTypes.string,
+      middle_name: PropTypes.string,
+      name: PropTypes.string,
+      password: PropTypes.string,
+      password_r: PropTypes.string,
+      phone: PropTypes.string,
+      surname: PropTypes.string
+    })
+  ),
   setMainFields: PropTypes.func,
   setStep: PropTypes.func,
   compare: PropTypes.shape({
