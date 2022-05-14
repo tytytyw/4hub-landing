@@ -5,6 +5,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { messageProps } from "types/Chat";
 
 const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
   const { __ } = useLocales();
@@ -61,7 +62,7 @@ export default DeleteMessage;
 
 DeleteMessage.propTypes = {
   set: PropTypes.func.isRequired,
-  message: PropTypes.object.isRequired,
+  message: messageProps.isRequired,
   nullifyAction: PropTypes.func.isRequired,
   deleteMessage: PropTypes.func.isRequired
 };

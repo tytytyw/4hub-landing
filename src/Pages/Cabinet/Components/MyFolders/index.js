@@ -35,7 +35,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/File";
+import { filePreviewProps, loadedFileProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 import classnames from "classnames";
@@ -445,10 +445,10 @@ MyFolders.propTypes = {
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  loaded: PropTypes.array,
+  loaded: PropTypes.arrayOf(loadedFileProps),
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setLoadingFile: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,
   saveCustomizeSeveralFiles: PropTypes.func,

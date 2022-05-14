@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../../types/Contacts";
+import { userInfoProps } from "types/UserInfo";
 
 const ContactList = ({ data, selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
   const { __ } = useLocales();
@@ -105,7 +106,7 @@ const getGrouppedArray = (initialArray) => {
 export default ContactList;
 
 ContactList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(userInfoProps),
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   action: PropTypes.string,

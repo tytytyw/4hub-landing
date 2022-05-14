@@ -358,7 +358,7 @@ ItemsList.propTypes = {
   filesPage: PropTypes.number,
   chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   gLoader: PropTypes.bool,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   width: PropTypes.number,
   openFolderMenu: PropTypes.func,
   menuItem: PropTypes.string,

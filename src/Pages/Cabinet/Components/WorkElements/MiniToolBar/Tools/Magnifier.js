@@ -125,4 +125,4 @@ function Magnifier({ canvas }) {
 }
 
 export default Magnifier;
-Magnifier.propTypes = { canvas: PropTypes.object };
+Magnifier.propTypes = { canvas: PropTypes.instanceOf(Element) };

@@ -9,6 +9,7 @@ import CropImage from "./CropImage/CropImage";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { blobProps } from "types/CreateFile";
 
 const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
   const { __ } = useLocales();
@@ -138,6 +139,6 @@ export default UploadLogo;
 UploadLogo.propTypes = {
   nullifyAction: PropTypes.func,
   setCompanyLogo: PropTypes.func,
-  blob: PropTypes.object,
+  blob: blobProps,
   setBlob: PropTypes.func
 };

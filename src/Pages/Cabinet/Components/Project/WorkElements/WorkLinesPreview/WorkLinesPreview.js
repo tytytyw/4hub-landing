@@ -181,8 +181,32 @@ const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) 
 export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
-  recentFiles: PropTypes.array,
-  children: PropTypes.array, // [{…}, Array(0)]
+  recentFiles: PropTypes.arrayOf(
+    PropTypes.exact({
+      length: PropTypes.number,
+      fid: PropTypes.string,
+      icon: PropTypes.string,
+      id: PropTypes.string,
+      id_color: PropTypes.string,
+      id_emo: PropTypes.string,
+      id_fig: PropTypes.string,
+      id_file: PropTypes.string,
+      id_type: PropTypes.string,
+      id_user: PropTypes.string,
+      ip: PropTypes.string,
+      is_archive: PropTypes.string,
+      is_del: PropTypes.string,
+      is_my: PropTypes.number,
+      link: PropTypes.string,
+      name: PropTypes.string,
+      pass: PropTypes.string,
+      s: PropTypes.string,
+      tags: PropTypes.string,
+      token: PropTypes.string,
+      ut: PropTypes.string
+    })
+  ),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   chosenFile: fileProps,
   fileCollapsed: PropTypes.bool
 };

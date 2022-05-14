@@ -374,7 +374,7 @@ export default CreateFile;
 
 CreateFile.propTypes = {
   title: PropTypes.string,
-  loaded: PropTypes.array,
+  loaded: PropTypes.arrayOf(loadingFileProps),
   setLoaded: PropTypes.func,
   blob: blobProps,
   setBlob: PropTypes.func,
@@ -382,7 +382,7 @@ CreateFile.propTypes = {
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  fileErrors: PropTypes.array,
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
   setLoadingFile: PropTypes.func,
   create: PropTypes.bool,
   setGLoader: PropTypes.func,

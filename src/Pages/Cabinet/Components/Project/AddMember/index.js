@@ -189,7 +189,6 @@ const AddMember = ({ set, selectedItem }) => {
             <ul className={styles.contactsList}>
               {contactList?.map((item, index) => {
                 if (item?.id === selectedItem?.id) return null;
-
                 return (
                   <RadioCheck
                     item={item}

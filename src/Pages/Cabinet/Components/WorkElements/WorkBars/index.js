@@ -107,7 +107,7 @@ WorkBars.propTypes = {
   filePick: filePickProps,
   hideUploadFile: PropTypes.bool,
   filesPage: PropTypes.number,
-  fileRef: PropTypes.objectOf(PropTypes.object),
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   gLoader: PropTypes.bool,
   load: PropTypes.func,
   options: PropTypes.exact({

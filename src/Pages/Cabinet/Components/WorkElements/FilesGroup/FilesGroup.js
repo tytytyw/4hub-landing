@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { folderProps } from "../../../../../types/Folder";
+import { mouseParamsProps } from "../../../../../types/MouseParams";
 
 function FilesGroup({
   fileList,
@@ -131,11 +132,11 @@ FilesGroup.propTypes = {
   setFilesPage: PropTypes.func,
   title: PropTypes.string,
   setChosenFolder: PropTypes.func,
-  fileRef: PropTypes.objectOf(PropTypes.object),
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   gLoader: PropTypes.bool,
   renderFiles: PropTypes.func,
-  params: PropTypes.any,
+  params: mouseParamsProps,
   renderFileItem: PropTypes.func,
   setGroupInfo: PropTypes.func
 };

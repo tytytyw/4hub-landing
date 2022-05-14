@@ -10,6 +10,7 @@ import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCa
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { blobProps } from "types/CreateFile";
 
 const UploadFile = ({ pageOption, setBlob, blob, setLoadingType, setPageOption }) => {
   const { __ } = useLocales();
@@ -114,7 +115,7 @@ UploadFile.propTypes = {
     label: PropTypes.string
   }),
   setBlob: PropTypes.func,
-  blob: PropTypes.object,
+  blob: blobProps,
   setLoadingType: PropTypes.func,
   setPageOption: PropTypes.func
 };

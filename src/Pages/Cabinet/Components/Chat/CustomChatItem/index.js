@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { DARK, CHECKBOX, CONTEXT_MENU } from "../../../../../generalComponents/globalVariables";
 import { contact } from "../../../../../types/Chat";
+import { userInfoProps } from "types/UserInfo";
+import { chatItemProps } from "types/Chat";
 
 const CustomChatItem = ({
   selectedContact,
@@ -120,7 +122,7 @@ CustomChatItem.propTypes = {
   selectedContact: PropTypes.oneOfType([contact, PropTypes.arrayOf(contact)]),
   setSelectedContact: PropTypes.func,
   sideMenuCollapsed: PropTypes.bool,
-  chatItem: contact,
+  chatItem: PropTypes.oneOfType([chatItemProps, userInfoProps]).isRequired,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string.isRequired,

@@ -7,6 +7,7 @@ import { ReactComponent as AddIcon } from "../../../../../../../assets/PrivateCa
 import classnames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { drawImageProps } from "types/DrawImage";
 
 function DrawZone({ params, canvasRef, mainRef, images, setParams, inputRef, mainWidth }) {
   const { __ } = useLocales();
@@ -139,10 +140,10 @@ DrawZone.propTypes = {
     isLoading: PropTypes.bool,
     isChoosing: PropTypes.bool
   }),
-  canvasRef: PropTypes.object,
-  mainRef: PropTypes.object,
-  images: PropTypes.object,
+  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+  mainRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+  images: drawImageProps,
   setParams: PropTypes.func,
-  inputRef: PropTypes.object,
+  inputRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   mainWidth: PropTypes.string
 };

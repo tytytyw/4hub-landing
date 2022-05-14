@@ -50,5 +50,8 @@ SuccessPopup.propTypes = {
   text: PropTypes.string,
   buttonText: PropTypes.string,
   set: PropTypes.func.isRequired,
-  style: PropTypes.object
+  style: PropTypes.exact({
+    background: PropTypes.string,
+    color: PropTypes.string
+  })
 };

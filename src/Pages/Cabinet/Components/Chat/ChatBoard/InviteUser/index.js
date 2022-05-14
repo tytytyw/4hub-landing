@@ -8,6 +8,7 @@ import { messengersData } from "./consts";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { userInfoProps } from "types/UserInfo";
 
 function InviteUser({ contact, setShowSuccessPopup }) {
   const { __ } = useLocales();
@@ -112,6 +113,6 @@ function InviteUser({ contact, setShowSuccessPopup }) {
 export default InviteUser;
 
 InviteUser.propTypes = {
-  contact: PropTypes.object.isRequired,
+  contact: userInfoProps.isRequired,
   setShowSuccessPopup: PropTypes.func.isRequired
 };
