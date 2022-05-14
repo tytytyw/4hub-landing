@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TabsPicker.module.sass";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import PropTypes, { element } from "prop-types";
+import PropTypes from "prop-types";
 
 function TabsPicker({ ELEMENTS, selected, onClick }) {
   const { theme } = useSelector((s) => s.user.userInfo);
@@ -35,7 +35,7 @@ TabsPicker.defaultProps = {
 };
 
 TabsPicker.propTypes = {
-  ELEMENTS: PropTypes.arrayOf(element).isRequired,
+  ELEMENTS: PropTypes.arrayOf(PropTypes.elementType).isRequired, //elements imported as ReactComponents
   selected: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired
 };
