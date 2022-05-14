@@ -20,32 +20,32 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const videoPlayerRef = useRef();
 
   const renderAttachment = () => {
-    if (Array.isArray(message.attachment) && message.attachment[0].kind === "audio_message") {
+    if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "audio_message") {
       return (
         <VoiceMessagePlayer
-          src={message.attachment[0].link}
-          histogramData={message.attachment[0].histogramData ?? []}
+          src={message.attachment[0]?.link}
+          histogramData={message.attachment[0]?.histogramData ?? []}
           inboxMessage={messageType === "inbox"}
         />
       );
     }
-    if (Array.isArray(message.attachment) && message.attachment[0].kind === "video_message") {
-      return <VideoMessagePlayer video={message[0].attachment} />;
+    if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "video_message") {
+      return <VideoMessagePlayer video={message.attachment[0]} />;
     }
     if (
-      (Array.isArray(message.attachment) && message.attachment[0].kind === "file") ||
-      (Array.isArray(message.attachment) && message.attachment[0].kind?.includes("image"))
+      (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ||
+      (Array.isArray(message.attachment) && message.attachment[0]?.kind?.includes("image"))
     ) {
       return message.attachment.map((file) => (
         <FileMessage key={file.fid} file={file} size={message.attachment.length > 1 ? "small" : null} />
       ));
     }
-    if (Array.isArray(message.attachment) && message.attachment[0].kind === "video") {
+    if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "video") {
       return (
         <VideoPlayer
-          source={message.attachment[0].link}
+          source={message.attachment[0]?.link}
           videoPlayerRef={videoPlayerRef}
-          visualEffects={message.attachment[0].visualEffects}
+          visualEffects={message.attachment[0]?.visualEffects}
         />
       );
     }
@@ -71,18 +71,18 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       )}
       <div className={styles.contentWrapper}>
         <div className={styles.flexContainer}>
-          {Array.isArray(message.attachment) && message.attachment[0].kind === "video_message" ? (
+          {Array.isArray(message.attachment) && message.attachment[0]?.kind === "video_message" ? (
             renderAttachment()
           ) : (
             <div
               className={classNames({
                 [styles.content]: true,
                 [styles.file_content]:
-                  (Array.isArray(message.attachment) && message.attachment[0].kind === "image") ||
-                  (Array.isArray(message.attachment) && message.attachment[0].kind === "file"),
+                  (Array.isArray(message.attachment) && message.attachment[0]?.kind === "image") ||
+                  (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file"),
                 [styles.audio_content]:
-                  Array.isArray(message.attachment) && message.attachment[0].kind === "audio_message",
-                [styles.video_content]: Array.isArray(message.attachment) && message.attachment[0].kind === "video"
+                  Array.isArray(message.attachment) && message.attachment[0]?.kind === "audio_message",
+                [styles.video_content]: Array.isArray(message.attachment) && message.attachment[0]?.kind === "video"
               })}
             >
               {renderAttachment()}
@@ -95,7 +95,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
               </div>
             </div>
           )}
-          {messageType !== "inbox" || (Array.isArray(message.attachment) && message.attachment[0].kind === "file") ? (
+          {messageType !== "inbox" || (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ? (
             <div className={styles.menuWrapper}>
               <div
                 className={styles.menu}
