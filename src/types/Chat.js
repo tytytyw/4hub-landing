@@ -106,7 +106,7 @@ export const visualEffectsProps = PropTypes.exact({
     brightness: PropTypes.number,
     contrast: PropTypes.number,
     grayscale: PropTypes.number,
-    hue_rotate: PropTypes.number,
+    ["hue-rotate"]: PropTypes.number,
     invert: PropTypes.number,
     result: PropTypes.string,
     saturate: PropTypes.number,
