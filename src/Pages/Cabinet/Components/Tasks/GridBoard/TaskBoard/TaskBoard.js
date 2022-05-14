@@ -14,7 +14,7 @@ function TaskBoard({ classNameWrap, type, schema }) {
     <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>
       <BoardServicePanel
         type={type}
-        isLast={classNameWrap === STYLED_CLASSES[schema][STYLED_CLASSES[schema].length - 1]}
+        isLastElement={classNameWrap === STYLED_CLASSES[schema][STYLED_CLASSES[schema].length - 1]}
       />
     </div>
   );
