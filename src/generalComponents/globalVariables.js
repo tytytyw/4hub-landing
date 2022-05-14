@@ -83,3 +83,5 @@ export const DARK = "dark";
 export const MAIN = "main";
 export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
+export const CHECKBOX = "checkBox";
+export const CONTEXT_MENU = "contextMenu";

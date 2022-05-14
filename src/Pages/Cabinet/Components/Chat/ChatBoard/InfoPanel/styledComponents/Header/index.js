@@ -6,6 +6,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
+import { MAIN, DARK } from "../../../../../../../../generalComponents/globalVariables";
 
 const Header = ({ setActiveOption, title }) => {
   const { __ } = useLocales();
@@ -15,10 +16,10 @@ const Header = ({ setActiveOption, title }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark"
+        [styles.darkTheme]: chatTheme.name === DARK
       })}
     >
-      <div className={styles.backButton} onClick={() => setActiveOption({ name: "main" })}>
+      <div className={styles.backButton} onClick={() => setActiveOption({ name: MAIN })}>
         <TriangleIcon title="" className={styles.triangleIcon} />
       </div>
       <div className={styles.title}>{title}</div>

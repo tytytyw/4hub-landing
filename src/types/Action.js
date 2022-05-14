@@ -19,5 +19,6 @@ export const actionProps = PropTypes.exact({
   text: PropTypes.string,
   name: PropTypes.string,
   message: messageProps,
-  callback: PropTypes.func
+  callback: PropTypes.func,
+  chatsType: PropTypes.string
 });
