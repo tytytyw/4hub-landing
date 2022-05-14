@@ -25,6 +25,7 @@ import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
 import classNames from "classnames";
+import Tasks from "./Components/Tasks/Tasks";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
@@ -231,7 +232,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route path="/calendar" render={() => <CalendarPage />} />
 
-          <Route path="/tasks" render={() => ""} />
+          <Route path="/tasks" render={() => <Tasks />} />
 
           <Route
             path="/libary"

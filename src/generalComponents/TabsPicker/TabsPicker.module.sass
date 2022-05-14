@@ -1,0 +1,46 @@
+@import "src/theme/theme"
+
+.viewPanel
+  display: flex
+  box-shadow: 0 2px 4px #dedede
+  border-radius: 3px
+  overflow: hidden
+  .iconViewChosen
+    padding: 3px 14px
+    cursor: pointer
+    width: 41px
+    height: 24px
+    & path, & rect
+      fill: $color-white
+  .iconView
+    position: relative
+    padding: 3px 14px
+    cursor: pointer
+    transition: background 0.2s ease-in-out
+    width: 41px
+    height: 24px
+    &:hover path, &:hover rect
+      fill: $color-white
+    &:after
+      content: ''
+      position: absolute
+      right: 0
+      width: 1px
+      height: 65%
+      background: #e5e5e5
+      top: 50%
+      transform: translate(-50%, -50%)
+  .iconView:hover:after
+    content: ''
+    position: absolute
+    right: 0
+    width: 0
+    height: 0
+    background: none
+  .iconView:last-child:after
+    content: ''
+    position: absolute
+    right: 0
+    width: 0
+    height: 0
+    background: none

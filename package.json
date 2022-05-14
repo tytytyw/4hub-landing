@@ -59,7 +59,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
-    "eslint": "^7.32.0",
+    "eslint": "8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.0.0",
@@ -69,9 +69,9 @@
     "gulp-git": "^2.10.1",
     "jest-css-modules": "^2.1.0",
     "prettier": "^2.6.2",
-    "prettier-eslint": "^10.1.0",
     "react-localized": "^3.2.0",
-    "react-localized-extractor": "^2.1.0"
+    "react-localized-extractor": "^2.1.0",
+    "eslint-plugin-react": "^7.29.4"
   },
   "jest": {
     "clearMocks": false,
