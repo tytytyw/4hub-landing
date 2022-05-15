@@ -113,7 +113,7 @@ ContextMenu.propTypes = {
   params: mouseParamsProps,
   setParams: PropTypes.func,
   tooltip: PropTypes.bool,
-  itemRef: PropTypes.objectOf(PropTypes.object),
+  itemRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   customClose: PropTypes.bool,
   movehorizontal: PropTypes.number,
   disableAutohide: PropTypes.bool,

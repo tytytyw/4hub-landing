@@ -127,7 +127,12 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
 export default AddSocials;
 
 AddSocials.propTypes = {
-  values: PropTypes.array,
+  values: PropTypes.arrayOf(
+    PropTypes.exact({
+      type: PropTypes.string,
+      link: PropTypes.string
+    })
+  ),
   setValues: PropTypes.func,
   set: PropTypes.func,
   type: PropTypes.string

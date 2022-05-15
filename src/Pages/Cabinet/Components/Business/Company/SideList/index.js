@@ -5,6 +5,8 @@ import ListMenu from "./ListMenu";
 import AddLogo from "./AddLogo";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
+import { pageProps } from "../../../../../../types/Business/Page";
+import { dataProps } from "types/Business/Data";
 
 const SideList = ({
   data,
@@ -40,8 +42,8 @@ const SideList = ({
 export default SideList;
 
 SideList.propTypes = {
-  data: PropTypes.array,
-  pageOption: PropTypes.object,
+  data: dataProps,
+  pageOption: pageProps,
   setPageOption: PropTypes.func,
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,

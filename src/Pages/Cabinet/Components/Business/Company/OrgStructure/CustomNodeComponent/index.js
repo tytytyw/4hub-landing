@@ -61,5 +61,6 @@ function CustomNodeComponent({ data }) {
 export default CustomNodeComponent;
 
 CustomNodeComponent.propTypes = {
-  data: PropTypes.object
+  //eslint-disable-next-line
+  data: PropTypes.object //TO-DO Add <CustomNodeComponent />
 };

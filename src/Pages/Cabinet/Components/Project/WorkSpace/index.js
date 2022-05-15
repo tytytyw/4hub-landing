@@ -38,6 +38,7 @@ const WorkSpace = ({
   const { __ } = useLocales();
   const files = useSelector((state) => state.Cabinet.project.files);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
+
   const [filePick, setFilePick] = useState({ show: false, files: [] });
   const [workElementsView, setWorkElementsView] = useState("");
   const [chosenFile, setChosenFile] = useState(null);

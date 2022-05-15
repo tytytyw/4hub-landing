@@ -11,6 +11,7 @@ import { onGetChatGroups } from "../../../../../../Store/actions/CabinetActions"
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { userInfoProps } from "types/UserInfo";
 
 const AddUserToGroup = ({ group, nullifyAction }) => {
   const { __ } = useLocales();
@@ -99,6 +100,6 @@ const AddUserToGroup = ({ group, nullifyAction }) => {
 export default AddUserToGroup;
 
 AddUserToGroup.propTypes = {
-  group: PropTypes.object.isRequired,
+  group: userInfoProps.isRequired,
   nullifyAction: PropTypes.func.isRequired
 };

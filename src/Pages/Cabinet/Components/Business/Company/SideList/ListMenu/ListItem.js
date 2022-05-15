@@ -5,6 +5,7 @@ import { ReactComponent as ArrowIcon } from "../../../../../../../assets/Busines
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { itemProps } from "../../../../../../../types/Company";
+import { pageProps } from "types/Business/Page";
 
 const ListItem = ({ item, page, setPage, isSub, render }) => {
   const [collapse, setCollapse] = useState(false);
@@ -50,7 +51,7 @@ export default ListItem;
 
 ListItem.propTypes = {
   item: itemProps,
-  page: PropTypes.object,
+  page: pageProps,
   setPage: PropTypes.func,
   isSub: PropTypes.bool,
   render: PropTypes.func

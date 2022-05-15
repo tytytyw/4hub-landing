@@ -13,7 +13,7 @@ import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/File";
+import { fileListProps, filePickProps, filePreviewProps, fileProps } from "../../../../../../types/File";
 import { callbackArrMain } from "types/CallbackArrMain";
 
 function FilesGroup({
@@ -127,7 +127,7 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.array,
+  fileList: fileListProps,
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),

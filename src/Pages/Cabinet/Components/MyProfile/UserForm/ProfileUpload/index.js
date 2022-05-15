@@ -56,7 +56,7 @@ Index.propTypes = {
   background: PropTypes.shape({
     avatarImg: PropTypes.string
   }),
-  inputRef: PropTypes.object
+  inputRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };
 
 Index.defaultProps = {

@@ -255,7 +255,7 @@ WorkBarsPreview.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   file: fileProps,
   filePick: filePickProps,
-  fileRef: PropTypes.objectOf(PropTypes.object),
+  fileRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   grouped: PropTypes.bool,
   chosenFile: fileProps,
   load: PropTypes.func,

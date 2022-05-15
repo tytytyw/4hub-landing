@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./CropImage.module.sass";
 import PropTypes from "prop-types";
+import { blobProps } from "types/CreateFile";
 
 function CropImage({ blob, setCropParams, setPicParams }) {
   const [hiddenPic, setHiddenPic] = useState(null);
@@ -181,5 +182,5 @@ export default CropImage;
 CropImage.propTypes = {
   setCropParams: PropTypes.func,
   setPicParams: PropTypes.func,
-  blob: PropTypes.object
+  blob: blobProps
 };

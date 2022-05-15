@@ -14,6 +14,10 @@ import api from "../../../../../../api";
 import { cameraAccess, wantMimeType, ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fileProps } from "types/File";
+import { actionProps } from "types/Action";
+import { mediaRecorderProps } from "types/Chat";
+import { socketProps } from "types/Socket";
 
 // TODO: use useRef
 let audioFrequencyData = [];
@@ -284,24 +288,24 @@ const ChatBoardFooter = ({
 export default ChatBoardFooter;
 
 ChatBoardFooter.propTypes = {
-  footerRef: PropTypes.object,
+  footerRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   isRecording: PropTypes.bool.isRequired,
   ducationTimer: PropTypes.number.isRequired,
   addMessage: PropTypes.func.isRequired,
-  action: PropTypes.object.isRequired,
+  action: actionProps.isRequired,
   setMouseParams: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
   setRightPanelContentType: PropTypes.func.isRequired,
   setIsRecording: PropTypes.func.isRequired,
-  mediaRecorder: PropTypes.object,
+  mediaRecorder: mediaRecorderProps,
   setMediaRecorder: PropTypes.func.isRequired,
   setVideoPreview: PropTypes.func.isRequired,
-  videoMessagePreview: PropTypes.object,
+  videoMessagePreview: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   recordCancel: PropTypes.func.isRequired,
-  file: PropTypes.object,
+  file: fileProps,
   setFile: PropTypes.func.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
-  socket: PropTypes.object,
+  socket: socketProps,
   editMessage: PropTypes.func.isRequired,
-  attachedFiles: PropTypes.array
+  attachedFiles: PropTypes.arrayOf(fileProps)
 };

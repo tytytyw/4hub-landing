@@ -137,7 +137,7 @@ TextArea.propTypes = {
   action: actionProps,
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
-  saveTextButtonRef: PropTypes.object,
+  saveTextButtonRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   editMessage: PropTypes.func,
   attachedFiles: PropTypes.bool
 };

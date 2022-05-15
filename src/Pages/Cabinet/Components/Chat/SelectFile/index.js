@@ -19,6 +19,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useFolders } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
+import { fileProps } from "types/File";
 
 const SelectFile = ({ nullifyAction, attachedFiles, setAttachedFiles }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -227,6 +228,6 @@ export default SelectFile;
 SelectFile.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   title: PropTypes.string,
-  attachedFiles: PropTypes.array,
+  attachedFiles: fileProps,
   setAttachedFiles: PropTypes.func.isRequired
 };

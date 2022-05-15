@@ -39,5 +39,5 @@ function ColorPicker({ colorPickerRef }) {
 export default ColorPicker;
 
 ColorPicker.propTypes = {
-  colorPickerRef: PropTypes.objectOf(PropTypes.object)
+  colorPickerRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };

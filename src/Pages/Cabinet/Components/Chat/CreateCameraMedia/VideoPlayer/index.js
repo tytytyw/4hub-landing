@@ -4,6 +4,7 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
+import { visualEffectsProps } from "types/Chat";
 
 const VideoPlayer = ({ source, videoPlayerRef, visualEffects, videoCutParams, setVideoCutParams, canvasRef }) => {
   const [playing, setPlaying] = useState(false);
@@ -238,9 +239,18 @@ VideoPlayer.defaultProps = {
 
 VideoPlayer.propTypes = {
   source: PropTypes.string.isRequired,
-  videoPlayerRef: PropTypes.object,
-  visualEffects: PropTypes.object,
-  videoCutParams: PropTypes.object,
+  videoPlayerRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+  visualEffects: visualEffectsProps,
+  videoCutParams: PropTypes.exact({
+    from: PropTypes.exact({
+      percent: PropTypes.number,
+      time: PropTypes.number
+    }),
+    to: PropTypes.exact({
+      percent: PropTypes.number,
+      time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
+    })
+  }),
   setVideoCutParams: PropTypes.func,
-  canvasRef: PropTypes.object
+  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
 };

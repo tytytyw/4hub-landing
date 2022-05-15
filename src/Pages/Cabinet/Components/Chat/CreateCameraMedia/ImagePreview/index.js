@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ImagePreview.module.sass";
 import PropTypes from "prop-types";
 import СhooseAspectRatio from "../СhooseAspectRatio";
+import { visualEffectsProps } from "types/Chat";
 
 const ImagePreview = ({
   image,
@@ -44,8 +45,8 @@ export default ImagePreview;
 
 ImagePreview.propTypes = {
   image: PropTypes.string.isRequired,
-  visualEffects: PropTypes.object,
-  imageRef: PropTypes.object,
+  visualEffects: visualEffectsProps,
+  imageRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
   width: PropTypes.number,
   height: PropTypes.number,
   imageAspectRatio: PropTypes.number,

@@ -120,7 +120,7 @@ const MainForm = ({ mainFields, setMainFields, setStep, compare, setCompare, set
 export default MainForm;
 
 MainForm.propTypes = {
-  mainFields: PropTypes.object,
+  mainFields: PropTypes.objectOf(PropTypes.string),
   setMainFields: PropTypes.func,
   setStep: PropTypes.func,
   compare: compareProps,

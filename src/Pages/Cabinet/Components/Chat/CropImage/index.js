@@ -97,5 +97,5 @@ CropImage.defaultProps = {
 CropImage.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   aspect: PropTypes.number,
-  canvasRef: PropTypes.object.isRequired
+  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }).isRequired
 };
