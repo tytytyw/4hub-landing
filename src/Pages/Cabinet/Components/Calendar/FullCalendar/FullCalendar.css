@@ -15,7 +15,7 @@ thead .fc-scroller-harness {
 }
 
 .fc-view-harness {
-  height: calc(45px * 15 + 30px) !important;
+  height: calc(45px * 25 + 30px) !important;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
