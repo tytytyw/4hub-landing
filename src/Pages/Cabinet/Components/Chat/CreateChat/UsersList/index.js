@@ -69,5 +69,5 @@ UsersList.propTypes = {
   setSelectedUsers: PropTypes.func.isRequired,
   userContextMenu: PropTypes.string,
   disableHover: PropTypes.bool,
-  currentDate: PropTypes.objectOf(PropTypes.string)
+  currentDate: PropTypes.instanceOf(Date)
 };

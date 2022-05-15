@@ -13,7 +13,7 @@ import { ReactComponent as PictureIcon } from "../../../../../assets/PrivateCabi
 import { onSetPaint, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { userInfoProps } from "types/UserInfo";
+import { chatItemProps, chatUserProps } from "types/Chat";
 
 const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) => {
   const { __ } = useLocales();
@@ -126,7 +126,7 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) =>
 export default ServePanel;
 
 ServePanel.propTypes = {
-  selectedContact: userInfoProps.isRequired,
+  selectedContact: PropTypes.oneOfType([chatUserProps, chatItemProps]).isRequired,
   setAction: PropTypes.func.isRequired,
   setRightPanelContentType: PropTypes.func.isRequired
 };

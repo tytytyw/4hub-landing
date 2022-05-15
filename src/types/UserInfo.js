@@ -21,7 +21,12 @@ export const userInfoProps = PropTypes.exact({
   real_user_date_gmt: PropTypes.number,
   real_user_date_last: PropTypes.string,
   sname: PropTypes.string,
-  soc: PropTypes.array,
+  soc: PropTypes.arrayOf(
+    PropTypes.exact({
+      type: PropTypes.string,
+      link: PropTypes.string
+    })
+  ),
   status: PropTypes.string,
   tel: PropTypes.arrayOf(PropTypes.string),
   ut: PropTypes.string

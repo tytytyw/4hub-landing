@@ -37,5 +37,5 @@ export default TableTaskItem;
 
 TableTaskItem.propTypes = {
   task: eventShowProps,
-  date: PropTypes.objectOf(PropTypes.string)
+  date: PropTypes.instanceOf(Date)
 };

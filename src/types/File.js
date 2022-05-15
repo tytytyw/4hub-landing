@@ -23,10 +23,10 @@ export const fileProps = PropTypes.exact({
   deny_edit: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   edit_url: PropTypes.string,
   edit_url2: PropTypes.string,
-  emo: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  emo: PropTypes.string,
   ext: PropTypes.string,
   fid: PropTypes.string,
-  fig: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  fig: PropTypes.string,
   file: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   file_link: PropTypes.string,
   fname: PropTypes.string,
@@ -47,7 +47,7 @@ export const fileProps = PropTypes.exact({
   size: PropTypes.number,
   sdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   size_now: PropTypes.string,
-  tag: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  tag: PropTypes.string,
   tag2: PropTypes.string,
   kind: PropTypes.string
 });
