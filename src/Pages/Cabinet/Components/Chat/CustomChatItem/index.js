@@ -5,9 +5,7 @@ import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { DARK, CHECKBOX, CONTEXT_MENU } from "../../../../../generalComponents/globalVariables";
-import { contact } from "../../../../../types/Chat";
-import { userInfoProps } from "types/UserInfo";
-import { chatItemProps } from "types/Chat";
+import { selectedContactProps } from "../../../../../types/Chat";
 
 const CustomChatItem = ({
   selectedContact,
@@ -119,10 +117,10 @@ CustomChatItem.defaultProps = {
 };
 
 CustomChatItem.propTypes = {
-  selectedContact: PropTypes.oneOfType([contact, PropTypes.arrayOf(contact)]),
+  selectedContact: PropTypes.exact(selectedContactProps),
   setSelectedContact: PropTypes.func,
   sideMenuCollapsed: PropTypes.bool,
-  chatItem: PropTypes.oneOfType([chatItemProps, userInfoProps]).isRequired,
+  chatItem: PropTypes.exact(selectedContactProps),
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string.isRequired,
