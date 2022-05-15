@@ -297,7 +297,7 @@ const MyFolders = ({
           />
         </div>
         <div
-          className={classnames(styles.folderListWrap, `scrollbar-vertical-thin-${theme}`)}
+          className={classnames(styles.folderListWrap, `scrollbar-thin-${theme}`)}
           ref={folderListWrapRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)

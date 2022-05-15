@@ -16,9 +16,7 @@ function MailTasks({ tasks }) {
       </div>
     ));
 
-  return (
-    <div className={classNames(styles.tasksWrap, `scrollbar-vertical-medium-${theme}`)}>{renderTimetableLine()}</div>
-  );
+  return <div className={classNames(styles.tasksWrap, `scrollbar-medium-${theme}`)}>{renderTimetableLine()}</div>;
 }
 
 export default MailTasks;

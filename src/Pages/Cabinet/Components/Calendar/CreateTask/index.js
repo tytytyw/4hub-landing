@@ -165,7 +165,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   }}
                 />
                 <span>{tagOption.count}/30</span>
-                <div className={classnames(styles.tagList, `scrollbar-vertical-thin-${theme}`)}>{renderTags()}</div>
+                <div className={classnames(styles.tagList, `scrollbar-thin-${theme}`)}>{renderTags()}</div>
               </div>
               <div className={styles.inputWrap}>
                 <textarea
