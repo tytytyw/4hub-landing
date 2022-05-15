@@ -693,7 +693,7 @@ export function useTaskBoardTitle() {
   return {
     [BOARDS.MEETINGS_BOARD]: __("Встречи"),
     [BOARDS.CALLS_BOARD]: __("Звонки"),
-    [BOARDS.LETTERS_BOARD]: __("Письма"),
+    [BOARDS.MAIL_BOARD]: __("Письма"),
     [BOARDS.TASKS_BOARD]: __("Мои задачи")
   };
 }

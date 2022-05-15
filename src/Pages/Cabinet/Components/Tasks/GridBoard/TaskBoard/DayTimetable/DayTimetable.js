@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./DayTimetable.module.sass";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import ThreeDots from "../../../../../../../generalComponents/ThreeDots/ThreeDots";
@@ -32,5 +32,5 @@ DayTimetable.defaultProps = {
 };
 
 DayTimetable.propTypes = {
-  timePeriod: PropTypes.arrayOf(string) //list of hours per day
+  timePeriod: PropTypes.arrayOf(PropTypes.string) //list of hours per day
 };
