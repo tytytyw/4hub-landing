@@ -1,0 +1,25 @@
+@import "src/theme/theme"
+
+.tasksWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  overflow-y: scroll
+  height: calc(100% - 45px)
+  .taskLine
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    min-height: 40px
+    height: max-content
+    font-size: 11px
+    color: $color-text-grey
+    font-family: "SF Pro Regular", sans-serif
+    border-bottom: 1px solid $color-border-grey
+    padding: 10px 0 10px 10px
+    &:last-child
+      border: 0
+    .task
+      max-width: 85%
+      //border: 1px solid red
