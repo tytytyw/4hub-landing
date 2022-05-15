@@ -8,6 +8,7 @@ import { imageToRatio } from "../../../../../../generalComponents/generalHelpers
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/File";
+import classnames from "classnames";
 
 const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) => {
   const [toolBar] = useState(false);
@@ -20,6 +21,7 @@ const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) 
     imgWidth: 0,
     imgHeight: 0
   });
+  const { theme } = useSelector((state) => state.user.userInfo);
   const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
   const uid = useSelector((state) => state.user.uid);
   const [, setUndoList] = useState([]);
@@ -139,7 +141,7 @@ const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) 
       }}
     >
       <div
-        className={styles.fileListWrap}
+        className={classnames(styles.fileListWrap, `scrollbar-thin-${theme}`)}
         style={{
           minWidth: fileCollapsed ? 110 : ""
         }}

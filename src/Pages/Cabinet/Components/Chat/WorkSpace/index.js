@@ -270,7 +270,7 @@ const WorkSpace = ({
       })}
     >
       <div className={styles.header}>
-        <SearchField theme={chatTheme.name} />
+        <SearchField chatTheme={chatTheme.name} />
         <div className={styles.infoHeader}>
           <StorageSize />
           <Notifications />

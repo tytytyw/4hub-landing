@@ -49,7 +49,7 @@ const Colors = ({ color, setColor, title, editableClass }) => {
 export default Colors;
 
 Colors.propTypes = {
-  color: colorType,
+  color: PropTypes.oneOfType([colorType, PropTypes.string]),
   setColor: PropTypes.func,
   title: PropTypes.string,
   editableClass: PropTypes.string

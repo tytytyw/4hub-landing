@@ -5,7 +5,7 @@ import File from "../../../../../../../generalComponents/Files";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
-import { fileProps } from "../../../../../../../types/CustomFolderItem";
+import { fileProps } from "types/File";
 
 const PrevVersions = ({ file }) => {
   const { __ } = useLocales();

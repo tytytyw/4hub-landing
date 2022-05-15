@@ -15,7 +15,7 @@ import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const SearchField = ({ setChosenFile, menuItem, selectable = true, theme = "" }) => {
+const SearchField = ({ setChosenFile, menuItem, selectable = true, chatTheme = "" }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
   const path = useSelector((state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
@@ -81,7 +81,7 @@ const SearchField = ({ setChosenFile, menuItem, selectable = true, theme = "" })
           classNameSelect={styles.SearchType}
           setSearhArea={setSearhArea}
           data={searchArea}
-          theme={theme}
+          chatTheme={chatTheme}
         />
       )}
     </div>
@@ -94,9 +94,9 @@ SearchField.propTypes = {
   setChosenFile: PropTypes.func,
   menuItem: PropTypes.string,
   selectable: PropTypes.bool,
-  theme: PropTypes.string
+  chatTheme: PropTypes.string
 };
 SearchField.defaultProps = {
   selectable: true,
-  theme: ""
+  chatTheme: ""
 };
