@@ -18,7 +18,8 @@ function BoardServicePanel({ type, isLastElement }) {
   const [tabSelect, setTabSelect] = useState(2);
 
   const ELEMENTS = [ListIcon, BarsIcon, LinesIcon, CalendarIcon];
-  console.log(type);
+  const image = type.toLowerCase().replace("_", "-");
+  console.log(image);
   const renderAddImage = () => (
     <>
       <img
@@ -29,7 +30,7 @@ function BoardServicePanel({ type, isLastElement }) {
       {type && (
         <img
           className={styles[`${type}_inscription`]}
-          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/${type.toLowerCase()}.svg`}
+          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/${image}.png`}
           alt="inscription"
         />
       )}
