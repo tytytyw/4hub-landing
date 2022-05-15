@@ -172,7 +172,8 @@ const WorkBarsPreview = ({ children, file, page, setPage, fileRef, chosenFolder,
 export default WorkBarsPreview;
 WorkBarsPreview.propTypes = {
   children: PropTypes.element,
-  file: PropTypes.object,
+  //eslint-disable-next-line
+  file: PropTypes.object, //TODO - mkortelov - fix structure
   page: PropTypes.string,
   setPage: PropTypes.func,
   fileRef: PropTypes.exact({
