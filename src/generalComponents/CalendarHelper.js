@@ -1,7 +1,7 @@
 import { useLocales } from "react-localized";
 import { typeCheck } from "./generalHelpers";
 import { TYPES } from "./globalVariables";
-import { format } from "date-fns";
+import { addHours, format } from "date-fns";
 
 const d = new Date();
 
@@ -226,5 +226,17 @@ export function parseCalendarDateToDate(date) {
     return new Date(`${d[2]}-${d[1]}-${d[0]}`);
   } else {
     throw new Error("Date does not correspond to format - dd.MM.yyyy");
+  }
+}
+
+export function createArrayOfHoursPerDay(beginFrom, interval) {
+  if (typeCheck(beginFrom) === TYPES.DATE) {
+    let hours = [];
+    for (let i = 0; i < 24; i++) {
+      hours.push(format(addHours(beginFrom, i * interval), "HH:mm"));
+    }
+    return hours;
+  } else {
+    throw new Error("Type of the incoming parameter must be date");
   }
 }

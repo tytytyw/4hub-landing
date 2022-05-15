@@ -1,0 +1,22 @@
+@import "src/theme/theme"
+
+.dayTimetableWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  overflow-y: scroll
+  height: calc(100% - 45px)
+  .dayLine
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    min-height: 40px
+    height: max-content
+    font-size: 11px
+    color: $color-text-grey
+    font-family: "SF Pro Regular", sans-serif
+    padding: 0 10px
+    border-bottom: 1px solid $color-border-grey
+    &:last-child
+      border: 0
