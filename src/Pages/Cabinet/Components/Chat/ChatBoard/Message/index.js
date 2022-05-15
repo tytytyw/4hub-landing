@@ -134,7 +134,7 @@ Message.defaultProps = {
 Message.propTypes = {
   message: messageProps.isRequired,
   selectedContact: userInfoProps.isRequired,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   setMouseParams: PropTypes.func.isRequired,
   contextMenuList: PropTypes.string
 };

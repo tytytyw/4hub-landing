@@ -16,7 +16,7 @@ const BusinessRegistration = ({ setBusinessRegistration }) => {
     isСompany: false
   });
   const [mainFields, setMainFields] = useState({});
-  const [step, setStep] = useState("admin");
+  const [step, setStep] = useState("main");
   const [loadingType, setLoadingType] = useState("");
   return (
     <PopUp set={() => {}}>

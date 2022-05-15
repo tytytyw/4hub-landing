@@ -21,7 +21,6 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) =>
   const dispatch = useDispatch();
   const paint = useSelector((state) => state.Cabinet.paint);
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
-
   return (
     <div
       className={classNames({

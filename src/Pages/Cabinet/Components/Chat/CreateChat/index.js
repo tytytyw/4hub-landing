@@ -296,6 +296,6 @@ CreateChat.propTypes = {
   setShowSuccessPopup: PropTypes.func.isRequired,
   selectedContact: userInfoProps,
   componentType: PropTypes.string,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   initialUser: userInfoProps
 };

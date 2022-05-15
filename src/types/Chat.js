@@ -1,4 +1,4 @@
-import PropTypes, { exact } from "prop-types";
+import PropTypes from "prop-types";
 
 export const subOptionsProps = PropTypes.arrayOf(PropTypes.exact({ name: PropTypes.string, title: PropTypes.string }));
 
@@ -11,7 +11,7 @@ export const subOptionProps = PropTypes.exact({
 
 export const fileChatProps = PropTypes.exact({
   lastModified: PropTypes.number,
-  lastModifiedDate: PropTypes.objectOf(PropTypes.string),
+  lastModifieddate: PropTypes.instanceOf(Date),
   name: PropTypes.string,
   size: PropTypes.number,
   type: PropTypes.string,
@@ -45,8 +45,42 @@ export const messageProps = PropTypes.exact({
   ut: PropTypes.string
 });
 
+export const chatUserProps = PropTypes.exact({
+  api_key: PropTypes.string,
+  chat_theme: PropTypes.string,
+  code: PropTypes.string,
+  confirm: PropTypes.string,
+  confirm_pass: PropTypes.string,
+  date_created: PropTypes.string,
+  date_last: PropTypes.string,
+  email: PropTypes.string,
+  fname: PropTypes.string,
+  icon: PropTypes.arrayOf(PropTypes.string),
+  id: PropTypes.string,
+  id_company: PropTypes.string,
+  id_group: PropTypes.string,
+  id_user: PropTypes.string,
+  is_admin: PropTypes.number,
+  is_online: PropTypes.number,
+  lang: PropTypes.string,
+  name: PropTypes.string,
+  name1: PropTypes.string,
+  notify: PropTypes.string,
+  pname: PropTypes.string,
+  prim: PropTypes.string,
+  r: PropTypes.string,
+  safe_code: PropTypes.string,
+  safe_code_ut: PropTypes.string,
+  sname: PropTypes.string,
+  tel: PropTypes.any,
+  theme: PropTypes.string,
+  udir: PropTypes.string,
+  uid: PropTypes.string,
+  unread: PropTypes.string
+});
+
 export const chatItemProps = PropTypes.exact({
-  deadline: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  deadline: PropTypes.string,
   icon: PropTypes.arrayOf(PropTypes.string),
   id: PropTypes.string,
   id_group: PropTypes.string,
@@ -61,43 +95,11 @@ export const chatItemProps = PropTypes.exact({
     })
   ),
   name: PropTypes.string,
+  status: PropTypes.string,
   unread: PropTypes.string,
-  users: PropTypes.arrayOf(
-    PropTypes.exact({
-      api_key: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      chat_theme: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      code: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      confirm: PropTypes.string,
-      confirm_pass: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      date_created: PropTypes.string,
-      date_last: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      email: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      fname: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      icon: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-      id: PropTypes.string,
-      id_company: PropTypes.string,
-      id_group: PropTypes.string,
-      id_user: PropTypes.string,
-      is_admin: PropTypes.number,
-      is_online: PropTypes.number,
-      lang: PropTypes.string,
-      name: PropTypes.string,
-      name1: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      notify: PropTypes.string,
-      pname: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      prim: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      r: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      safe_code: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      safe_code_ut: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      sname: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      tel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      theme: PropTypes.string,
-      udir: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      uid: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      unread: PropTypes.string
-    })
-  ),
-  ut: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  users: PropTypes.arrayOf(chatUserProps),
+  tel: PropTypes.arrayOf(PropTypes.string),
+  ut: PropTypes.string
 });
 
 export const visualEffectsProps = PropTypes.exact({
