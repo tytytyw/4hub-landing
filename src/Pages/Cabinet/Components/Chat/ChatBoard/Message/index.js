@@ -37,8 +37,13 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ||
       (Array.isArray(message.attachment) && message.attachment[0]?.kind?.includes("image"))
     ) {
-      return message.attachment.map((file) => (
-        <FileMessage key={file.fid} file={file} size={message.attachment.length > 1 ? "small" : null} />
+      return message.attachment?.map((file) => (
+        <FileMessage
+          key={file.fid}
+          file={file}
+          size={message.attachment.length > 1 ? "small" : ""}
+          amount={message.attachment.length}
+        />
       ));
     }
     if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "video") {
@@ -72,29 +77,42 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       )}
       <div className={styles.contentWrapper}>
         <div className={styles.flexContainer}>
-          {Array.isArray(message.attachment) && message.attachment[0]?.kind === "video_message" ? (
-            renderAttachment()
-          ) : (
-            <div
-              className={classNames({
-                [styles.content]: true,
-                [styles.file_content]:
-                  (Array.isArray(message.attachment) && message.attachment[0]?.kind === "image") ||
-                  (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file"),
-                [styles.audio_content]:
-                  Array.isArray(message.attachment) && message.attachment[0]?.kind === "audio_message",
-                [styles.video_content]: Array.isArray(message.attachment) && message.attachment[0]?.kind === "video"
-              })}
-            >
-              {renderAttachment()}
-              <div className={styles.textWrapper}>
-                {text.map((item, index) => (
-                  <p key={index} className={styles.text}>
-                    {item}
-                  </p>
-                ))}
+          {Array.isArray(message.attachment) ? (
+            message.attachment[0]?.kind === "video_message" ? (
+              renderAttachment()
+            ) : (
+              <div
+                className={classNames({
+                  [styles.content]: true,
+                  [styles.file_content]:
+                    (Array.isArray(message.attachment) && message.attachment[0]?.kind === "image") ||
+                    (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file"),
+                  [styles.audio_content]:
+                    Array.isArray(message.attachment) && message.attachment[0]?.kind === "audio_message",
+                  [styles.video_content]: Array.isArray(message.attachment) && message.attachment[0]?.kind === "video",
+                  [styles.severalAttachments]: message.attachment?.length > 1
+                })}
+              >
+                <div
+                  className={classNames({
+                    [styles.attachmentsWrapper]: true,
+                    [styles.withText]: message.text,
+                    [styles.twoRows]: message.attachment?.length > 10
+                  })}
+                >
+                  {renderAttachment()}
+                </div>
+                <div className={styles.textWrapper}>
+                  {text.map((item, index) => (
+                    <p key={index} className={styles.text}>
+                      {item}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
+            )
+          ) : (
+            ""
           )}
           {messageType !== "inbox" || (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ? (
             <div className={styles.menuWrapper}>
