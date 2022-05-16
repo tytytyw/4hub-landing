@@ -358,7 +358,7 @@ WorkSpace.propTypes = {
   setShowSuccessPopup: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
   action: actionProps,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
   file: fileChatProps,

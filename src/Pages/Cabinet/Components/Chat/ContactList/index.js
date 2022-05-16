@@ -105,6 +105,6 @@ ContactList.propTypes = {
   sideMenuCollapsed: PropTypes.bool,
   setSelectedContact: PropTypes.func.isRequired,
   setAction: PropTypes.func.isRequired,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   setMouseParams: PropTypes.func.isRequired
 };

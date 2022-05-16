@@ -11,7 +11,7 @@ export const subOptionProps = PropTypes.exact({
 
 export const fileChatProps = PropTypes.exact({
   lastModified: PropTypes.number,
-  lastModifiedDate: PropTypes.objectOf(PropTypes.string),
+  lastModifieddate: PropTypes.instanceOf(Date),
   name: PropTypes.string,
   size: PropTypes.number,
   type: PropTypes.string,

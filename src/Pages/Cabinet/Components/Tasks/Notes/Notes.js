@@ -24,7 +24,7 @@ function Notes() {
         <img className={styles.emptyImg} src={`${imageSrc}assets/PrivateCabinet/create_arrow.svg`} alt="Create Arrow" />
         <img
           className={styles.inscription}
-          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/add-note4.svg`}
+          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/note_board.svg`}
           alt="inscription"
         />
       </div>

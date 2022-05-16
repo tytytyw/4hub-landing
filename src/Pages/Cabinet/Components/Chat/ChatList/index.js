@@ -265,5 +265,5 @@ ChatList.propTypes = {
   setAction: PropTypes.func.isRequired,
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func.isRequired,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired
+  currentDate: PropTypes.instanceOf(Date).isRequired
 };

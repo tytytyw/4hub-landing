@@ -80,8 +80,8 @@ AdminSelect.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.number,
-      text: PropTypes.text,
-      info: PropTypes.text
+      text: PropTypes.string,
+      info: PropTypes.string
     })
   ),
   initValue: PropTypes.string,

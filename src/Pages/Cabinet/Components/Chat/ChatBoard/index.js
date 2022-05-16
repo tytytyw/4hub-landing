@@ -375,7 +375,7 @@ ChatBoard.propTypes = {
   action: actionProps,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
-  currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   addMessage: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
   file: fileProps,

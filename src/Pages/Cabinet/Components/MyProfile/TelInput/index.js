@@ -1,7 +1,7 @@
 import React from "react";
 import Index from "../Input/Input";
 
-const TellInput = ({ ...props }) => {
+const TellInput = () => {
   const onFocus = () => {
     /*const inp = event.target
         if (!/^\+\d*$/.test(inp.value))
@@ -44,7 +44,6 @@ const TellInput = ({ ...props }) => {
 
   return (
     <Index
-      {...props}
       type="tel"
       onFocus={onFocus}
       maxLength={18}
