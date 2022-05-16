@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { onGetContacts } from "../../../../Store/actions/CabinetActions";
 
@@ -20,9 +20,11 @@ import TellFriend from "./TellFriends/TellFriend";
 import PrimaryButton from "./PrimaryButton";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
 const MyProfile = ({ defaultPageOption }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const [pageOption, setPageOption] = useState(null);
   const [popup, setPopup] = useState(false);
@@ -45,7 +47,7 @@ const MyProfile = ({ defaultPageOption }) => {
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div className={classnames(styles.content, `scrollbar-${theme}`)}>
         <div className={styles.buttons}>
           <div className={styles.buttonsList}>
             <PrimaryButton

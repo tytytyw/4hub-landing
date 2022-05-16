@@ -14,7 +14,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { useContextMenuSafeItem } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { safeFileDelete } from "../../../../generalComponents/fileMenuHelper";
-import classNames from "classnames";
+import classnames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import RefreshPass from "./Popups/RefreshPass";
 import NoSafe from "./Popups/NoSafe";
@@ -50,6 +50,7 @@ const Safe = ({
   saveCustomizeSeveralFiles
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const contextMenuSafeItem = useContextMenuSafeItem();
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.uid);
@@ -276,7 +277,7 @@ const Safe = ({
   return (
     <div className={styles.workAreaWrap}>
       <div
-        className={classNames({
+        className={classnames({
           [styles.listWrap]: true,
           [styles.listWrapCollapsed]: !!listCollapsed,
           [styles?.[`listWrapCollapsed_${size}`]]: !!listCollapsed && !!size
@@ -299,7 +300,7 @@ const Safe = ({
             />
           </div>
         </div>
-        <div className={classNames(styles.children, styles?.[`children_${size}`])}>
+        <div className={classnames(styles.children, styles?.[`children_${size}`])}>
           {safes?.length < 1 ? (
             <div className={styles.emptyBlock}>
               <img
@@ -311,11 +312,14 @@ const Safe = ({
             </div>
           ) : (
             <div
-              className={classNames({
-                [styles.folderListWrap]: true,
-                [styles?.[`folderListWrap_${size}`]]: !!size,
-                [styles?.[`folderListWrapCollapsed_${size}`]]: !!listCollapsed && !!size
-              })}
+              className={classnames(
+                {
+                  [styles.folderListWrap]: true,
+                  [styles?.[`folderListWrap_${size}`]]: !!size,
+                  [styles?.[`folderListWrapCollapsed_${size}`]]: !!listCollapsed && !!size
+                },
+                `scrollbar-thin-${theme}`
+              )}
             >
               {renderSafesList()}
             </div>
@@ -481,7 +485,7 @@ Safe.propTypes = {
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  loaded: loadedFileProps,
+  loaded: PropTypes.oneOfType([loadedFileProps, PropTypes.array]),
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.arrayOf(PropTypes.string),

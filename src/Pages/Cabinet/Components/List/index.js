@@ -1,16 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./List.module.sass";
-import classNames from "classnames";
+import classnames from "classnames";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
 const List = ({ title, src, setListCollapsed, listCollapsed, children, onCreate, icon, leftIconSrc }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   return (
     <div
-      className={classNames({
+      className={classnames({
         [styles.listWrap]: true,
         [styles.listWrapCollapsed]: !!listCollapsed
       })}
@@ -45,7 +47,7 @@ const List = ({ title, src, setListCollapsed, listCollapsed, children, onCreate,
           )}
         </div>
       </div>
-      <div className={styles.children}>{children}</div>
+      <div className={classnames(styles.children, `scrollbar-thin-${theme}`)}>{children}</div>
     </div>
   );
 };

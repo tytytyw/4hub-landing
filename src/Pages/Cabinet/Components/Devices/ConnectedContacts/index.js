@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import styles from "./ConnectedContacts.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import classNames from "classnames";
+import classnames from "classnames";
 import ContactItem from "../ContactItem";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import LoadingFailed from "../LoadingFailed";
@@ -19,6 +19,7 @@ const ConnectedContacts = ({
   getConnectedContacts
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const connectedContacts = useSelector((state) => state.Cabinet.connectedContacts);
   const [collapse, setCollapse] = useState(true);
 
@@ -39,14 +40,14 @@ const ConnectedContacts = ({
 
   return (
     <div
-      className={classNames({
+      className={classnames({
         [styles.wrapper]: true,
         [styles.hidden]: collapse,
         [styles.loadingFailed]: loadingFailed
       })}
     >
       <div
-        className={classNames({
+        className={classnames({
           [styles.titleWrap]: true,
           [styles.titleCollapsed]: !!listCollapsed,
           [styles.titleWrapChosen]: !!collapse
@@ -57,7 +58,7 @@ const ConnectedContacts = ({
           Подключенные пользователи
         </span>
         <PlayIcon
-          className={classNames({
+          className={classnames({
             [styles.playButton]: true,
             [styles.revert]: collapse
           })}
@@ -65,9 +66,12 @@ const ConnectedContacts = ({
         />
       </div>
       <div
-        className={classNames({
-          [styles.innerContacts]: true
-        })}
+        className={classnames(
+          {
+            [styles.innerContacts]: true
+          },
+          `scrollbar-thin-${theme}`
+        )}
       >
         {connectedContactsListLoading ? (
           <div
