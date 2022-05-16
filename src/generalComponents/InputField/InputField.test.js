@@ -3,12 +3,12 @@ import { mount } from "enzyme";
 import InputField from "./index";
 
 describe("InputField check tests", () => {
-  const props = {
-    value: "",
-    set: jest.fn(),
-    placeholder: "renderer"
-  };
-  const wrapper = mount(<InputField {...props} />);
+  // const props = {
+  //   value: "",
+  //   set: jest.fn(),
+  //   placeholder: "renderer"
+  // };
+  const wrapper = mount(<InputField />);
   const input = wrapper.find("input");
 
   it("renders input with initial values", () => {

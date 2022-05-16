@@ -70,5 +70,6 @@ const WorkSpaceTable = ({ taskList }) => {
 export default WorkSpaceTable;
 
 WorkSpaceTable.propTypes = {
-  taskList: PropTypes.any
+  //eslint-disable-next-line
+  taskList: PropTypes.any //TODO - mkortelov - fix structure
 };

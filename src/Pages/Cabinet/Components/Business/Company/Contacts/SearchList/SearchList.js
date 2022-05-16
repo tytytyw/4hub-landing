@@ -31,7 +31,8 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
 export default SearchList;
 
 SearchList.propTypes = {
-  data: PropTypes.array,
+  //eslint-disable-next-line
+  data: PropTypes.arrayOf(PropTypes.object), //TODO - mkortelov - fix structure
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func
 };

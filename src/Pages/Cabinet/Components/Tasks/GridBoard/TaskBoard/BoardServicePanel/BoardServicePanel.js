@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./BoardServicePanel.module.sass";
 import PropTypes from "prop-types";
-import { BOARDS } from "../../../../../../../generalComponents/globalVariables";
+import { BOARDS, imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useTaskBoardTitle } from "../../../../../../../generalComponents/collections";
 import { ReactComponent as FrameIcon } from "assets/PrivateCabinet/tasks/frame.svg";
 import classNames from "classnames";
@@ -18,13 +18,35 @@ function BoardServicePanel({ type, isLastElement }) {
   const [tabSelect, setTabSelect] = useState(2);
 
   const ELEMENTS = [ListIcon, BarsIcon, LinesIcon, CalendarIcon];
+  console.log(type);
+  const renderAddImage = () => (
+    <>
+      <img
+        className={styles[`${type}_emptyImg`]}
+        src={`${imageSrc}assets/PrivateCabinet/create_arrow.svg`}
+        alt="Create Arrow"
+      />
+      {type && (
+        <img
+          className={styles[`${type}_inscription`]}
+          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/${type.toLowerCase()}.svg`}
+          alt="inscription"
+        />
+      )}
+    </>
+  );
 
   return (
     <div className={styles.boardServicePanelWrap}>
       <span className={styles.boardTitle}>{TITLE[type]}</span>
       <div className={styles.buttonsWrap}>
         <FrameIcon className={styles.frameIcon} />
-        {!isLastElement ? <AddIcon className={classNames(styles.addIcon)} /> : null}
+        {!isLastElement ? (
+          <div className={styles.addIconWrap}>
+            <AddIcon className={classNames(styles.addIcon)} />
+            {renderAddImage()}
+          </div>
+        ) : null}
         {isLastElement ? <TabsPicker ELEMENTS={ELEMENTS} selected={tabSelect} onClick={setTabSelect} /> : null}
         <div className={styles.threeDots}>
           <ThreeDots onClick={() => {}} />
