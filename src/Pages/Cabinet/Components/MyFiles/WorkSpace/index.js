@@ -48,6 +48,7 @@ const WorkSpace = ({
 }) => {
   const { __ } = useLocales();
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
+
   const fileRef = useRef(null);
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
@@ -65,7 +66,7 @@ const WorkSpace = ({
     //TODO - Need to change request after server changes
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
-    if (pathname === "/cart") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+    if (pathname === "/cart") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "trash_list"));
 
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")

@@ -18,6 +18,7 @@ import {
   onGetArchiveFiles,
   onSetNextFilesToPrevious,
   onSetPath
+  // onGetCartFiles
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -164,11 +165,6 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-
-    if (pathname === "/cart") {
-      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
-      setFilesPage(1);
-    }
   }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {
@@ -202,16 +198,7 @@ const ItemsList = ({
 
   const load = (entry) => {
     if (!gLoader) {
-      if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === "/folders") {
-        setLoadingFiles(true);
-        dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
-      }
-      if (
-        entry.isIntersecting &&
-        !loadingFiles &&
-        filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
-      ) {
+      if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
         setLoadingFiles(true);
         pathname === "/archive" &&
           dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, "", "", dateFilter, pathname));
@@ -219,10 +206,13 @@ const ItemsList = ({
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
+        pathname === "/folders" && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
         pathname === "/downloaded-files" &&
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
+        pathname === "/cart" &&
+          dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "trash_list", pathname));
       }
     }
   };

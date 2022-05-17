@@ -900,6 +900,72 @@ export const setDragged = (element) => {
   };
 };
 
+// CART
+
+export const onGetCartFiles =
+  (search, page, set, setLoad, loadedFilesType, dateFilter) => async (dispatch, getState) => {
+    const emoji = getState().Cabinet.fileCriterion.filters.emoji
+      ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}`
+      : "";
+    const sign = getState().Cabinet.fileCriterion.filters.figure
+      ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}`
+      : "";
+    const color = getState().Cabinet.fileCriterion.filters.color.color
+      ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}`
+      : "";
+    const searched = search ? `&search=${search}` : "";
+    const dateFiltered = dateFilter
+      ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : ""}${dateFilter?.m ? `&m=${dateFilter?.m}` : ""}${
+          dateFilter?.y ? `&y=${dateFilter?.y}` : ""
+        }`
+      : "";
+    const sortReverse =
+      getState().Cabinet.fileCriterion.reverse &&
+      getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting]
+        ? `&sort_reverse=1`
+        : "";
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = { cancelChooseFiles };
+    const url = `/ajax/trash_list.php?uid=${
+      getState().user.uid
+    }${searched}${dateFiltered}&page=${page}&per_page=${30}&sort=${
+      getState().Cabinet.fileCriterion.sorting
+    }${sortReverse}${emoji}${sign}${color}`;
+    await api
+      .get(url, {
+        cancelToken: cancelChooseFiles.token
+      })
+      .then((files) => {
+        if (loadedFilesType === "next") {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES_NEXT,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES_NEXT,
+                payload: { files: files.data }
+              });
+        } else {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES,
+                payload: { files: files.data }
+              });
+        }
+        if (typeof set === "function") set(files.data.length ?? files.data);
+        if (setLoad) setLoad(false);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => {
+        delete window.cancellationTokens.cancelChooseFiles;
+      });
+  };
+
 // Chat
 export const onGetChatGroups = (updateGroupUsersList) => async (dispatch, getState) => {
   const uid = getState().user.uid;
