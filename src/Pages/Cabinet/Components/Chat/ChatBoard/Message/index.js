@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useMessageTime } from "../../../../../../generalComponents/chatHelper";
@@ -10,6 +10,8 @@ import FileMessage from "./FileMessage";
 import VideoPlayer from "../../CreateCameraMedia/VideoPlayer";
 import PropTypes from "prop-types";
 import { messageProps, selectedContactProps } from "types/Chat";
+import { imageFormats, calcImageSize } from "../../../../../../generalComponents/chatHelper";
+import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 
 function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
   const messageTime = useMessageTime();
@@ -19,6 +21,15 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const messageType = message.id_user === userId ? "outbox" : "inbox";
   const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const videoPlayerRef = useRef();
+  const attachmentsWrapperRef = useRef();
+  const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
+  const dispatch = useDispatch();
+
+  const attachmentIsOnlyImages = () => {
+    const files = message.attachment;
+    if (!Array.isArray(files)) return false;
+    return files.every((file) => imageFormats.some((imageFormat) => file.ext === imageFormat));
+  };
 
   const renderAttachment = () => {
     if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "audio_message") {
@@ -37,14 +48,36 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ||
       (Array.isArray(message.attachment) && message.attachment[0]?.kind?.includes("image"))
     ) {
-      return message.attachment?.map((file) => (
-        <FileMessage
-          key={file.fid}
-          file={file}
-          size={message.attachment.length > 1 ? "small" : ""}
-          amount={message.attachment.length}
-        />
-      ));
+      return message.attachment?.map((file, i) =>
+        attachmentIsOnlyImages() ? (
+          <img
+            key={file.fid + i}
+            className={styles.imagePreview}
+            src={file.preview}
+            alt={file.name}
+            style={{
+              height: calcImageSize(attachmentsWrapperRef?.current, message.attachment.length).height,
+              width: calcImageSize(attachmentsWrapperRef?.current, message.attachment.length).width
+            }}
+            onClick={() =>
+              dispatch(
+                onSetModals("previewFile", {
+                  ...previewFile,
+                  open: true,
+                  file
+                })
+              )
+            }
+          />
+        ) : (
+          <FileMessage
+            key={file.fid}
+            file={file}
+            size={message.attachment.length > 1 ? "small" : ""}
+            amount={message.attachment.length}
+          />
+        )
+      );
     }
     if (Array.isArray(message.attachment) && message.attachment[0]?.kind === "video") {
       return (
@@ -97,8 +130,10 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
                   className={classNames({
                     [styles.attachmentsWrapper]: true,
                     [styles.withText]: message.text,
-                    [styles.twoRows]: message.attachment?.length > 10
+                    [styles.twoRows]: message.attachment?.length > 10,
+                    [styles.previewImages]: attachmentIsOnlyImages()
                   })}
+                  ref={attachmentsWrapperRef}
                 >
                   {renderAttachment()}
                 </div>
