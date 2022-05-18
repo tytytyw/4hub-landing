@@ -18,7 +18,6 @@ import {
   onGetArchiveFiles,
   onSetNextFilesToPrevious,
   onSetPath
-  // onGetCartFiles
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -162,6 +161,10 @@ const ItemsList = ({
 
   useEffect(() => {
     if (pathname === "/archive") {
+      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
+      setFilesPage(1);
+    }
+    if (pathname === "/cart") {
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }

@@ -58,6 +58,7 @@ const WorkSpace = ({
     setFilesPage(2);
     setGLoader(false);
   };
+
   useEffect(() => {
     setFilesPage(0);
     setGLoader(true);
@@ -66,7 +67,7 @@ const WorkSpace = ({
     //TODO - Need to change request after server changes
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
-    if (pathname === "/cart") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "trash_list"));
+    if (pathname === "/cart") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "trash_list", pathname));
 
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")

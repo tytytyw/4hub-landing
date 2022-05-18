@@ -29,6 +29,7 @@ const SearchField = ({ setChosenFile, menuItem, selectable = true, chatTheme = "
     if (pathname === "/folders") dispatch(onChooseFiles(path, query, 1));
     if (pathname.includes("files")) dispatch(onChooseFiles("", query, 1, "", "", "", "file_list_all"));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(query, 1, "", "", "")); //TODO: add date filter
+    if (pathname === "/cart") dispatch(onChooseFiles("", query, 1, "", "", "", "trash_list"));
     if (pathname === "/safe")
       dispatch(
         onGetSafeFileList(

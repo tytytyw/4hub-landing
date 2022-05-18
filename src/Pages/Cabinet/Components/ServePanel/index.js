@@ -97,6 +97,8 @@ const ServePanel = ({
     dispatch(onSortFile(sorting));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart")
+      dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "trash_list", pathname));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -177,6 +179,7 @@ const ServePanel = ({
     dispatch(onChangeFilterFigure(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "trash_list", pathname));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -200,6 +203,8 @@ const ServePanel = ({
     dispatch(onChangeFilterColor(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart")
+      dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "trash_list", pathname));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -223,6 +228,7 @@ const ServePanel = ({
     dispatch(onChangeFilterEmoji(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "trash_list", pathname));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
