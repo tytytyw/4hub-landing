@@ -485,7 +485,7 @@ Safe.propTypes = {
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
-  loaded: PropTypes.oneOfType([loadedFileProps, PropTypes.array]),
+  loaded: PropTypes.arrayOf(loadedFileProps),
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.arrayOf(PropTypes.string),
