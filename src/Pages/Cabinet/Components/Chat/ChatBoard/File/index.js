@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./File.module.sass";
 import classNames from "classnames";
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 const File = ({ format, color, fileSize }) => {
   const formats = [
@@ -40,12 +41,12 @@ const File = ({ format, color, fileSize }) => {
           style={{ background: `${color ? color : ""}`, fontSize: 8 }}
         >
           {format?.toUpperCase() === "ZIP" ? (
-            <img className={styles.zip} src="/assets/PrivateCabinet/zipper.svg" alt="" />
+            <img className={styles.zip} src={`${imageSrc}assets/PrivateCabinet/zipper.svg`} alt="" />
           ) : null}
           {format ? (
             <span className={format?.toUpperCase() === "ZIP" ? styles.labelZip : null}>{format?.toUpperCase()}</span>
           ) : (
-            <img src="./assets/PrivateCabinet/down-arrow-2.svg" alt="img" />
+            <img src={`${imageSrc}assets/PrivateCabinet/down-arrow-2.svg`} alt="img" />
           )}
         </div>
       </div>
