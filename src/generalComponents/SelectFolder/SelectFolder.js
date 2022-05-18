@@ -14,6 +14,7 @@ const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => 
   const [value] = useState(initValue);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const [chosenFolder, setChosenFolder] = useState(initFolder);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
   const ref = useRef();
@@ -100,10 +101,13 @@ const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => 
       </div>
 
       <div
-        className={classNames({
-          [styles.contentWrap]: true,
-          [styles.active]: !!open
-        })}
+        className={classNames(
+          {
+            [styles.contentWrap]: true,
+            [styles.active]: !!open
+          },
+          `scrollbar-thin-${theme}`
+        )}
       >
         <div className={styles.folderListWrap}>
           {open && renderFolderList(global)}

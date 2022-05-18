@@ -39,8 +39,8 @@
   align-items: center
   position: relative
   width: 420px
-  height: 707px
   animation: showPopup 0.2s ease-in-out
+  padding: 20px
   .cross
     position: absolute
     top: 20px
@@ -78,10 +78,10 @@
   .title
     font-size: 19px
     font-family: "SF Pro Medium", sans-serif
-    margin: 20px 0 40px 0
+    margin-bottom: 20px
   .folderIconWrap
     display: flex
-    width: 87%
+    width: 100%
     margin: 0 0 28px 0
     .folder
       position: relative
@@ -153,7 +153,7 @@
     display: flex
     flex-direction: column
     justify-content: space-between
-    width: 87%
+    width: 100%
     .inputWrap
       height: 40px
       margin-bottom: 10px
@@ -197,15 +197,13 @@
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
         color: #bab8b8
-      .tagList::-webkit-scrollbar
-        width: 0
       .tagList
         display: none
         position: absolute
         z-index: 4
         left: -1px
         bottom: -137px
-        width: 100%
+        width: calc( 100% + 2px )
         height: 140px
         background: white
         overflow-x: hidden
@@ -215,16 +213,7 @@
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
         cursor: pointer
-        &::-webkit-scrollbar-track
-          background: #0A3AAB
-        &::-webkit-scrollbar-track
-          -webkit-box-shadow: none
-          background-color: #F5F5F5
-        &::-webkit-scrollbar
-          width: 5px
-          background-color: #FFFFFF
-        &::-webkit-scrollbar-thumb
-          background-color: #4086F1
+
         div
           display: flex
           align-items: center
@@ -396,6 +385,7 @@
         .tagList
           height: 110px
           bottom: -108px
+          width: calc( 100% + 1px )
           div
             display: flex
             align-items: center

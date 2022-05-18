@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ReactComponent as AddIcon } from "../../../../../../../../assets/PrivateCabinet/plus-3.svg";
 import { useSelector } from "react-redux";
+import { imageSrc } from "../../../../../../../../generalComponents/globalVariables";
 
 function TaskTabs({ taskTabs, chosen }) {
   const { theme } = useSelector((s) => s.user.userInfo);
@@ -22,7 +23,19 @@ function TaskTabs({ taskTabs, chosen }) {
 
   return (
     <div className={styles.taskTabWrap}>
-      <AddIcon className={classNames(styles.addIcon)} />
+      <div className={styles.addIconWrap}>
+        <AddIcon className={classNames(styles.addIcon)} />
+        <img
+          className={styles.emptyImg}
+          src={`${imageSrc}assets/PrivateCabinet/create_arrow_reverse.svg`}
+          alt="Create Arrow"
+        />
+        <img
+          className={styles.inscription}
+          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/tasks-board.png`}
+          alt="inscription"
+        />
+      </div>
       {renderTaskTabs()}
     </div>
   );

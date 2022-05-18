@@ -252,7 +252,7 @@ const ItemsList = ({
           className={classnames(
             renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
             styles.FilesList,
-            `scrollbar-vertical-${theme}`,
+            `scrollbar-${theme}`,
             {
               [styles.shared_files]: pathname.startsWith("/shared-files")
             }

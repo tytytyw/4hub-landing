@@ -21,6 +21,7 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import classnames from "classnames";
 
 const MyFiles = ({
   filePreview,
@@ -47,6 +48,7 @@ const MyFiles = ({
   const periods = usePeriods();
   const dispatch = useDispatch();
   const [chosenFile, setChosenFile] = useState(null);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const fileList = useSelector((state) => state.Cabinet.fileList);
   const workElementsView = useSelector((state) => state.Cabinet.view);
   const search = useSelector((state) => state.Cabinet.search);
@@ -195,7 +197,7 @@ const MyFiles = ({
             chosenFile={chosenFile}
             setChosenFile={setChosenFile}
           >
-            <div className={styles.folderListWrap}>
+            <div className={classnames(styles.folderListWrap, `scrollbar-thin-${theme}`)}>
               {Array.isArray(fileList?.files)
                 ? renderFileItem(FileItem, fileList?.files)
                 : renderGroups(fileList?.files)}

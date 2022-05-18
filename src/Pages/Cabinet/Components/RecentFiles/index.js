@@ -8,10 +8,12 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { getIcon } from "../Project/helpers";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
+import classnames from "classnames";
 
 const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallback, width }) => {
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const chosenRecentFile = useSelector((state) => state.Cabinet.chosenRecentFile);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const containerRef = useRef();
 
@@ -31,7 +33,7 @@ const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallb
       return (
         <div
           className={`
-                ${styles.fileWrap} 
+                ${styles.fileWrap}
                 ${
                   file?.fid
                     ? chosenRecentFile?.fid === file?.fid
@@ -69,7 +71,11 @@ const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallb
   };
 
   return (
-    <div className={styles.wrap} ref={containerRef} style={{ width: width - 27 }}>
+    <div
+      className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
+      ref={containerRef}
+      style={{ width: width - 27 }}
+    >
       <div className={styles.recentFilesWrap}>{renderRecent()}</div>
     </div>
   );

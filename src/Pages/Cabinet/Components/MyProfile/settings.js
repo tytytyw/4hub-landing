@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { onGetContacts } from "../../../../Store/actions/CabinetActions";
 
@@ -19,9 +19,11 @@ import Confident from "./Confident";
 import PrimaryButton from "./PrimaryButton";
 import TariffPlan from "./TariffPlan/increase_storage";
 import { useLocales } from "react-localized";
+import classnames from "classnames";
 
 const Settings = () => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const [pageOption, setPageOption] = useState("confident");
   const [popup, setPopup] = useState(false);
@@ -41,7 +43,7 @@ const Settings = () => {
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div className={classnames(styles.content, `scrollbar-${theme}`)}>
         <div className={styles.buttons}>
           <div className={styles.buttonsList}>
             <PrimaryButton

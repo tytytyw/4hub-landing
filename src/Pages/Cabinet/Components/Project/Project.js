@@ -37,6 +37,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileAddCustomizationProps, loadedFileProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import classNames from "classnames";
 
 const Project = ({
   setLoadingType,
@@ -55,6 +56,7 @@ const Project = ({
   saveCustomizeSeveralFiles
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const contextMenuSubFolder = useContextMenuSubFolder();
   const contextMenuProjects = useContextMenuProjects();
   const dispatch = useDispatch();
@@ -263,7 +265,7 @@ const Project = ({
       <List
         title={__("Создать проект")}
         src="add_project.svg"
-        className={styles.listWrap}
+        className={classNames(styles.listWrap, `scrollbar-thin-${theme}`)}
         onCreate={setCreateProject}
         ref={listRef}
         listCollapsed={listCollapsed}

@@ -19,9 +19,7 @@ function DayTimetable({ timePeriod }) {
     ));
 
   return (
-    <div className={classNames(styles.dayTimetableWrap, `scrollbar-vertical-medium-${theme}`)}>
-      {renderTimetableLine()}
-    </div>
+    <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>{renderTimetableLine()}</div>
   );
 }
 

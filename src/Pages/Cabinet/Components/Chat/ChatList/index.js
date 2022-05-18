@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomChatItem from "../CustomChatItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useCreateContactStatus } from "../../../../../generalComponents/chatHelper";
-import classNames from "classnames";
+import classnames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
 import {
@@ -27,6 +27,7 @@ const ChatList = ({
   currentDate
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
   const dispatch = useDispatch();
@@ -182,13 +183,13 @@ const ChatList = ({
 
   return (
     <div
-      className={classNames({
+      className={classnames({
         [styles.listWrap]: true,
         [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <div
-        className={classNames({
+        className={classnames({
           [styles.item]: true,
           [styles.active]: false,
           [styles.addChat]: true,
@@ -220,13 +221,13 @@ const ChatList = ({
       </div>
 
       <div
-        className={classNames({
+        className={classnames({
           [styles.chatsSwitcher]: true,
           [styles.collapsed]: sideMenuCollapsed
         })}
       >
         <div
-          className={classNames({
+          className={classnames({
             [styles.item]: true,
             [styles.active]: chatsType === "chats",
             [styles.addChat]: true
@@ -237,7 +238,7 @@ const ChatList = ({
           <span className={styles.text}>Чаты</span>
         </div>
         <div
-          className={classNames({
+          className={classnames({
             [styles.item]: true,
             [styles.active]: chatsType === "groups",
             [styles.addChat]: true
@@ -248,7 +249,7 @@ const ChatList = ({
           <span className={styles.text}>Группы</span>
         </div>
       </div>
-      <div className={styles.list}>
+      <div className={classnames(styles.list, `scrollbar-thin-${theme}`)}>
         {chatsType === "chats" ? renderChatsList() : ""}
         {chatsType === "groups" ? renderGroupsList() : ""}
       </div>

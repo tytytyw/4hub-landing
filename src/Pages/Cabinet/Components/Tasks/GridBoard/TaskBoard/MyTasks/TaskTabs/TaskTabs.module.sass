@@ -10,10 +10,23 @@
   min-height: 45px
   padding: 0 20px
   border-bottom: 1px solid $color-border-grey
-  .addIcon
+  .addIconWrap
+    position: relative
     width: 18px
     height: 18px
     margin: 0 10px 0 0
+    .addIcon
+      width: 18px
+      height: 18px
+    .emptyImg
+      position: absolute
+      top: 32px
+      transform: rotateZ(5deg)
+      left: -20px
+    .inscription
+      position: absolute
+      left: 120px
+      top: 107px
   .taskButton
     display: flex
     justify-content: center

@@ -292,7 +292,11 @@ const CreateFile = ({
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
+              <div
+                className={classnames(styles.tagList, `scrollbar-thin-${theme}`)}
+                ref={tagRef}
+                onClick={handleChoose}
+              >
                 {renderTags()}
               </div>
             </div>

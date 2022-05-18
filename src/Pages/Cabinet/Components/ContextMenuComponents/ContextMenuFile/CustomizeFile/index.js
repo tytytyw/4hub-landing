@@ -24,10 +24,12 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { projectProps } from "types/Project";
+import classnames from "classnames";
 
 const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const { __ } = useLocales();
   const tags = useTags();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const { title, items, filePick, menuItem } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const file = items[0];
@@ -290,7 +292,7 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div className={styles.tagList}>{renderTags()}</div>
+              <div className={classnames(styles.tagList, `scrollbar-thin-${theme}`)}>{renderTags()}</div>
             </div>
             <div className={styles.inputWrap}>
               <InputField
