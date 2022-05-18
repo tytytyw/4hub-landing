@@ -155,17 +155,19 @@ export const contactProps = {
   ut: PropTypes.string
 };
 
+const contactMessagesInfo = PropTypes.arrayOf(
+  PropTypes.exact({
+    id: PropTypes.string,
+    id_user: PropTypes.string,
+    ut: PropTypes.string,
+    text: PropTypes.string
+  })
+);
+
 export const selectedContactProps = {
   ...groupProps,
   ...contactProps,
   users: PropTypes.arrayOf(PropTypes.exact(contactProps)),
   status: PropTypes.string,
-  messages: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string,
-      id_user: PropTypes.string,
-      ut: PropTypes.string,
-      text: PropTypes.string
-    })
-  )
+  messages: contactMessagesInfo
 };
