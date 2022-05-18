@@ -23,6 +23,7 @@ import { socketProps } from "../../../../../types/Socket";
 import { fileProps } from "types/File";
 import { useLocales } from "react-localized";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
+import { MODALS } from "../../../../../generalComponents/globalVariables";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -74,9 +75,9 @@ const ChatBoard = ({
     return messagesOfDay.map((msg) => {
       if (!msg.id_user || !msg.id || !msg.id_user || !msg.id_user_to) {
         dispatch(
-          onSetModals("topMessage", {
+          onSetModals(MODALS.TOP_MESSAGE, {
             open: true,
-            type: "error",
+            type: MODALS.ERROR,
             message: __("Ошибка загрузки сообщения")
           })
         );
