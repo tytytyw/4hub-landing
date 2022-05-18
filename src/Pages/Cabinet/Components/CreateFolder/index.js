@@ -18,6 +18,7 @@ import SelectFolder from "../../../../generalComponents/SelectFolder/SelectFolde
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { folderProps } from "../../../../types/Folder";
+import classnames from "classnames";
 
 const CreateFolder = ({
   onCreate,
@@ -30,6 +31,7 @@ const CreateFolder = ({
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const uid = useSelector((state) => state.user.uid);
   const fileList = useSelector((state) => state.Cabinet.fileList);
   const search = useSelector((state) => state.Cabinet.search);
@@ -198,7 +200,11 @@ const CreateFolder = ({
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
+              <div
+                className={classnames(styles.tagList, `scrollbar-thin-${theme}`)}
+                ref={tagRef}
+                onClick={handleChoose}
+              >
                 {renderTags()}
               </div>
             </div>

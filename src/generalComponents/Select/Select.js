@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import { useSelector } from "react-redux";
 import styles from "./Select.module.sass";
-import classNames from "classnames";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) => {
+const Select = ({ data, initValue, onChange, cleareFilter, chatTheme, ...props }) => {
+  const { theme } = useSelector((state) => state.user.userInfo);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initValue);
   const ref = useRef();
@@ -40,11 +41,11 @@ const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) =>
   return (
     <div
       ref={ref}
-      className={classNames({
+      className={classnames({
         [styles.selectWrap]: true,
         [props.className]: true,
         [styles.active]: !!open,
-        [styles.darkTheme]: theme === "dark"
+        [styles.darkTheme]: chatTheme === "dark"
       })}
     >
       <div
@@ -52,14 +53,14 @@ const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) =>
           setOpen(!open);
           setValue("");
         }}
-        className={classNames({
+        className={classnames({
           [styles.select]: true,
           [styles.selected]: !!value
         })}
       >
         <div className={styles.valueWrap}>
           <span
-            className={classNames({
+            className={classnames({
               [styles.selectInput]: !props.classNameSelect,
               [props.classNameSelect]: !!props.classNameSelect
             })}
@@ -68,7 +69,7 @@ const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) =>
           </span>
         </div>
         <span
-          className={classNames({
+          className={classnames({
             [styles.arrow]: true,
             [styles.active]: !!open
           })}
@@ -76,10 +77,13 @@ const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) =>
       </div>
 
       <div
-        className={classNames({
-          [styles.contentWrap]: true,
-          [styles.active]: !!open
-        })}
+        className={classnames(
+          {
+            [styles.contentWrap]: true,
+            [styles.active]: !!open
+          },
+          `scrollbar-thin-${theme}`
+        )}
       >
         <ul className={styles.content}>
           {data.length > 1
@@ -91,7 +95,7 @@ const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) =>
                     setValue(item.id);
                     onChange(item.id);
                   }}
-                  className={classNames({
+                  className={classnames({
                     [styles.option]: true,
                     [styles.active]: value === item.id
                   })}
@@ -127,7 +131,7 @@ Select.propTypes = {
   initValue: PropTypes.string,
   onChange: PropTypes.func,
   cleareFilter: PropTypes.func,
-  theme: PropTypes.string,
+  chatTheme: PropTypes.string,
   placeholder: PropTypes.string,
   className: PropTypes.string,
   classNameSelect: PropTypes.string

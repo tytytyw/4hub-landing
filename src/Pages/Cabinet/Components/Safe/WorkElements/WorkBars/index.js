@@ -10,6 +10,7 @@ import { useScrollElementOnScreen } from "../../../../../../generalComponents/Ho
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../../../../types/File";
+import classNames from "classnames";
 
 const WorkBars = ({
   children,
@@ -24,6 +25,7 @@ const WorkBars = ({
   setLoadingFiles
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const size = useSelector((state) => state.Cabinet.size);
   const search = useSelector((state) => state.Cabinet.search);
   const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
@@ -66,7 +68,7 @@ const WorkBars = ({
   return (
     <div
       ref={fileRef}
-      className={styles.workBarsWrap}
+      className={classNames(styles.workBarsWrap, `scrollbar-${theme}`)}
       style={{
         height: `${filePick.show ? "calc(100% - 90px - 55px - 90px)" : "calc(100% - 90px - 55px)"}`,
         gridTemplateColumns:

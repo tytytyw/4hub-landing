@@ -1,6 +1,6 @@
 @import "colors"
 
-@mixin scrollbar-vertical($width, $color1, $color2)
+@mixin scrollbar($width, $height, $color1, $color2)
   scrollbar-width: auto
   scrollbar-color: $color1 $color-white
   &::-webkit-scrollbar-track
@@ -9,51 +9,51 @@
     -webkit-box-shadow: none
     background-color: $color-white
   &::-webkit-scrollbar
-    height: 0
+    height: #{$height}px
     width: #{$width}px
     background-color: $color-white
   &::-webkit-scrollbar-thumb
     background-color: $color1
 
 //Blue theme
-.scrollbar-vertical-blue
-  @include scrollbar-vertical(12, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-blue
+  @include scrollbar(12, 12, $color-scrollbar, $color-scrollbar-dark)
 
-.scrollbar-vertical-thin-blue
-  @include scrollbar-vertical(3, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-thin-blue
+  @include scrollbar(3, 3, $color-scrollbar, $color-scrollbar-dark)
 
-.scrollbar-vertical-medium-blue
-  @include scrollbar-vertical(6, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-medium-blue
+  @include scrollbar(6, 6, $color-scrollbar, $color-scrollbar-dark)
 
 
 //Orange theme
 //TODO - Colors needs to be changed
-.scrollbar-vertical-orange
-  @include scrollbar-vertical(12, $color-scrollbar-orange, $color-scrollbar-dark-orange)
+.scrollbar-orange
+  @include scrollbar(12, 12, $color-scrollbar-orange, $color-scrollbar-dark-orange)
 
-.scrollbar-vertical-thin-orange
-  @include scrollbar-vertical(3, $color-scrollbar-orange, $color-scrollbar-dark-orange)
+.scrollbar-thin-orange
+  @include scrollbar(3, 3, $color-scrollbar-orange, $color-scrollbar-dark-orange)
 
-.scrollbar-vertical-medium-orange
-  @include scrollbar-vertical(6, $color-scrollbar-orange, $color-scrollbar-dark-orange)
+.scrollbar-medium-orange
+  @include scrollbar(6, 6, $color-scrollbar-orange, $color-scrollbar-dark-orange)
 
 
 //Turquoise theme
-.scrollbar-vertical-turquoise
-  @include scrollbar-vertical(12, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-turquoise
+  @include scrollbar(12, 12, $color-scrollbar-turquoise, $color-scrollbar-dark-turquoise)
 
-.scrollbar-vertical-thin-turquoise
-  @include scrollbar-vertical(3, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-thin-turquoise
+  @include scrollbar(3, 3, $color-scrollbar-turquoise, $color-scrollbar-dark-turquoise)
 
-.scrollbar-vertical-medium-turquoise
-  @include scrollbar-vertical(6, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-medium-turquoise
+  @include scrollbar(6, 6, $color-scrollbar-turquoise, $color-scrollbar-dark-turquoise)
 
 //Dark theme
-.scrollbar-vertical-dark
-  @include scrollbar-vertical(12, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-dark
+  @include scrollbar(12, 12, $color-scrollbar-dark, $color-scrollbar-dark-dark)
 
-.scrollbar-vertical-thin-dark
-  @include scrollbar-vertical(3, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-thin-dark
+  @include scrollbar(3, 3, $color-scrollbar-dark, $color-scrollbar-dark-dark)
 
-.scrollbar-vertical-medium-dark
-  @include scrollbar-vertical(6, $color-scrollbar, $color-scrollbar-dark)
+.scrollbar-medium-dark
+  @include scrollbar(6, 6, $color-scrollbar-dark, $color-scrollbar-dark-dark)

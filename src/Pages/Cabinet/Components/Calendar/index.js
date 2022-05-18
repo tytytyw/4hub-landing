@@ -62,7 +62,7 @@ const CalendarPage = () => {
       </div>
 
       <div className={styles.contentRight}>
-        <div className={classnames(styles.sideMenu, `scrollbar-vertical-thin-${theme}`)}>
+        <div className={classnames(styles.sideMenu, `scrollbar-thin-${theme}`)}>
           <div className={styles.addTaskBlock}>
             <p>{__("Создать задачу")}</p>
             <img
@@ -75,7 +75,7 @@ const CalendarPage = () => {
           <ListCalendar setViewType={setViewType} />
           <SidebarTasks data={events} />
         </div>
-        <div className={classnames(styles.wrapper, `scrollbar-vertical-${theme}`)}>
+        <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />
           <div className={styles.headerBlock}>
             <p className={styles.date}>{getStrDate()}</p>

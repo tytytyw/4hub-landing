@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 const WorkSpace = ({ listCollapsed }) => {
   const { __ } = useLocales();
   const category = useSelector((s) => s.Cabinet.programs.category);
-
+  const { theme } = useSelector((state) => state.user.userInfo);
   const renderPrograms = () => category.list.map((program, i) => <ProgramItem key={i} program={program} />);
 
   const emptyList = () => <div className={styles.emptyList}>{__("Список программ пуст")}</div>;
@@ -36,7 +36,7 @@ const WorkSpace = ({ listCollapsed }) => {
             <Profile />
           </div>
         </div>
-        <div className={styles.fileList}>
+        <div className={classnames(styles.fileList, `scrollbar-${theme}`)}>
           {category?.list ? (category.list.length > 0 ? renderPrograms() : emptyList()) : null}
         </div>
       </div>

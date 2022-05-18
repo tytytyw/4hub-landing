@@ -9,12 +9,12 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { getMedia, renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
-import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { folderProps } from "../../../../../types/Folder";
+import classnames from "classnames";
 
 const WorkBarsPreview = ({
   children,
@@ -32,6 +32,7 @@ const WorkBarsPreview = ({
   groupInfo
 }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [f, setF] = useState(file);
   const search = useSelector((state) => state.Cabinet?.search);
@@ -146,12 +147,10 @@ const WorkBarsPreview = ({
 
   return (
     <div
-      className={`${styles.workBarsPreviewWrap} ${renderHeight(
-        recentFiles,
-        filePick,
-        styles,
-        pathname === "/archive" || pathname === "/cart"
-      )}`}
+      className={classnames(
+        styles.workBarsPreviewWrap,
+        `${renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart")}`
+      )}
       style={{
         gridTemplateColumns:
           size === "small"
@@ -177,7 +176,7 @@ const WorkBarsPreview = ({
                 {chosenFolder?.group?.amount ?? groupInfo.amount ?? 0} {__("объектов")}
               </button>
               <div
-                className={classNames({
+                className={classnames({
                   [styles.arrowFile]: true
                 })}
               ></div>
@@ -214,7 +213,7 @@ const WorkBarsPreview = ({
         ) : null}
       </div>
 
-      <div className={styles.renderedFiles} style={{ width, maxWidth: width }}>
+      <div className={classnames(styles.renderedFiles, `scrollbar-thin-${theme}`)} style={{ width, maxWidth: width }}>
         <div ref={fileRef} className={styles.innerFiles}>
           {!gLoader && children}
           {!gLoader ? (

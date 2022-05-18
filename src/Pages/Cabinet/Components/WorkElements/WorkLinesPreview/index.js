@@ -13,6 +13,7 @@ import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
+import classnames from "classnames";
 
 const WorkLinesPreview = ({
   file,
@@ -30,6 +31,7 @@ const WorkLinesPreview = ({
 }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const search = useSelector((state) => state.Cabinet?.search);
   const fileList = useSelector((state) => state.Cabinet?.fileList);
@@ -147,7 +149,7 @@ const WorkLinesPreview = ({
       )}`}
     >
       {!hideFileList && menuItem !== "myFiles" && (
-        <div className={styles.fileListWrap} ref={fileRef}>
+        <div className={classnames(styles.fileListWrap, `scrollbar-thin-${theme}`)} ref={fileRef}>
           {!gLoader && children}
           {!gLoader ? (
             <div

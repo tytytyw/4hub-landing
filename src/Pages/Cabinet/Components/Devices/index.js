@@ -25,9 +25,11 @@ import api from "../../../../api";
 import OptionButtomLine from "./OptionButtomLine";
 import LoadingFailed from "./LoadingFailed";
 import { useLocales } from "react-localized";
+import classnames from "classnames";
 
 const Devices = () => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const contextMenuDevice = useContextMenuDevice();
   const contextMenuDeviceUser = useContextMenuDeviceUser();
   const dispatch = useDispatch();
@@ -160,7 +162,7 @@ const Devices = () => {
     <div className={styles.workAreaWrap}>
       <List icon={false} title={__("Мои устройства")} setListCollapsed={setListCollapsed} listCollapsed={listCollapsed}>
         <div className={styles.listWrap}>
-          <div className={styles.devicesListWrap}>
+          <div className={classnames(styles.devicesListWrap, `scrollbar-thin-${theme}`)}>
             {devicesListLoading ? (
               <div style={{ height: "54px", position: "relative" }}>
                 <Loader

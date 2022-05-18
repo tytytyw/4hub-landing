@@ -45,6 +45,7 @@
   align-items: center
   position: relative
   width: 420px
+  padding: 30px
   height: max-content
   animation: showPopup 0.2s ease-in-out
   cursor: default
@@ -86,11 +87,11 @@
   .title
     font-size: 18px
     font-family: "SF Pro Medium", sans-serif
-    margin: 20px 0 20px 0
+    margin-bottom: 20px 
   .titleCreate
     font-size: 18px
     font-family: "SF Pro Medium", sans-serif
-    margin: 25px 0 15px 0
+    margin-bottom: 25px
   .fileIconWrap
     display: flex
     width: 85%
@@ -199,11 +200,11 @@
   .inputFieldsWrap
     display: flex
     flex-direction: column
-    width: 87%
+    width: 100%
     margin: 0
     .inputWrap
-      height: 45px
-      margin-bottom: 10px
+      min-height: 45px
+      margin-bottom: 20px
       .select
         box-shadow: none
         position: relative
@@ -244,15 +245,13 @@
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
         color: #bab8b8
-      .tagList::-webkit-scrollbar
-        width: 2px
       .tagList
         display: none
         position: absolute
         z-index: 2
         left: -1px
         bottom: -278px
-        width: 100%
+        width: calc( 100% + 2px )
         height: 280px
         background: white
         overflow-x: hidden
@@ -262,16 +261,6 @@
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
         cursor: pointer
-        &::-webkit-scrollbar-track
-          background: #0A3AAB
-        &::-webkit-scrollbar-track
-          -webkit-box-shadow: none
-          background-color: #F5F5F5
-        &::-webkit-scrollbar
-          width: 5px
-          background-color: #FFFFFF
-        &::-webkit-scrollbar-thumb
-          background-color: #4086F1
         div
           display: flex
           align-items: center
@@ -327,9 +316,9 @@
       font-size: 13px
       line-height: 16px
   .buttonsWrap
-    margin-bottom: 10px
+    width: 100%
     display: flex
-    width: 87%
+    gap: 10px
     justify-content: space-between
     font-family: "SF Pro Regular", sans-serif
     div
@@ -371,7 +360,7 @@
       height: 32px
     .title
       font-size: 15px
-      margin: 10px 0 10px 0
+      margin-bottom: 20px
     .titleCreate
       font-size: 15px
       margin: 15px 0
@@ -414,7 +403,7 @@
       margin: 0 0 5px 0
       .inputWrap
         height: 28px
-        margin-bottom: 5px
+        margin-bottom: 20px
       .tagPicker
         height: 28px
         font-size: 11px
