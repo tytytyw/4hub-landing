@@ -161,11 +161,11 @@ const ItemsList = ({
 
   useEffect(() => {
     if (pathname === "/archive") {
-      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
+      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter, "archive"));
       setFilesPage(1);
     }
     if (pathname === "/cart") {
-      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
+      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter, "cart"));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line

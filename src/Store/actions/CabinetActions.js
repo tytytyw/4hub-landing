@@ -830,7 +830,9 @@ export const onGetGuestFolderFiles = (did, setLoading) => async (dispatch) => {
 
 // TODO: move to onChooseFiles
 export const onGetArchiveFiles =
-  (search, page, set, setLoad, loadedFilesType, dateFilter) => async (dispatch, getState) => {
+  (search, page, set, setLoad, loadedFilesType, dateFilter, pagePath) => async (dispatch, getState) => {
+    const path = pagePath === "cart" ? "trash_list" : "archive_list";
+    console.log(path);
     const emoji = getState().Cabinet.fileCriterion.filters.emoji
       ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}`
       : "";
@@ -853,7 +855,7 @@ export const onGetArchiveFiles =
         : "";
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = { cancelChooseFiles };
-    const url = `/ajax/archive_list.php?uid=${
+    const url = `/ajax/${path}.php?uid=${
       getState().user.uid
     }${searched}${dateFiltered}&page=${page}&per_page=${30}&sort=${
       getState().Cabinet.fileCriterion.sorting
