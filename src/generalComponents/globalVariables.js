@@ -104,3 +104,9 @@ export const SCHEMA = {
 export const STYLED_CLASSES = {
   [SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"]
 };
+
+export const LOADING_STATE = {
+  LOADING: "LOADING",
+  LOAD_NEXT_COLUMN: "next",
+  IDLE: "IDLE"
+};

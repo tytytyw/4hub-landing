@@ -1,4 +1,4 @@
-import api from "../../api";
+import api, { createCancelToken } from "../../api";
 import axios from "axios";
 
 import {
@@ -70,7 +70,7 @@ import {
   SET_CHAT_THEME
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
 
 const CancelToken = axios.CancelToken;
 
@@ -1219,3 +1219,46 @@ export const onSetModals = (key, value) => {
     payload: { key, value }
   };
 };
+
+export const onLoadFiles =
+  (endpoint, page, loadType = LOADING_STATE.LOADING) =>
+  async (dispatch, getState) => {
+    const cancelRequest = createCancelToken(endpoint);
+    api
+      .get(`/ajax/${endpoint}.php`, {
+        params: {
+          uid: getState().user.uid,
+          filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
+          filter_fig: getState().Cabinet.fileCriterion.filters.figure,
+          filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
+          search: getState().Cabinet.search,
+          sort_reverse: 1,
+          dir: getState().Cabinet.fileList.path,
+          page
+        },
+        cancelToken: cancelRequest.token
+      })
+      .then((files) => {
+        if (loadType === LOADING_STATE.LOAD_NEXT_COLUMN) {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES_NEXT,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES_NEXT,
+                payload: { files: files.data }
+              });
+        } else {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES,
+                payload: { files: files.data }
+              });
+        }
+      });
+  };
