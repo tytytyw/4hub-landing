@@ -18,3 +18,15 @@ export const cancelRequest = async (keyName) => {
     return true;
   });
 };
+
+const CancelToken = axios.CancelToken;
+
+export function createCancelToken(tokenName) {
+  const cancelRequest = CancelToken.source();
+  window.cancellationTokens[tokenName] = { cancelRequest };
+  return tokenName;
+}
+
+export function deleteCancelToken(tokenName) {
+  delete window.cancellationTokens[tokenName];
+}
