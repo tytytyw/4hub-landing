@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Library.module.sass";
 import WorkSpace from "./WorkSpace/WorkSpace";
@@ -6,6 +6,10 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import LibraryList from "./WorkSpace/LibraryList/LibraryList";
+import { useDispatch, useSelector } from "react-redux";
+import { clearFileList, onLoadFiles } from "../../../../Store/actions/CabinetActions";
+import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
+import { cancelRequest } from "../../../../api";
 
 function Library({
   menuItem,
@@ -18,6 +22,22 @@ function Library({
   filePreview
 }) {
   const [listCollapsed, setListCollapsed] = useState(false);
+  const { view } = useSelector((s) => s.Cabinet);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
+    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, page, type));
+    setPage((page) => page + 1);
+
+    return () => {
+      cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));
+      dispatch(clearFileList());
+    };
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <div className={styles.libraryWrap}>
       <LibraryList listCollapsed={listCollapsed} setListCollapsed={setListCollapsed} />

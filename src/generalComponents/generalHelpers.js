@@ -235,3 +235,7 @@ export function typeCheck(value) {
 export function capitalizeFirstLetter(string) {
   return string.split("")[0].toUpperCase() + string.slice(1);
 }
+
+export function getLocation() {
+  return window.location.pathname.split("/").filter((it) => it.length > 0);
+}

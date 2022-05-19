@@ -60,7 +60,8 @@ export const TYPES = {
   ARRAY: "array",
   STRING: "string",
   BOOLEAN: "boolean",
-  NULL: "null"
+  NULL: "null",
+  UNDEFINED: "undefined"
 };
 
 export const MIDNIGHT = "00:00:00";
@@ -111,6 +112,14 @@ export const LOADING_STATE = {
   IDLE: "IDLE"
 };
 
-export function getLocation() {
-  return window.location.pathname.split("/").filter((it) => it.length > 0);
-}
+// LIBRARY
+export const LIBRARY = {
+  API_GET_FILES: "lsjson"
+};
+
+export const VIEW_TYPE = {
+  BARS: "bars",
+  LINES: "lines",
+  BARS_PREVIEW: "preview",
+  LINES_PREVIEW: "workLinesPreview"
+};

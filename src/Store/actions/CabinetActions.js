@@ -70,7 +70,8 @@ import {
   SET_CHAT_THEME
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { getLocation, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 

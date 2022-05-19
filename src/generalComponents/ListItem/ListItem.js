@@ -45,7 +45,7 @@ ListItem.defaultProps = {
 
 ListItem.propTypes = {
   title: PropTypes.string.isRequired,
-  SvgIcon: PropTypes.element,
+  SvgIcon: PropTypes.elementType,
   icon: PropTypes.string,
   amount: PropTypes.number,
   isChosen: PropTypes.bool,
