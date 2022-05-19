@@ -3,13 +3,12 @@ import List from "../../../List";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { useStandardLibraries } from "../../../../../../generalComponents/collections";
-import { capitalizeFirstLetter } from "../../../../../../generalComponents/generalHelpers";
 import ListItem from "../../../../../../generalComponents/ListItem/ListItem";
 import { ReactComponent as AddIcon } from "assets/PrivateCabinet/plus-3.svg";
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function LibraryList({ listCollapsed, setListCollapsed }) {
   const { __ } = useLocales();
-  console.log(capitalizeFirstLetter("test"));
 
   const STANDARD_LIBRARIES = useStandardLibraries();
 
@@ -20,11 +19,10 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
         title={name}
         listCollapsed={listCollapsed}
         amount={0}
-        icon={`./assets/PrivateCabinet/library/${key.toLowerCase()}.svg`}
+        icon={`${imageSrc}assets/PrivateCabinet/library/${key.toLowerCase()}.svg`}
       />
     ));
 
-  console.log(renderLibraryItem());
   return (
     <List
       title={__("Библиотека")}
