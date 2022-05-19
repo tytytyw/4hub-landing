@@ -231,3 +231,7 @@ export function typeCheck(value) {
   const type = return_value.substring(return_value.indexOf(" ") + 1, return_value.indexOf("]"));
   return type.toLowerCase();
 }
+
+export function capitalizeFirstLetter(string) {
+  return string.split("")[0].toUpperCase() + string.slice(1);
+}
