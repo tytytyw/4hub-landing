@@ -18,7 +18,6 @@ function Library({
   filePreview
 }) {
   const [listCollapsed, setListCollapsed] = useState(false);
-
   return (
     <div className={styles.libraryWrap}>
       <LibraryList listCollapsed={listCollapsed} setListCollapsed={setListCollapsed} />

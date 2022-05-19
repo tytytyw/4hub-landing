@@ -24,7 +24,7 @@ const CancelToken = axios.CancelToken;
 export function createCancelToken(tokenName) {
   const cancelRequest = CancelToken.source();
   window.cancellationTokens[tokenName] = { cancelRequest };
-  return tokenName;
+  return cancelRequest;
 }
 
 export function deleteCancelToken(tokenName) {

@@ -1,4 +1,4 @@
-import api, { createCancelToken } from "../../api";
+import api, { createCancelToken, deleteCancelToken } from "../../api";
 import axios from "axios";
 
 import {
@@ -70,7 +70,7 @@ import {
   SET_CHAT_THEME
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { getLocation, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
 
 const CancelToken = axios.CancelToken;
 
@@ -134,6 +134,9 @@ export const onsetInitialChosenFile = (file) => {
   };
 };
 
+/**
+ * @deprecated use onLoadFiles
+ */
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
     const emoji = getState().Cabinet.fileCriterion.filters.emoji
@@ -1234,7 +1237,8 @@ export const onLoadFiles =
           search: getState().Cabinet.search,
           sort_reverse: 1,
           dir: getState().Cabinet.fileList.path,
-          page
+          page,
+          dep: `/_${getLocation()[0].toUpperCase()}_/`
         },
         cancelToken: cancelRequest.token
       })
@@ -1260,5 +1264,12 @@ export const onLoadFiles =
                 payload: { files: files.data }
               });
         }
+      })
+      .catch((e) => {
+        onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." });
+        console.log(e);
+      })
+      .finally(() => {
+        deleteCancelToken(endpoint);
       });
   };

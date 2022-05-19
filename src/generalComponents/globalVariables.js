@@ -110,3 +110,7 @@ export const LOADING_STATE = {
   LOAD_NEXT_COLUMN: "next",
   IDLE: "IDLE"
 };
+
+export function getLocation() {
+  return window.location.pathname.split("/").filter((it) => it.length > 0);
+}
