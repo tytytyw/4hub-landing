@@ -76,8 +76,12 @@ import {
 const INITIAL_STATE = {
   global: null,
   other: null,
-  folderList: null,
-  fileList: null,
+  folderList: {},
+  fileList: {
+    files: null,
+    path: "global/all",
+    filesNext: null
+  },
   contactList: null,
   companyContactList: null,
   recentFolders: null,
