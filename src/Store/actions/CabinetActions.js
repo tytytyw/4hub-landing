@@ -288,7 +288,11 @@ export const clearRecentFiles = () => {
 export const clearFileList = () => {
   return {
     type: NULLIFY_FILES,
-    payload: null
+    payload: {
+      files: null,
+      path: "",
+      filesNext: null
+    }
   };
 };
 

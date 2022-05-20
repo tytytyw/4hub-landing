@@ -215,6 +215,11 @@ const INITIAL_STATE = {
       menuItem: "",
       authorizedSafe: null
     } //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+  },
+  //LIBRARY
+  library: {
+    chosenCategory: null,
+    chosenFile: null
   }
 };
 

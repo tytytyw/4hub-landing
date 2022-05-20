@@ -7,9 +7,10 @@ import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import LibraryList from "./WorkSpace/LibraryList/LibraryList";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFileList, onLoadFiles } from "../../../../Store/actions/CabinetActions";
+import { clearFileList, onLoadFiles, onSetPath } from "../../../../Store/actions/CabinetActions";
 import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../api";
+import { useStandardLibraries } from "../../../../generalComponents/collections";
 
 function Library({
   menuItem,
@@ -21,12 +22,15 @@ function Library({
   setFilePreview,
   filePreview
 }) {
+  const STANDARD_LIBRARIES = useStandardLibraries();
   const [listCollapsed, setListCollapsed] = useState(false);
   const { view } = useSelector((s) => s.Cabinet);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
+
+    dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
 
     return () => {

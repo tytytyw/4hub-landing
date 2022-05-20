@@ -701,10 +701,25 @@ export function useTaskBoardTitle() {
 export function useStandardLibraries() {
   const { __ } = useLocales();
   return {
-    EDUCATION: __("Образование"),
-    PHOTO: __("Фото"),
-    VIDEO: __("Видео"),
-    DOCUMENTS: __("Документы"),
-    ARTICLES: __("Статьи")
+    EDUCATION: {
+      name: __("Образование"),
+      path: "education"
+    },
+    PHOTO: {
+      name: __("Фото"),
+      path: "photo"
+    },
+    VIDEO: {
+      name: __("Видео"),
+      path: "video"
+    },
+    DOCUMENTS: {
+      name: __("Документы"),
+      path: "documents"
+    },
+    ARTICLES: {
+      name: __("Статьи"),
+      path: "articles"
+    }
   };
 }
