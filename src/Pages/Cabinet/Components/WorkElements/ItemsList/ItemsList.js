@@ -16,6 +16,7 @@ import {
   onChooseFiles,
   onChooseFolder,
   onGetArchiveFiles,
+  onLoadFiles,
   onSetNextFilesToPrevious,
   onSetPath
 } from "../../../../../Store/actions/CabinetActions";
@@ -30,6 +31,7 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
+import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -201,7 +203,18 @@ const ItemsList = ({
 
   const load = (entry) => {
     if (!gLoader) {
-      if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
+      const type =
+        workElementsView === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
+      if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === "/folders") {
+        setLoadingFiles(true);
+        dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
+      }
+      if (
+        entry.isIntersecting &&
+        !loadingFiles &&
+        filesPage !== 0 &&
+        (pathname.includes("files") || pathname === "/archive")
+      ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
           dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, "", "", dateFilter, pathname));
@@ -214,8 +227,10 @@ const ItemsList = ({
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
-        pathname === "/cart" &&
-          dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "trash_list", pathname));
+        if (pathname.startsWith("/library")) {
+          dispatch(onLoadFiles(LIBRARY.API_GET_FILES, filesPage, type));
+          setFilesPage((page) => page + 1);
+        }
       }
     }
   };

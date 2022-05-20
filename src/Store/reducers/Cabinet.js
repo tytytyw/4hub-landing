@@ -76,8 +76,12 @@ import {
 const INITIAL_STATE = {
   global: null,
   other: null,
-  folderList: null,
-  fileList: null,
+  folderList: {},
+  fileList: {
+    files: null,
+    path: "global/all",
+    filesNext: null
+  },
   contactList: null,
   companyContactList: null,
   recentFolders: null,
@@ -211,6 +215,11 @@ const INITIAL_STATE = {
       menuItem: "",
       authorizedSafe: null
     } //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+  },
+  //LIBRARY
+  library: {
+    chosenCategory: null,
+    chosenFile: null
   }
 };
 
@@ -223,7 +232,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, folderList: action.payload };
     }
     case CHOOSE_FILES: {
-      return { ...state, fileList: { ...action.payload } };
+      return { ...state, fileList: { ...state.fileList, ...action.payload } };
     }
     case NULLIFY_FILES: {
       return { ...state, fileList: action.payload };

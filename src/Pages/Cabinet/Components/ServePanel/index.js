@@ -15,9 +15,10 @@ import {
   onChangeFilterColor,
   onSetReverseCriterion,
   onGetSafeFileList,
-  onSetModals
+  onSetModals,
+  onLoadFiles
 } from "../../../../Store/actions/CabinetActions";
-import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { imageSrc, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
 import { onSetWorkElementsView } from "../../../../Store/actions/CabinetActions";
 import { ReactComponent as BarsIcon } from "../../../../assets/PrivateCabinet/bars.svg";
 import { ReactComponent as LinesIcon } from "../../../../assets/PrivateCabinet/lines.svg";
@@ -93,6 +94,7 @@ const ServePanel = ({
   };
 
   const setFilter = (sorting) => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     if (setGLoader) setGLoader(true);
     dispatch(onSortFile(sorting));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
@@ -115,6 +117,9 @@ const ServePanel = ({
           ""
         )
       );
+    }
+    if (pathname.startsWith("/library")) {
+      dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
     }
     if (setFilesPage) setFilesPage(2);
   };
@@ -176,6 +181,7 @@ const ServePanel = ({
     });
 
   const setFigure = (value) => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterFigure(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
@@ -197,9 +203,13 @@ const ServePanel = ({
         )
       );
     }
+    if (pathname.startsWith("/library")) {
+      dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+    }
     if (setFilesPage) setFilesPage(2);
   };
   const setColor = (value) => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterColor(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
@@ -222,9 +232,13 @@ const ServePanel = ({
         )
       );
     }
+    if (pathname.startsWith("/library")) {
+      dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+    }
     if (setFilesPage) setFilesPage(2);
   };
   const setEmoji = (value) => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterEmoji(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
@@ -245,6 +259,9 @@ const ServePanel = ({
           ""
         )
       );
+    }
+    if (pathname.startsWith("/library")) {
+      dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
     }
     if (setFilesPage) setFilesPage(2);
   };
@@ -563,7 +580,7 @@ const ServePanel = ({
       {pathname.startsWith("/shared-files") && renderInSharedFiles()}
       {pathname.startsWith("/downloaded-files") && renderInSharedFiles()}
       {pathname.startsWith("/archive") && renderInArchive()}
-      {pathname.startsWith("/libary") && renderInLibrary()}
+      {pathname.startsWith("/library") && renderInLibrary()}
       {pathname.startsWith("/cart") && renderInCart()}
 
       {mouseParams !== null ? (

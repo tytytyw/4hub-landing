@@ -697,3 +697,29 @@ export function useTaskBoardTitle() {
     [BOARDS.TASKS_BOARD]: __("Мои задачи")
   };
 }
+
+export function useStandardLibraries() {
+  const { __ } = useLocales();
+  return {
+    EDUCATION: {
+      name: __("Образование"),
+      path: "education"
+    },
+    PHOTO: {
+      name: __("Фото"),
+      path: "photo"
+    },
+    VIDEO: {
+      name: __("Видео"),
+      path: "video"
+    },
+    DOCUMENTS: {
+      name: __("Документы"),
+      path: "documents"
+    },
+    ARTICLES: {
+      name: __("Статьи"),
+      path: "articles"
+    }
+  };
+}
