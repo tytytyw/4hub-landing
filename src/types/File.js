@@ -31,7 +31,7 @@ export const fileProps = PropTypes.exact({
   file_link: PropTypes.string,
   fname: PropTypes.string,
   gdir: PropTypes.string,
-  is_del: PropTypes.number,
+  is_del: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   is_archive: PropTypes.string,
   is_dir: PropTypes.number,
   is_pass: PropTypes.number,

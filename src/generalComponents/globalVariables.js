@@ -123,3 +123,8 @@ export const VIEW_TYPE = {
   BARS_PREVIEW: "preview",
   LINES_PREVIEW: "workLinesPreview"
 };
+
+// CART
+export const CART = {
+  API_GET_FILES: "trash_list"
+};
