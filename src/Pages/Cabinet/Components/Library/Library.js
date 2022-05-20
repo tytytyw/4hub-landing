@@ -32,6 +32,7 @@ function Library({
 
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+    setFilesPage(2);
 
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));

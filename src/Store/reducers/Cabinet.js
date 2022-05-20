@@ -232,7 +232,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, folderList: action.payload };
     }
     case CHOOSE_FILES: {
-      return { ...state, fileList: { ...action.payload } };
+      return { ...state, fileList: { ...state.fileList, ...action.payload } };
     }
     case NULLIFY_FILES: {
       return { ...state, fileList: action.payload };

@@ -562,7 +562,7 @@ const ServePanel = ({
       {pathname.startsWith("/shared-files") && renderInSharedFiles()}
       {pathname.startsWith("/downloaded-files") && renderInSharedFiles()}
       {pathname.startsWith("/archive") && renderInArchive()}
-      {pathname.startsWith("/libary") && renderInLibrary()}
+      {pathname.startsWith("/library") && renderInLibrary()}
       {pathname.startsWith("/cart") && renderInCart()}
 
       {mouseParams !== null ? (

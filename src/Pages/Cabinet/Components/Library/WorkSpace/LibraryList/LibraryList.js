@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import { useStandardLibraries } from "../../../../../../generalComponents/collections";
 import ListItem from "../../../../../../generalComponents/ListItem/ListItem";
 import { ReactComponent as AddIcon } from "assets/PrivateCabinet/plus-3.svg";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
-import { onSetPath } from "../../../../../../Store/actions/CabinetActions";
+import { imageSrc, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../../generalComponents/globalVariables";
+import { onLoadFiles, onSetPath } from "../../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 
 function LibraryList({ listCollapsed, setListCollapsed }) {
@@ -14,7 +14,7 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
 
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
-  const { fileList } = useSelector((s) => s.Cabinet);
+  const { fileList, view } = useSelector((s) => s.Cabinet);
 
   const renderLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
@@ -29,7 +29,11 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
       />
     ));
 
-  const handleListItemClick = (path) => dispatch(onSetPath(path));
+  const handleListItemClick = (path) => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
+    dispatch(onSetPath(path));
+    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+  };
 
   return (
     <List
