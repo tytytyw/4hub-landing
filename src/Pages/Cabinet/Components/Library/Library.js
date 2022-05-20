@@ -23,13 +23,11 @@ function Library({
 }) {
   const [listCollapsed, setListCollapsed] = useState(false);
   const { view } = useSelector((s) => s.Cabinet);
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
-    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, page, type));
-    setPage((page) => page + 1);
+    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
 
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));

@@ -66,7 +66,7 @@ export function useMenu() {
     },
     {
       name: __("Библиотека"),
-      path: "/libary",
+      path: "/library",
       src: `${imageSrc}assets/PrivateCabinet/book-1.svg`
     },
     {

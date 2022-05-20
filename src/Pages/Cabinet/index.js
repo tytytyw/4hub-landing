@@ -235,7 +235,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
           <Route path="/tasks" render={() => <Tasks />} />
 
           <Route
-            path="/libary"
+            path="/library"
             render={() => (
               <Library
                 menuItem={menuItem}
