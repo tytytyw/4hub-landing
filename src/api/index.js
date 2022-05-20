@@ -1,4 +1,6 @@
 import axios from "axios";
+import { typeCheck } from "../generalComponents/generalHelpers";
+import { TYPES } from "../generalComponents/globalVariables";
 
 const api = axios.create({
   withCredentials: false
@@ -18,3 +20,19 @@ export const cancelRequest = async (keyName) => {
     return true;
   });
 };
+
+const CancelToken = axios.CancelToken;
+
+export function createCancelToken(tokenName) {
+  const cancelRequest = CancelToken.source();
+  if (typeCheck(window.cancellationTokens) === TYPES.UNDEFINED) {
+    window.cancellationTokens = { [tokenName]: cancelRequest };
+  } else {
+    window.cancellationTokens = { ...window.cancellationTokens, [tokenName]: cancelRequest };
+  }
+  return cancelRequest;
+}
+
+export function deleteCancelToken(tokenName) {
+  delete window.cancellationTokens[tokenName];
+}

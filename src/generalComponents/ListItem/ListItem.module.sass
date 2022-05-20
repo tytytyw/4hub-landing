@@ -1,0 +1,68 @@
+.listItemWrap.active
+  background: rgba(64, 134, 241, 0.1)
+.listItemWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  transition: background 0.2s ease-in-out
+  &:hover
+    background: rgba(64, 134, 241, 0.1)
+    transition: background 0.2s ease-in-out
+
+.listItem
+  display: flex
+  align-items: center
+  justify-content: space-between
+  box-sizing: border-box
+  width: 100%
+  padding: 21px 11px 14px 26px
+  font-size: 12px
+  cursor: pointer
+  .listItemName
+    display: flex
+    align-items: center
+    position: relative
+    height: 100%
+    .innerIcon
+      width: 18px
+      height: 18px
+      margin: 0 10px 0 0
+    .nameWrap
+      display: flex
+      flex-direction: column
+      justify-content: center
+      .Name
+        display: flex
+        font-size: 13px
+        margin: 0 0 3px 0
+        color: #7c7a7a
+        .name
+          font-family: 'SF Pro Light', sans-serif
+          display: block
+          width: max-content
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          animation: showText 0.2s ease-in-out
+        span
+          max-width: 15px
+          animation: showText 0.2s ease-in-out
+      .tag
+        display: block
+        font-size: 10px
+        box-sizing: border-box
+        padding: 1px 5px
+        background: rgb(0, 125, 255)
+        color: #FFFFFF
+        border-radius: 10px
+        width: max-content
+        max-width: 100px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        animation: showText 0.2s ease-in-out
+  .amount
+    display: flex
+    color: #7c7a7a
+    font-family: 'SF Pro Light', sans-serif
+    font-size: 14px

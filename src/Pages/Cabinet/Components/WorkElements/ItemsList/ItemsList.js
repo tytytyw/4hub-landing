@@ -16,6 +16,7 @@ import {
   onChooseFiles,
   onChooseFolder,
   onGetArchiveFiles,
+  onLoadFiles,
   onSetNextFilesToPrevious,
   onSetPath
 } from "../../../../../Store/actions/CabinetActions";
@@ -30,6 +31,7 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
+import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -164,11 +166,6 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-
-    if (pathname === "/cart") {
-      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
-      setFilesPage(1);
-    }
   }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {
@@ -202,6 +199,8 @@ const ItemsList = ({
 
   const load = (entry) => {
     if (!gLoader) {
+      const type =
+        workElementsView === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
       if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === "/folders") {
         setLoadingFiles(true);
         dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
@@ -219,10 +218,15 @@ const ItemsList = ({
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
+        pathname === "/folders" && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
         pathname === "/downloaded-files" &&
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
+        if (pathname.startsWith("/library")) {
+          dispatch(onLoadFiles(LIBRARY.API_GET_FILES, filesPage, type));
+          setFilesPage((page) => page + 1);
+        }
       }
     }
   };

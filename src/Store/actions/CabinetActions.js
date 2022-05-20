@@ -1,4 +1,4 @@
-import api from "../../api";
+import api, { createCancelToken, deleteCancelToken } from "../../api";
 import axios from "axios";
 
 import {
@@ -70,7 +70,8 @@ import {
   SET_CHAT_THEME
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -134,25 +135,21 @@ export const onsetInitialChosenFile = (file) => {
   };
 };
 
+/**
+ * @deprecated use onLoadFiles
+ */
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
-    const emoji = getState().Cabinet.fileCriterion.filters.emoji
-      ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}`
-      : "";
-    const sign = getState().Cabinet.fileCriterion.filters.figure
-      ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}`
-      : "";
-    const color = getState().Cabinet.fileCriterion.filters.color.color
-      ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}`
-      : "";
+    const filters = getState().Cabinet.fileCriterion.filters;
+
+    const emoji = filters.emoji ? `&filter_emo=${filters.emoji}` : "";
+    const sign = filters.figure ? `&filter_fig=${filters.figure}` : "";
+    const color = filters.color.color ? `&filter_color=${filters.color.color}` : "";
     const searched = search ? `&search=${search}` : "";
-    const sortReverse =
-      getState().Cabinet.fileCriterion.reverse &&
-      getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting]
-        ? `&sort_reverse=1`
-        : "";
+    const sortReverse = filters.reverse && filters.reverse[filters.sorting] ? `&sort_reverse=1` : "";
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
+
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
       allFiles ? "" : path
@@ -284,7 +281,11 @@ export const clearRecentFiles = () => {
 export const clearFileList = () => {
   return {
     type: NULLIFY_FILES,
-    payload: null
+    payload: {
+      files: null,
+      path: "",
+      filesNext: null
+    }
   };
 };
 
@@ -1219,3 +1220,54 @@ export const onSetModals = (key, value) => {
     payload: { key, value }
   };
 };
+
+export const onLoadFiles =
+  (endpoint, page, loadType = LOADING_STATE.LOADING) =>
+  async (dispatch, getState) => {
+    const cancelRequest = createCancelToken(endpoint);
+    api
+      .get(`/ajax/${endpoint}.php`, {
+        params: {
+          uid: getState().user.uid,
+          filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
+          filter_fig: getState().Cabinet.fileCriterion.filters.figure,
+          filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
+          search: getState().Cabinet.search,
+          sort_reverse: 1,
+          dir: getState().Cabinet.fileList.path,
+          page,
+          dep: `/_${getLocation()[0].toUpperCase()}_/`
+        },
+        cancelToken: cancelRequest.token
+      })
+      .then((files) => {
+        if (loadType === LOADING_STATE.LOAD_NEXT_COLUMN) {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES_NEXT,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES_NEXT,
+                payload: { files: files.data }
+              });
+        } else {
+          page > 1
+            ? dispatch({
+                type: LOAD_FILES,
+                payload: { files: files.data }
+              })
+            : dispatch({
+                type: CHOOSE_FILES,
+                payload: { files: files.data }
+              });
+        }
+      })
+      .catch((e) => {
+        onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." });
+        console.log(e);
+      })
+      .finally(() => {
+        deleteCancelToken(endpoint);
+      });
+  };

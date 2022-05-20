@@ -60,7 +60,8 @@ export const TYPES = {
   ARRAY: "array",
   STRING: "string",
   BOOLEAN: "boolean",
-  NULL: "null"
+  NULL: "null",
+  UNDEFINED: "undefined"
 };
 
 export const MIDNIGHT = "00:00:00";
@@ -103,4 +104,27 @@ export const SCHEMA = {
 
 export const STYLED_CLASSES = {
   [SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"]
+};
+
+export const LOADING_STATE = {
+  LOADING: "LOADING",
+  LOAD_NEXT_COLUMN: "next",
+  IDLE: "IDLE"
+};
+
+// LIBRARY
+export const LIBRARY = {
+  API_GET_FILES: "lsjson"
+};
+
+export const VIEW_TYPE = {
+  BARS: "bars",
+  LINES: "lines",
+  BARS_PREVIEW: "preview",
+  LINES_PREVIEW: "workLinesPreview"
+};
+
+// CART
+export const CART = {
+  API_GET_FILES: "trash_list"
 };
