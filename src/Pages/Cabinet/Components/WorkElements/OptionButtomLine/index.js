@@ -1,14 +1,14 @@
 import React from "react";
 
 import styles from "./OptionButtomLine.module.sass";
-import { onSetModals, onChooseFiles } from "../../../../../Store/actions/CabinetActions";
+import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { share_types } from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
-import api from "../../../../../api";
+import { fileCartRestore } from "../../../../../generalComponents/fileMenuHelper";
 
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
@@ -71,30 +71,15 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
       : null;
 
   const onRestoreCartFile = () => {
-    api
-      .get(`/ajax/file_restore.php?uid=${uid}&fid=${filePick.files[0]}`)
-      .then((res) => {
-        console.log(res.data.ok);
-        if (res.data.ok) {
-          dispatch(onChooseFiles("", "", 1, "", "", "", "trash_list", ""));
-          dispatch(
-            onSetModals("topMessage", {
-              open: true,
-              type: "message",
-              message: __("Файл успешно восстановлен")
-            })
-          );
-        } else throw new Error();
-      })
-      .catch(() =>
-        dispatch(
-          onSetModals("error", {
-            open: true,
-            message: __("что-то пошло не так"),
-            title: __("ошибка")
-          })
-        )
-      );
+    const fileLength = filePick.files;
+
+    if (fileLength.length > 1) {
+      fileLength.forEach((fileId) => {
+        fileCartRestore(fileId, dispatch, uid, __("Файлы успешно восстановлены"), __);
+      });
+    } else {
+      fileCartRestore(fileLength[0], dispatch, uid, __("Файл успешно восстановлен"), __);
+    }
   };
 
   const renderCancelBtn = () => {
