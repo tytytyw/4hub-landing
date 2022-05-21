@@ -2,16 +2,20 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
-import PropTypes from "prop-types";
 import MailList from "./MailList/MailList";
 import WorkSpace from "./WorkSpace/WorkSpace";
+import { useStandardMail } from "../../../../generalComponents/collections";
+import { onSetPath } from "../../../../Store/actions/CabinetActions";
 
-function Mail({ setMenuItem }) {
+function Mail() {
   const dispatch = useDispatch();
+  const STANDARD_MAIL = useStandardMail();
+
   useEffect(() => {
     dispatch(onGetUserInfo());
-    setMenuItem("myFiles");
-    return () => setMenuItem("");
+    dispatch(onSetPath(STANDARD_MAIL.INBOX.path));
+
+    return () => {};
   }, []); //eslint-disable-line
 
   return (
@@ -23,7 +27,3 @@ function Mail({ setMenuItem }) {
 }
 
 export default Mail;
-
-Mail.propTypes = {
-  setMenuItem: PropTypes.func
-};

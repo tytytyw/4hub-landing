@@ -726,48 +726,40 @@ export function useStandardLibraries() {
 
 // MAIL
 
-export function useMailMenu() {
+export function useStandardMail() {
   const { __ } = useLocales();
-  return [
-    {
-      id: 1,
-      icon: "inbox",
-      name: __("Входящие")
+  return {
+    INBOX: {
+      name: __("Входящие"),
+      path: "inbox"
     },
-    {
-      id: 2,
-      icon: "send",
-      name: __("Исходящие")
+    SEND: {
+      name: __("Исходящие"),
+      path: "send"
     },
-    {
-      id: 3,
-      icon: "archive",
-      name: __("Архив")
+    ARCHIVE: {
+      name: __("Архив"),
+      path: "archive"
     },
-    {
-      id: 4,
-      icon: "draft",
-      name: __("Черновик")
+    DRAFT: {
+      name: __("Черновик"),
+      path: "draft"
     },
-    {
-      id: 5,
-      icon: "favorites",
-      name: __("Избранное")
+    FAVORITES: {
+      name: __("Избранное"),
+      path: "favorites"
     },
-    {
-      id: 6,
-      icon: "time",
-      name: __("Отложенные")
+    TIME: {
+      name: __("Отложенные"),
+      path: "time"
     },
-    {
-      id: 7,
-      icon: "spam",
-      name: __("Спам")
+    SPAM: {
+      name: __("Спам"),
+      path: "spam"
     },
-    {
-      id: 8,
-      icon: "cart",
-      name: __("Корзина")
+    CART: {
+      name: __("Корзина"),
+      path: "cart"
     }
-  ];
+  };
 }
