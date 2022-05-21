@@ -1,5 +1,7 @@
 import api from "../api";
-import { onDeleteFile, onDeleteSafeFile, onChooseFiles, onSetModals } from "../Store/actions/CabinetActions";
+import { onDeleteFile, onDeleteSafeFile, onLoadFiles, onSetModals } from "../Store/actions/CabinetActions";
+import { checkResponseStatus } from "./generalHelpers";
+import { MODALS, CART, TOP_MESSAGE_TYPE } from "./globalVariables";
 
 export const fileDelete = (file, dispatch, uid, set, msg) => {
   api
@@ -33,12 +35,12 @@ export const fileCartRestore = (fileId, dispatch, uid, message, __) => {
   api
     .get(`/ajax/file_restore.php?uid=${uid}&fid=${fileId}`)
     .then((res) => {
-      if (res.data.ok === 1) {
-        dispatch(onChooseFiles("", "", 1, "", "", "", "trash_list", ""));
+      if (checkResponseStatus(res.data.ok)) {
+        dispatch(onLoadFiles(CART.API_GET_FILES, 1));
         dispatch(
-          onSetModals("topMessage", {
+          onSetModals(MODALS.TOP_MESSAGE, {
             open: true,
-            type: "message",
+            type: TOP_MESSAGE_TYPE.MESSAGE,
             message
           })
         );
@@ -46,7 +48,7 @@ export const fileCartRestore = (fileId, dispatch, uid, message, __) => {
     })
     .catch(() =>
       dispatch(
-        onSetModals("error", {
+        onSetModals(MODALS.ERROR, {
           open: true,
           message: __("что-то пошло не так"),
           title: __("ошибка")
