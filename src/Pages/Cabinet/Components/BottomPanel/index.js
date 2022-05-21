@@ -16,7 +16,7 @@ const BottomPanel = () => {
     "picture-1.svg",
     "shopping-cart.svg"
   ];
-  const links = ["", "/calendar", "/chat", "", "", "", "/programs"];
+  const links = ["/mail", "/calendar", "/chat", "", "", "", "/programs"];
 
   const history = useHistory();
   const { theme } = useSelector((state) => state.user.userInfo);
