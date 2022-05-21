@@ -70,7 +70,8 @@ import {
   SET_MODALS,
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
-  SET_CHAT_THEME
+  SET_CHAT_THEME,
+  GET_INBOX_MAIL
 } from "../types";
 
 const INITIAL_STATE = {
@@ -686,6 +687,11 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         modals: { ...state.modals, [action.payload.key]: action.payload.value }
       };
+    }
+
+    // MAIL
+    case GET_INBOX_MAIL: {
+      return { ...state, fileList: { ...state.fileList, ...action.payload } };
     }
   }
 }

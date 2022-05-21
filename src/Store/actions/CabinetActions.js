@@ -67,7 +67,8 @@ import {
   SET_MODALS,
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
-  SET_CHAT_THEME
+  SET_CHAT_THEME,
+  GET_INBOX_MAIL
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -1271,3 +1272,15 @@ export const onLoadFiles =
         deleteCancelToken(endpoint);
       });
   };
+
+// MAIL
+export const getInboxMails = () => {
+  return {
+    type: GET_INBOX_MAIL,
+    payload: {
+      files: {
+        mail: "INBOX"
+      }
+    }
+  };
+};

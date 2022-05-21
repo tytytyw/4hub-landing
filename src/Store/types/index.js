@@ -108,3 +108,6 @@ export const SET_CHAT_THEME = "SET_CHAT_THEME";
 
 //GLOBAL MODALS
 export const SET_MODALS = "SET_MODALS";
+
+//MAIL
+export const GET_INBOX_MAIL = "GET_INBOX_MAIL";

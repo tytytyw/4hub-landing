@@ -14,7 +14,8 @@ function ListItem({ mail }) {
   const { fileList } = useSelector((s) => s.Cabinet);
   const [isShowMailMenu, setIsShowMailMenu] = useState(true);
   const STANDARD_MAIL = useStandardMail();
-
+  //mylog
+  console.log(fileList);
   const toggleEvents = () => {
     setIsShowMailMenu((prevState) => !prevState);
   };
