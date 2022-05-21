@@ -16,7 +16,8 @@ import {
   onAddRecentFiles,
   onChooseFiles,
   onGetArchiveFiles,
-  onLoadFiles
+  onLoadFiles,
+  clearFileList
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -26,7 +27,8 @@ import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { LOADING_STATE, VIEW_TYPE, CART } from "../../../../../generalComponents/globalVariables";
+import { CART } from "../../../../../generalComponents/globalVariables";
+import { cancelRequest } from "../../../../../api";
 
 const WorkSpace = ({
   chosenFile,
@@ -54,7 +56,6 @@ const WorkSpace = ({
 }) => {
   const { __ } = useLocales();
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
-  const { view } = useSelector((s) => s.Cabinet);
   const fileRef = useRef(null);
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
@@ -66,16 +67,16 @@ const WorkSpace = ({
   };
 
   useEffect(() => {
-    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     setFilesPage(0);
-    setGLoader(true);
     setChosenFile(null);
     pathname === "/files" && dispatch(onAddRecentFiles());
     //TODO - Need to change request after server changes
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
 
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+
+    setFilesPage(2);
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")
       dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
@@ -92,6 +93,8 @@ const WorkSpace = ({
         type: "SORT_FILES",
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
+      cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
+      dispatch(clearFileList());
     };
   }, [pathname]); // eslint-disable-line
 
