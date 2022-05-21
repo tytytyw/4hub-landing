@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { onGetUserInfo } from "Store/actions/startPageAction";
-// import styles from "./Mail.module.sass";
+import styles from "./Mail.module.sass";
 import PropTypes from "prop-types";
-import MailMenu from "./MailMenu";
+import MailSidebar from "./MailSidebar/MailSidebar";
+import Header from "./Header/Header";
 
 function Mail({ setMenuItem }) {
   const dispatch = useDispatch();
@@ -14,9 +15,12 @@ function Mail({ setMenuItem }) {
   }, []); //eslint-disable-line
 
   return (
-    <>
-      <MailMenu />
-    </>
+    <div className={styles.mail}>
+      <div className={styles.mailSidebar}>
+        <MailSidebar />
+      </div>
+      <Header />
+    </div>
   );
 }
 

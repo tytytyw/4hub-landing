@@ -723,3 +723,51 @@ export function useStandardLibraries() {
     }
   };
 }
+
+// MAIL
+
+export function useMailMenu() {
+  const { __ } = useLocales();
+  return [
+    {
+      id: 1,
+      icon: "inbox",
+      name: __("Входящие")
+    },
+    {
+      id: 2,
+      icon: "send",
+      name: __("Исходящие")
+    },
+    {
+      id: 3,
+      icon: "archive",
+      name: __("Архив")
+    },
+    {
+      id: 4,
+      icon: "draft",
+      name: __("Черновик")
+    },
+    {
+      id: 5,
+      icon: "favorites",
+      name: __("Избранное")
+    },
+    {
+      id: 6,
+      icon: "time",
+      name: __("Отложенные")
+    },
+    {
+      id: 7,
+      icon: "spam",
+      name: __("Спам")
+    },
+    {
+      id: 8,
+      icon: "cart",
+      name: __("Корзина")
+    }
+  ];
+}

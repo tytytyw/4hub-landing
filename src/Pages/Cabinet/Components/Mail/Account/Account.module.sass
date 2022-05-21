@@ -1,0 +1,35 @@
+@import 'theme/colors'
+
+.wrapper
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px 10px
+  cursor: pointer
+  border-bottom: 1px solid $color-border-grey
+
+.mail
+  font-weight: 700
+  font-size: 13px
+
+.playButton
+  transform: rotateZ(-90deg)
+  cursor: pointer
+  margin: 0 10px 0 10px
+  width: 8px
+  &:hover path
+    fill: #477DE1
+
+.mailMenu
+  padding: 10px 0
+  border-bottom: 1px solid $color-border-grey
+
+.mailMenuOpen
+  .playButton
+    transform: rotateZ(90deg)
+
+.linksMailMenuShow
+  display: block
+
+.linksMailMenuHide
+  display: none
