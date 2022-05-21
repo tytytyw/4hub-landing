@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styles from "./Account.module.sass";
+import styles from "./ListItem.module.sass";
 import PropTypes from "prop-types";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import MailMenu from "../MailMenu/MailMenu";
 import { useMailMenu } from "../../../../../generalComponents/collections";
 import classnames from "classnames";
 
-function Account({ mail }) {
+function ListItem({ mail }) {
   const [isShowMailMenu, setIsShowMailMenu] = useState(true);
   const toggleEvents = () => {
     setIsShowMailMenu((prevState) => !prevState);
@@ -29,8 +29,8 @@ function Account({ mail }) {
   );
 }
 
-export default Account;
+export default ListItem;
 
-Account.propTypes = {
+ListItem.propTypes = {
   mail: PropTypes.string
 };

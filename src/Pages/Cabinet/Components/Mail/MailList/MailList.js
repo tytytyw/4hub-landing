@@ -1,12 +1,12 @@
 import React from "react";
 import Button from "../Button/Button";
-import styles from "./MailSidebar.module.sass";
+import styles from "./MailList.module.sass";
 import { useLocales } from "react-localized";
-import Account from "../Account/Account";
+import ListItem from "../ListItem/ListItem";
 import { useSelector } from "react-redux";
 import classnames from "classnames";
 
-function MailSidebar() {
+function MailList() {
   const { __ } = useLocales();
   const { theme } = useSelector((state) => state.user.userInfo);
 
@@ -16,6 +16,10 @@ function MailSidebar() {
     { id: 3, mail: "Kvitalina19@gmail.com" }
   ];
 
+  const renderMailAccount = () => {
+    return mailAccount.map((item) => <ListItem key={item.id} mail={item.mail} />);
+  };
+
   return (
     <div className={classnames(styles.wrapper, `scrollbar-thin-${theme}`)}>
       <div className={styles.button}>
@@ -23,11 +27,9 @@ function MailSidebar() {
           {__("Новое письмо")}
         </Button>
       </div>
-      {mailAccount.map((item) => (
-        <Account key={item.id} mail={item.mail} />
-      ))}
+      {renderMailAccount()}
     </div>
   );
 }
 
-export default MailSidebar;
+export default MailList;

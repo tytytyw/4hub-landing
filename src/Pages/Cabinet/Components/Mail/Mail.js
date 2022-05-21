@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
 import PropTypes from "prop-types";
-import MailSidebar from "./MailSidebar/MailSidebar";
-import Header from "./Header/Header";
+import MailList from "./MailList/MailList";
+import WorkSpace from "./WorkSpace/WorkSpace";
 
 function Mail({ setMenuItem }) {
   const dispatch = useDispatch();
@@ -16,10 +16,8 @@ function Mail({ setMenuItem }) {
 
   return (
     <div className={styles.mail}>
-      <div className={styles.mailSidebar}>
-        <MailSidebar />
-      </div>
-      <Header />
+      <MailList />
+      <WorkSpace />
     </div>
   );
 }

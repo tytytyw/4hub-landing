@@ -26,7 +26,7 @@ import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
 import classNames from "classnames";
 import Tasks from "./Components/Tasks/Tasks";
-import Mail from "./Components/Mail";
+import Mail from "./Components/Mail/Mail";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
