@@ -253,7 +253,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route path="/chat-page" render={() => <Chat setMenuItem={setMenuItem} />} />
 
-          <Route path="/mail" render={() => <Mail />} />
+          <Route path="/mail" render={() => <Mail setMenuItem={setMenuItem} />} />
 
           <Route
             path="/folders"

@@ -13,7 +13,6 @@ const SideMenu = ({ data, collapsed, setCollapsed }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
   const history = useHistory();
-
   const { theme } = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
 
