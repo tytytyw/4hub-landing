@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "../../../../generalComponents/Hooks";
-import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { CART, imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./SearchField.module.sass";
 import {
   onChooseFiles,
   onSearch,
   onGetSafeFileList,
   onGetArchiveFiles,
-  onGetChatMessages
+  onGetChatMessages,
+  onLoadFiles
 } from "../../../../Store/actions/CabinetActions";
 import Select from "../../../../generalComponents/Select/Select";
 import { useLocation } from "react-router";
@@ -29,7 +30,7 @@ const SearchField = ({ setChosenFile, menuItem, selectable = true, chatTheme = "
     if (pathname === "/folders") dispatch(onChooseFiles(path, query, 1));
     if (pathname.includes("files")) dispatch(onChooseFiles("", query, 1, "", "", "", "file_list_all"));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(query, 1, "", "", "")); //TODO: add date filter
-    if (pathname === "/cart") dispatch(onChooseFiles("", query, 1, "", "", "", "trash_list"));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, query, 1));
     if (pathname === "/safe")
       dispatch(
         onGetSafeFileList(
