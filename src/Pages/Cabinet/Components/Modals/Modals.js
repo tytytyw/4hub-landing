@@ -89,6 +89,7 @@ function Modals({
       {previewFile.open ? <PreviewFile /> : null}
       {fileAccessRights.open ? <FileAccessRights /> : null}
       <ContextModal saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
+      <TaskModals />
     </>
   );
 }
