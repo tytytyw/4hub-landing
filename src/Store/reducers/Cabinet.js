@@ -71,7 +71,7 @@ import {
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
   SET_CHAT_THEME,
-  GET_INBOX_MAIL
+  GET_MAIL
 } from "../types";
 
 const INITIAL_STATE = {
@@ -690,7 +690,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
 
     // MAIL
-    case GET_INBOX_MAIL: {
+    case GET_MAIL: {
       return { ...state, fileList: { ...state.fileList, ...action.payload } };
     }
   }

@@ -1,3 +1,5 @@
+@import 'theme/colors'
+
 .workSpaceWrap
   max-width: 100%
   flex-grow: 1
@@ -21,3 +23,14 @@
       width: 400px
       max-width: 400px
       background: inherit
+
+.workSpace
+  display: flex
+  height: 100%
+  .workLine
+    flex: 0 0 400px;
+    border-right: 1px solid $color-border-grey
+    height: 100%
+    padding: 20px 20px 0
+  .workLinePreview
+    flex: 1 1 auto;

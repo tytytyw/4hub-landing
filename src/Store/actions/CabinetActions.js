@@ -68,7 +68,7 @@ import {
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
   SET_CHAT_THEME,
-  GET_INBOX_MAIL
+  GET_MAIL
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -1274,12 +1274,98 @@ export const onLoadFiles =
   };
 
 // MAIL
-export const getInboxMails = () => {
+export const getMails = () => {
+  const mail = [
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 1,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 2,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 3,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 4,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 5,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 6,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 7,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 8,
+      files: []
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 9,
+      files: ["image", "video"]
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 10,
+      files: []
+    },
+    {
+      from: "Alina Kvitalina",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
+      date: new Date("2021-22-05 09:00"),
+      id: 11,
+      files: ["image", "video"]
+    }
+  ];
   return {
-    type: GET_INBOX_MAIL,
+    type: GET_MAIL,
     payload: {
       files: {
-        mail: "INBOX"
+        inbox: mail,
+        send: mail,
+        archive: mail,
+        draft: mail,
+        favorite: mail,
+        time: mail,
+        spam: mail,
+        cart: mail
       }
     }
   };

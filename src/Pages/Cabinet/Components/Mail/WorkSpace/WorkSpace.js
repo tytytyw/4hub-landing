@@ -6,23 +6,32 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
+import WorkLine from "../WorkLine/WorkLine";
+import WorkLinePreview from "../WorkLinePreview/WorkLinePreview";
 
 // import ContextMenu from "../../../../../generalComponents/ContextMenu";
 // import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 function WorkSpace() {
   return (
-    <>
-      <div className={styles.workSpaceWrap}>
-        <div className={styles.header}>
-          <SearchField />
-          <div className={styles.infoHeader}>
-            <StorageSize />
-            <Notifications />
-            <Profile />
-          </div>
+    <div className={styles.workSpaceWrap}>
+      <div className={styles.header}>
+        <SearchField />
+        <div className={styles.infoHeader}>
+          <StorageSize />
+          <Notifications />
+          <Profile />
         </div>
-        {/* {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
+      </div>
+      <div className={styles.workSpace}>
+        <div className={styles.workLine}>
+          <WorkLine />
+        </div>
+        <div className={styles.workLinePreview}>
+          <WorkLinePreview />
+        </div>
+      </div>
+      {/* {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
           <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <ContextMenuFileList
               filePick={filePick}
@@ -33,9 +42,8 @@ function WorkSpace() {
             />
           </ContextMenu>
         ) : null} */}
-        <BottomPanel />
-      </div>
-    </>
+      <BottomPanel />
+    </div>
   );
 }
 

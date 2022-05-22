@@ -7,15 +7,14 @@ import { useStandardMail } from "../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetPath } from "../../../../../Store/actions/CabinetActions";
+import { onSetPath, getMails } from "../../../../../Store/actions/CabinetActions";
 
 function ListItem({ mail }) {
   const dispatch = useDispatch();
   const { fileList } = useSelector((s) => s.Cabinet);
   const [isShowMailMenu, setIsShowMailMenu] = useState(true);
   const STANDARD_MAIL = useStandardMail();
-  //mylog
-  console.log(fileList);
+
   const toggleEvents = () => {
     setIsShowMailMenu((prevState) => !prevState);
   };
@@ -38,7 +37,7 @@ function ListItem({ mail }) {
 
   const handleListItemClick = (path) => {
     dispatch(onSetPath(path));
-    // dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+    dispatch(getMails());
   };
 
   return (

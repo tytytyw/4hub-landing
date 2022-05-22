@@ -11,9 +11,9 @@ function MailList() {
   const { theme } = useSelector((state) => state.user.userInfo);
 
   const mailAccount = [
-    { id: 1, mail: "AlinaKvitalina@gmail.com" },
-    { id: 2, mail: "Kvitalina19@gmail.com" },
-    { id: 3, mail: "Kvitalina19@gmail.com" }
+    { id: 1, mail: "AlinaKvitalina@gmail.com" }
+    // { id: 2, mail: "Kvitalina19@gmail.com" },
+    // { id: 3, mail: "Kvitalina19@gmail.com" }
   ];
 
   const renderMailAccount = () => {

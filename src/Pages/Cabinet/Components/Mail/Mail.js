@@ -5,7 +5,7 @@ import styles from "./Mail.module.sass";
 import MailList from "./MailList/MailList";
 import WorkSpace from "./WorkSpace/WorkSpace";
 import { useStandardMail } from "../../../../generalComponents/collections";
-import { onSetPath, getInboxMails } from "../../../../Store/actions/CabinetActions";
+import { onSetPath, getMails, clearFileList } from "../../../../Store/actions/CabinetActions";
 
 function Mail() {
   const dispatch = useDispatch();
@@ -14,8 +14,11 @@ function Mail() {
   useEffect(() => {
     dispatch(onGetUserInfo());
     dispatch(onSetPath(STANDARD_MAIL.INBOX.path));
-    dispatch(getInboxMails());
-    return () => {};
+    dispatch(getMails());
+
+    return () => {
+      dispatch(clearFileList());
+    };
   }, []); //eslint-disable-line
 
   return (
