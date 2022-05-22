@@ -27,10 +27,11 @@
 .workSpace
   display: flex
   height: 100%
-  .workLine
+  .workLineWrapper
     flex: 0 0 400px;
     border-right: 1px solid $color-border-grey
-    height: 100%
-    padding: 20px 20px 0
+    height: calc( 100% - 90px )
+    padding: 20px
+    overflow-y: scroll
   .workLinePreview
     flex: 1 1 auto;

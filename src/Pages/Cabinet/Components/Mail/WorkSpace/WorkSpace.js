@@ -8,11 +8,14 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
 import WorkLine from "../WorkLine/WorkLine";
 import WorkLinePreview from "../WorkLinePreview/WorkLinePreview";
+import { useSelector } from "react-redux";
+import classnames from "classnames";
 
 // import ContextMenu from "../../../../../generalComponents/ContextMenu";
 // import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 function WorkSpace() {
+  const { theme } = useSelector((state) => state.user.userInfo);
   return (
     <div className={styles.workSpaceWrap}>
       <div className={styles.header}>
@@ -24,7 +27,7 @@ function WorkSpace() {
         </div>
       </div>
       <div className={styles.workSpace}>
-        <div className={styles.workLine}>
+        <div className={classnames(styles.workLineWrapper, `scrollbar-thin-${theme}`)}>
           <WorkLine />
         </div>
         <div className={styles.workLinePreview}>

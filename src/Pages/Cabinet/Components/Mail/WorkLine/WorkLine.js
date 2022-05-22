@@ -3,15 +3,41 @@ import styles from "./WorkLine.module.sass";
 import { ReactComponent as Refresh } from "../../../../../assets/PrivateCabinet/mail/refresh.svg";
 import { ReactComponent as ContextToggle } from "../../../../../assets/PrivateCabinet/mail/contextToggle.svg";
 import { useLocales } from "react-localized";
+import { useSelector } from "react-redux";
+import CardMail from "../CardMail/CardMail";
 
 function WorkLine() {
   const { __ } = useLocales();
+  const { fileList } = useSelector((s) => s.Cabinet);
 
-  const renderUnReadMails = () => {
+  const unReadMails = [];
+  const readMails = [];
+
+  fileList.files?.forEach((element) => {
+    element.isRead ? readMails.push(element) : unReadMails.push(element);
+  });
+
+  const renderListMails = (arr, text) => {
+    return arr.length > 0 ? (
+      <>
+        <div className={styles.title}>{text}</div>
+        {arr.map((item) => {
+          return (
+            <div key={item.id}>
+              <CardMail from={item.from} time={item.date} text={item.text} files={item.files} />
+            </div>
+          );
+        })}
+      </>
+    ) : null;
+  };
+
+  const renderMails = () => {
     return (
-      <div className={styles.unRead}>
-        <div className={styles.unReadtitle}>{__("Непрочитанные")}</div>
-      </div>
+      <>
+        {renderListMails(unReadMails, __("Прочитанные"))}
+        {renderListMails(readMails, __("Непрочитанные"))}
+      </>
     );
   };
 
@@ -30,7 +56,7 @@ function WorkLine() {
           <ContextToggle />
         </div>
       </div>
-      <div className={styles.mails}>{renderUnReadMails()}</div>
+      <div className={styles.mails}>{renderMails()}</div>
     </div>
   );
 }
