@@ -216,7 +216,7 @@ const INITIAL_STATE = {
       menuItem: "",
       authorizedSafe: null
     }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
-    taskModals: { Type: MODALS.NO_MODAL, params: null }
+    taskModals: { type: MODALS.NO_MODAL, params: null }
   },
   //LIBRARY
   library: {

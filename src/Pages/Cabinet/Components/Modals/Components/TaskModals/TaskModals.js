@@ -2,18 +2,17 @@ import React from "react";
 import styles from "./TaskModals.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import { MODALS } from "../../../../../../generalComponents/globalVariables";
+import { MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import PropTypes from "prop-types";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
+import AddNote from "./AddNote/AddNote";
 
 function TaskModals() {
   const dispatch = useDispatch();
 
-  const closeModal = () => dispatch(onSetModals(MODALS.TASKS, null));
-  const { Type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
+  const closeModal = () => dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+  const { type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
   const TITLES = useTaskModalTitles();
-
   return (
     <PopUp set={closeModal}>
       <form
@@ -26,18 +25,12 @@ function TaskModals() {
           <button className={styles.button} onClick={closeModal}>
             <span className={styles.cross} />
           </button>
-          <span className={styles.title}>{TITLES[Type]}</span>
+          <span className={styles.title}>{TITLES[type]}</span>
         </header>
-        <Type />
+        {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} />}
       </form>
     </PopUp>
   );
 }
 
 export default TaskModals;
-
-TaskModals.propTypes = {
-  params: PropTypes.shape({
-    width: PropTypes.number
-  }).isRequired
-};

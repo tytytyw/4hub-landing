@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 
 function SubmitButtons({ type }) {
+  console.log(type);
   return <div className={styles.submitButtonsWrap}></div>;
 }
 

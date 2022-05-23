@@ -15,7 +15,7 @@ function Notes() {
 
   const onAddNote = () =>
     dispatch(
-      onSetModals(MODALS.TASKS, { Type: TASK_MODALS.ADD_NOTE, params: { width: 420, tag: "", color: "", text: "" } })
+      onSetModals(MODALS.TASKS, { type: TASK_MODALS.ADD_NOTE, params: { width: 420, tag: "", color: "", text: "" } })
     );
 
   return (
