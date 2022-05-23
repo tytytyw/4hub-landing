@@ -1284,7 +1284,7 @@ export const getMails = () => {
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
           date: new Date("2021-22-04 09:00"),
           id: 1,
-          files: ["image", "video"],
+          files: [],
           isRead: false
         },
         {
@@ -1300,7 +1300,7 @@ export const getMails = () => {
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
           date: new Date("2021-22-05 09:00"),
           id: 3,
-          files: ["image", "video"],
+          files: ["image"],
           isRead: true
         },
         {
@@ -1308,7 +1308,7 @@ export const getMails = () => {
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
           date: new Date("2021-22-05 09:00"),
           id: 4,
-          files: ["image", "video"],
+          files: [],
           isRead: true
         },
         {

@@ -41,10 +41,12 @@ function CardMail({ from, time, text, files }) {
         </div>
       </div>
       <div className={styles.text}>{text}</div>
-      <div className={styles.files}>
-        <Clip />
-        {`${files.length} ${__("Вложенных файла")}`}
-      </div>
+      {files.length > 0 ? (
+        <div className={styles.files}>
+          <Clip />
+          {files.length} {__("Вложенных файла")}
+        </div>
+      ) : null}
     </div>
   );
 }
