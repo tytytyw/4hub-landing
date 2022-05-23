@@ -9,7 +9,7 @@ function TaskModals() {
   const dispatch = useDispatch();
 
   const closeModal = () => dispatch(onSetModals(MODALS.TASKS, null));
-  const { Type } = useSelector((s) => s.Cabinet.modals.taskModals);
+  const { Type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
 
   return (
     <>
@@ -25,7 +25,7 @@ function TaskModals() {
               <button className={styles.button} onClick={closeModal}>
                 <span className={styles.cross} />
               </button>
-              <span className={styles.title}>{123}</span>
+              <span className={styles.title}>{params.title}</span>
             </header>
             <Type />
           </form>

@@ -6,8 +6,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 function AddNote() {
-  const { Type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
-  console.log(params);
+  const { Type } = useSelector((s) => s.Cabinet.modals.taskModals);
 
   return (
     <div className={styles.addNoteWrap}>
