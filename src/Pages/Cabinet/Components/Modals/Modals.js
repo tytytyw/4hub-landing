@@ -42,6 +42,7 @@ function Modals({
   const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
   const topMessage = useSelector((state) => state.Cabinet.modals.topMessage);
   const fileAccessRights = useSelector((state) => state.Cabinet.modals.fileAccessRights);
+  const { Type } = useSelector((s) => s.Cabinet.modals.taskModals);
   const dispatch = useDispatch();
 
   const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
@@ -90,7 +91,7 @@ function Modals({
       {previewFile.open ? <PreviewFile /> : null}
       {fileAccessRights.open ? <FileAccessRights /> : null}
       <ContextModal saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
-      <TaskModals />
+      {Type ? <TaskModals /> : null}
     </>
   );
 }
