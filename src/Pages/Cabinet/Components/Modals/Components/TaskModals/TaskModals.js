@@ -27,7 +27,7 @@ function TaskModals() {
           </button>
           <span className={styles.title}>{TITLES[type]}</span>
         </header>
-        {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} />}
+        {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
       </form>
     </PopUp>
   );
