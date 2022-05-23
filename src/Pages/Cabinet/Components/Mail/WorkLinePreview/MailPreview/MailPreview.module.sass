@@ -1,0 +1,45 @@
+@import "theme/colors"
+  
+.mailPreview
+  border: 1px solid $color-primary
+  box-shadow: 0px 0px 4px $color-shadow;
+  border-radius: 2px
+  padding: 20px
+  margin-bottom: 20px
+  height: 580px
+  .header
+    .top
+      display: flex
+      justify-content: space-between
+      margin-bottom: 30px
+      .buttons
+        display: flex
+        gap: 20px
+    .bottom
+      display: flex
+      justify-content: space-between
+      font-size: 13px
+      color: $color-text-grey
+      margin-bottom: 30px
+      .rightSide
+        display: flex
+        .time
+          margin-right: 20px
+        .files
+          svg
+            margin-right: 8px
+  .text
+    .header
+      font-size: 13px
+      color: $color-text-grey
+      margin-bottom: 30px
+      .title
+        margin-bottom: 15px
+        font-weight: 700
+    .mail
+      font-size: 11px
+      color: $color-text-grey-light
+      line-height: 15px
+      letter-spacing: 0.6px
+      font-weight: 400
+      margin-bottom: 20px

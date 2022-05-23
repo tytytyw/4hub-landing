@@ -15,6 +15,7 @@ import classnames from "classnames";
 // import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 function WorkSpace() {
+  const { fileList } = useSelector((s) => s.Cabinet);
   const { theme } = useSelector((state) => state.user.userInfo);
   return (
     <div className={styles.workSpaceWrap}>
@@ -28,7 +29,7 @@ function WorkSpace() {
       </div>
       <div className={styles.workSpace}>
         <div className={classnames(styles.workLineWrapper, `scrollbar-thin-${theme}`)}>
-          <WorkLine />
+          <WorkLine mailInfo={fileList.files} />
         </div>
         <div className={styles.workLinePreview}>
           <WorkLinePreview />

@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./CardMail.module.sass";
 import PropTypes from "prop-types";
-import { ReactComponent as Spam } from "../../../../../assets/PrivateCabinet/mail/spam.svg";
-import { ReactComponent as Inbox } from "../../../../../assets/PrivateCabinet/mail/inbox.svg";
-import { ReactComponent as Share } from "../../../../../assets/PrivateCabinet/mail/share.svg";
-import { ReactComponent as CartMail } from "../../../../../assets/PrivateCabinet/mail/cart-mail.svg";
 import { ReactComponent as Clip } from "../../../../../assets/PrivateCabinet/mail/clip.svg";
 import { useLocales } from "react-localized";
+import MailButtons from "../MailButtons/MailButtons";
+import { CARD_MAIL } from "Store/types";
 
 function CardMail({ from, time, text, files }) {
   const { __ } = useLocales();
@@ -25,18 +23,7 @@ function CardMail({ from, time, text, files }) {
         <div className={styles.rightSide}>
           <div className={styles.time}>{"6 мин.назад"}</div>
           <div className={styles.buttons}>
-            <div className={styles.button}>
-              <Spam />
-            </div>
-            <div className={styles.button}>
-              <Inbox />
-            </div>
-            <div className={styles.button}>
-              <Share />
-            </div>
-            <div className={styles.button}>
-              <CartMail />
-            </div>
+            <MailButtons path={CARD_MAIL} />
           </div>
         </div>
       </div>

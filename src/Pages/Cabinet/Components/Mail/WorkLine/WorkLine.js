@@ -3,17 +3,17 @@ import styles from "./WorkLine.module.sass";
 import { ReactComponent as Refresh } from "../../../../../assets/PrivateCabinet/mail/refresh.svg";
 import { ReactComponent as ContextToggle } from "../../../../../assets/PrivateCabinet/mail/contextToggle.svg";
 import { useLocales } from "react-localized";
-import { useSelector } from "react-redux";
 import CardMail from "../CardMail/CardMail";
+import PropTypes from "prop-types";
 
-function WorkLine() {
+function WorkLine({ mailInfo }) {
   const { __ } = useLocales();
-  const { fileList } = useSelector((s) => s.Cabinet);
-
+  //mylog
+  console.log(mailInfo);
   const unReadMails = [];
   const readMails = [];
 
-  fileList.files?.forEach((element) => {
+  mailInfo?.forEach((element) => {
     element.isRead ? readMails.push(element) : unReadMails.push(element);
   });
 
@@ -62,3 +62,16 @@ function WorkLine() {
 }
 
 export default WorkLine;
+
+WorkLine.propTypes = {
+  mailInfo: PropTypes.arrayOf(
+    PropTypes.exact({
+      from: PropTypes.string,
+      date: PropTypes.instanceOf(Date),
+      text: PropTypes.string,
+      files: PropTypes.arrayOf(PropTypes.string),
+      id: PropTypes.number,
+      isRead: PropTypes.bool
+    })
+  )
+};

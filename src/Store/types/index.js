@@ -111,3 +111,5 @@ export const SET_MODALS = "SET_MODALS";
 
 //MAIL
 export const GET_MAIL = "GET_INBOX_MAIL";
+export const CARD_MAIL = "CARD_MAIL";
+export const PREVIEW_MAIL = "PREVIEW_MAIL";
