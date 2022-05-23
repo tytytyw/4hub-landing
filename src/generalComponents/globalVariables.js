@@ -2,6 +2,7 @@ export const imageSrc = process.env.REACT_APP_IMAGE_URL ?? `${window.location.or
 export const projectSrc = process.env.REACT_APP_URL ?? `${window.location.origin}/`; //'https://fs2.mh.net.ua'
 
 export const MODALS = {
+  NO_MODAL: "",
   ERROR: "error",
   SUCCESS: "success",
   LOADER: "loader",
@@ -11,7 +12,8 @@ export const MODALS = {
   PRINT_SCREEN: "printScreen",
   TOP_MESSAGE: "topMessage",
   CONTEXT_MENU_MODAL: "contextMenuModals",
-  FILE_ACCESS_RIGHTS: "fileAccessRights"
+  FILE_ACCESS_RIGHTS: "fileAccessRights",
+  TASKS: "taskModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -110,6 +112,21 @@ export const LOADING_STATE = {
   LOADING: "LOADING",
   LOAD_NEXT_COLUMN: "next",
   IDLE: "IDLE"
+};
+
+export const TASK_MODALS = {
+  ADD_NOTE: "AddNote",
+  ADD_TASK: "AddTask",
+  ADD_MEETING: "AddMeeting",
+  ADD_CALL: "AddCall",
+  ADD_LETTER: "AddLetter",
+  ADD_SECTION: "AddSection",
+  DELETE_TASK: "DeleteTask",
+  ADD_COOMENT_TASK: "AddCommentTask",
+  ADD_REMINDER: "AddReminder",
+  EDIT_TASK: "EditTask",
+  ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
+  ADD_PASSWORD: "AddPassword"
 };
 
 // LIBRARY

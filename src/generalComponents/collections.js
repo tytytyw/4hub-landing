@@ -1,5 +1,5 @@
 import { useLocales } from "react-localized";
-import { BOARDS } from "./globalVariables";
+import { BOARDS, TASK_MODALS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -721,5 +721,23 @@ export function useStandardLibraries() {
       name: __("Статьи"),
       path: "articles"
     }
+  };
+}
+
+export function useTaskModalTitles() {
+  const { __ } = useLocales();
+  return {
+    [TASK_MODALS.ADD_NOTE]: __("Создать заметку"),
+    [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
+    [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
+    [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
+    [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
+    [TASK_MODALS.ADD_SECTION]: __("Создать раздел"),
+    [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
+    [TASK_MODALS.ADD_COOMENT_TASK]: __("Комментарий к задаче"),
+    [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
+    [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
+    [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),
+    [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль")
   };
 }

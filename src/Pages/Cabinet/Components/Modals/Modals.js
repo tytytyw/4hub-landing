@@ -16,6 +16,7 @@ import FileAccessRights from "./Components/FileAccessRights/FileAccessRights";
 import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import TaskModals from "./Components/TaskModals/TaskModals";
 
 function Modals({
   awaitingFiles,
