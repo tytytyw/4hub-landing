@@ -27,3 +27,10 @@ export const editMeetingParams = PropTypes.exact({
   time: PropTypes.string,
   name: PropTypes.string
 });
+
+export const editLetterParams = PropTypes.exact({
+  width: PropTypes.number,
+  topic: PropTypes.string,
+  receiver: PropTypes.string,
+  text: PropTypes.string
+});

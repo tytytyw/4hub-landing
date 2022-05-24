@@ -55,6 +55,14 @@ function BoardServicePanel({ type, isLastElement }) {
         })
       );
     }
+    if (type === BOARDS.MAIL_BOARD) {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.ADD_LETTER,
+          params: { width: 420, topic: "", receiver: "", text: "" }
+        })
+      );
+    }
   };
 
   return (

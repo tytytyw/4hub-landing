@@ -18,7 +18,8 @@ const InputField = ({
   comparePass,
   phone,
   disabled,
-  editableClass
+  editableClass,
+  icon
 }) => {
   const [isPassword, setIsPassword] = useState(isPass);
 
@@ -89,6 +90,7 @@ const InputField = ({
           <div className={isPassword ? styles.switchActive : styles.switch} />
         </div>
       )}
+      {icon}
     </div>
   );
 };
@@ -110,7 +112,8 @@ InputField.propTypes = {
   comparePass: PropTypes.func,
   phone: PropTypes.bool,
   disabled: PropTypes.bool,
-  editableClass: PropTypes.string
+  editableClass: PropTypes.string,
+  icon: PropTypes.node
 };
 
 InputField.defaultProps = {
