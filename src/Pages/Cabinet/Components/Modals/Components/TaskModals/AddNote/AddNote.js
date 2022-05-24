@@ -9,6 +9,7 @@ import { useLocales } from "react-localized";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import TagPicker from "../../../../../../../generalComponents/TagPicker/TagPicker";
+import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
 
 function AddNote({ type, params, closeModal }) {
   const { __ } = useLocales();
@@ -22,13 +23,15 @@ function AddNote({ type, params, closeModal }) {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, tag } }));
   };
 
+  const onChangeText = (text) => {
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, text } }));
+  };
+
   return (
     <div className={styles.addNoteWrap}>
       <TagPicker tag={params.tag} onSelectTag={onChangeTag} />
       <Colors title={__("Выберите цвет Заметки")} color={params.color} setColor={onChangeColor} />
-      <div className={styles.textAreaWrap}>
-        <textarea>{__("Текст заметки")}</textarea>
-      </div>
+      <TextArea text={params.text} onChange={onChangeText} placeholder={__("Текст заметки")} />
       <SubmitButtons type={type} closeModal={closeModal} />
     </div>
   );

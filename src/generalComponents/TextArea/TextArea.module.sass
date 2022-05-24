@@ -1,0 +1,32 @@
+@import "src/theme/theme"
+
+.textAreaWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  .textArea
+    resize: none
+    width: 100%
+    height: calc(100% - 40px)
+    border: 1px solid $color-border-dark
+    border-top-right-radius: 8px
+    border-top-left-radius: 8px
+    padding: 17px 20px
+    &:active &:focus
+      border: 1px solid $color-border-dark
+  .managementPanel
+    display: flex
+    align-items: center
+    padding: 0 20px
+    height: 40px
+    min-height: 40px
+    width: 100%
+    min-width: 100%
+    border: 1px solid $color-border-dark
+    border-top: 0
+    border-bottom-right-radius: 8px
+    border-bottom-left-radius: 8px
+    button
+      margin: 0 20px 0 0
+      &:last-child
+        margin: 0

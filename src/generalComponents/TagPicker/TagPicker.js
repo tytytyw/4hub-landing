@@ -73,7 +73,7 @@ TagPicker.defaultProps = {
 };
 
 TagPicker.propTypes = {
-  tag: PropTypes.oneOf(),
+  tag: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onSelectTag: PropTypes.func.isRequired
 };
