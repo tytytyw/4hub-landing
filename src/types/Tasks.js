@@ -34,3 +34,8 @@ export const editLetterParams = PropTypes.exact({
   receiver: PropTypes.string,
   text: PropTypes.string
 });
+
+export const editSectionParams = PropTypes.exact({
+  width: PropTypes.number,
+  title: PropTypes.string
+});

@@ -15,7 +15,8 @@ function SubmitButtons({ type, closeModal }) {
         TASK_MODALS.ADD_TASK,
         TASK_MODALS.ADD_MEETING,
         TASK_MODALS.ADD_CALL,
-        TASK_MODALS.ADD_LETTER
+        TASK_MODALS.ADD_LETTERб,
+        TASK_MODALS.ADD_SECTION
       ].includes(type)
     ) {
       return renderSubmitCancel();
