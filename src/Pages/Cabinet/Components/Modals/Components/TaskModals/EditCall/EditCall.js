@@ -14,7 +14,7 @@ function EditCall({ type, params, closeModal }) {
     <div className={styles.editMeetingWrap}>
       <div className={styles.title_wrap}>
         <h5 className={styles.title}>
-          <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время встречи")}
+          <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
         </h5>
       </div>
       <div className={styles.dateWrap}>
