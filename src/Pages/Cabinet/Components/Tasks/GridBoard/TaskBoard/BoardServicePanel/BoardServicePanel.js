@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./BoardServicePanel.module.sass";
 import PropTypes from "prop-types";
-import { BOARDS, imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import { BOARDS, imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 import { useTaskBoardTitle } from "../../../../../../../generalComponents/collections";
 import { ReactComponent as FrameIcon } from "assets/PrivateCabinet/tasks/frame.svg";
 import classNames from "classnames";
@@ -12,9 +12,12 @@ import { ReactComponent as BarsIcon } from "assets/PrivateCabinet/tasks/bars.svg
 import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/tasks/calendar.svg";
 import { ReactComponent as ListIcon } from "assets/PrivateCabinet/tasks/list.svg";
 import TabsPicker from "../../../../../../../generalComponents/TabsPicker/TabsPicker";
+import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
+import { useDispatch } from "react-redux";
 
 function BoardServicePanel({ type, isLastElement }) {
   const TITLE = useTaskBoardTitle();
+  const dispatch = useDispatch();
   const [tabSelect, setTabSelect] = useState(2);
 
   const ELEMENTS = [ListIcon, BarsIcon, LinesIcon, CalendarIcon];
@@ -35,6 +38,17 @@ function BoardServicePanel({ type, isLastElement }) {
     </>
   );
 
+  const onAdd = () => {
+    if (type === BOARDS.MEETINGS_BOARD) {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.ADD_MEETING,
+          params: { width: 420, date: "", time: "", name: "" }
+        })
+      );
+    }
+  };
+
   return (
     <div className={styles.boardServicePanelWrap}>
       <span className={styles.boardTitle}>{TITLE[type]}</span>
@@ -42,7 +56,7 @@ function BoardServicePanel({ type, isLastElement }) {
         <FrameIcon className={styles.frameIcon} />
         {!isLastElement ? (
           <div className={styles.addIconWrap}>
-            <AddIcon className={classNames(styles.addIcon)} />
+            <AddIcon className={classNames(styles.addIcon)} onClick={onAdd} />
             {renderAddImage()}
           </div>
         ) : null}

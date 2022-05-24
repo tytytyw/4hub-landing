@@ -20,3 +20,10 @@ export const editTaskParams = PropTypes.exact({
   endDate: PropTypes.string,
   taskName: PropTypes.string
 });
+
+export const editMeetingParams = PropTypes.exact({
+  width: PropTypes.number,
+  date: PropTypes.string,
+  time: PropTypes.string,
+  name: PropTypes.string
+});

@@ -7,6 +7,7 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
 import AddNote from "./AddNote/AddNote";
 import EditTask from "./EditTask/EditTask";
+import EditMeeting from "./EditMeeting/EditMeeting";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function TaskModals() {
         </header>
         {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_TASK && <EditTask type={type} params={params} closeModal={closeModal} />}
+        {type === TASK_MODALS.ADD_MEETING && <EditMeeting type={type} params={params} closeModal={closeModal} />}
       </form>
     </PopUp>
   );
