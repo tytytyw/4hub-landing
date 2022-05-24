@@ -6,3 +6,17 @@ export const addNoteParams = PropTypes.exact({
   color: PropTypes.string,
   text: PropTypes.string
 });
+
+export const editTaskParams = PropTypes.exact({
+  width: PropTypes.number,
+  tag: PropTypes.string,
+  color: PropTypes.string,
+  text: PropTypes.string,
+  sign: PropTypes.string,
+  emoji: PropTypes.string,
+  category: PropTypes.string,
+  urgency: PropTypes.string,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  taskName: PropTypes.string
+});

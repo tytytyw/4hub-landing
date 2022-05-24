@@ -17,7 +17,8 @@ const InputField = ({
   setVisibility,
   comparePass,
   phone,
-  disabled
+  disabled,
+  editableClass
 }) => {
   const [isPassword, setIsPassword] = useState(isPass);
 
@@ -34,7 +35,8 @@ const InputField = ({
     <div
       className={classnames({
         [styles.wrap]: true,
-        [styles.redBorder]: mistake
+        [styles.redBorder]: mistake,
+        [styles[editableClass]]: editableClass
       })}
     >
       <input
@@ -107,7 +109,8 @@ InputField.propTypes = {
   setVisibility: PropTypes.func,
   comparePass: PropTypes.func,
   phone: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  editableClass: PropTypes.string
 };
 
 InputField.defaultProps = {
@@ -116,5 +119,6 @@ InputField.defaultProps = {
   isPass: false,
   height: "",
   placeholder: "",
-  disabled: false
+  disabled: false,
+  editableClass: ""
 };

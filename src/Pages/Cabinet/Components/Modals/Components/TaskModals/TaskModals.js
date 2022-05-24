@@ -6,6 +6,7 @@ import { MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalV
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
 import AddNote from "./AddNote/AddNote";
+import EditTask from "./EditTask/EditTask";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function TaskModals() {
           <span className={styles.title}>{TITLES[type]}</span>
         </header>
         {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
+        {type === TASK_MODALS.ADD_TASK && <EditTask type={type} params={params} closeModal={closeModal} />}
       </form>
     </PopUp>
   );

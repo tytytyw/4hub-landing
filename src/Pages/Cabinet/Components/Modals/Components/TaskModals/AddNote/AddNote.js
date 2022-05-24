@@ -30,6 +30,7 @@ function AddNote({ type, params, closeModal }) {
   return (
     <div className={styles.addNoteWrap}>
       <TagPicker tag={params.tag} onSelectTag={onChangeTag} />
+      <div className={styles.margin} />
       <Colors title={__("Выберите цвет Заметки")} color={params.color} setColor={onChangeColor} />
       <TextArea text={params.text} onChange={onChangeText} placeholder={__("Текст заметки")} />
       <SubmitButtons type={type} closeModal={closeModal} />
@@ -38,6 +39,10 @@ function AddNote({ type, params, closeModal }) {
 }
 
 export default AddNote;
+
+AddNote.defaultProps = {
+  closeModal: () => {}
+};
 
 AddNote.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
