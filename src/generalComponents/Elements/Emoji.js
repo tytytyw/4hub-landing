@@ -6,7 +6,7 @@ import classnames from "classnames";
 import { imageSrc } from "../globalVariables";
 import { useLocales } from "react-localized";
 
-const Emoji = ({ emoji, setEmoji, title, editableClass = "" }) => {
+const Emoji = ({ emoji, setEmoji, title, editableClass = "", emojiEditableClass = "" }) => {
   const { __ } = useLocales();
   if (!title) {
     title = __("Добавить эмоджи");
@@ -33,8 +33,10 @@ const Emoji = ({ emoji, setEmoji, title, editableClass = "" }) => {
   return (
     <div className={`${styles.emojiWrap} ${editableClass ? styles[editableClass] : ""}`}>
       <span className={styles.title}>{title}</span>
-      <div className={styles.emojiRow}>{renderEmoji(smiles.slice(0, smiles.length / 2))}</div>
-      <div className={styles.emojiRow}>{renderEmoji(smiles.slice(smiles.length / 2))}</div>
+      <div className={classnames(styles.emojiWrap, styles[emojiEditableClass])}>
+        <div className={styles.emojiRow}>{renderEmoji(smiles.slice(0, smiles.length / 2))}</div>
+        <div className={styles.emojiRow}>{renderEmoji(smiles.slice(smiles.length / 2))}</div>
+      </div>
     </div>
   );
 };
@@ -45,5 +47,6 @@ Emoji.propTypes = {
   emoji: PropTypes.string,
   setEmoji: PropTypes.func,
   title: PropTypes.string,
-  editableClass: PropTypes.string
+  editableClass: PropTypes.string,
+  emojiEditableClass: PropTypes.string
 };

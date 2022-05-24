@@ -107,7 +107,12 @@ function EditTask({ type, params, closeModal }) {
         </div>
       </div>
       <div className={styles.bottomWrap}>
-        <Emoji emoji={params.emoji} setEmoji={onChangeEmoji} />
+        <Emoji
+          emoji={params.emoji}
+          setEmoji={onChangeEmoji}
+          emojiEditableClass={"rowEmoji"}
+          editableClass={"addTask"}
+        />
         <div className={styles.margin} />
         <TextArea text={params.text} onChange={onChangeText} placeholder={__("Текст задачи")} />
         <div className={styles.buttonsWrap}>
