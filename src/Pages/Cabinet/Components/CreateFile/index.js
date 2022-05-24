@@ -348,7 +348,7 @@ const CreateFile = ({
             </div>
             <div className={styles.safeText}>{__("Сохранить пароль во вкладку сейф с паролями")}</div>
           </div>
-          <Colors title="Выберите цвет файла" color={color} setColor={setColor} />
+          <Colors title={__("Выберите цвет файла")} color={color} setColor={setColor} />
           <Signs sign={sign} setSign={setSign} />
           <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? "create" : ""} />
           <div className={`${styles.buttonsWrap} ${create ? "" : styles.buttonsWrapSmall}`}>
