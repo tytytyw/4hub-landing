@@ -8,6 +8,7 @@ import { useTaskModalTitles } from "../../../../../../generalComponents/collecti
 import AddNote from "./AddNote/AddNote";
 import EditTask from "./EditTask/EditTask";
 import EditMeeting from "./EditMeeting/EditMeeting";
+import EditCall from "./EditCall/EditCall";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function TaskModals() {
         {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_TASK && <EditTask type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_MEETING && <EditMeeting type={type} params={params} closeModal={closeModal} />}
+        {type === TASK_MODALS.ADD_CALL && <EditCall type={type} params={params} closeModal={closeModal} />}
       </form>
     </PopUp>
   );

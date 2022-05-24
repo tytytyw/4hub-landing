@@ -47,6 +47,14 @@ function BoardServicePanel({ type, isLastElement }) {
         })
       );
     }
+    if (type === BOARDS.CALLS_BOARD) {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.ADD_CALL,
+          params: { width: 420, date: "", time: "", name: "" }
+        })
+      );
+    }
   };
 
   return (

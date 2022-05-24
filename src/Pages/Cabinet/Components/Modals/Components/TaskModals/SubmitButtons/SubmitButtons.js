@@ -9,7 +9,7 @@ function SubmitButtons({ type, closeModal }) {
   const { __ } = useLocales();
 
   const renderSubmitButtons = () => {
-    if ([TASK_MODALS.ADD_NOTE, TASK_MODALS.ADD_TASK, TASK_MODALS.ADD_MEETING].includes(type)) {
+    if ([TASK_MODALS.ADD_NOTE, TASK_MODALS.ADD_TASK, TASK_MODALS.ADD_MEETING, TASK_MODALS.ADD_CALL].includes(type)) {
       return renderSubmitCancel();
     }
   };
