@@ -8,11 +8,13 @@ import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
+import { fileCartRestore } from "../../../../../generalComponents/fileMenuHelper";
 
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
+  const uid = useSelector((state) => state.user.uid);
 
   const { pathname } = useLocation();
 
@@ -68,7 +70,17 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
         )
       : null;
 
-  const onReestablish = () => console.log("onReestablish");
+  const onRestoreCartFile = () => {
+    const fileLength = filePick.files;
+
+    if (fileLength.length > 1) {
+      fileLength.forEach((fileId) => {
+        fileCartRestore(fileId, dispatch, uid, __("Файлы успешно восстановлены"), __);
+      });
+    } else {
+      fileCartRestore(fileLength[0], dispatch, uid, __("Файл успешно восстановлен"), __);
+    }
+  };
 
   const renderCancelBtn = () => {
     return (
@@ -110,9 +122,9 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
     );
   };
 
-  const renderReestablishBtn = () => {
+  const renderRestoreCartFileBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onReestablish}>
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onRestoreCartFile}>
         {__("Восстановить")}
       </div>
     );
@@ -123,7 +135,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
       <>
         {renderCancelBtn()}
         {renderMoveToArchiveBtn()}
-        {renderReestablishBtn()}
+        {renderRestoreCartFileBtn()}
       </>
     );
   };

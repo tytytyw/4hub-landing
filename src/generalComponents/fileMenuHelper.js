@@ -1,5 +1,7 @@
 import api from "../api";
-import { onDeleteFile, onDeleteSafeFile } from "../Store/actions/CabinetActions";
+import { onDeleteFile, onDeleteSafeFile, onLoadFiles, onSetModals } from "../Store/actions/CabinetActions";
+import { checkResponseStatus } from "./generalHelpers";
+import { MODALS, CART, TOP_MESSAGE_TYPE } from "./globalVariables";
 
 export const fileDelete = (file, dispatch, uid, set, msg) => {
   api
@@ -27,4 +29,35 @@ export const safeFileDelete = (id_safe, file, dispatch, uid, set, msg) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+export const fileCartRestore = (fileId, dispatch, uid, message, __) => {
+  api
+    .get(`/ajax/file_restore.php`, {
+      params: {
+        uid,
+        fid: fileId
+      }
+    })
+    .then((res) => {
+      if (checkResponseStatus(res.data.ok)) {
+        dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+        dispatch(
+          onSetModals(MODALS.TOP_MESSAGE, {
+            open: true,
+            type: TOP_MESSAGE_TYPE.MESSAGE,
+            message
+          })
+        );
+      } else throw new Error();
+    })
+    .catch(() =>
+      dispatch(
+        onSetModals(MODALS.ERROR, {
+          open: true,
+          message: __("что-то пошло не так"),
+          title: __("ошибка")
+        })
+      )
+    );
 };

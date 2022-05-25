@@ -12,7 +12,13 @@ import RecentFiles from "../../RecentFiles";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../../generalComponents/Hooks";
-import { onAddRecentFiles, onChooseFiles, onGetArchiveFiles } from "../../../../../Store/actions/CabinetActions";
+import {
+  onAddRecentFiles,
+  onChooseFiles,
+  onGetArchiveFiles,
+  onLoadFiles,
+  clearFileList
+} from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -21,6 +27,9 @@ import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
+import { CART } from "../../../../../generalComponents/globalVariables";
+import { cancelRequest } from "../../../../../api";
+import { LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
   chosenFile,
@@ -52,21 +61,25 @@ const WorkSpace = ({
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
   const { pathname } = useLocation();
+  const { view } = useSelector((s) => s.Cabinet);
   const [dateFilter, setDateFilter] = useState({});
   const successLoad = () => {
     setFilesPage(2);
     setGLoader(false);
   };
+
   useEffect(() => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     setFilesPage(0);
-    setGLoader(true);
     setChosenFile(null);
     pathname === "/files" && dispatch(onAddRecentFiles());
     //TODO - Need to change request after server changes
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
-    if (pathname === "/cart") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
+
+    setFilesPage(2);
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")
       dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
@@ -83,6 +96,8 @@ const WorkSpace = ({
         type: "SORT_FILES",
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
+      cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
+      dispatch(clearFileList());
     };
   }, [pathname]); // eslint-disable-line
 

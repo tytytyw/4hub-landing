@@ -166,11 +166,6 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-
-    if (pathname === "/cart") {
-      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
-      setFilesPage(1);
-    }
   }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {

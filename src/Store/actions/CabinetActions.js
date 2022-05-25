@@ -140,23 +140,16 @@ export const onsetInitialChosenFile = (file) => {
  */
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
-    const emoji = getState().Cabinet.fileCriterion.filters.emoji
-      ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}`
-      : "";
-    const sign = getState().Cabinet.fileCriterion.filters.figure
-      ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}`
-      : "";
-    const color = getState().Cabinet.fileCriterion.filters.color.color
-      ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}`
-      : "";
+    const filters = getState().Cabinet.fileCriterion.filters;
+
+    const emoji = filters.emoji ? `&filter_emo=${filters.emoji}` : "";
+    const sign = filters.figure ? `&filter_fig=${filters.figure}` : "";
+    const color = filters.color.color ? `&filter_color=${filters.color.color}` : "";
     const searched = search ? `&search=${search}` : "";
-    const sortReverse =
-      getState().Cabinet.fileCriterion.reverse &&
-      getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting]
-        ? `&sort_reverse=1`
-        : "";
+    const sortReverse = filters.reverse && filters.reverse[filters.sorting] ? `&sort_reverse=1` : "";
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
+
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
       allFiles ? "" : path

@@ -18,7 +18,7 @@ import {
   onSetModals,
   onLoadFiles
 } from "../../../../Store/actions/CabinetActions";
-import { imageSrc, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
+import { CART, imageSrc, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
 import { onSetWorkElementsView } from "../../../../Store/actions/CabinetActions";
 import { ReactComponent as BarsIcon } from "../../../../assets/PrivateCabinet/bars.svg";
 import { ReactComponent as LinesIcon } from "../../../../assets/PrivateCabinet/lines.svg";
@@ -99,6 +99,7 @@ const ServePanel = ({
     dispatch(onSortFile(sorting));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -183,6 +184,7 @@ const ServePanel = ({
     dispatch(onChangeFilterFigure(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -210,6 +212,7 @@ const ServePanel = ({
     dispatch(onChangeFilterColor(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -237,6 +240,7 @@ const ServePanel = ({
     dispatch(onChangeFilterEmoji(value));
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
