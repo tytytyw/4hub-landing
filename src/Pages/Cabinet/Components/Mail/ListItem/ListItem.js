@@ -9,10 +9,10 @@ import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetPath, getMails } from "../../../../../Store/actions/CabinetActions";
 
-function ListItem({ mail }) {
+function ListItem({ mail, open }) {
   const dispatch = useDispatch();
   const { fileList } = useSelector((s) => s.Cabinet);
-  const [isShowMailMenu, setIsShowMailMenu] = useState(true);
+  const [isShowMailMenu, setIsShowMailMenu] = useState(open);
   const STANDARD_MAIL = useStandardMail(mail);
   const toggleEvents = () => {
     setIsShowMailMenu((prevState) => !prevState);
@@ -53,5 +53,6 @@ function ListItem({ mail }) {
 export default ListItem;
 
 ListItem.propTypes = {
-  mail: PropTypes.string
+  mail: PropTypes.string,
+  open: PropTypes.bool
 };

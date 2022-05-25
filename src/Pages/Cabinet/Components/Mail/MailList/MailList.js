@@ -12,7 +12,7 @@ function MailList({ mailAccounts }) {
   const { theme } = useSelector((state) => state.user.userInfo);
 
   const renderMailAccount = () => {
-    return mailAccounts.map((item) => <ListItem key={item} mail={item} />);
+    return mailAccounts.map((item, i) => <ListItem key={item} mail={item} open={i === 0 ? true : false} />);
   };
   return (
     <div className={classnames(styles.wrapper, `scrollbar-thin-${theme}`)}>

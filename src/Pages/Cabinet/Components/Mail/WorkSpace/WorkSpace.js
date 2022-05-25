@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./WorkSpace.module.sass";
 import BottomPanel from "../../BottomPanel";
@@ -8,15 +8,16 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
 import WorkLine from "../WorkLine/WorkLine";
 import WorkLinePreview from "../WorkLinePreview/WorkLinePreview";
+import ContextMenu from "../../../../../generalComponents/ContextMenu";
+import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useSelector } from "react-redux";
 import classnames from "classnames";
-
-// import ContextMenu from "../../../../../generalComponents/ContextMenu";
-// import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 function WorkSpace() {
   const { fileList } = useSelector((s) => s.Cabinet);
   const { theme } = useSelector((state) => state.user.userInfo);
+
+  const [mouseParams, setMouseParams] = useState({});
   return (
     <div className={styles.workSpaceWrap}>
       <div className={styles.header}>
@@ -35,17 +36,17 @@ function WorkSpace() {
           <WorkLinePreview />
         </div>
       </div>
-      {/* {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-          <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-            <ContextMenuFileList
-              filePick={filePick}
-              file={chosenFile}
-              mouseParams={mouseParams}
-              filesPage={filesPage}
-              menuItem={menuItem}
-            />
-          </ContextMenu>
-        ) : null} */}
+      {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <ContextMenuFileList
+          // filePick={filePick}
+          // file={chosenFile}
+          // mouseParams={mouseParams}
+          // filesPage={filesPage}
+          // menuItem={menuItem}
+          />
+        </ContextMenu>
+      ) : null}
       <BottomPanel />
     </div>
   );
