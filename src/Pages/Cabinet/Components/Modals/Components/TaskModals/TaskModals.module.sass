@@ -1,0 +1,38 @@
+@import "src/theme/theme"
+
+.taskModalsWrap
+  display: flex
+  flex-direction: column
+  width: max-content
+  height: max-content
+  align-items: center
+  .header
+    position: relative
+    width: 100%
+    .button
+      cursor: pointer
+      .cross
+        position: absolute
+        top: 20px
+        right: 11px
+        width: 18px
+        height: 2px
+        background: #a7a4a4
+        transform: rotate(45deg)
+        &:before
+          content: ''
+          position: absolute
+          top: 0
+          right: 0
+          width: 18px
+          height: 2px
+          background: #a7a4a4
+          transform: rotate(90deg)
+    .title
+      display: flex
+      align-items: center
+      justify-content: center
+      font-size: 18px
+      font-family: "SF Pro Medium", sans-serif
+      margin-bottom: 20px
+      width: 100%

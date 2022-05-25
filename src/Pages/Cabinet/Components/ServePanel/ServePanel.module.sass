@@ -1,3 +1,5 @@
+@import "src/theme/theme"
+
 .servePanelWrap
   display: flex
   align-items: center
@@ -8,6 +10,7 @@
   box-sizing: border-box
   padding: 0 15px 0 17px
   font-family: "SF Pro Light", sans-serif
+  background: $color-white
   .groupStart
     display: flex
     .viewPanel
@@ -239,6 +242,7 @@
     font-family: "SF Pro Light", sans-serif
     font-size: 11px
     cursor: pointer
+    //background-color: $color-white
     &:hover
       background: rgb(235, 242, 252)
     .chosen
@@ -324,6 +328,7 @@
           margin: 0 5px 0 0
     .contextSortingItem
       height: 25px
+      background-color: $color-white
 
 @media (max-width: 1310px)
   .servePanelWrap
@@ -373,6 +378,7 @@
   .servePanelWrap
     .contextSortingItem
       height: 25px
+      background-color: $color-white
 
 @media (max-height: 693px)
       .servePanelWrap
