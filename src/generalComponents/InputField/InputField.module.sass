@@ -1,3 +1,5 @@
+@import "src/theme/theme"
+
 .wrap
   display: flex
   align-items: center
@@ -5,7 +7,7 @@
   min-height: 45px
   height: 100%
   position: relative
-  border: 1px solid #bab8b8
+  border: 1px solid $color-border-dark
   border-radius: 5px
   box-sizing: border-box
   .inputField
@@ -80,3 +82,5 @@
     transition: transform 0.1s ease-in-out
 .redBorder
   border: 1px solid red
+.fixedHeight
+  height: 45px

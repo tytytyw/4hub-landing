@@ -23,7 +23,7 @@ export default TextButton;
 
 TextButton.propTypes = {
   text: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(["ok", "cancel"]),
   callback: PropTypes.func,
   disabled: PropTypes.bool,
   style: PropTypes.exact({

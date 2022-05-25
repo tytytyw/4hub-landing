@@ -73,6 +73,7 @@ import {
   SET_CHAT_THEME,
   GET_MAIL
 } from "../types";
+import { MODALS } from "../../generalComponents/globalVariables";
 
 const INITIAL_STATE = {
   global: null,
@@ -215,7 +216,8 @@ const INITIAL_STATE = {
       filePick: null,
       menuItem: "",
       authorizedSafe: null
-    } //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+    }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+    taskModals: { type: MODALS.NO_MODAL, params: null }
   },
   //LIBRARY
   library: {

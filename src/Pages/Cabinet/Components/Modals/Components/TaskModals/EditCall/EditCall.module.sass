@@ -1,0 +1,52 @@
+@import "src/theme/theme"
+.editMeetingWrap
+  display: flex
+  flex-direction: column
+  width: 95%
+  align-items: center
+  .title_wrap
+    display: flex
+    align-items: center
+    width: 95%
+    .title
+      display: flex
+      align-items: center
+      font-size: 11px
+      margin: 12px 0 19px 0
+      .calendarIcon
+        margin: 0 12px 0 0
+  .dateWrap
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 95%
+    .dateName
+      font-size: 12px
+      font-family: "SF Pro Regular", sans-serif
+      color: $color-text-grey
+      margin: 0 10px 0 0
+    .date
+      height: 35px
+      width: 100px
+      border: 1px solid $color-border-dark
+      text-align: center
+      margin: 0 20px 0 0
+      border-radius: 4px
+    .inputs_wrap_time
+      display: flex
+      align-items: center
+      height: 35px
+      .time_count
+        height: 35px
+        width: 50px
+        border: 1px solid $color-border-dark
+        text-align: center
+        border-radius: 4px
+      .dots
+        margin: 0 5px
+    .open_calendar
+      cursor: pointer
+      font-size: 12px
+      font-family: "SF Pro Regular", sans-serif
+      color: $color-blue-smooth
+      height: max-content
