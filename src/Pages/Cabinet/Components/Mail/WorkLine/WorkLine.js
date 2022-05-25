@@ -8,8 +8,7 @@ import PropTypes from "prop-types";
 
 function WorkLine({ mailInfo }) {
   const { __ } = useLocales();
-  //mylog
-  console.log(mailInfo);
+
   const unReadMails = [];
   const readMails = [];
 
@@ -67,7 +66,7 @@ WorkLine.propTypes = {
   mailInfo: PropTypes.arrayOf(
     PropTypes.exact({
       from: PropTypes.string,
-      date: PropTypes.instanceOf(Date),
+      date: PropTypes.string,
       text: PropTypes.string,
       files: PropTypes.arrayOf(PropTypes.string),
       id: PropTypes.number,

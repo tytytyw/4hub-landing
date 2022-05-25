@@ -4,13 +4,10 @@ import PropTypes from "prop-types";
 import { ReactComponent as Clip } from "../../../../../assets/PrivateCabinet/mail/clip.svg";
 import { useLocales } from "react-localized";
 import MailButtons from "../MailButtons/MailButtons";
-import { CARD_MAIL } from "Store/types";
+import { CARD_MAIL_PATH } from "Store/types";
 
 function CardMail({ from, time, text, files }) {
   const { __ } = useLocales();
-
-  //mylog
-  console.log(time);
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -21,9 +18,9 @@ function CardMail({ from, time, text, files }) {
           <div className={styles.name}>{from}</div>
         </div>
         <div className={styles.rightSide}>
-          <div className={styles.time}>{"6 мин.назад"}</div>
+          <div className={styles.time}>{time}</div>
           <div className={styles.buttons}>
-            <MailButtons path={CARD_MAIL} />
+            <MailButtons path={CARD_MAIL_PATH} />
           </div>
         </div>
       </div>
@@ -40,9 +37,13 @@ function CardMail({ from, time, text, files }) {
 
 export default CardMail;
 
+CardMail.defaultProps = {
+  files: []
+};
+
 CardMail.propTypes = {
   from: PropTypes.string,
-  time: PropTypes.instanceOf(Date),
+  time: PropTypes.string,
   text: PropTypes.string,
   files: PropTypes.arrayOf(PropTypes.string)
 };

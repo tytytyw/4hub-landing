@@ -1282,7 +1282,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-04 09:00"),
+          date: "2021-22-04 11:00",
           id: 1,
           files: [],
           isRead: false
@@ -1290,7 +1290,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 10:00",
           id: 2,
           files: ["image", "video"],
           isRead: false
@@ -1298,7 +1298,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 10:30",
           id: 3,
           files: ["image"],
           isRead: true
@@ -1306,7 +1306,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 12:00",
           id: 4,
           files: [],
           isRead: true
@@ -1314,7 +1314,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 10:12",
           id: 5,
           files: ["image", "video"],
           isRead: false
@@ -1322,7 +1322,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 13:00",
           id: 6,
           files: ["image", "video"],
           isRead: true
@@ -1330,7 +1330,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 12:30",
           id: 7,
           files: ["image", "video"],
           isRead: true
@@ -1338,7 +1338,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 14:00",
           id: 8,
           files: [],
           isRead: true
@@ -1346,7 +1346,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 15:00",
           id: 9,
           files: ["image", "video"],
           isRead: true
@@ -1354,7 +1354,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 16:00",
           id: 10,
           files: [],
           isRead: true
@@ -1362,7 +1362,7 @@ export const getMails = () => {
         {
           from: "Alina Kvitalina",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru ",
-          date: new Date("2021-22-05 09:00"),
+          date: "2021-22-04 18:00",
           id: 11,
           files: ["image", "video"],
           isRead: true
