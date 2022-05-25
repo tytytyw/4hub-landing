@@ -29,6 +29,7 @@ import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
 import { CART } from "../../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../../api";
+import { LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
   chosenFile,
@@ -60,6 +61,7 @@ const WorkSpace = ({
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
   const { pathname } = useLocation();
+  const { view } = useSelector((s) => s.Cabinet);
   const [dateFilter, setDateFilter] = useState({});
   const successLoad = () => {
     setFilesPage(2);
@@ -67,6 +69,7 @@ const WorkSpace = ({
   };
 
   useEffect(() => {
+    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     setFilesPage(0);
     setChosenFile(null);
     pathname === "/files" && dispatch(onAddRecentFiles());
@@ -74,7 +77,7 @@ const WorkSpace = ({
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
 
     setFilesPage(2);
     //TODO: need dispatch downloaded-files
