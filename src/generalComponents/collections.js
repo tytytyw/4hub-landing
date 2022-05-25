@@ -726,40 +726,40 @@ export function useStandardLibraries() {
 
 // MAIL
 
-export function useStandardMail() {
+export function useStandardMail(mail) {
   const { __ } = useLocales();
   return {
     INBOX: {
       name: __("Входящие"),
-      path: "inbox"
+      path: `${mail}/inbox`
     },
     SEND: {
       name: __("Исходящие"),
-      path: "send"
+      path: `${mail}/send`
     },
     ARCHIVE: {
       name: __("Архив"),
-      path: "archive"
+      path: `${mail}/archive`
     },
     DRAFT: {
       name: __("Черновик"),
-      path: "draft"
+      path: `${mail}/draft`
     },
     FAVORITES: {
       name: __("Избранное"),
-      path: "favorites"
+      path: `${mail}/favorites`
     },
     TIME: {
       name: __("Отложенные"),
-      path: "time"
+      path: `${mail}/time`
     },
     SPAM: {
       name: __("Спам"),
-      path: "spam"
+      path: `${mail}/spam`
     },
     CART: {
       name: __("Корзина"),
-      path: "cart"
+      path: `${mail}/cart`
     }
   };
 }

@@ -4,16 +4,15 @@ import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
 import MailList from "./MailList/MailList";
 import WorkSpace from "./WorkSpace/WorkSpace";
-import { useStandardMail } from "../../../../generalComponents/collections";
-import { onSetPath, getMails, clearFileList } from "../../../../Store/actions/CabinetActions";
+import { getMails, clearFileList, onSetPath } from "../../../../Store/actions/CabinetActions";
 
 function Mail() {
   const dispatch = useDispatch();
-  const STANDARD_MAIL = useStandardMail();
+  const mailAccounts = ["first@gmail.com", "second@gmail.com", "third@gmail.com"];
 
   useEffect(() => {
     dispatch(onGetUserInfo());
-    dispatch(onSetPath(STANDARD_MAIL.INBOX.path));
+    dispatch(onSetPath(`${mailAccounts[0]}/inbox`));
     dispatch(getMails());
 
     return () => {
@@ -23,7 +22,7 @@ function Mail() {
 
   return (
     <div className={styles.mail}>
-      <MailList />
+      <MailList mailAccounts={mailAccounts} />
       <WorkSpace />
     </div>
   );

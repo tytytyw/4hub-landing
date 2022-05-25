@@ -13,8 +13,7 @@ function ListItem({ mail }) {
   const dispatch = useDispatch();
   const { fileList } = useSelector((s) => s.Cabinet);
   const [isShowMailMenu, setIsShowMailMenu] = useState(true);
-  const STANDARD_MAIL = useStandardMail();
-
+  const STANDARD_MAIL = useStandardMail(mail);
   const toggleEvents = () => {
     setIsShowMailMenu((prevState) => !prevState);
   };

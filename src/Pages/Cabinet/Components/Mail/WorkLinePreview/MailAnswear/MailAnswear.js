@@ -6,8 +6,11 @@ import classNames from "classnames";
 import MailButtons from "../../MailButtons/MailButtons";
 import { ANSWEAR_MAIL_PATH } from "Store/types";
 import { useSelector } from "react-redux";
+import { useLocales } from "react-localized";
+import Button from "Pages/Cabinet/Components/MyProfile/Button";
 
 function MailAnswear() {
+  const { __ } = useLocales();
   const { theme } = useSelector((state) => state.user.userInfo);
   return (
     <div className={styles.answear}>
@@ -27,7 +30,9 @@ function MailAnswear() {
         <div className={styles.buttons}>
           <MailButtons path={ANSWEAR_MAIL_PATH} />
         </div>
-        <div className={styles.send}>knopka</div>
+        <div className={styles.send}>
+          <Button>{__("Отправить")}</Button>
+        </div>
       </div>
     </div>
   );
