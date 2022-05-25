@@ -218,7 +218,6 @@ const ItemsList = ({
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
-        pathname === "/folders" && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
         pathname === "/downloaded-files" &&
           dispatch(
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
