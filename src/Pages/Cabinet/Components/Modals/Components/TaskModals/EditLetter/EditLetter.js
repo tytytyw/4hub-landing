@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import InputField from "../../../../../../../generalComponents/InputField";
 import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
-import SubmitButtons from "../SubmitButtons/SubmitButtons";
+import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as ContactBookIcon } from "assets/PrivateCabinet/contact-book.svg";
 
 function EditLetter({ type, params, closeModal }) {

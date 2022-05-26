@@ -13,7 +13,8 @@ export const MODALS = {
   TOP_MESSAGE: "topMessage",
   CONTEXT_MENU_MODAL: "contextMenuModals",
   FILE_ACCESS_RIGHTS: "fileAccessRights",
-  TASKS: "taskModals"
+  TASKS: "taskModals",
+  LIBRARY: "libraryModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -139,6 +140,10 @@ export const VIEW_TYPE = {
   LINES: "lines",
   BARS_PREVIEW: "preview",
   LINES_PREVIEW: "workLinesPreview"
+};
+
+export const LIBRARY_MODALS = {
+  ADD_SECTION: "AddSection"
 };
 
 // CART

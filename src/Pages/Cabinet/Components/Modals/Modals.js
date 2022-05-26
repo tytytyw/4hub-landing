@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 import TaskModals from "./Components/TaskModals/TaskModals";
+import LibraryModals from "./Components/LibraryModals/LibraryModals";
 
 function Modals({
   awaitingFiles,
@@ -42,7 +43,8 @@ function Modals({
   const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
   const topMessage = useSelector((state) => state.Cabinet.modals.topMessage);
   const fileAccessRights = useSelector((state) => state.Cabinet.modals.fileAccessRights);
-  const { type } = useSelector((s) => s.Cabinet.modals.taskModals);
+  const taskModalsType = useSelector((s) => s.Cabinet.modals.taskModals.type);
+  const libraryModalsType = useSelector((s) => s.Cabinet.modals.libraryModals.type);
   const dispatch = useDispatch();
 
   const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
@@ -91,7 +93,8 @@ function Modals({
       {previewFile.open ? <PreviewFile /> : null}
       {fileAccessRights.open ? <FileAccessRights /> : null}
       <ContextModal saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
-      {type ? <TaskModals /> : null}
+      {taskModalsType ? <TaskModals /> : null}
+      {libraryModalsType ? <LibraryModals /> : null}
     </>
   );
 }

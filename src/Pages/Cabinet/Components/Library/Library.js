@@ -5,7 +5,7 @@ import WorkSpace from "./WorkSpace/WorkSpace";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
-import LibraryList from "./WorkSpace/LibraryList/LibraryList";
+import LibraryList from "./LibraryList/LibraryList";
 import { useDispatch, useSelector } from "react-redux";
 import { clearFileList, onLoadFiles, onSetPath } from "../../../../Store/actions/CabinetActions";
 import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
