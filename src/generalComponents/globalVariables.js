@@ -14,7 +14,8 @@ export const MODALS = {
   CONTEXT_MENU_MODAL: "contextMenuModals",
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
-  LIBRARY: "libraryModals"
+  LIBRARY: "libraryModals",
+  MAIL: "mailModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -128,6 +129,12 @@ export const TASK_MODALS = {
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
   ADD_PASSWORD: "AddPassword"
+};
+
+// MAIL
+
+export const MAIL_MODALS = {
+  NEW_MAIL: "NewMail"
 };
 
 // LIBRARY

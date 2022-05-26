@@ -1,5 +1,5 @@
 import { useLocales } from "react-localized";
-import { BOARDS, LIBRARY_MODALS, TASK_MODALS } from "./globalVariables";
+import { BOARDS, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -786,5 +786,12 @@ export function useStandardMail(mail) {
       name: __("Корзина"),
       path: `${mail}/cart`
     }
+  };
+}
+
+export function useMailModalTitles() {
+  const { __ } = useLocales();
+  return {
+    [MAIL_MODALS.NEW_MAIL]: __("Новое сообщение")
   };
 }
