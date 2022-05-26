@@ -1,5 +1,5 @@
 import { useLocales } from "react-localized";
-import { BOARDS, TASK_MODALS } from "./globalVariables";
+import { BOARDS, LIBRARY_MODALS, TASK_MODALS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -739,6 +739,13 @@ export function useTaskModalTitles() {
     [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
     [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),
     [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль")
+  };
+}
+
+export function useLibraryModalTitles() {
+  const { __ } = useLocales();
+  return {
+    [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел")
   };
 }
 

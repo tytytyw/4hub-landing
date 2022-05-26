@@ -12,7 +12,7 @@ import TagPicker from "../../../../../../../generalComponents/TagPicker/TagPicke
 import Signs from "../../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
 import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
-import SubmitButtons from "../SubmitButtons/SubmitButtons";
+import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 
 function EditTask({ type, params, closeModal }) {
   const { __ } = useLocales();

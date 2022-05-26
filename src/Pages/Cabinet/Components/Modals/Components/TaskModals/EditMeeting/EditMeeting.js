@@ -5,7 +5,7 @@ import { editMeetingParams } from "../../../../../../../types/Tasks";
 import styles from "./EditMeeting.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
-import SubmitButtons from "../SubmitButtons/SubmitButtons";
+import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6.svg";
 
 function EditMeeting({ type, params, closeModal }) {
