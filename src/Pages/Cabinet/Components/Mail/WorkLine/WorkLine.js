@@ -6,13 +6,13 @@ import { useLocales } from "react-localized";
 import CardMail from "../CardMail/CardMail";
 import PropTypes from "prop-types";
 
-function WorkLine({ mailInfo }) {
+function WorkLine({ mail }) {
   const { __ } = useLocales();
 
   const unReadMails = [];
   const readMails = [];
 
-  mailInfo?.forEach((element) => {
+  mail?.forEach((element) => {
     element.isRead ? readMails.push(element) : unReadMails.push(element);
   });
 
@@ -63,7 +63,7 @@ function WorkLine({ mailInfo }) {
 export default WorkLine;
 
 WorkLine.propTypes = {
-  mailInfo: PropTypes.arrayOf(
+  mail: PropTypes.arrayOf(
     PropTypes.exact({
       from: PropTypes.string,
       date: PropTypes.string,

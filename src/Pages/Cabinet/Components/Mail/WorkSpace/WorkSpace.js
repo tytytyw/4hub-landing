@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import classnames from "classnames";
 
 function WorkSpace() {
-  const { fileList } = useSelector((s) => s.Cabinet);
+  const { mailList } = useSelector((s) => s.Cabinet);
   const { theme } = useSelector((state) => state.user.userInfo);
 
   const [mouseParams, setMouseParams] = useState({});
@@ -30,7 +30,7 @@ function WorkSpace() {
       </div>
       <div className={styles.workSpace}>
         <div className={classnames(styles.workLineWrapper, `scrollbar-thin-${theme}`)}>
-          <WorkLine mailInfo={fileList.files} />
+          <WorkLine mail={mailList.mails} />
         </div>
         <div className={styles.workLinePreview}>
           <WorkLinePreview />

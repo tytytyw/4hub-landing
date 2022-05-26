@@ -7,11 +7,11 @@ import { useStandardMail } from "../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetPath, getMails } from "../../../../../Store/actions/CabinetActions";
+import { onSetMailPath, getMails } from "../../../../../Store/actions/CabinetActions";
 
 function ListItem({ mail, open }) {
   const dispatch = useDispatch();
-  const { fileList } = useSelector((s) => s.Cabinet);
+  const { mailList } = useSelector((s) => s.Cabinet);
   const [isShowMailMenu, setIsShowMailMenu] = useState(open);
   const STANDARD_MAIL = useStandardMail(mail);
   const toggleEvents = () => {
@@ -19,7 +19,8 @@ function ListItem({ mail, open }) {
   };
   const linksMailMenuClass = isShowMailMenu ? styles.linksMailMenuShow : styles.linksMailMenuHide;
   const mailMenuClass = isShowMailMenu ? styles.mailMenuOpen : "";
-
+  //mylog
+  console.log(mailList);
   const renderMailCategory = () => {
     return Object.entries(STANDARD_MAIL).map(([key, item], i) => {
       return (
@@ -28,14 +29,14 @@ function ListItem({ mail, open }) {
           key={i}
           icon={`${imageSrc}assets/PrivateCabinet/mail/${key.toLowerCase()}.svg`}
           onClick={() => handleListItemClick(item.path)}
-          isChosen={item.path === fileList.path}
+          isChosen={item.path === mailList.path}
         />
       );
     });
   };
 
   const handleListItemClick = (path) => {
-    dispatch(onSetPath(path));
+    dispatch(onSetMailPath(path));
     dispatch(getMails());
   };
 

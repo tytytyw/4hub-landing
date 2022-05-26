@@ -4,7 +4,7 @@ import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
 import MailList from "./MailList/MailList";
 import WorkSpace from "./WorkSpace/WorkSpace";
-import { getMails, clearFileList, onSetPath } from "../../../../Store/actions/CabinetActions";
+import { getMails, clearFileList, onSetMailPath } from "../../../../Store/actions/CabinetActions";
 
 function Mail() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ function Mail() {
 
   useEffect(() => {
     dispatch(onGetUserInfo());
-    dispatch(onSetPath(`${mailAccounts[0]}/inbox`));
+    dispatch(onSetMailPath(`${mailAccounts[0]}/inbox`));
     dispatch(getMails());
 
     return () => {

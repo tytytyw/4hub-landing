@@ -224,6 +224,11 @@ const INITIAL_STATE = {
   library: {
     chosenCategory: null,
     chosenFile: null
+  },
+  // MAIL
+  mailList: {
+    mails: [],
+    path: "global/all"
   }
 };
 
@@ -694,7 +699,7 @@ export default function startPage(state = INITIAL_STATE, action) {
 
     // MAIL
     case GET_MAIL: {
-      return { ...state, fileList: { ...state.fileList, ...action.payload } };
+      return { ...state, mailList: { ...state.mailList, ...action.payload } };
     }
   }
 }
