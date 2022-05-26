@@ -19,8 +19,7 @@ function ListItem({ mail, open }) {
   };
   const linksMailMenuClass = isShowMailMenu ? styles.linksMailMenuShow : styles.linksMailMenuHide;
   const mailMenuClass = isShowMailMenu ? styles.mailMenuOpen : "";
-  //mylog
-  console.log(mailList);
+
   const renderMailCategory = () => {
     return Object.entries(STANDARD_MAIL).map(([key, item], i) => {
       return (

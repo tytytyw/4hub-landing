@@ -71,7 +71,8 @@ import {
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
   SET_CHAT_THEME,
-  GET_MAIL
+  GET_MAIL,
+  NULLIFY_MAILS
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -228,7 +229,7 @@ const INITIAL_STATE = {
   // MAIL
   mailList: {
     mails: [],
-    path: "global/all"
+    path: ""
   }
 };
 
@@ -700,6 +701,9 @@ export default function startPage(state = INITIAL_STATE, action) {
     // MAIL
     case GET_MAIL: {
       return { ...state, mailList: { ...state.mailList, ...action.payload } };
+    }
+    case NULLIFY_MAILS: {
+      return { ...state, mailList: action.payload };
     }
   }
 }

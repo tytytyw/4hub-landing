@@ -4,7 +4,7 @@ import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
 import MailList from "./MailList/MailList";
 import WorkSpace from "./WorkSpace/WorkSpace";
-import { getMails, clearFileList, onSetMailPath } from "../../../../Store/actions/CabinetActions";
+import { getMails, clearMailList, onSetMailPath } from "../../../../Store/actions/CabinetActions";
 
 function Mail() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Mail() {
     dispatch(getMails());
 
     return () => {
-      dispatch(clearFileList());
+      dispatch(clearMailList());
     };
   }, []); //eslint-disable-line
 

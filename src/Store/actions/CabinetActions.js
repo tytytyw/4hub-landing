@@ -68,7 +68,8 @@ import {
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
   SET_CHAT_THEME,
-  GET_MAIL
+  GET_MAIL,
+  NULLIFY_MAILS
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -126,15 +127,6 @@ export const onSetPath = (path) => {
   return {
     type: SET_FILES_PATH,
     payload: path
-  };
-};
-
-export const onSetMailPath = (path) => {
-  return {
-    type: GET_MAIL,
-    payload: {
-      path
-    }
   };
 };
 
@@ -1377,6 +1369,25 @@ export const getMails = () => {
           isRead: true
         }
       ]
+    }
+  };
+};
+
+export const clearMailList = () => {
+  return {
+    type: NULLIFY_MAILS,
+    payload: {
+      mails: [],
+      path: ""
+    }
+  };
+};
+
+export const onSetMailPath = (path) => {
+  return {
+    type: GET_MAIL,
+    payload: {
+      path
     }
   };
 };
