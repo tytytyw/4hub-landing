@@ -5,14 +5,28 @@ import PropTypes from "prop-types";
 import { addNoteParams } from "../../../../../../../types/Tasks";
 import MailBottomMenu from "Pages/Cabinet/Components/Mail/Components/MianBottomMenu/MailBottomMenu";
 // import { useDispatch } from "react-redux";
-// import { useLocales } from "react-localized";
+import { useLocales } from "react-localized";
 // type, params, closeModal
 function NewMail() {
-  // const { __ } = useLocales();
+  const { __ } = useLocales();
   // const dispatch = useDispatch();
   return (
-    <div className={styles.addNoteWrap}>
-      TEXT HERE
+    <div className={styles.newMailWrap}>
+      <div className={styles.customInput}>
+        <div className={styles.text}>{__("От:")}</div>
+        <input type="text" name="name" />
+      </div>
+      <div className={styles.customInput}>
+        <div className={styles.text}>{__("Кому:")}</div>
+        <input type="text" name="name" />
+      </div>
+      <div className={styles.customInput}>
+        <div className={styles.text}>{__("Тема:")}</div>
+        <input type="text" name="name" />
+      </div>
+      <div className={styles.textArea}>
+        <textarea />
+      </div>
       <MailBottomMenu />
     </div>
   );
