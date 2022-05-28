@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./WorkLine.module.sass";
 import { ReactComponent as Refresh } from "../../../../../assets/PrivateCabinet/mail/refresh.svg";
-import { ReactComponent as ContextToggle } from "../../../../../assets/PrivateCabinet/mail/contextToggle.svg";
 import { useLocales } from "react-localized";
 import CardMail from "../CardMail/CardMail";
 import PropTypes from "prop-types";
+import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 
 function WorkLine({ mail }) {
   const { __ } = useLocales();
@@ -52,7 +52,7 @@ function WorkLine({ mail }) {
           </div>
         </div>
         <div className={styles.contextMenu} onClick={() => console.log("Context menu")}>
-          <ContextToggle />
+          <ThreeDots />
         </div>
       </div>
       <div className={styles.mails}>{renderMails()}</div>

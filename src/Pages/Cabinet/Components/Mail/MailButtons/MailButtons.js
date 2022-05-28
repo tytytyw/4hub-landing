@@ -10,11 +10,11 @@ import { ReactComponent as Folder } from "../../../../../assets/PrivateCabinet/m
 import { ReactComponent as Postpone } from "../../../../../assets/PrivateCabinet/mail/postpone.svg";
 import { ReactComponent as Print } from "../../../../../assets/PrivateCabinet/mail/print.svg";
 import { ReactComponent as Note } from "../../../../../assets/PrivateCabinet/mail/note.svg";
-import { ReactComponent as ContextToggle } from "../../../../../assets/PrivateCabinet/mail/contextToggle.svg";
 import { ReactComponent as Pencil } from "../../../../../assets/PrivateCabinet/mail/pencil.svg";
 import { ReactComponent as ClipVertical } from "../../../../../assets/PrivateCabinet/mail/clip-vertical.svg";
 import { ReactComponent as Image } from "../../../../../assets/PrivateCabinet/mail/image.svg";
 import { ReactComponent as Emoji } from "../../../../../assets/PrivateCabinet/mail/emoji.svg";
+import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 
 function MailButtons({ path }) {
   const buttonWrapper = (ico) => <div className={styles.button}>{ico}</div>;
@@ -51,7 +51,7 @@ function MailButtons({ path }) {
         {buttonWrapper(<Print />)}
         {buttonWrapper(<Spam />)}
         {buttonWrapper(<CartMail />)}
-        {buttonWrapper(<ContextToggle />)}
+        {<ThreeDots />}
       </>
     );
   };
