@@ -7,19 +7,26 @@ import { useSelector } from "react-redux";
 
 function Button({ children, style, onClick, light }) {
   const { theme } = useSelector((s) => s.user.userInfo);
-  return (
-    <>
-      {light ? (
-        <div className={classNames(styles.buttonLight, styles[style], `button-light-${theme}`)} onClick={onClick}>
-          {children}
-        </div>
-      ) : (
-        <div className={classNames(styles.button, styles[style], `button-${theme}`)} onClick={onClick}>
-          {children}
-        </div>
-      )}
-    </>
-  );
+
+  const renderLightButton = () => {
+    return (
+      <div className={classNames(styles.buttonLight, styles[style], `button-light-${theme}`)} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
+  const renderButton = () => {
+    return (
+      <div className={classNames(styles.button, styles[style], `button-${theme}`)} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
+  const button = light ? renderLightButton() : renderButton();
+
+  return <>{button}</>;
 }
 
 export default Button;
