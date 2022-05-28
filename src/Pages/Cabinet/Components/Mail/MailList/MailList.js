@@ -1,13 +1,14 @@
 import React from "react";
-import Button from "../Button/Button";
 import styles from "./MailList.module.sass";
 import { useLocales } from "react-localized";
 import ListItem from "../ListItem/ListItem";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import Button from "generalComponents/CustomableButton/CustomableButton";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { MODALS, MAIL_MODALS } from "generalComponents/globalVariables";
+import { MODALS, MAIL_MODALS, BUTTON_TYPES } from "generalComponents/globalVariables";
+import { ReactComponent as Plus } from "../../../../../assets/PrivateCabinet/plus.svg";
 
 function MailList({ mailAccounts }) {
   const { __ } = useLocales();
@@ -20,8 +21,8 @@ function MailList({ mailAccounts }) {
   return (
     <div className={classnames(styles.wrapper, `scrollbar-thin-${theme}`)}>
       <div className={styles.button}>
-        <Button icon={"plus.svg"} onClick={onNewMail}>
-          {__("Новое письмо")}
+        <Button style={BUTTON_TYPES.FULL_WIDTH} onClick={onNewMail}>
+          {__("Новое письмо")} <Plus className={styles.ico} />
         </Button>
       </div>
       {renderMailAccount()}

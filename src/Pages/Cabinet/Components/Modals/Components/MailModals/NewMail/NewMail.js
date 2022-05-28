@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NewMail.module.sass";
-import MailBottomMenu from "Pages/Cabinet/Components/Mail/Components/MianBottomMenu/MailBottomMenu";
+import MailBottomMenu from "Pages/Cabinet/Components/Mail/Components/MailBottomMenu/MailBottomMenu";
 import { useLocales } from "react-localized";
 
 function NewMail() {
@@ -8,15 +8,15 @@ function NewMail() {
   return (
     <div className={styles.newMailWrap}>
       <div className={styles.customInput}>
-        <div className={styles.text}>{__("От:")}</div>
+        <div className={styles.text}>{`${__("От")}:`}</div>
         <input type="text" name="name" />
       </div>
       <div className={styles.customInput}>
-        <div className={styles.text}>{__("Кому:")}</div>
+        <div className={styles.text}>{`${__("Кому")}:`}</div>
         <input type="text" name="name" />
       </div>
       <div className={styles.customInput}>
-        <div className={styles.text}>{__("Тема:")}</div>
+        <div className={styles.text}>{`${__("Тема")}:`}</div>
         <input type="text" name="name" />
       </div>
       <div className={styles.textArea}>

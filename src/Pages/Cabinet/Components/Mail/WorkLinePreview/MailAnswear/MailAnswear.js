@@ -4,7 +4,7 @@ import { ReactComponent as Share } from "../../../../../../assets/PrivateCabinet
 import { ReactComponent as FullScreen } from "../../../../../../assets/PrivateCabinet/mail/fullScreen.svg";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import MailBottomMenu from "../../Components/MianBottomMenu/MailBottomMenu";
+import MailBottomMenu from "../../Components/MailBottomMenu/MailBottomMenu";
 
 function MailAnswear() {
   const { theme } = useSelector((state) => state.user.userInfo);

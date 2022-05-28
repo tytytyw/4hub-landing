@@ -1,20 +1,25 @@
 import React from "react";
-import Button from "../../Button/Button";
 import MailButtons from "../../MailButtons/MailButtons";
 import styles from "./MailBottomMenu.module.sass";
 import { useLocales } from "react-localized";
 import { ANSWEAR_MAIL_PATH } from "Store/types";
+import Button from "../../../../../../generalComponents/CustomableButton/CustomableButton";
+import { BUTTON_TYPES } from "generalComponents/globalVariables";
 
 function MailBottomMenu() {
   const { __ } = useLocales();
-
+  const onSendMail = () => {
+    console.log("Send Mail");
+  };
   return (
     <div className={styles.bottomPanel}>
       <div className={styles.buttons}>
         <MailButtons path={ANSWEAR_MAIL_PATH} />
       </div>
       <div className={styles.send}>
-        <Button>{__("Отправить")}</Button>
+        <Button style={BUTTON_TYPES.SMALL} onClick={onSendMail}>
+          {__("Отправить")}
+        </Button>
       </div>
     </div>
   );

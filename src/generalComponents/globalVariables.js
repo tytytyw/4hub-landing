@@ -91,7 +91,11 @@ export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 
 //Customable button
 export const BUTTON_TYPES = {
-  LIGHT_LONG: "light-long"
+  LIGHT_LONG: "light-long",
+  SMALL: "small",
+  LARGE: "large",
+  FULL_WIDTH: "fullWidth",
+  GREY: "grey"
 };
 
 //TASKS Component
