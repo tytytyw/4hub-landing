@@ -5,6 +5,7 @@ import { useLocales } from "react-localized";
 import CardMail from "../CardMail/CardMail";
 import PropTypes from "prop-types";
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
+import { mailProps } from "../../../../../types/Mail";
 
 function WorkLine({ mail }) {
   const { __ } = useLocales();
@@ -65,12 +66,7 @@ export default WorkLine;
 WorkLine.propTypes = {
   mail: PropTypes.arrayOf(
     PropTypes.exact({
-      from: PropTypes.string,
-      date: PropTypes.string,
-      text: PropTypes.string,
-      files: PropTypes.arrayOf(PropTypes.string),
-      id: PropTypes.number,
-      isRead: PropTypes.bool
+      mailProps
     })
   )
 };

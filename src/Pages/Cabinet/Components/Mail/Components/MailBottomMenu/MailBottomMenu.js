@@ -1,5 +1,5 @@
 import React from "react";
-import MailButtons from "../../MailButtons/MailButtons";
+import MailButtons from "../MailButtons/MailButtons";
 import styles from "./MailBottomMenu.module.sass";
 import { useLocales } from "react-localized";
 import { ANSWEAR_MAIL_PATH } from "Store/types";

@@ -3,7 +3,7 @@ import styles from "./CardMail.module.sass";
 import PropTypes from "prop-types";
 import { ReactComponent as Clip } from "../../../../../assets/PrivateCabinet/mail/clip.svg";
 import { useLocales } from "react-localized";
-import MailButtons from "../MailButtons/MailButtons";
+import MailButtons from "../Components/MailButtons/MailButtons";
 import { CARD_MAIL_PATH } from "Store/types";
 
 function CardMail({ from, time, text, files }) {

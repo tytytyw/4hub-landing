@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./MailPreview.module.sass";
 import { ReactComponent as Clip } from "../../../../../../assets/PrivateCabinet/mail/clip.svg";
 import { ReactComponent as Favorite } from "../../../../../../assets/PrivateCabinet/mail/favorite-stroke.svg";
-import MailButtons from "../../MailButtons/MailButtons";
+import MailButtons from "../../Components/MailButtons/MailButtons";
 import { PREVIEW_MAIL_PATH } from "Store/types";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
