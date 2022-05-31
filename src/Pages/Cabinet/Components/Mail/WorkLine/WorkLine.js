@@ -48,11 +48,21 @@ function WorkLine({ mail }) {
           <>
             <input className={styles.checkbox} type="checkbox" />
           </>
-          <div className={styles.refresh} onClick={() => console.log("Refresh")}>
+          <div
+            className={styles.refresh}
+            onClick={() => {
+              // TODO - vz - create modal funcion
+            }}
+          >
             <Refresh />
           </div>
         </div>
-        <div className={styles.contextMenu} onClick={() => console.log("Context menu")}>
+        <div
+          className={styles.contextMenu}
+          onClick={() => {
+            // TODO - vz - create modal funcion
+          }}
+        >
           <ThreeDots />
         </div>
       </div>

@@ -9,7 +9,7 @@ import { BUTTON_TYPES } from "generalComponents/globalVariables";
 function MailBottomMenu() {
   const { __ } = useLocales();
   const onSendMail = () => {
-    console.log("Send Mail");
+    // TODO - vz - create modal funcion
   };
   return (
     <div className={styles.bottomPanel}>

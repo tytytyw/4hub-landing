@@ -15,7 +15,7 @@ function MailModals() {
   const closeModal = () => dispatch(onSetModals(MODALS.MAIL, { type: MODALS.NO_MODAL, params: null }));
   const fullScreen = (e) => {
     e.preventDefault();
-    console.log("fullScreen");
+    // TODO - vz - create modal funcion
   };
   const { type, params } = useSelector((s) => s.Cabinet.modals.mailModals);
 
