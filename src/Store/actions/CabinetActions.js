@@ -1235,6 +1235,7 @@ export const onLoadFiles =
           filter_fig: getState().Cabinet.fileCriterion.filters.figure,
           filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
           search: getState().Cabinet.search,
+          filters: getState().Cabinet.fileCriterion.filters,
           sort_reverse: 1,
           dir: getState().Cabinet.fileList.path,
           page,

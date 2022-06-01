@@ -100,6 +100,7 @@ const ServePanel = ({
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -185,6 +186,7 @@ const ServePanel = ({
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -213,6 +215,7 @@ const ServePanel = ({
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -241,6 +244,7 @@ const ServePanel = ({
     if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
@@ -567,6 +571,21 @@ const ServePanel = ({
       </div>
     </>
   );
+
+  const renderInJournal = () => (
+    <>
+      <div className={styles.groupStart}>
+        <div className={styles.filterPanel}>
+          {tempFilter()} {tempChoose()} {tempAdd()}
+        </div>
+      </div>
+      <div className={styles.groupEnd}>
+        <div className={styles.iconButtons}>
+          {tempArchive()} {tempShare()} {tempDelete()}
+        </div>
+      </div>
+    </>
+  );
   return (
     <div className={styles.servePanelWrap}>
       {pathname.startsWith("/folders") && renderInFolders()}
@@ -580,6 +599,7 @@ const ServePanel = ({
       {pathname.startsWith("/archive") && renderInArchive()}
       {pathname.startsWith("/library") && renderInLibrary()}
       {pathname.startsWith("/cart") && renderInCart()}
+      {pathname.startsWith("/journal") && renderInJournal()}
 
       {mouseParams !== null ? (
         <ContextMenu

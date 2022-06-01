@@ -14,7 +14,6 @@ import { Switch, Route, Redirect } from "react-router";
 import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
-import Journal from "./Components/Journal";
 import CalendarPage from "./Components/Calendar";
 import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
@@ -129,7 +128,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
           <Route path="/settings" component={Settings} />
 
           <Route
-            path={["/files", "/downloaded-files", "/archive", "/cart"]}
+            path={["/files", "/downloaded-files", "/archive", "/cart", "/journal"]}
             render={() => (
               <MyFiles
                 filePreview={filePreview}
@@ -228,8 +227,6 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
             path="/shared-files"
             render={() => <SharedFiles setMenuItem={setMenuItem} setFilesPage={setFilesPage} filesPage={filesPage} />}
           />
-
-          <Route path="/journal" render={() => <Journal />} />
 
           <Route path="/calendar" render={() => <CalendarPage />} />
 

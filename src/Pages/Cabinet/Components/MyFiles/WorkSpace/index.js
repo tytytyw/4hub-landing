@@ -78,6 +78,7 @@ const WorkSpace = ({
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
     if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
+    if (pathname === "/journal") dispatch(onAddRecentFiles("history_files", 1));
 
     setFilesPage(2);
     //TODO: need dispatch downloaded-files
@@ -147,7 +148,7 @@ const WorkSpace = ({
           setFilesPage={setFilesPage}
           dateFilter={dateFilter}
         />
-        {(pathname === "/archive" || pathname === "/cart") && (
+        {(pathname === "/archive" || pathname === "/cart" || pathname === "/journal") && (
           <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter} />
         )}
         <ItemsList
