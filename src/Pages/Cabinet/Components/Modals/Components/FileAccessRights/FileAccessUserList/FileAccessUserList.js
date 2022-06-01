@@ -4,16 +4,17 @@ import styles from "./FileAccessUserList.module.sass";
 import { userFileAccess } from "../../../../../../../types/FileAccessRights";
 import PropTypes from "prop-types";
 import { ReactComponent as UserIcon } from "../../../../../../../assets/PrivateCabinet/userIcon.svg";
+import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import { useLocales } from "react-localized";
 import {
   ACCESS_RIGHTS_GRANTED,
-  imageSrc,
   NO_ELEMENT,
   SHARED_ACCESS_RIGHTS
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
+import classNames from "classnames";
 
 function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar, setChosenUser }) {
   const { __ } = useLocales();
@@ -56,47 +57,51 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
     users.map((user, i) => (
       <div key={i} className={styles.user}>
         <span className={styles.cross} onClick={() => deleteUser(user)} />
-        <div className={styles.iconWrap}>{renderUserIcon(user)}</div>
-        <div className={styles.userName}>
-          {user.name} {user.sname}
+        <div className={styles.userInfo}>
+          <div className={styles.iconWrap}>{renderUserIcon(user)}</div>
+          <div className={styles.userName}>
+            {user.name} {user.sname}
+          </div>
         </div>
-        <div
-          className={styles.copy}
-          onClick={() => {
-            setAccessRightsModal(NO_ELEMENT);
-            setChangePeriodModal(i);
-          }}
-        >
-          <span>{__(`Срок хранения ${showEndDate(user.deadline)}`)}</span>
-          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
+        <div className={styles.buttons}>
+          <div
+            className={classNames(styles.copy, styles.date)}
+            onClick={() => {
+              setAccessRightsModal(NO_ELEMENT);
+              setChangePeriodModal(i);
+            }}
+          >
+            <span>{__(`Срок хранения ${showEndDate(user.deadline)}`)}</span>
+            <PlayIcon className={styles.imageReverse} />
+          </div>
+          {changePeriodModal === i ? (
+            <FilePeriodEdit
+              closeChangePeriodModal={closeChangePeriodModal}
+              user={user}
+              setShowCalendar={setShowCalendar}
+              changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+              setChosenUser={setChosenUser}
+            />
+          ) : null}
+          <div
+            className={classNames(styles.copy, styles.rights)}
+            onClick={() => {
+              setChangePeriodModal(NO_ELEMENT);
+              setAccessRightsModal(i);
+            }}
+          >
+            <span>{showUserAccessStatus(user)}</span>
+            <PlayIcon className={styles.imageReverse} />
+          </div>
+          {accessRightsModal === i ? (
+            <FileAccessEdit
+              user={user}
+              showUserAccessStatus={showUserAccessStatus}
+              changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+              closeAccessRightsModal={closeAccessRightsModal}
+            />
+          ) : null}
         </div>
-        {changePeriodModal === i ? (
-          <FilePeriodEdit
-            closeChangePeriodModal={closeChangePeriodModal}
-            user={user}
-            setShowCalendar={setShowCalendar}
-            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
-            setChosenUser={setChosenUser}
-          />
-        ) : null}
-        <div
-          className={styles.copy}
-          onClick={() => {
-            setChangePeriodModal(NO_ELEMENT);
-            setAccessRightsModal(i);
-          }}
-        >
-          <span>{showUserAccessStatus(user)}</span>
-          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
-        </div>
-        {accessRightsModal === i ? (
-          <FileAccessEdit
-            user={user}
-            showUserAccessStatus={showUserAccessStatus}
-            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
-            closeAccessRightsModal={closeAccessRightsModal}
-          />
-        ) : null}
       </div>
     ));
 

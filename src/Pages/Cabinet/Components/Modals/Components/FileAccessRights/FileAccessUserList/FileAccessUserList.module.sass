@@ -1,58 +1,67 @@
+@import 'theme/theme'
+
 .userListWrap
   display: flex
   flex-direction: column
-  width: 95%
   height: 180px
   max-height: 180px
   font-family: "SF Pro Regular", sans-serif
   font-size: 14px
-  color: #2B353E
+  color: $color-text-grey
   overflow-x: hidden
   overflow-y: scroll
+  gap: 10px
   .user
     display: flex
     align-items: center
-    justify-content: space-around
-    width: 100%
-    padding: 10px 0 10px 30px
+    justify-content: space-between
+    padding-left: 30px
     height: max-content
     position: relative
-    .iconWrap
-      width: 36px
-      height: 36px
-      background: #eeebeb
+    .userInfo
       display: flex
-      justify-content: center
       align-items: center
-      border-radius: 50%
-    .userName
-      margin: 0 45px 0 0
-      width: 140px
-      max-width: 140px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-    .copy
+      gap: 10px
+      .iconWrap
+        width: 36px
+        height: 36px
+        background: $color-background-grey
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+      .userName
+        width: 140px
+        max-width: 140px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+    .buttons
       display: flex
-      justify-content: center
-      align-items: center
-      background: #E6EDF8
-      font-size: 11px
-      border-radius: 20px
-      cursor: pointer
-      padding: 5px 10px
-      img
-        margin: 0 0 0 10px
-        width: 6px
-        transform: rotate(270deg)
-        .imageReverse
-          transform: rotateZ(90deg)
+      gap: 10px
+      .copy
+        display: flex
+        align-items: center
+        justify-content: space-between
+        background: $color-background-blue-light
+        font-size: 12px
+        border-radius: 20px
+        cursor: pointer
+        padding: 8px 10px
+      .date
+        min-width: 220px
+      .rights
+        min-width: 130px
+      .imageReverse
+        margin-left: 10px
+        width: 7px
+        transform: rotate(-90deg)
     .cross
       position: absolute
-      left: 11px
+      left: 3px
       width: 18px
       height: 2px
-      background: #a7a4a4
+      background: $color-background-grey
       transform: rotate(45deg)
       cursor: pointer
       visibility: hidden
@@ -63,7 +72,7 @@
         right: 0
         width: 18px
         height: 2px
-        background: #a7a4a4
+        background: $color-background-grey
         transform: rotate(90deg)
         visibility: hidden
     &:hover .cross
@@ -71,8 +80,6 @@
       &:before
         visibility: visible
     .userIcon
-      width: 30px
-      height: 30px
-      max-width: 30px
-      max-height: 30px
+      width: 36px
+      height: 36px
       border-radius: 50%

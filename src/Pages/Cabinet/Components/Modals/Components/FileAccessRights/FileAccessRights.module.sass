@@ -1,12 +1,14 @@
+@import 'theme/theme'
+  
 .fileAccessRightsWrap
-  display: flex
-  width: 660px
-  height: 505px
-  flex-direction: column
-  align-items: center
   font-family: "SF Pro Regular", sans-serif
+  display: flex
+  flex-direction: column
   position: relative
   cursor: default
+  width: 660px
+  min-height: 505px
+  padding: 20px
   .cross
     position: absolute
     top: 20px
@@ -16,6 +18,11 @@
     background: #a7a4a4
     transform: rotate(45deg)
     cursor: pointer
+  .titlePopUp
+    font-size: 18px
+    font-weight: 500
+    padding-bottom: 20px
+    text-align: center
   .cross:before
     content: ''
     position: absolute
@@ -27,31 +34,30 @@
     transform: rotate(90deg)
   header
     display: flex
-    width: 95%
     flex-direction: column
     .header
       display: flex
-      padding: 10px 20px
       align-items: center
+      width: max-content
+      cursor: pointer
+      margin-bottom: 10px
       &:hover .circle
-        background: rgb(64, 134, 241)
+        background: $color-primary
       &:hover .copyIcon path:first-child
-        fill: #FFF
+        fill: $color-white
       &:hover .copyIcon path:nth-child(2),
       &:hover .copyIcon path:last-child
-        fill: #4086F1
+        fill: $color-blue-smooth
       .copyIcon path:nth-child(2)
-        fill: rgb(235, 247, 232)
+        fill: $color-background-green-light
       .copyIcon path:last-child
-        fill: rgb(235, 247, 232)
+        fill: $color-background-green-light
       .copyIcon path:first-child
         fill: #A4A4A4
       .circle
-        display: flex
-        justify-content: center
-        align-items: center
+        @include flex-center
         border-radius: 50%
-        background: rgb(235, 247, 232)
+        background: $color-background-green-light
         width: 50px
         height: 50px
         margin: 0 15px 0 0
@@ -59,24 +65,22 @@
         display: flex
         flex-direction: column
         .title
-          font-family: "SF Pro Regular", sans-serif
-          color: rgb(41, 53, 63)
-          font-size: 15px
+          color: $color-text-grey
+          font-size: 16px
           margin-bottom: 4px
         .description
-          font-family: "SF Pro Regular", sans-serif
-          color: rgb(129, 129, 129)
+          color: $color-text-grey-light
           font-size: 11px
     .copyLink
       display: flex
       justify-content: space-between
-      padding: 0 20px 10px 20px
-
+      padding-bottom: 20px
+      border-bottom: 1px solid $color-border-grey
       .link
         min-width: 60%
         width: max-content
         max-width: 70%
-        background: rgb(235, 247, 232)
+        background: $color-background-green-light
         padding: 5px 10px
         box-sizing: border-box
         border-radius: 20px
@@ -91,27 +95,30 @@
           transition: background-color 0.1s ease-in-out
           background-color: rgb(203, 212, 200)
       .copy
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 141px
-        height: 30px
-        background: rgb(64, 134, 241)
-        color: white
+        @include flex-center
+        min-width: 140px
+        min-height: 30px
+        background: $color-background-blue-light
+        color: $color-text-grey
         font-size: 11px
         border-radius: 20px
         cursor: pointer
   .infoWrap
-    display: flex
-    align-items: center
-    width: 95%
-    padding: 15px 20px
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0
+    border-bottom: 1px solid $color-border-grey
+    margin-bottom: 20px
+    .header
+      display: flex
+      align-items: center
+      margin-bottom: 20px
     .circle
       display: flex
       justify-content: center
       align-items: center
       border-radius: 50%
-      background: rgb(235, 247, 232)
+      background: $color-background-green-light
       width: 50px
       height: 50px
       margin: 0 15px 0 0
@@ -120,17 +127,17 @@
       flex-direction: column
       .title
         font-family: "SF Pro Regular", sans-serif
-        color: rgb(41, 53, 63)
-        font-size: 15px
+        color: $color-text-grey
+        font-size: 16px
         margin-bottom: 4px
       .description
         font-family: "SF Pro Regular", sans-serif
-        color: rgb(129, 129, 129)
+        color: $color-text-grey-light
         font-size: 11px
   .buttons
     display: flex
-    width: 50%
-    justify-content: space-around
+    justify-content: center
+    gap: 10px
     div
       display: flex
       justify-content: center
