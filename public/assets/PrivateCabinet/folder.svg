@@ -1,13 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>folder-2</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="5-Файлообменник-стартовый-экран" transform="translate(-14.000000, -162.000000)" fill-rule="nonzero">
-            <g id="folder-2" transform="translate(14.250000, 162.750000)">
-                <polygon id="Path" fill="#FFFFFF" points="8.2890625 2.29166667 6.8459375 0.320527778 6.7234375 0.152777778 0 0.152777778 0 16.3472222 18.75 16.3472222 18.75 2.29166667"></polygon>
-                <path d="M0.625,15.7361111 L0.625,0.763888889 L6.4015625,0.763888889 L7.9640625,2.90277778 L7.9678125,2.90277778 L9.4334375,4.90447222 C9.494375,4.98758333 9.59,5.03188889 9.6875,5.03219444 L9.6875,5.04166667 L18.125,5.04166667 L18.125,15.7361111 L0.625,15.7361111 Z" id="Path" fill="#FFFFFF"></path>
-                <polygon id="Path" fill="#0A3AAC" points="18.125 2.90277778 18.125 4.43055556 9.855 4.43055556 8.7365625 2.90277778"></polygon>
-            </g>
-        </g>
-    </g>
+<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.875 16.4859V1.51367H6.65156L8.21406 3.65256H8.21781L9.68344 5.65426C9.74437 5.73737 9.84 5.78167 9.9375 5.78198V5.79145H18.375V16.4859H0.875Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.09594 1.07009L8.53906 3.04123H19V17.0968H0.25V0.902344H6.97344L7.09594 1.07009ZM18.3748 5.18012V3.65234H8.98633L10.1048 5.18012H18.3748Z" fill="white"/>
 </svg>

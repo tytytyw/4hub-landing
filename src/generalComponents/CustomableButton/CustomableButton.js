@@ -8,17 +8,49 @@ import { useSelector } from "react-redux";
 function Button({ children, style, onClick }) {
   const { theme } = useSelector((s) => s.user.userInfo);
 
-  return (
-    <div className={classNames(styles[style], `button-light-${theme}`)} onClick={onClick}>
-      {children}
-    </div>
-  );
+  const renderLightButton = () => {
+    return (
+      <div className={classNames(styles.buttonLight, styles[style], `button-light-${theme}`)} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
+  const renderButton = () => {
+    return (
+      <div className={classNames(styles.button, styles[style], `button-${theme}`)} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
+  const renderIcon = () => {
+    return (
+      <div className={classNames(styles[style])} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
+  const renderSwitch = (style) => {
+    switch (style) {
+      case BUTTON_TYPES.LIGHT_LONG:
+        return renderLightButton();
+      case BUTTON_TYPES.ICON:
+        return renderIcon();
+      default:
+        return renderButton();
+    }
+  };
+
+  return <>{renderSwitch(style)}</>;
 }
 
 export default Button;
 
 Button.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  typeButton: ""
 };
 
 Button.propTypes = {

@@ -14,7 +14,8 @@ export const MODALS = {
   CONTEXT_MENU_MODAL: "contextMenuModals",
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
-  LIBRARY: "libraryModals"
+  LIBRARY: "libraryModals",
+  MAIL: "mailModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -90,7 +91,12 @@ export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 
 //Customable button
 export const BUTTON_TYPES = {
-  LIGHT_LONG: "light-long"
+  LIGHT_LONG: "light-long",
+  SMALL: "small",
+  LARGE: "large",
+  FULL_WIDTH: "fullWidth",
+  GREY: "grey",
+  ICON: "icon"
 };
 
 //TASKS Component
@@ -136,6 +142,12 @@ export const TASK_MODALS = {
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
   ADD_PASSWORD: "AddPassword"
+};
+
+// MAIL
+
+export const MAIL_MODALS = {
+  NEW_MAIL: "NewMail"
 };
 
 // LIBRARY
