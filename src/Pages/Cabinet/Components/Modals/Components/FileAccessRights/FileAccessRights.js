@@ -180,7 +180,7 @@ function FileAccessRights() {
       <PopUp set={closeModal}>
         <div className={styles.fileAccessRightsWrap}>
           <span className={styles.cross} onClick={closeModal} />
-          <h3>{__("Настройка доступа")}</h3>
+          <div className={styles.titlePopUp}>{__("Настройка доступа")}</div>
           <header>
             <div className={styles.header}>
               <div className={styles.circle}>
@@ -203,21 +203,23 @@ function FileAccessRights() {
             </div>
           </header>
           <div className={styles.infoWrap}>
-            <div className={styles.circle}>
-              <UserIcon className={styles.userIcon} />
+            <div className={styles.header}>
+              <div className={styles.circle}>
+                <UserIcon className={styles.userIcon} />
+              </div>
+              <div className={styles.details}>
+                <div className={styles.title}>{__("Доступ к ссылке")}</div>
+                <div className={styles.description}>{__("Список пользователей, у кого есть доступ к ссылке")}</div>
+              </div>
             </div>
-            <div className={styles.details}>
-              <div className={styles.title}>{__("Доступ к ссылке")}</div>
-              <div className={styles.description}>{__("Список пользователей, у кого есть доступ к ссылке")}</div>
-            </div>
+            <FileAccessUserList
+              users={users}
+              deleteUser={deleteUserFromUsers}
+              changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+              setShowCalendar={setShowCalendar}
+              setChosenUser={setChosenUser}
+            />
           </div>
-          <FileAccessUserList
-            users={users}
-            deleteUser={deleteUserFromUsers}
-            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
-            setShowCalendar={setShowCalendar}
-            setChosenUser={setChosenUser}
-          />
           <div className={styles.buttons}>
             <div className={`${styles.cancel}`} onClick={closeModal}>
               {__("Отмена")}
