@@ -15,11 +15,12 @@ import { useAccessRightsConst } from "../../../../../../../generalComponents/col
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar, setChosenUser }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
-
+  const { theme } = useSelector((state) => state.user.userInfo);
   const [accessRightsModal, setAccessRightsModal] = useState(NO_ELEMENT);
   const closeAccessRightsModal = () => setAccessRightsModal(NO_ELEMENT);
   const [changePeriodModal, setChangePeriodModal] = useState(NO_ELEMENT);
@@ -105,7 +106,7 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
       </div>
     ));
 
-  return <div className={styles.userListWrap}>{renderUsers()}</div>;
+  return <div className={classNames(styles.userListWrap, `scrollbar-thin-${theme}`)}>{renderUsers()}</div>;
 }
 
 export default FileAccessUserList;
