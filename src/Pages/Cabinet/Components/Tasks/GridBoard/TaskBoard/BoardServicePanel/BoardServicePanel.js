@@ -88,6 +88,11 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
           ? setSchema(TASKS_SCHEMA.GRID_BAR)
           : setSchema(TASKS_SCHEMA.EXPANDED_MAIL_BOARD);
         break;
+      case BOARDS.TASKS_BOARD:
+        schema === TASKS_SCHEMA.EXPANDED_TASKS_BOARD
+          ? setSchema(TASKS_SCHEMA.GRID_BAR)
+          : setSchema(TASKS_SCHEMA.EXPANDED_TASKS_BOARD);
+        break;
       default:
         break;
     }
