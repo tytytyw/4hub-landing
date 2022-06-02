@@ -1,4 +1,5 @@
 @import "src/theme/theme"
+$color-ico-grey: #D0CDCD
 
 .button
   @include flex-center
@@ -35,3 +36,10 @@
   box-shadow: 0 2px 4px $color-shadow
   font-size: 12px
   padding: 0 10px
+.icon
+  cursor: pointer
+  svg
+    fill: $color-ico-grey
+    transition: all .2s ease
+    &:hover
+      fill: $color-primary
