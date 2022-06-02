@@ -95,7 +95,8 @@ export const BUTTON_TYPES = {
   SMALL: "small",
   LARGE: "large",
   FULL_WIDTH: "fullWidth",
-  GREY: "grey"
+  GREY: "grey",
+  ICON: "icon"
 };
 
 //TASKS Component

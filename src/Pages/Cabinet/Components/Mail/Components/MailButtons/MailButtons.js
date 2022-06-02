@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./MailButtons.module.sass";
 import { ANSWEAR_MAIL_PATH, CARD_MAIL_PATH, PREVIEW_MAIL_PATH } from "Store/types";
+
 import { ReactComponent as Spam } from "../../../../../../assets/PrivateCabinet/mail/spam.svg";
 import { ReactComponent as Inbox } from "../../../../../../assets/PrivateCabinet/mail/inbox.svg";
 import { ReactComponent as Share } from "../../../../../../assets/PrivateCabinet/mail/share.svg";
@@ -15,16 +15,25 @@ import { ReactComponent as ClipVertical } from "../../../../../../assets/Private
 import { ReactComponent as Image } from "../../../../../../assets/PrivateCabinet/mail/image.svg";
 import { ReactComponent as Emoji } from "../../../../../../assets/PrivateCabinet/mail/emoji.svg";
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
+import Button from "generalComponents/CustomableButton/CustomableButton";
+import { BUTTON_TYPES } from "generalComponents/globalVariables";
 
 function MailButtons({ path }) {
-  const buttonWrapper = (ico) => <div className={styles.ico}>{ico}</div>;
   const renderMailAnswerButtons = () => {
     return (
       <>
-        {buttonWrapper(<Pencil />)}
-        {buttonWrapper(<ClipVertical />)}
-        {buttonWrapper(<Image />)}
-        {buttonWrapper(<Emoji />)}
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Pencil />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <ClipVertical />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Image />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Emoji />
+        </Button>
       </>
     );
   };
@@ -32,10 +41,18 @@ function MailButtons({ path }) {
   const renderCardMailButtons = () => {
     return (
       <>
-        {buttonWrapper(<Spam />)}
-        {buttonWrapper(<Inbox />)}
-        {buttonWrapper(<Share />)}
-        {buttonWrapper(<CartMail />)}
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Spam />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Inbox />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Share />
+        </Button>
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <CartMail />
+        </Button>
       </>
     );
   };
@@ -43,15 +60,38 @@ function MailButtons({ path }) {
   const renderMailPreviewButtons = () => {
     return (
       <>
-        {buttonWrapper(<Note />)}
-        {buttonWrapper(<Inbox />)}
-        {buttonWrapper(<Share />)}
-        {buttonWrapper(<Folder />)}
-        {buttonWrapper(<Postpone />)}
-        {buttonWrapper(<Print />)}
-        {buttonWrapper(<Spam />)}
-        {buttonWrapper(<CartMail />)}
-        {<ThreeDots />}
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Note />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Inbox />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Share />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Folder />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Postpone />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Print />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <Spam />
+        </Button>
+
+        <Button typeButton={BUTTON_TYPES.ICON}>
+          <CartMail />
+        </Button>
+        <ThreeDots />
       </>
     );
   };

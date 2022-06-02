@@ -24,10 +24,20 @@ function Button({ children, style, onClick, typeButton }) {
     );
   };
 
+  const renderIcon = () => {
+    return (
+      <div className={classNames(styles[typeButton])} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
+
   const renderSwitch = (typeButton) => {
     switch (typeButton) {
       case BUTTON_TYPES.LIGHT_LONG:
         return renderLightButton();
+      case BUTTON_TYPES.ICON:
+        return renderIcon();
       default:
         return renderButton();
     }
