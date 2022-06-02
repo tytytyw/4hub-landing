@@ -22,16 +22,16 @@ function MailButtons({ path }) {
   const renderMailAnswerButtons = () => {
     return (
       <>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Pencil />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <ClipVertical />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Image />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Emoji />
         </Button>
       </>
@@ -41,16 +41,16 @@ function MailButtons({ path }) {
   const renderCardMailButtons = () => {
     return (
       <>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Spam />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Inbox />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Share />
         </Button>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <CartMail />
         </Button>
       </>
@@ -60,35 +60,28 @@ function MailButtons({ path }) {
   const renderMailPreviewButtons = () => {
     return (
       <>
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Note />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Inbox />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Share />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Folder />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Postpone />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Print />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <Spam />
         </Button>
-
-        <Button typeButton={BUTTON_TYPES.ICON}>
+        <Button style={BUTTON_TYPES.ICON}>
           <CartMail />
         </Button>
         <ThreeDots />

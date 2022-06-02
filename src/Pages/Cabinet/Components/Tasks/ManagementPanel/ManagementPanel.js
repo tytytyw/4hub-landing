@@ -20,15 +20,15 @@ function ManagementPanel() {
 
   return (
     <div className={styles.panelWrap}>
-      <Button typeButton={BUTTON_TYPES.LIGHT_LONG} style={BUTTON_TYPES.LIGHT_LONG}>
+      <Button style={BUTTON_TYPES.LIGHT_LONG}>
         {<Bag />} {__("Рабочие задачи")} {<PlayIcon className={styles.playIcon} />}
       </Button>
       <div className={styles.space} />
-      <Button typeButton={BUTTON_TYPES.LIGHT_LONG} style={BUTTON_TYPES.LIGHT_LONG}>
+      <Button style={BUTTON_TYPES.LIGHT_LONG}>
         {<Home />} {__("Личные задачи")} {<PlayIcon className={styles.playIcon} />}
       </Button>
       <div className={styles.space} />
-      <Button typeButton={BUTTON_TYPES.LIGHT_LONG} style={BUTTON_TYPES.LIGHT_LONG} onClick={onAddSection}>
+      <Button style={BUTTON_TYPES.LIGHT_LONG} onClick={onAddSection}>
         {<AddIcon className={classNames(styles.addIcon)} />} {__("Создать раздел")}
       </Button>
     </div>
