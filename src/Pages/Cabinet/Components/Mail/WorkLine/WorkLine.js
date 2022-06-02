@@ -74,9 +74,5 @@ function WorkLine({ mail }) {
 export default WorkLine;
 
 WorkLine.propTypes = {
-  mail: PropTypes.arrayOf(
-    PropTypes.exact({
-      mailProps
-    })
-  )
+  mail: PropTypes.arrayOf(mailProps)
 };

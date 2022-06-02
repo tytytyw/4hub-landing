@@ -5,7 +5,7 @@ import { BUTTON_TYPES } from "../globalVariables";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 
-function Button({ children, style, onClick, light }) {
+function Button({ children, style, onClick }) {
   const { theme } = useSelector((s) => s.user.userInfo);
 
   const renderLightButton = () => {
@@ -24,21 +24,37 @@ function Button({ children, style, onClick, light }) {
     );
   };
 
-  const button = light ? renderLightButton() : renderButton();
+  const renderIcon = () => {
+    return (
+      <div className={classNames(styles[style])} onClick={onClick}>
+        {children}
+      </div>
+    );
+  };
 
-  return <>{button}</>;
+  const renderSwitch = (style) => {
+    switch (style) {
+      case BUTTON_TYPES.LIGHT_LONG:
+        return renderLightButton();
+      case BUTTON_TYPES.ICON:
+        return renderIcon();
+      default:
+        return renderButton();
+    }
+  };
+
+  return <>{renderSwitch(style)}</>;
 }
 
 export default Button;
 
 Button.defaultProps = {
   onClick: () => {},
-  light: false
+  typeButton: ""
 };
 
 Button.propTypes = {
   children: PropTypes.node.isRequired, //could be anything to render inside
   style: PropTypes.oneOf(Object.values(BUTTON_TYPES)).isRequired,
-  onClick: PropTypes.func,
-  light: PropTypes.bool
+  onClick: PropTypes.func
 };

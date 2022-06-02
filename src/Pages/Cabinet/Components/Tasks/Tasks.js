@@ -5,6 +5,7 @@ import Notes from "./Notes/Notes";
 import ManagementPanel from "./ManagementPanel/ManagementPanel";
 import BreadCrumbs from "../../../../generalComponents/BreadCrumbs/BreadCrumbs";
 import GridBoard from "./GridBoard/GridBoard";
+import BottomPanel from "../BottomPanel";
 
 function Tasks() {
   return (
@@ -14,6 +15,7 @@ function Tasks() {
       <ManagementPanel />
       <BreadCrumbs path={["Рабочие задачи", "TEST", "PATH"]} />
       <GridBoard />
+      <BottomPanel />
     </div>
   );
 }
