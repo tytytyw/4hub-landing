@@ -101,12 +101,20 @@ export const BOARDS = {
   TASKS_BOARD: "TASKS_BOARD"
 };
 
-export const SCHEMA = {
-  GRID_BAR: "grid-bar"
+export const TASKS_SCHEMA = {
+  GRID_BAR: "grid-bar",
+  EXPANDED_MEETINGS_BOARD: "expanded-meetings-board",
+  EXPANDED_CALLS_BOARD: "expanded-calls-board",
+  EXPANDED_MAIL_BOARD: "expanded-mail-board",
+  EXPANDED_TASKS_BOARD: "expanded-tasks-board"
 };
 
 export const STYLED_CLASSES = {
-  [SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"]
+  [TASKS_SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"],
+  [TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD]: ["expanded-board", "hidden", "hidden", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_CALLS_BOARD]: ["hidden", "expanded-board", "hidden", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_MAIL_BOARD]: ["hidden", "hidden", "expanded-board", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_TASKS_BOARD]: ["hidden", "hidden", "hidden", "expanded-board"]
 };
 
 export const LOADING_STATE = {
