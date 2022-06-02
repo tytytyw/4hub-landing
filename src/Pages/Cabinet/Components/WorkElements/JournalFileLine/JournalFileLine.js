@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { fileProps } from "types/File";
 
 function JournalFileLine({ children, recentFiles }) {
+  //mylog
   console.log(recentFiles);
   return <div className={styles.JournalFileLine}>{children}</div>;
 }
