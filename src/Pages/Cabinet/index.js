@@ -26,6 +26,7 @@ import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
 import classNames from "classnames";
 import Tasks from "./Components/Tasks/Tasks";
+import Mail from "./Components/Mail/Mail";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
@@ -251,6 +252,8 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
           />
 
           <Route path="/chat-page" render={() => <Chat setMenuItem={setMenuItem} />} />
+
+          <Route path="/mail" render={() => <Mail />} />
 
           <Route
             path="/folders"

@@ -18,6 +18,7 @@ import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
 import TaskModals from "./Components/TaskModals/TaskModals";
 import LibraryModals from "./Components/LibraryModals/LibraryModals";
+import MailModals from "./Components/MailModals/MailModals";
 
 function Modals({
   awaitingFiles,
@@ -46,6 +47,8 @@ function Modals({
   const taskModalsType = useSelector((s) => s.Cabinet.modals.taskModals.type);
   const libraryModalsType = useSelector((s) => s.Cabinet.modals.libraryModals.type);
   const dispatch = useDispatch();
+  //MAIL
+  const mailModalsType = useSelector((s) => s.Cabinet.modals.mailModals.type);
 
   const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
   const closeSuccess = () => dispatch(onSetModals("success", { open: false, message: "", title: "", icon: "" }));
@@ -94,6 +97,7 @@ function Modals({
       {fileAccessRights.open ? <FileAccessRights /> : null}
       <ContextModal saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
       {taskModalsType ? <TaskModals /> : null}
+      {mailModalsType ? <MailModals /> : null}
       {libraryModalsType ? <LibraryModals /> : null}
     </>
   );

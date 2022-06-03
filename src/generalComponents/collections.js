@@ -1,5 +1,5 @@
 import { useLocales } from "react-localized";
-import { BOARDS, LIBRARY_MODALS, TASK_MODALS } from "./globalVariables";
+import { BOARDS, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -746,5 +746,52 @@ export function useLibraryModalTitles() {
   const { __ } = useLocales();
   return {
     [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел")
+  };
+}
+
+// MAIL
+
+export function useStandardMail(mail) {
+  const { __ } = useLocales();
+  return {
+    INBOX: {
+      name: __("Входящие"),
+      path: `${mail}/inbox`
+    },
+    SEND: {
+      name: __("Исходящие"),
+      path: `${mail}/send`
+    },
+    ARCHIVE: {
+      name: __("Архив"),
+      path: `${mail}/archive`
+    },
+    DRAFT: {
+      name: __("Черновик"),
+      path: `${mail}/draft`
+    },
+    FAVORITES: {
+      name: __("Избранное"),
+      path: `${mail}/favorites`
+    },
+    TIME: {
+      name: __("Отложенные"),
+      path: `${mail}/time`
+    },
+    SPAM: {
+      name: __("Спам"),
+      path: `${mail}/spam`
+    },
+    CART: {
+      name: __("Корзина"),
+      path: `${mail}/cart`
+    }
+  };
+}
+
+export function useMailModalTitles() {
+  const { __ } = useLocales();
+  return {
+    [MAIL_MODALS.NEW_MAIL]: __("Новое сообщение")
   };
 }

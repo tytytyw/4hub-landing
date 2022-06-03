@@ -1,0 +1,53 @@
+@import 'theme/colors'
+
+.card
+  box-shadow: 0px 0px 4px $color-shadow
+  border: 1px solid $color-border-grey
+  padding: 10px
+  border-radius: 5px
+  margin-bottom: 10px
+  cursor: pointer
+  &:hover
+    border: 1px solid $color-primary
+  .header
+    display: flex
+    justify-content: space-between
+    margin-bottom: 10px
+    .leftSide
+      display: flex
+      .checkbox
+        margin-right: 10px
+      .name
+        font-size: 13px
+        display: flex
+        align-items: center
+        color: #49494B
+    .rightSide
+      display: flex
+      align-items: center
+      .time
+        margin-right: 15px
+        font-size: 9px
+        color: $color-text-grey-light
+      .buttons
+        display: flex
+        align-items: center
+        gap: 10px
+        line-height: 0
+  .text
+    width: 330px
+    height: 30px
+    font-size: 11px
+    color: $color-text-grey-light
+    line-height: 15px
+    letter-spacing: 0.6px
+    padding-left: 30px
+    overflow: hidden
+    margin-bottom: 12px
+  .files
+    padding-left: 30px
+    font-size: 11px
+    color: $color-text-grey-light
+    letter-spacing: 0.6px
+    svg
+      margin-right: 8px

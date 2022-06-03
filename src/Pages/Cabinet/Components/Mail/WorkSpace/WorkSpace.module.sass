@@ -1,0 +1,37 @@
+@import 'theme/colors'
+
+.workSpaceWrap
+  max-width: 100%
+  flex-grow: 1
+  height: 100%
+  background-color: #fff
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    height: 90px
+    border-bottom: 1px solid #e5e5e5
+    box-sizing: border-box
+    padding: 0 39px 0 17px
+    border-color: #DFDFDF
+    background: inherit
+    .infoHeader
+      display: flex
+      justify-content: space-between
+      align-items: center
+      min-width: 340px
+      width: 400px
+      max-width: 400px
+      background: inherit
+
+.workSpace
+  display: flex
+  height: 100%
+  .workLineWrapper
+    flex: 0 0 400px
+    border-right: 1px solid $color-border-grey
+    height: calc( 100% - 90px )
+    padding: 20px
+    overflow-y: scroll
+  .workLinePreview
+    flex: 1 1 auto

@@ -1,0 +1,40 @@
+@import 'theme/colors'
+$color-grey: #B6B6B6
+
+.workLine
+  .topPanel
+    border: 1px solid $color-border-grey
+    width: 100%
+    padding: 7px 10px
+    background: $color-background-grey
+    border-radius: 5px
+    display: flex
+    justify-content: space-between
+    margin-bottom: 25px
+    .buttons
+      display: flex
+      gap: 15px
+      .checkbox
+        cursor: pointer
+      .refresh
+        display: flex
+        align-items: center
+        cursor: pointer
+        svg
+          fill: $color-grey
+          &:hover 
+            fill: $color-primary
+    .contextMenu
+      display: flex
+      align-items: center
+      cursor: pointer
+      width: 8px
+      &:hover svg
+        fill: $color-primary
+      svg
+        fill: $color-grey
+  .mails
+    .title
+      padding-bottom: 15px
+      font-size: 13px
+      font-weight: 500

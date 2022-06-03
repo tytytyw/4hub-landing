@@ -70,7 +70,9 @@ import {
   SET_MODALS,
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
-  SET_CHAT_THEME
+  SET_CHAT_THEME,
+  GET_MAIL,
+  NULLIFY_MAILS
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -217,12 +219,18 @@ const INITIAL_STATE = {
       authorizedSafe: null
     }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     taskModals: { type: MODALS.NO_MODAL, params: null },
-    libraryModals: { type: MODALS.NO_MODAL, params: null }
+    libraryModals: { type: MODALS.NO_MODAL, params: null },
+    mailModals: { type: MODALS.NO_MODAL, params: null }
   },
   //LIBRARY
   library: {
     chosenCategory: null,
     chosenFile: null
+  },
+  // MAIL
+  mailList: {
+    mails: [],
+    path: ""
   }
 };
 
@@ -689,6 +697,14 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         modals: { ...state.modals, [action.payload.key]: action.payload.value }
       };
+    }
+
+    // MAIL
+    case GET_MAIL: {
+      return { ...state, mailList: { ...state.mailList, ...action.payload } };
+    }
+    case NULLIFY_MAILS: {
+      return { ...state, mailList: action.payload };
     }
   }
 }

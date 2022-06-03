@@ -14,7 +14,8 @@ export const MODALS = {
   CONTEXT_MENU_MODAL: "contextMenuModals",
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
-  LIBRARY: "libraryModals"
+  LIBRARY: "libraryModals",
+  MAIL: "mailModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -90,7 +91,12 @@ export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 
 //Customable button
 export const BUTTON_TYPES = {
-  LIGHT_LONG: "light-long"
+  LIGHT_LONG: "light-long",
+  SMALL: "small",
+  LARGE: "large",
+  FULL_WIDTH: "fullWidth",
+  GREY: "grey",
+  ICON: "icon"
 };
 
 //TASKS Component
@@ -101,12 +107,20 @@ export const BOARDS = {
   TASKS_BOARD: "TASKS_BOARD"
 };
 
-export const SCHEMA = {
-  GRID_BAR: "grid-bar"
+export const TASKS_SCHEMA = {
+  GRID_BAR: "grid-bar",
+  EXPANDED_MEETINGS_BOARD: "expanded-meetings-board",
+  EXPANDED_CALLS_BOARD: "expanded-calls-board",
+  EXPANDED_MAIL_BOARD: "expanded-mail-board",
+  EXPANDED_TASKS_BOARD: "expanded-tasks-board"
 };
 
 export const STYLED_CLASSES = {
-  [SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"]
+  [TASKS_SCHEMA.GRID_BAR]: ["medium-item", "small-item-left", "small-item-right", "big-item"],
+  [TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD]: ["expanded-board", "hidden", "hidden", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_CALLS_BOARD]: ["hidden", "expanded-board", "hidden", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_MAIL_BOARD]: ["hidden", "hidden", "expanded-board", "hidden"],
+  [TASKS_SCHEMA.EXPANDED_TASKS_BOARD]: ["hidden", "hidden", "hidden", "expanded-board"]
 };
 
 export const LOADING_STATE = {
@@ -128,6 +142,12 @@ export const TASK_MODALS = {
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
   ADD_PASSWORD: "AddPassword"
+};
+
+// MAIL
+
+export const MAIL_MODALS = {
+  NEW_MAIL: "NewMail"
 };
 
 // LIBRARY

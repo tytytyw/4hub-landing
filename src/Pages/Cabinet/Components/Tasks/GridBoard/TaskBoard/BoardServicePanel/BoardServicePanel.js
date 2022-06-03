@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import styles from "./BoardServicePanel.module.sass";
 import PropTypes from "prop-types";
-import { BOARDS, imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
+import {
+  BOARDS,
+  imageSrc,
+  MODALS,
+  TASK_MODALS,
+  TASKS_SCHEMA
+} from "../../../../../../../generalComponents/globalVariables";
 import { useTaskBoardTitle } from "../../../../../../../generalComponents/collections";
 import { ReactComponent as FrameIcon } from "assets/PrivateCabinet/tasks/frame.svg";
 import classNames from "classnames";
@@ -15,7 +21,7 @@ import TabsPicker from "../../../../../../../generalComponents/TabsPicker/TabsPi
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 
-function BoardServicePanel({ type, isLastElement }) {
+function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
   const TITLE = useTaskBoardTitle();
   const dispatch = useDispatch();
   const [tabSelect, setTabSelect] = useState(2);
@@ -65,11 +71,38 @@ function BoardServicePanel({ type, isLastElement }) {
     }
   };
 
+  const onExpand = () => {
+    switch (type) {
+      case BOARDS.MEETINGS_BOARD:
+        schema === TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD
+          ? setSchema(TASKS_SCHEMA.GRID_BAR)
+          : setSchema(TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD);
+        break;
+      case BOARDS.CALLS_BOARD:
+        schema === TASKS_SCHEMA.EXPANDED_CALLS_BOARD
+          ? setSchema(TASKS_SCHEMA.GRID_BAR)
+          : setSchema(TASKS_SCHEMA.EXPANDED_CALLS_BOARD);
+        break;
+      case BOARDS.MAIL_BOARD:
+        schema === TASKS_SCHEMA.EXPANDED_MAIL_BOARD
+          ? setSchema(TASKS_SCHEMA.GRID_BAR)
+          : setSchema(TASKS_SCHEMA.EXPANDED_MAIL_BOARD);
+        break;
+      case BOARDS.TASKS_BOARD:
+        schema === TASKS_SCHEMA.EXPANDED_TASKS_BOARD
+          ? setSchema(TASKS_SCHEMA.GRID_BAR)
+          : setSchema(TASKS_SCHEMA.EXPANDED_TASKS_BOARD);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={styles.boardServicePanelWrap}>
       <span className={styles.boardTitle}>{TITLE[type]}</span>
       <div className={styles.buttonsWrap}>
-        <FrameIcon className={styles.frameIcon} />
+        <FrameIcon className={styles.frameIcon} onClick={onExpand} />
         {!isLastElement ? (
           <div className={styles.addIconWrap}>
             <AddIcon className={classNames(styles.addIcon)} onClick={onAdd} />
@@ -87,7 +120,13 @@ function BoardServicePanel({ type, isLastElement }) {
 
 export default BoardServicePanel;
 
+BoardServicePanel.defaultProps = {
+  setSchema: () => {}
+};
+
 BoardServicePanel.propTypes = {
   type: PropTypes.oneOf(Object.values(BOARDS)).isRequired,
-  isLastElement: PropTypes.bool
+  isLastElement: PropTypes.bool,
+  setSchema: PropTypes.func.isRequired,
+  schema: PropTypes.oneOf(Object.values(TASKS_SCHEMA))
 };
