@@ -32,7 +32,7 @@ import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
 import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
-import JournalFileLine from "../JournalFileLine/JournalFileLine";
+import JournalFile from "../JournalFile/JournalFile";
 
 const ItemsList = ({
   setGLoader,
@@ -234,9 +234,7 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
-      {pathname === "/journal" && recentFiles?.length > 0 ? (
-        <JournalFileLine recentFiles={recentFiles}>{renderGroups(FileBar, recentFiles)}</JournalFileLine>
-      ) : null}
+      {pathname === "/journal" ? <JournalFile /> : null}
 
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
