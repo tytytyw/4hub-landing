@@ -27,6 +27,7 @@ export const fileProps = PropTypes.exact({
   ext: PropTypes.string,
   fid: PropTypes.string,
   fig: PropTypes.string,
+  fids: PropTypes.arrayOf(PropTypes.string),
   file: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   file_link: PropTypes.string,
   fname: PropTypes.string,
