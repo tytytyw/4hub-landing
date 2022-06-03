@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import { colorType } from "./Color";
 
 export const addNoteParams = PropTypes.exact({
   width: PropTypes.number,
   tag: PropTypes.string,
-  color: PropTypes.string,
+  color: PropTypes.oneOfType([colorType, PropTypes.string]),
   text: PropTypes.string
 });
 
