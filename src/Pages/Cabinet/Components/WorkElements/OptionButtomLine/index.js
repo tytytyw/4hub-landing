@@ -72,7 +72,6 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const onRestoreCartFile = () => {
     const fileLength = filePick.files;
-
     if (fileLength.length > 1) {
       fileLength.forEach((fileId) => {
         fileCartRestore(fileId, dispatch, uid, __("Файлы успешно восстановлены"), __);

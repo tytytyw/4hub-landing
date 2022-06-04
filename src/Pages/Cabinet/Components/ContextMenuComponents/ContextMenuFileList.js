@@ -28,8 +28,6 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
   const { pathname } = useLocation();
   const uid = useSelector((state) => state.user.uid);
 
-  //mylog
-  console.log(filePick);
   const filterContextMenu = (location, array) => {
     if (location === "archive") {
       return array.filter((item) => ["share", "download", "print"].includes(item.type));
@@ -45,7 +43,7 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
           name: __("Восстановить"),
           text: __(""),
           callback: () => {
-            fileCartRestore("UID", dispatch, uid, __("Файл успешно восстановлен"), __);
+            fileCartRestore(file.fid, dispatch, uid, __("Файл успешно восстановлен"), __);
           }
         }
       ]);
