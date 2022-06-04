@@ -121,7 +121,7 @@ const Buttons = ({
       <ShareIcon onClick={onShareFile} />
     </div>
   );
-
+  //eslint-disable-next-line
   const renderIntoZipBtn = () => (
     <div
       className={classNames(styles.iconView)}
@@ -197,10 +197,7 @@ const Buttons = ({
   const renderCartButtons = () => (
     <>
       {renderDownloadBtn()}
-      {renderPrintBtn()}
-      {renderIntoZipBtn()}
       {renderDeleteBtn()}
-      {renderShareBtn()}
     </>
   );
 
