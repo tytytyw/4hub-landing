@@ -9,6 +9,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileProps, filePickProps } from "../../../../types/File";
 import { mouseParamsProps } from "../../../../types/MouseParams";
+import { fileCartRestore } from "generalComponents/fileMenuHelper";
 
 export const share_types = {
   myFolders: "file_share",
@@ -25,13 +26,29 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const uid = useSelector((state) => state.user.uid);
 
+  //mylog
+  console.log(filePick);
   const filterContextMenu = (location, array) => {
     if (location === "archive") {
       return array.filter((item) => ["share", "download", "print"].includes(item.type));
     }
     if (location === "safe") {
       return array.filter((item) => !["share", "copyLink"].includes(item.type));
+    }
+    if (location === "cart") {
+      return (array = [
+        {
+          type: "restore",
+          img: "garbage",
+          name: __("Восстановить"),
+          text: __(""),
+          callback: () => {
+            fileCartRestore("UID", dispatch, uid, __("Файл успешно восстановлен"), __);
+          }
+        }
+      ]);
     }
     return array;
   };
@@ -206,6 +223,7 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
       }
     }
   ]);
+
   const additionalMenuItems = [
     {
       type: "delete",

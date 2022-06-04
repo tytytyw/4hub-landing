@@ -82,6 +82,17 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
     }
   };
 
+  const onDellCartFile = () => {
+    dispatch(
+      onSetModals("contextMenuModals", {
+        ...contextMenuModals,
+        type: "DeleteFile",
+        items: filePick.show ? filePick.files : [chosenFile],
+        filePick
+      })
+    );
+  };
+
   const renderCancelBtn = () => {
     return (
       <div className={styles.cancel} onClick={nullifyFilePick}>
@@ -122,6 +133,14 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
     );
   };
 
+  const renderDellCartFileBtn = () => {
+    return (
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onDellCartFile}>
+        {__("Удалить")}
+      </div>
+    );
+  };
+
   const renderRestoreCartFileBtn = () => {
     return (
       <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onRestoreCartFile}>
@@ -134,7 +153,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
     return (
       <>
         {renderCancelBtn()}
-        {renderMoveToArchiveBtn()}
+        {renderDellCartFileBtn()}
         {renderRestoreCartFileBtn()}
       </>
     );

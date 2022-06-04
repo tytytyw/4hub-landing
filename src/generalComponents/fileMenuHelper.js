@@ -32,6 +32,8 @@ export const safeFileDelete = (id_safe, file, dispatch, uid, set, msg) => {
 };
 
 export const fileCartRestore = (fileId, dispatch, uid, message, __) => {
+  //mylog
+  console.log(fileId);
   api
     .get(`/ajax/file_restore.php`, {
       params: {
