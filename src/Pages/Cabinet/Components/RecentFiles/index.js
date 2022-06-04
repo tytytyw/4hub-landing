@@ -71,12 +71,14 @@ const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallb
   };
 
   return (
-    <div
-      className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
-      ref={containerRef}
-      style={{ width: width - 27 }}
-    >
-      <div className={styles.recentFilesWrap}>{renderRecent()}</div>
+    <div className={styles.recentFiles}>
+      <div
+        className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
+        ref={containerRef}
+        style={{ width: width - 27 }}
+      >
+        <div className={styles.recentFilesWrap}>{renderRecent()}</div>
+      </div>
     </div>
   );
 };

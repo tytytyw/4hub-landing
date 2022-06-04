@@ -9,18 +9,6 @@
   box-sizing: border-box
   justify-items: center
   align-items: center
-  scrollbar-width: auto
-  scrollbar-color: #4086F1 #F5F5F5
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    width: 12px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
   .bottomLine
     grid-column: 1 / -1
     width: 100%
@@ -109,23 +97,3 @@
   padding: 0 0 0 0
   height: max-content
   min-height: max-content
-.showFilePickWithRecentFiles
-  height: calc(100% - 90px - 55px - 78px - 80px)
-.hideFilePickWithRecentFiles
-  height: calc(100% - 90px - 55px - 78px)
-.showFilePick
-  height: calc(100% - 90px - 55px - 80px)
-.hideFilePick
-  height: calc(100% - 90px - 55px)
-@media (max-width: 1420px)
-  .workBarsWrap
-    column-gap: 19px
-@media (max-height: 693px)
-  .showFilePickWithRecentFiles
-    height: calc(100% - 60px - 45px - 48px - 80px)
-  .hideFilePickWithRecentFiles
-    height: calc(100% - 60px - 45px - 48px)
-  .showFilePick
-    height: calc(100% - 60px - 45px - 80px)
-  .hideFilePick
-    height: calc(100% - 60px - 45px)

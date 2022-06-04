@@ -1,32 +1,21 @@
-.wrap
-  display: flex
-  box-sizing: border-box
-  //max-width: 100%
-  width: 100%
-  margin: 10px 10px 10px 17px
-  box-shadow: 0 1px 3px #DEDEDE
-  overflow-x: scroll
-  scrollbar-width: thin
-  scrollbar-color: #4086F1 #F5F5F5
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    height: 3px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
-  .recentFilesWrap
-    display: flex
-    align-items: center
-    height: 58px
-    width: auto
-    max-width: max-content
-    min-width: max-content
-    overflow: hidden
 
+.recentFiles
+  padding: 20px
+  .wrap
+    display: flex
+    box-sizing: border-box
+    //max-width: 100%
+    width: 100%
+    box-shadow: 0 1px 3px #DEDEDE
+    overflow-x: scroll
+    .recentFilesWrap
+      display: flex
+      align-items: center
+      height: 65px
+      width: auto
+      max-width: max-content
+      min-width: max-content
+      overflow: hidden
 
 .chosen
   background: rgba(64, 134, 241, 0.1)
@@ -41,10 +30,10 @@
 .fileWrap
   display: flex
   align-items: center
-  margin: 0 10px 0 10px
   width: 160px
   cursor: default
-  padding: 10px 5px
+  padding: 10px 15px
+  height: 100%
   box-sizing: border-box
   min-width: max-content
   -webkit-touch-callout: none
