@@ -285,7 +285,7 @@ export const clearFileList = () => {
     type: NULLIFY_FILES,
     payload: {
       files: null,
-      path: "",
+      path: "global/all",
       filesNext: null
     }
   };
