@@ -152,7 +152,9 @@ export const MAIL_MODALS = {
 
 // LIBRARY
 export const LIBRARY = {
-  API_GET_FILES: "lsjson"
+  LIBRARY_PATH: "library",
+  API_GET_FILES: "lsjson",
+  API_GET_FOLDERS: "get_folders"
 };
 
 export const VIEW_TYPE = {

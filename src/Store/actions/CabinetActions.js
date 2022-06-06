@@ -72,11 +72,14 @@ import {
   NULLIFY_MAILS
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { getLocation } from "../../generalComponents/generalHelpers";
+import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { checkResponseStatus, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
+/**
+ * @deprecated use onLoadFolders
+ */
 export const onGetFolders = (path, folders) => async (dispatch, getState) => {
   // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
   api
@@ -114,6 +117,48 @@ export const onGetFolders = (path, folders) => async (dispatch, getState) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+const addDepth = (params) => {
+  switch (getLocation()[0]) {
+    case LIBRARY.LIBRARY_PATH: {
+      return {
+        ...params,
+        dep: `/_${getLocation()[0].toUpperCase()}_/`
+      };
+    }
+    default:
+      return params;
+  }
+};
+
+export const onLoadFolders = (url) => async (dispatch, getState) => {
+  const cancelRequest = createCancelToken(url);
+  let params = {
+    uid: getState().user.uid
+  };
+  params = addDepth(params);
+
+  await api
+    .get(`/ajax/${url}.php`, {
+      params,
+      cancelToken: cancelRequest.token
+    })
+    .then((res) => {
+      checkResponseStatus(res.data.ok);
+      console.log(res);
+      dispatch({
+        type: "safas",
+        payload: null
+      });
+    })
+    .catch((e) => {
+      onSetModals(MODALS.ERROR, { open: true, message: "Library folders failed to load." });
+      console.log(e);
+    })
+    .finally(() => {
+      deleteCancelToken(url);
+    });
 };
 
 export const onChooseFolder = (folders, path) => {
