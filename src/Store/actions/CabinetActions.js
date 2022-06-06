@@ -1227,19 +1227,21 @@ export const onLoadFiles =
   (endpoint, page, loadType = LOADING_STATE.LOADING) =>
   async (dispatch, getState) => {
     const cancelRequest = createCancelToken(endpoint);
+    const params = {
+      uid: getState().user.uid,
+      filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
+      filter_fig: getState().Cabinet.fileCriterion.filters.figure,
+      filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
+      search: getState().Cabinet.search,
+      sort_reverse: 1,
+      dir: getState().Cabinet.fileList.path,
+      page,
+      dep: `/_${getLocation()[0].toUpperCase()}_/`
+    };
+
     api
       .get(`/ajax/${endpoint}.php`, {
-        params: {
-          uid: getState().user.uid,
-          filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
-          filter_fig: getState().Cabinet.fileCriterion.filters.figure,
-          filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
-          search: getState().Cabinet.search,
-          sort_reverse: 1,
-          dir: getState().Cabinet.fileList.path,
-          page,
-          dep: `/_${getLocation()[0].toUpperCase()}_/`
-        },
+        params,
         cancelToken: cancelRequest.token
       })
       .then((files) => {
