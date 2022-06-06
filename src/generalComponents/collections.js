@@ -715,11 +715,11 @@ export function useStandardLibraries() {
     },
     DOCUMENTS: {
       name: __("Документы"),
-      path: "documents"
+      path: "doc"
     },
     ARTICLES: {
       name: __("Статьи"),
-      path: "articles"
+      path: "article"
     }
   };
 }
@@ -794,15 +794,4 @@ export function useMailModalTitles() {
   return {
     [MAIL_MODALS.NEW_MAIL]: __("Новое сообщение")
   };
-}
-
-export function useLibraryFolders() {
-  const { __ } = useLocales();
-  return [
-    { name: __("Статьи"), path: "article" },
-    { name: __("Документы"), path: "doc" },
-    { name: __("Образование"), path: "education" },
-    { name: __("Фото"), path: "photo" },
-    { name: __("Видео"), path: "video" }
-  ];
 }

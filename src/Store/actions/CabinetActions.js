@@ -69,7 +69,8 @@ import {
   NULLIFY_FILES,
   SET_CHAT_THEME,
   GET_MAIL,
-  NULLIFY_MAILS
+  NULLIFY_MAILS,
+  SET_FOLDER_PATH
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -160,6 +161,13 @@ export const onChooseFolder = (folders, path) => {
   return {
     type: CHOOSE_FOLDER,
     payload: { folders, path }
+  };
+};
+
+export const onSetFolderPath = (path) => {
+  return {
+    type: SET_FOLDER_PATH,
+    payload: path
   };
 };
 

@@ -13,7 +13,7 @@ import {
   MODALS,
   VIEW_TYPE
 } from "../../../../../generalComponents/globalVariables";
-import { onLoadFiles, onSetModals, onSetPath } from "../../../../../Store/actions/CabinetActions";
+import { onLoadFiles, onSetFolderPath, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 
 function LibraryList({ listCollapsed, setListCollapsed }) {
@@ -21,7 +21,7 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
 
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
-  const { fileList, view } = useSelector((s) => s.Cabinet);
+  const { view, folderList } = useSelector((s) => s.Cabinet);
 
   const renderLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
@@ -32,13 +32,13 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
         amount={0}
         icon={`${imageSrc}assets/PrivateCabinet/library/${key.toLowerCase()}.svg`}
         onClick={() => handleListItemClick(it.path)}
-        isChosen={it.path === fileList.path}
+        isChosen={it.path === folderList.path}
       />
     ));
 
   const handleListItemClick = (path) => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
-    dispatch(onSetPath(path));
+    dispatch(onSetFolderPath(path));
     dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
   };
 
@@ -61,7 +61,7 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
         SvgIcon={AddIcon}
         onClick={addSection}
       />
-      {renderLibraryItem()}
+      {folderList.folders ? renderLibraryItem() : null}
     </List>
   );
 }
