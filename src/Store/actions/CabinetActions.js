@@ -73,7 +73,7 @@ import {
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { checkResponseStatus, getLocation } from "../../generalComponents/generalHelpers";
+import { getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -145,12 +145,7 @@ export const onLoadFolders = (url) => async (dispatch, getState) => {
       cancelToken: cancelRequest.token
     })
     .then((res) => {
-      checkResponseStatus(res.data.ok);
-      console.log(res);
-      dispatch({
-        type: "safas",
-        payload: null
-      });
+      dispatch(onChooseFolder(res.data, Object.keys(res.data)[0]));
     })
     .catch((e) => {
       onSetModals(MODALS.ERROR, { open: true, message: "Library folders failed to load." });

@@ -38,6 +38,7 @@ function Library({
 
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));
+      cancelRequest(LIBRARY.API_GET_FOLDERS).then(() => console.log(`${LIBRARY.API_GET_FOLDERS}.php was cancelled`));
     };
     //eslint-disable-next-line
   }, []);
