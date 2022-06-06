@@ -27,9 +27,11 @@ const SideMenu = ({ data, collapsed, setCollapsed }) => {
           })}
           key={item.name}
           onClick={() => {
-            history.push(item.path);
             dispatch(clearFileList());
             dispatch(clearRecentFiles());
+            setTimeout(() => {
+              history.push(item.path);
+            }, 0);
           }}
         >
           <img

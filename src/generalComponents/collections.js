@@ -795,3 +795,14 @@ export function useMailModalTitles() {
     [MAIL_MODALS.NEW_MAIL]: __("Новое сообщение")
   };
 }
+
+export function useLibraryFolders() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Статьи"), path: "article" },
+    { name: __("Документы"), path: "doc" },
+    { name: __("Образование"), path: "education" },
+    { name: __("Фото"), path: "photo" },
+    { name: __("Видео"), path: "video" }
+  ];
+}
