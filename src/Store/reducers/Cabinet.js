@@ -72,7 +72,8 @@ import {
   NULLIFY_FILES,
   SET_CHAT_THEME,
   GET_MAIL,
-  NULLIFY_MAILS
+  NULLIFY_MAILS,
+  SET_FOLDER_PATH
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -241,6 +242,9 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case CHOOSE_FOLDER: {
       return { ...state, folderList: action.payload };
+    }
+    case SET_FOLDER_PATH: {
+      return { ...state, folderList: { ...state.folderList, path: action.payload } };
     }
     case CHOOSE_FILES: {
       return { ...state, fileList: { ...state.fileList, ...action.payload } };

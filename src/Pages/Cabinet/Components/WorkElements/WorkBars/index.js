@@ -18,7 +18,6 @@ const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, f
   const search = useSelector((state) => state.Cabinet.search);
 
   const [containerRef] = useScrollElementOnScreen(options, load);
-
   return (
     <div
       ref={fileRef}

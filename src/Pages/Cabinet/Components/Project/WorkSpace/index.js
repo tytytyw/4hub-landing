@@ -47,7 +47,7 @@ const WorkSpace = ({
   const [containerRef, width] = useElementResize();
 
   const renderFiles = (Type) => {
-    if (!files) return null;
+    if (files.length === 0) return null;
     return files.map((file, i) => {
       return (
         <Type

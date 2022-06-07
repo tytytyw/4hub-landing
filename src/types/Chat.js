@@ -31,77 +31,6 @@ const messageAttachmentProps = PropTypes.exact({
   id_user: PropTypes.string
 });
 
-export const messageProps = PropTypes.exact({
-  attachment: PropTypes.oneOfType([messageAttachmentProps, PropTypes.array]),
-  day: PropTypes.string,
-  deadline: PropTypes.string,
-  id: PropTypes.string,
-  id_user: PropTypes.string,
-  id_user_to: PropTypes.string,
-  is_del: PropTypes.string,
-  is_read: PropTypes.string,
-  messageType: PropTypes.string,
-  text: PropTypes.string,
-  ut: PropTypes.string
-});
-
-export const chatUserProps = PropTypes.exact({
-  api_key: PropTypes.string,
-  chat_theme: PropTypes.string,
-  code: PropTypes.string,
-  confirm: PropTypes.string,
-  confirm_pass: PropTypes.string,
-  date_created: PropTypes.string,
-  date_last: PropTypes.string,
-  email: PropTypes.string,
-  fname: PropTypes.string,
-  icon: PropTypes.arrayOf(PropTypes.string),
-  id: PropTypes.string,
-  id_company: PropTypes.string,
-  id_group: PropTypes.string,
-  id_user: PropTypes.string,
-  is_admin: PropTypes.number,
-  is_online: PropTypes.number,
-  lang: PropTypes.string,
-  name: PropTypes.string,
-  name1: PropTypes.string,
-  notify: PropTypes.string,
-  pname: PropTypes.string,
-  prim: PropTypes.string,
-  r: PropTypes.string,
-  safe_code: PropTypes.string,
-  safe_code_ut: PropTypes.string,
-  sname: PropTypes.string,
-  tel: PropTypes.any,
-  theme: PropTypes.string,
-  udir: PropTypes.string,
-  uid: PropTypes.string,
-  unread: PropTypes.string
-});
-
-export const chatItemProps = PropTypes.exact({
-  deadline: PropTypes.string,
-  icon: PropTypes.arrayOf(PropTypes.string),
-  id: PropTypes.string,
-  id_group: PropTypes.string,
-  id_user: PropTypes.string,
-  isGroup: PropTypes.bool,
-  messages: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string,
-      id_user: PropTypes.string,
-      text: PropTypes.string,
-      ut: PropTypes.string
-    })
-  ),
-  name: PropTypes.string,
-  status: PropTypes.string,
-  unread: PropTypes.string,
-  users: PropTypes.arrayOf(chatUserProps),
-  tel: PropTypes.arrayOf(PropTypes.string),
-  ut: PropTypes.string
-});
-
 export const visualEffectsProps = PropTypes.exact({
   filter: PropTypes.exact({
     blur: PropTypes.number,
@@ -154,3 +83,91 @@ export const mediaRecorderProps = PropTypes.exact({
     onremovetrack: PropTypes.object
   })
 });
+
+export const groupProps = {
+  deadline: PropTypes.string,
+  id_group: PropTypes.string,
+  isGroup: PropTypes.bool,
+  is_secret_chat: PropTypes.bool,
+  unread: PropTypes.string
+};
+
+export const messageProps = PropTypes.exact({
+  attachment: PropTypes.oneOfType([messageAttachmentProps, PropTypes.array]),
+  day: PropTypes.string,
+  deadline: PropTypes.string,
+  id: PropTypes.string,
+  id_user: PropTypes.string,
+  id_user_to: PropTypes.string,
+  id_group: PropTypes.string,
+  is_del: PropTypes.string,
+  is_read: PropTypes.string,
+  messageType: PropTypes.string,
+  text: PropTypes.string,
+  ut: PropTypes.string,
+  unread: PropTypes.string
+});
+
+export const contactProps = {
+  api_key: PropTypes.string,
+  chat_theme: PropTypes.string,
+  code: PropTypes.string,
+  confirm: PropTypes.string,
+  confirm_pass: PropTypes.string,
+  date_created: PropTypes.string,
+  date_last: PropTypes.string,
+  email: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
+  fname: PropTypes.string,
+  icon: PropTypes.arrayOf(PropTypes.string),
+  id: PropTypes.string,
+  id_company: PropTypes.string,
+  id_group: PropTypes.string,
+  is_user: PropTypes.number,
+  id_real_user: PropTypes.string,
+  id_user: PropTypes.string,
+  is_online: PropTypes.number,
+  is_admin: PropTypes.number,
+  lang: PropTypes.string,
+  name: PropTypes.string,
+  name1: PropTypes.string,
+  notify: PropTypes.string,
+  pname: PropTypes.string,
+  prim: PropTypes.string,
+  r: PropTypes.string,
+  sname: PropTypes.string,
+  tel: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
+  theme: PropTypes.string,
+  udir: PropTypes.string,
+  uid: PropTypes.string,
+  unread: PropTypes.string,
+  safe_code: PropTypes.string,
+  safe_code_ut: PropTypes.string,
+  bdate: PropTypes.string,
+  bd: PropTypes.string,
+  company: PropTypes.string,
+  date_message: PropTypes.string,
+  is_fav: PropTypes.string,
+  mes: PropTypes.arrayOf(messageProps),
+  real_user_date_gmt: PropTypes.number,
+  real_user_date_last: PropTypes.string,
+  sname: PropTypes.string,
+  soc: PropTypes.PropTypes.arrayOf(PropTypes.exact({ link: PropTypes.string, type: PropTypes.string })),
+  ut: PropTypes.string
+};
+
+const contactMessagesInfo = PropTypes.arrayOf(
+  PropTypes.exact({
+    id: PropTypes.string,
+    id_user: PropTypes.string,
+    ut: PropTypes.string,
+    text: PropTypes.string
+  })
+);
+
+export const selectedContactProps = {
+  ...groupProps,
+  ...contactProps,
+  users: PropTypes.arrayOf(PropTypes.exact(contactProps)),
+  status: PropTypes.string,
+  messages: contactMessagesInfo
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./FileMessage.module.sass";
-import File from "../../../../../../../generalComponents/Files";
+import File from "../../File";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import { useSelector, useDispatch } from "react-redux";
 import { previewFormats } from "../../../../../../../generalComponents/collections";
@@ -9,7 +9,7 @@ import classNames from "classnames";
 import { fileChatBoardProps } from "types/Chat";
 import { fileProps } from "types/File";
 
-const FileMessage = ({ file, size, style }) => {
+const FileMessage = ({ file, size, style, amount }) => {
   const dispatch = useDispatch();
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const ext = file.name.slice(file.name.lastIndexOf(".") + 1);
@@ -37,17 +37,21 @@ const FileMessage = ({ file, size, style }) => {
   };
 
   return (
-    <div className={styles.wrapper} onClick={onFileClick} style={style}>
+    <div
+      className={classNames({ [styles.wrapper]: true, [styles.severalFiles]: amount > 1 })}
+      onClick={onFileClick}
+      style={style}
+      title={file.name ?? ""}
+    >
       <div className={classNames(styles.fileBar, styles[size])}>
         <div className={styles.file}>
           <File
-            color="grey"
+            color={file.color ?? "grey"}
             format={file.kind === "file" ? ext : file.type.slice(file.type.lastIndexOf("/") + 1)}
-            className={styles.mainFile}
             fileSize={size}
           />
         </div>
-        {file.kind === "file" ? <div className={styles.fname}>{file.name}</div> : ""}
+        {file.kind === "file" && amount === 1 ? <div className={styles.fname}>{file.name}</div> : ""}
       </div>
     </div>
   );
@@ -60,5 +64,6 @@ FileMessage.propTypes = {
   size: PropTypes.string,
   style: PropTypes.exact({
     margin: PropTypes.number
-  })
+  }),
+  amount: PropTypes.number
 };
