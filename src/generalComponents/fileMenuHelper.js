@@ -17,6 +17,20 @@ export const fileDelete = (file, dispatch, uid, set, msg) => {
     .catch((err) => console.log(err));
 };
 
+export const fileDeleteForce = (fid, dispatch, uid, set, msg) => {
+  api
+    .delete(`/ajax/file_del_force.php?uid=${uid}&fid=${fid}`)
+    .then((res) => {
+      if (res.data.ok === 1) {
+        dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+        if (set) set(msg);
+      } else {
+        console.log(res?.error);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
 export const safeFileDelete = (id_safe, file, dispatch, uid, set, msg) => {
   api
     .post(`/ajax/safe_file_del.php?uid=${uid}&fid=${file}&id_safe=${id_safe}`)

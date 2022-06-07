@@ -15,7 +15,8 @@ export const MODALS = {
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
   LIBRARY: "libraryModals",
-  MAIL: "mailModals"
+  MAIL: "mailModals",
+  DELETE_FILE: "DeleteFile"
 };
 
 export const CONTEXT_MENU_FILE = {

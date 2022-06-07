@@ -16,12 +16,13 @@ import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/g
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/File";
+import { fileCartRestore } from "generalComponents/fileMenuHelper";
 // import { fileProps, fileSharedProps } from "../../../../../../types/File";
 
 const Buttons = ({
   file,
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
-  setAction,
+  //setAction,  TODO - dell ?
   openFolderMenu,
   setMouseParams
 }) => {
@@ -30,6 +31,7 @@ const Buttons = ({
   const dispatch = useDispatch();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const uid = useSelector((state) => state.user.uid);
   const downloadFile = () => {
     // TODO - api for downloading folder
     if (file?.is_dir === 0) {
@@ -42,6 +44,10 @@ const Buttons = ({
         })
       );
     }
+  };
+
+  const restoreFile = () => {
+    fileCartRestore(file.fid, dispatch, uid, __("Файл успешно восстановлен"), __);
   };
 
   const printFile = () => {
@@ -106,11 +112,14 @@ const Buttons = ({
     <div
       className={classNames(styles.iconView, styles.iconTrash)}
       onClick={() =>
-        setAction({
-          type: "delete",
-          name: __("Удаление файла"),
-          text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
-        })
+        dispatch(
+          onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+            ...contextMenuModals,
+            type: MODALS.DELETE_FILE,
+            items: [file],
+            filePick: null
+          })
+        )
       }
     >
       <DeleteIcon />
@@ -158,6 +167,12 @@ const Buttons = ({
     </div>
   );
 
+  const renderRestoreBtn = () => (
+    <div className={styles.iconView}>
+      <div onClick={restoreFile}> Restore </div>
+    </div>
+  );
+
   const renderMyFilesButtons = () => (
     <>
       {renderPrintBtn()}
@@ -196,7 +211,7 @@ const Buttons = ({
 
   const renderCartButtons = () => (
     <>
-      {renderDownloadBtn()}
+      {renderRestoreBtn()}
       {renderDeleteBtn()}
     </>
   );
