@@ -43,6 +43,7 @@ function FilesGroup({
     }));
     setGroupInfo((state) => ({ ...state, title, amount: fileList?.length }));
   };
+
   return (
     <>
       {workElementsView === "preview" ? (
