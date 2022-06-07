@@ -92,6 +92,7 @@ export const fileSharedProps = PropTypes.exact({
   gdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   id_user: PropTypes.string,
   is_archive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  is_del: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   is_dir: PropTypes.number,
   is_download: PropTypes.string,
   is_pass: PropTypes.number,
