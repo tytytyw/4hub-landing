@@ -131,7 +131,7 @@ export const fileAddCustomizationProps = PropTypes.exact({
 export const fileListProps = PropTypes.exact({
   files: PropTypes.objectOf(PropTypes.arrayOf(fileProps)),
   path: PropTypes.string,
-  filesNext: PropTypes.string
+  filesNext: PropTypes.objectOf(PropTypes.arrayOf(fileProps))
 });
 
 export const loadedFileProps = PropTypes.exact({
