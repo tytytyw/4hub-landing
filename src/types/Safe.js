@@ -17,3 +17,11 @@ export const safeProps = PropTypes.exact({
   token: PropTypes.string,
   ut: PropTypes.string
 });
+
+export const safeActionProps = PropTypes.exact({
+  targetType: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  text: PropTypes.string,
+  callback: PropTypes.func
+});

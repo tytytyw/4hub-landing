@@ -24,7 +24,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps, filePickProps, fileProps, fileListProps } from "../../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../../types/File";
-import { actionProps } from "../../../../../types/Action";
+import { safeActionProps } from "../../../../../types/Safe";
 
 const WorkSpace = ({
   menuItem,
@@ -61,7 +61,6 @@ const WorkSpace = ({
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
   const fileRef = useRef(null);
-
   // Types of Files view
   const renderFiles = (Type) => {
     if (!fileList?.files) return null;
@@ -252,7 +251,7 @@ WorkSpace.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
-  action: actionProps,
+  action: safeActionProps,
   setAction: PropTypes.func,
   fileList: fileListProps,
   filePick: filePickProps,
