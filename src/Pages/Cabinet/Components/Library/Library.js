@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import LibraryList from "./LibraryList/LibraryList";
-import { useDispatch, useSelector } from "react-redux";
-import { clearFileList, onLoadFiles, onSetPath } from "../../../../Store/actions/CabinetActions";
-import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
+import { useDispatch } from "react-redux";
+import { onLoadFolders, onSetPath } from "../../../../Store/actions/CabinetActions";
+import { LIBRARY } from "../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../api";
 import { useStandardLibraries } from "../../../../generalComponents/collections";
 
@@ -24,19 +24,14 @@ function Library({
 }) {
   const STANDARD_LIBRARIES = useStandardLibraries();
   const [listCollapsed, setListCollapsed] = useState(false);
-  const { view } = useSelector((s) => s.Cabinet);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
-
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
-    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
-    setFilesPage(2);
-
+    dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));
-      dispatch(clearFileList());
+      cancelRequest(LIBRARY.API_GET_FOLDERS).then(() => console.log(`${LIBRARY.API_GET_FOLDERS}.php was cancelled`));
     };
     //eslint-disable-next-line
   }, []);

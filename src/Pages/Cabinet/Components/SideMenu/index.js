@@ -4,7 +4,7 @@ import styles from "./SideMenu.module.sass";
 import { useHistory, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
-import { clearRecentFiles } from "../../../../Store/actions/CabinetActions";
+import { clearFileList, clearRecentFiles } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -27,8 +27,11 @@ const SideMenu = ({ data, collapsed, setCollapsed }) => {
           })}
           key={item.name}
           onClick={() => {
-            history.push(item.path);
+            dispatch(clearFileList());
             dispatch(clearRecentFiles());
+            setTimeout(() => {
+              history.push(item.path);
+            }, 0);
           }}
         >
           <img

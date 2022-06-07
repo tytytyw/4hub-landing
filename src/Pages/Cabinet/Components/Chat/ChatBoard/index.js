@@ -21,6 +21,9 @@ import PropTypes from "prop-types";
 import { actionProps } from "../../../../../types/Action";
 import { socketProps } from "../../../../../types/Socket";
 import { fileProps } from "types/File";
+import { useLocales } from "react-localized";
+import { onSetModals } from "../../../../../Store/actions/CabinetActions";
+import { MODALS } from "../../../../../generalComponents/globalVariables";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -64,12 +67,22 @@ const ChatBoard = ({
   const search = useSelector((state) => state.Cabinet.search);
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
-
   const messages = useSelector((state) => state.Cabinet.chat.messages);
+  const { __ } = useLocales();
 
   const renderMessages = (day) => {
     const messagesOfDay = [...messages[day]].reverse();
     return messagesOfDay.map((msg) => {
+      if (!msg.id_user || !msg.id || !msg.id_user || !msg.id_user_to) {
+        dispatch(
+          onSetModals(MODALS.TOP_MESSAGE, {
+            open: true,
+            type: MODALS.ERROR,
+            message: __("Ошибка загрузки сообщения")
+          })
+        );
+        return null;
+      }
       return (
         <Message
           message={{ ...msg, day }}

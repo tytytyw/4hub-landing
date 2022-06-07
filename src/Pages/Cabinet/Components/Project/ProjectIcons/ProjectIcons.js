@@ -12,6 +12,7 @@ import { ReactComponent as SuitcaseIcon } from "../../../../../assets/PrivateCab
 import { ReactComponent as ThunderIcon } from "../../../../../assets/PrivateCabinet/project/thunder.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { colorType } from "types/Color";
 
 const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
   const { __ } = useLocales();
@@ -68,7 +69,7 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
 export default ProjectIcons;
 
 ProjectIcons.propTypes = {
-  color: PropTypes.string,
+  color: colorType,
   icon: PropTypes.string,
   setIcon: PropTypes.func,
   title: PropTypes.string,
