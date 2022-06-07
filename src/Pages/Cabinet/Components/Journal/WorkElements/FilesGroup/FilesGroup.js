@@ -54,7 +54,6 @@ function FilesGroup({
       />
     ));
   };
-  console.log(callbackArrMain);
 
   return (
     <div className={styles.fileWrap}>
