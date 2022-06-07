@@ -19,8 +19,8 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps, loadedFileProps } from "../../../../types/File";
-import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFiles";
 
 const FileLoader = ({
   awaitingFiles,
@@ -298,7 +298,7 @@ const FileLoader = ({
     if (size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
     if (size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
     if (size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;
-    return size;
+    return size.toString();
   };
 
   const handleDragStart = (e) => {
@@ -489,7 +489,7 @@ FileLoader.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
-  loaded: PropTypes.arrayOf(loadedFileProps),
+  loaded: PropTypes.arrayOf(loadedFilesProps),
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
