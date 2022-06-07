@@ -143,7 +143,7 @@ export const loadedFileProps = PropTypes.exact({
     mtime: PropTypes.string,
     name: PropTypes.string,
     size: PropTypes.number,
-    size_now: PropTypes.string
+    size_now: PropTypes.number
   }),
   options: PropTypes.exact({
     color: PropTypes.string,

@@ -15,7 +15,7 @@ import ContextModal from "../ContextMenuComponents/ContextModal";
 import FileAccessRights from "./Components/FileAccessRights/FileAccessRights";
 import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/File";
-import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFiles";
 import TaskModals from "./Components/TaskModals/TaskModals";
 import LibraryModals from "./Components/LibraryModals/LibraryModals";
 import MailModals from "./Components/MailModals/MailModals";
@@ -110,7 +110,7 @@ Modals.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
-  loaded: PropTypes.arrayOf(loadingFileProps),
+  loaded: PropTypes.arrayOf(loadedFilesProps),
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
