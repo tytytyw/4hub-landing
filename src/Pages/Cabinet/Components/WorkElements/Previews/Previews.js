@@ -10,7 +10,7 @@ import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileChatProps, fileProps } from "../../../../../types/File";
+import { fileChatProps, fileProps, fileSharedProps } from "../../../../../types/File";
 
 // eslint-disable-next-line
 const Previews = React.forwardRef(({ file, width, height, errorHandler }, canvasRef) => {
@@ -156,7 +156,7 @@ const Previews = React.forwardRef(({ file, width, height, errorHandler }, canvas
 export default Previews;
 
 Previews.propTypes = {
-  file: PropTypes.oneOfType([fileChatProps, fileProps]),
+  file: PropTypes.oneOfType([fileChatProps, fileProps, fileSharedProps]),
   width: PropTypes.string,
   height: PropTypes.number,
   errorHandler: PropTypes.func,
