@@ -150,7 +150,6 @@ export const contactProps = {
   mes: PropTypes.arrayOf(messageProps),
   real_user_date_gmt: PropTypes.number,
   real_user_date_last: PropTypes.string,
-  sname: PropTypes.string,
   soc: PropTypes.PropTypes.arrayOf(PropTypes.exact({ link: PropTypes.string, type: PropTypes.string })),
   ut: PropTypes.string
 };
