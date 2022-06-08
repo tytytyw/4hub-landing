@@ -63,7 +63,7 @@ function DeleteFile() {
   const textPopup = () => {
     if (pathname === "/cart") {
       return contextMenuModals?.filePick?.show
-        ? ` Вы уверены, что хотите удалить файлы навсегда?`
+        ? __(`Вы уверены, что хотите удалить файлы навсегда?`)
         : __(`Вы уверены, что хотите удалить ${contextMenuModals?.items[0]?.fname} навсегда?`);
     } else {
       return contextMenuModals?.filePick?.show
