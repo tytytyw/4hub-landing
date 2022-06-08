@@ -15,8 +15,7 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/File";
-import { fileCartRestore } from "generalComponents/fileMenuHelper";
+import { fileProps, fileSharedProps } from "../../../../../../types/File";
 // import { fileProps, fileSharedProps } from "../../../../../../types/File";
 
 const Buttons = ({
@@ -232,7 +231,7 @@ const Buttons = ({
 export default Buttons;
 
 Buttons.propTypes = {
-  file: fileProps,
+  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
   setAction: PropTypes.func,
   openFolderMenu: PropTypes.func,
   setMouseParams: PropTypes.func

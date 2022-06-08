@@ -9,7 +9,7 @@ import { ReactComponent as ErrorIcon } from "../../../../../assets/PrivateCabine
 import { ReactComponent as ReloadIcon } from "../../../../../assets/PrivateCabinet/reload.svg";
 import { ReactComponent as UploadArrowIcon } from "../../../../../assets/PrivateCabinet/uploadArrow.svg";
 import PropTypes from "prop-types";
-import { loadingFileProps } from "../../../../../types/LoadingFiles";
+import { awaitingFilesProps, loadedFilesProps, loadingFileProps } from "../../../../../types/LoadingFiles";
 
 const LoadItem = ({
   list,
@@ -136,7 +136,11 @@ const LoadItem = ({
 export default LoadItem;
 
 LoadItem.propTypes = {
-  list: PropTypes.arrayOf(loadingFileProps),
+  list: PropTypes.oneOfType([
+    PropTypes.arrayOf(awaitingFilesProps),
+    PropTypes.arrayOf(loadingFileProps),
+    PropTypes.arrayOf(loadedFilesProps)
+  ]),
   index: PropTypes.number,
   set: PropTypes.func,
   loaded: PropTypes.bool,
