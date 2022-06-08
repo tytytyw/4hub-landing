@@ -50,3 +50,53 @@
   &:hover
     background: $color-blue-light
     border: 1px solid $color-scrollbar
+
+//Add icon input
+.addFileButtonInput
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  width: 175px
+  height: 185px
+  border: 1px dashed #dfdfdf
+  position: relative
+  background: #fcfcfe
+  box-sizing: border-box
+  padding: 57px 0 0 0
+  cursor: pointer
+  margin: 0 30px 15px 0
+  &:hover
+    border: 1px dashed #477DE1
+  .addIcon
+    margin: 0 0 23px 0
+  .addIcon path
+    transition: fill 0.2s ease-in-out
+  span
+    font-size: 10px
+    text-align: center
+    width: 120px
+  input:hover ~ .addIcon path
+    fill: #477DE1
+    transition: fill 0.2s ease-in-out
+.addFileButtonInput.mediumSize
+  width: 138px
+  min-width: 138px
+  height: 146px
+  min-height: 146px
+  padding: 27px 0 0 0
+  margin: 0 10px 15px 0
+  span
+    font-size: 9px
+.addFileButtonInput.smallSize
+  width: 97px
+  min-width: 97px
+  height: 103px
+  min-height: 103px
+  padding: 15px 0 0 0
+  margin: 0 10px 15px 0
+  .addIcon
+    width: 30px
+    margin: 0 0 13px 0
+  span
+    font-size: 7.5px
