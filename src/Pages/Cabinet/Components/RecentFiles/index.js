@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import classnames from "classnames";
 
-const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallback, width }) => {
+const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallback }) => {
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const chosenRecentFile = useSelector((state) => state.Cabinet.chosenRecentFile);
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -72,11 +72,7 @@ const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallb
 
   return (
     <div className={styles.recentFiles}>
-      <div
-        className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
-        ref={containerRef}
-        style={{ width: width - 27 }}
-      >
+      <div className={classnames(styles.wrap, `scrollbar-thin-${theme}`)} ref={containerRef}>
         <div className={styles.recentFilesWrap}>{renderRecent()}</div>
       </div>
     </div>
@@ -89,10 +85,5 @@ RecentFiles.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   menuItem: PropTypes.string,
-  onDoubleClickCallback: PropTypes.func,
-  width: PropTypes.number
-};
-
-RecentFiles.defaultProps = {
-  width: "100%"
+  onDoubleClickCallback: PropTypes.func
 };

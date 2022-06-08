@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onChooseFiles, onChooseFolder, onSetPath } from "../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
 
-const FolderPath = ({ width, setFilesPage, setGLoader, setChosenFolder }) => {
+const FolderPath = ({ setFilesPage, setGLoader, setChosenFolder }) => {
   const folders = useFolders();
   const path = useSelector((state) => state.Cabinet.fileList?.path);
   const filesNextPath = useSelector((state) => state.Cabinet.fileList?.filesNext?.path);
@@ -70,21 +70,12 @@ const FolderPath = ({ width, setFilesPage, setGLoader, setChosenFolder }) => {
     ));
   };
 
-  return (
-    <>
-      {path ? (
-        <div style={{ width }} className={styles.pathWrap}>
-          {renderPath()}
-        </div>
-      ) : null}
-    </>
-  );
+  return <>{path ? <div className={styles.pathWrap}>{renderPath()}</div> : null}</>;
 };
 
 export default FolderPath;
 
 FolderPath.propTypes = {
-  width: PropTypes.number,
   setFilesPage: PropTypes.func,
   setGLoader: PropTypes.func,
   setChosenFolder: PropTypes.func
