@@ -10,7 +10,7 @@ import MyProfile from "./Components/MyProfile";
 import MyFiles from "./Components/MyFiles";
 import Programs from "./Components/Programs";
 
-import { Switch, Route, Redirect } from "react-router";
+import { Switch, Route, Redirect, useLocation } from "react-router";
 import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
@@ -20,7 +20,7 @@ import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
-import { exit } from "../../generalComponents/generalHelpers";
+import { exit, getLocation } from "../../generalComponents/generalHelpers";
 import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
@@ -51,6 +51,8 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [filesPage, setFilesPage] = useState(1);
   const menu = useMenu();
   const businessMenu = useBusinessMenu();
+  const { pathname } = useLocation();
+  const { folderList } = useSelector((s) => s.Cabinet);
 
   const stayOnline = (time) => {
     setTimeout(() => {
@@ -78,14 +80,41 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [loadingFile, setLoadingFile] = useState([]);
   const [loaded, setLoaded] = useState([]);
   const onInputFiles = (e) => {
-    const dir = menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : projectFolder ?? "";
+    //TODO - mkortelov - create switch-case function to define correct dir path
+    const findDir = () => {
+      //TODO - mkortelov - change for pathname.startsWith
+      if (menuItem === "myFolders") {
+        return path ?? "global/all";
+      }
+      //TODO - mkortelov - change for pathname.startsWith
+      if (menuItem === "myFiles") {
+        return "global/all";
+      }
+      if (projectFolder) {
+        return projectFolder;
+      }
+      if (pathname.startsWith("/library")) {
+        return folderList.path;
+      }
+      return "";
+    };
+
+    const setDepth = () => {
+      if (pathname.startsWith("/library")) {
+        return `/_${getLocation()[0].toUpperCase()}_/`;
+      }
+      return "";
+    };
+
+    const dir = findDir();
     const files = [...e.target.files].map((file) => ({
       file,
       options: {
         filePath: path,
         destination: menuItem,
         dir,
-        id_project: project?.id ?? ""
+        id_project: project?.id ?? "",
+        dep: setDepth()
       }
     }));
     setAwaitingFiles([...awaitingFiles].concat(...files));

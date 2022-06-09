@@ -58,7 +58,7 @@ function WorkSpace({
 
   useEffect(() => {
     dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
-  }, []);
+  }, []); //eslint-disable-line
 
   return (
     <>
