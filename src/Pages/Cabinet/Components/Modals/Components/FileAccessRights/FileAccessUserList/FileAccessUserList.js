@@ -18,7 +18,14 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import Loader from "generalComponents/Loaders/4HUB";
 
-function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar, setChosenUser }) {
+function FileAccessUserList({
+  users,
+  deleteUser,
+  changeUserAccessRightsInUsers,
+  setShowCalendar,
+  setChosenUser,
+  isLoading
+}) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -109,9 +116,7 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
 
   return (
     <div className={classNames(styles.userListWrap, `scrollbar-thin-${theme}`)}>
-      {users.length > 0 ? (
-        renderUsers()
-      ) : (
+      {isLoading ? (
         <Loader
           containerType="bounceDots"
           type="bounceDots"
@@ -120,6 +125,8 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
           width="100px"
           height="100px"
         />
+      ) : (
+        renderUsers()
       )}
     </div>
   );
@@ -132,5 +139,6 @@ FileAccessUserList.propTypes = {
   deleteUser: PropTypes.func,
   changeUserAccessRightsInUsers: PropTypes.func,
   setShowCalendar: PropTypes.func,
-  setChosenUser: PropTypes.func
+  setChosenUser: PropTypes.func,
+  isLoading: PropTypes.bool
 };

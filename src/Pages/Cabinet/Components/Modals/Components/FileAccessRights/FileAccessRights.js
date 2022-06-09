@@ -29,6 +29,7 @@ function FileAccessRights() {
   const fileAccessRights = useSelector((s) => s.Cabinet.modals.fileAccessRights);
   const [url, setUrl] = useState(__("Загрузка..."));
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const linkRef = useRef(null);
   const uid = useSelector((s) => s.user.uid);
   const [params, setParams] = useState({
@@ -64,6 +65,7 @@ function FileAccessRights() {
   };
 
   const loadUserList = () => {
+    setIsLoading(true);
     api
       .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
         params: {
@@ -79,6 +81,7 @@ function FileAccessRights() {
         }
       })
       .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -115,7 +118,6 @@ function FileAccessRights() {
     }));
     setUsers((s) => s.filter((it) => it.uid !== user.uid));
   };
-
   const deleteUsers = async () => {
     for await (let user of params.usersToDelete) {
       await api
@@ -171,6 +173,7 @@ function FileAccessRights() {
       await changeUserAccessRights();
     }
     closeModal();
+    // loadUserList();
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
@@ -224,6 +227,7 @@ function FileAccessRights() {
               changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
               setShowCalendar={setShowCalendar}
               setChosenUser={setChosenUser}
+              isLoading={isLoading}
             />
           </div>
           <div className={styles.buttons}>
