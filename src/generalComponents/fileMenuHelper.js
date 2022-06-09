@@ -17,7 +17,7 @@ export const fileDelete = (file, dispatch, uid, set, msg) => {
     .catch((err) => console.log(err));
 };
 
-export const fileDeleteForce = (fid, dispatch, uid, set, msg) => {
+export const fileDeleteFromCart = (fid, dispatch, uid, set, msg) => {
   api
     .delete(`/ajax/file_del_force.php?uid=${uid}&fid=${fid}`)
     .then((res) => {

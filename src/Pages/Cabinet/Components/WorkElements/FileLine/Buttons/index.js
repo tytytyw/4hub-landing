@@ -21,7 +21,7 @@ import { fileCartRestore } from "generalComponents/fileMenuHelper";
 const Buttons = ({
   file,
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
-  //setAction,  TODO - dell ?
+  //setAction,  TODO - vz - dell ?
   openFolderMenu,
   setMouseParams
 }) => {
