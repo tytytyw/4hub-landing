@@ -118,12 +118,10 @@ function FileAccessRights() {
     for await (let user of params.usersToDelete) {
       await api
         .post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
-          params: {
-            uid,
-            fids: [fileAccessRights.file.fid],
-            dir: fileAccessRights.file.gdir,
-            user_to: user.email
-          }
+          uid,
+          fids: [fileAccessRights.file.fid],
+          dir: fileAccessRights.file.gdir,
+          user_to: user.email
         })
         .catch(() => {
           setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось удалить права пользователя ${user.name} к файлу`));
