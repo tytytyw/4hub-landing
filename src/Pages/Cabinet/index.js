@@ -20,7 +20,7 @@ import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
-import { exit, getLocation } from "../../generalComponents/generalHelpers";
+import { exit } from "../../generalComponents/generalHelpers";
 import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
@@ -99,28 +99,19 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
       return "";
     };
 
-    const setDepth = () => {
-      if (pathname.startsWith("/library")) {
-        return `/_${getLocation()[0].toUpperCase()}_/`;
-      }
-      return "";
-    };
-
     const dir = findDir();
     const files = [...e.target.files].map((file) => ({
       file,
       options: {
         filePath: path,
-        destination: menuItem,
+        destination: menuItem.length ? menuItem : pathname.split("/")[1],
         dir,
-        id_project: project?.id ?? "",
-        dep: setDepth()
+        id_project: project?.id ?? ""
       }
     }));
     setAwaitingFiles([...awaitingFiles].concat(...files));
     inputRef.current.value = "";
   };
-
   const fileSelect = () => inputRef.current.click();
 
   const handleDragOver = (e) => e.preventDefault();
