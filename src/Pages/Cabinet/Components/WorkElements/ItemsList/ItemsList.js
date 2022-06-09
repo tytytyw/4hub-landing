@@ -136,7 +136,6 @@ const ItemsList = ({
   //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
     if (!list) return null;
-    if (!list && list && Type && !Type) return addIconButton();
     const keys = Object.keys(list);
     return keys.map((k, i) =>
       list[k].length > 0 ? (
@@ -299,7 +298,9 @@ const ItemsList = ({
                 containerType="bounceDots"
               />
             </div>
-          ) : null}
+          ) : (
+            addIconButton()
+          )}
         </div>
       ) : null}
 
