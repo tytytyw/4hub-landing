@@ -130,7 +130,7 @@ const WorkSpace = ({
           </div>
         </div>
         {pathname === "/files" && recentFiles?.length > 0 && (
-          <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} width={width} />
+          <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} />
         )}
         <ServePanel
           chosenFile={chosenFile}

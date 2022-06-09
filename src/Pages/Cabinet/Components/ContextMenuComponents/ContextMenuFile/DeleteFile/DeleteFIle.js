@@ -4,7 +4,7 @@ import styles from "../../../MyFolders/WorkSpace/WorkSpace.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { useDispatch, useSelector } from "react-redux";
 import { onAddRecentFiles, onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import { fileDelete, fileDeleteForce } from "../../../../../../generalComponents/fileMenuHelper";
+import { fileDelete, fileDeleteFromCart } from "../../../../../../generalComponents/fileMenuHelper";
 import { useLocales } from "react-localized";
 import { useLocation } from "react-router";
 import { MODALS } from "generalComponents/globalVariables";
@@ -53,10 +53,10 @@ function DeleteFile() {
   const deleteFileForce = () => {
     if (contextMenuModals?.filePick?.show) {
       contextMenuModals.filePick.files.forEach((fid, i, arr) => {
-        fileDeleteForce(fid, dispatch, uid, i === arr.length - 1 ? showMessage : "", __("Файлы удалены из системы"));
+        fileDeleteFromCart(fid, dispatch, uid, i === arr.length - 1 ? showMessage : "", __("Файлы удалены из системы"));
       });
     } else {
-      fileDeleteForce(contextMenuModals?.items[0].fid, dispatch, uid, showMessage, __("Файл удалён из системы"));
+      fileDeleteFromCart(contextMenuModals?.items[0].fid, dispatch, uid, showMessage, __("Файл удалён из системы"));
     }
   };
 

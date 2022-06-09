@@ -9,6 +9,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
 import { fileCartRestore } from "../../../../../generalComponents/fileMenuHelper";
+import classNames from "classnames";
 
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
@@ -17,7 +18,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
   const uid = useSelector((state) => state.user.uid);
 
   const { pathname } = useLocation();
-
+  const isButtonDisabled = filePick.files.length > 0 ? styles.edit : styles.buttonDisabled;
   const onZip = () =>
     chosenFile
       ? dispatch(
@@ -102,7 +103,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const renderZipBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onZip}>
+      <div className={isButtonDisabled} onClick={onZip}>
         {__("Сжать в ZIP")}
       </div>
     );
@@ -110,7 +111,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const renderEditBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onEdit}>
+      <div className={isButtonDisabled} onClick={onEdit}>
         {__("Редактировать")}
       </div>
     );
@@ -118,7 +119,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const renderShareBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onShare}>
+      <div className={isButtonDisabled} onClick={onShare}>
         {__("Расшарить")}
       </div>
     );
@@ -126,7 +127,7 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const renderMoveToArchiveBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onMoveToArchive}>
+      <div className={isButtonDisabled} onClick={onMoveToArchive}>
         {__("Пер. в архив")}
       </div>
     );
@@ -134,15 +135,15 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 
   const renderDellCartFileBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onDellCartFile}>
-        {__("Удалить")}
+      <div className={classNames(styles.deleteFileFromCart, isButtonDisabled)} onClick={onDellCartFile}>
+        {__("Удалить безвозвратно")}
       </div>
     );
   };
 
   const renderRestoreCartFileBtn = () => {
     return (
-      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onRestoreCartFile}>
+      <div className={isButtonDisabled} onClick={onRestoreCartFile}>
         {__("Восстановить")}
       </div>
     );
@@ -152,8 +153,8 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
     return (
       <>
         {renderCancelBtn()}
-        {renderDellCartFileBtn()}
         {renderRestoreCartFileBtn()}
+        {renderDellCartFileBtn()}
       </>
     );
   };
