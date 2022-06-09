@@ -20,6 +20,7 @@ import classNames from "classnames";
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import { parseCalendarDateToDate } from "../../../../../../generalComponents/CalendarHelper";
 import { formatDateStandard } from "../../../../../../generalComponents/CalendarHelper";
+import Loader from "generalComponents/Loaders/4HUB";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -36,6 +37,7 @@ function FileAccessRights() {
   });
   const [showCalendar, setShowCalendar] = useState(false);
   const [chosenUser, setChosenUser] = useState(null);
+  const [loadingType, setLoadingType] = useState("");
 
   const changeCalendarDate = (date) => {
     changeUserAccessRightsInUsers({ ...chosenUser, deadline: formatDateStandard(parseCalendarDateToDate(date)) });
@@ -146,17 +148,15 @@ function FileAccessRights() {
     for await (let user of params.usersToChangeAccessRights) {
       await api
         .post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
-          params: {
-            uid,
-            fids: [fileAccessRights.file.fid],
-            dir: fileAccessRights.file.gdir,
-            user_to: user.email,
-            is_write: user.is_write,
-            is_download: user.is_download,
-            deadline: user.deadline, //TODO - wait for BE
-            prim: user.prim, //TODO - wait for BE
-            pass: user.pass //TODO - wait for BE
-          }
+          uid,
+          fids: [fileAccessRights.file.fid],
+          dir: fileAccessRights.file.gdir,
+          user_to: user.email,
+          is_write: user.is_write,
+          is_download: user.is_download,
+          deadline: user.deadline, //TODO - wait for BE
+          prim: user.prim, //TODO - wait for BE
+          pass: user.pass //TODO - wait for BE
         })
         .catch(() => {
           setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось изменить права пользователя ${user.name}`));
@@ -165,10 +165,18 @@ function FileAccessRights() {
   };
 
   const approveChanges = async () => {
+    setLoadingType("squarify");
     if (isChanges) {
       await deleteUsers();
       await changeUserAccessRights();
     }
+    closeModal();
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: __("Доступ успешно изменён")
+      })
+    );
   };
 
   const isChanges = () => params.usersToDelete.length > 0 || params.usersToChangeAccessRights.length > 0;
@@ -235,6 +243,9 @@ function FileAccessRights() {
         </div>
         <input ref={linkRef} type="text" style={{ display: "none" }} />
       </PopUp>
+      {loadingType ? (
+        <Loader position="absolute" zIndex={10000} containerType="bounceDots" type="bounceDots" animation={false} />
+      ) : null}
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
           <Calendar setShowCalendar={setShowCalendar} setDateValue={changeCalendarDate} />
