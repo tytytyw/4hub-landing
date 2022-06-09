@@ -28,7 +28,10 @@ function WorkSpace({
   fileAddCustomization,
   setFileAddCustomization,
   setFilePreview,
-  filePreview
+  filePreview,
+  gLoader,
+  setGLoader,
+  successLoad
 }) {
   const { __ } = useLocales();
   const STANDARD_LIBRARIES = useStandardLibraries();
@@ -42,19 +45,11 @@ function WorkSpace({
     customize: false,
     intoZip: false
   });
-  const [gLoader, setGLoader] = useState(true);
   const [mouseParams, setMouseParams] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const dispatch = useDispatch();
 
   const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
-
-  const successLoad = () => {
-    if (fileSelect === 1) {
-      setGLoader(false);
-    }
-    setFilesPage(2);
-  };
 
   useEffect(() => {
     dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
@@ -153,5 +148,8 @@ WorkSpace.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
+  gLoader: PropTypes.bool,
+  setGLoader: PropTypes.func,
+  successLoad: PropTypes.func
 };
