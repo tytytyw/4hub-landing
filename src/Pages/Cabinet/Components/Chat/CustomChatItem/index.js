@@ -4,9 +4,8 @@ import classNames from "classnames";
 import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet/password.svg";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { DARK } from "../../../../../generalComponents/globalVariables";
-import { userInfoProps } from "types/UserInfo";
-import { chatItemProps } from "types/Chat";
+import { DARK, CHECKBOX, CONTEXT_MENU } from "../../../../../generalComponents/globalVariables";
+import { selectedContactProps } from "../../../../../types/Chat";
 
 const CustomChatItem = ({
   selectedContact,
@@ -86,12 +85,12 @@ const CustomChatItem = ({
         >
           {notificationsCounter}
         </div>
-        {contextMenu === "contextMenu" && !disableActions ? (
+        {contextMenu === CONTEXT_MENU && !disableActions ? (
           <div className={styles.menuWrap} onClick={(e) => onChatItemClick(e, true)}>
             <span className={styles.menu} />
           </div>
         ) : null}
-        {contextMenu === "checkBox" && !disableActions ? (
+        {contextMenu === CHECKBOX && !disableActions ? (
           <div
             className={classNames({
               [styles.radioContact]: true,
@@ -108,7 +107,7 @@ export default CustomChatItem;
 
 CustomChatItem.defaultProps = {
   isSubList: false,
-  contextMenu: "contextMenu",
+  contextMenu: CONTEXT_MENU,
   disableHover: false,
   setMouseParams: () => {},
   contextMenuList: "",
@@ -118,10 +117,10 @@ CustomChatItem.defaultProps = {
 };
 
 CustomChatItem.propTypes = {
-  selectedContact: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  selectedContact: PropTypes.exact(selectedContactProps),
   setSelectedContact: PropTypes.func,
   sideMenuCollapsed: PropTypes.bool,
-  chatItem: PropTypes.oneOfType([chatItemProps, userInfoProps]).isRequired,
+  chatItem: PropTypes.exact(selectedContactProps),
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string.isRequired,

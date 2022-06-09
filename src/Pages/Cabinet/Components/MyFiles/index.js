@@ -20,7 +20,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
-import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFiles";
 import classnames from "classnames";
 
 const MyFiles = ({
@@ -309,7 +309,7 @@ MyFiles.propTypes = {
   setFilesPage: PropTypes.func,
   awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
-  loaded: PropTypes.arrayOf(loadingFileProps),
+  loaded: PropTypes.arrayOf(loadedFilesProps),
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.arrayOf(PropTypes.string),

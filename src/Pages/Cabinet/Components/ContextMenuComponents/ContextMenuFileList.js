@@ -33,6 +33,9 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
     if (location === "safe") {
       return array.filter((item) => !["share", "copyLink"].includes(item.type));
     }
+    if (location === "cart") {
+      return (array = []);
+    }
     return array;
   };
 
@@ -206,6 +209,7 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
       }
     }
   ]);
+
   const additionalMenuItems = [
     {
       type: "delete",

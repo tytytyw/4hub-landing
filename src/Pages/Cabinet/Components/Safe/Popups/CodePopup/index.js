@@ -14,8 +14,7 @@ import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { safeProps } from "../../../../../../types/Safe";
-import { actionProps } from "../../../../../../types/Action";
+import { safeActionProps, safeProps } from "../../../../../../types/Safe";
 
 const CodePopup = ({ safe, set, setLoadingType, filesPage, successLoad, setShowSuccessMessage, action, setAction }) => {
   const { __ } = useLocales();
@@ -198,6 +197,6 @@ CodePopup.propTypes = {
   filesPage: PropTypes.number,
   successLoad: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  action: actionProps,
+  action: safeActionProps,
   setAction: PropTypes.func
 };
