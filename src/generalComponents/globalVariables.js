@@ -170,3 +170,9 @@ export const LIBRARY_MODALS = {
 export const CART = {
   API_GET_FILES: "trash_list"
 };
+
+// JOURNAL
+
+export const JOURNAL = {
+  API_GET_FILES: "history_files"
+};

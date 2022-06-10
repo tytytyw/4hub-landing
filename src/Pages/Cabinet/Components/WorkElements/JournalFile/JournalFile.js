@@ -1,14 +1,14 @@
 import React from "react";
-import JournalFileLine from "./JournalFileLine/JournalFileLine";
+// import JournalFileLine from "./JournalFileLine/JournalFileLine";
 
-const files = [1, 2, 3];
+// const files = [1, 2, 3];
 
 function JournalFile() {
   return (
     <>
-      {files.map((el, i) => {
+      {/* {files.map((el, i) => {
         return <JournalFileLine key={i} />;
-      })}
+      })} */}
     </>
   );
 }

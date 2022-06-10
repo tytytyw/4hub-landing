@@ -31,7 +31,7 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
+import { JOURNAL, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 import JournalFile from "../JournalFile/JournalFile";
 
 const ItemsList = ({
@@ -210,7 +210,7 @@ const ItemsList = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
+        (pathname.includes("files") || pathname === "/archive" || pathname.startsWith("/journal"))
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
@@ -227,6 +227,10 @@ const ItemsList = ({
           dispatch(onLoadFiles(LIBRARY.API_GET_FILES, filesPage, type));
           setFilesPage((page) => page + 1);
         }
+        if (pathname.startsWith("/journal")) {
+          dispatch(onLoadFiles(JOURNAL.API_GET_FILES, filesPage, type));
+          setFilesPage((page) => page + 1);
+        }
       }
     }
   };
@@ -234,7 +238,7 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
-      {pathname === "/journal" ? <JournalFile /> : null}
+      {pathname.startsWith("/journal") ? <JournalFile /> : null}
 
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
