@@ -17,7 +17,7 @@ import { useLocales } from "react-localized";
 import { filePreviewProps } from "../../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { onChooseFiles } from "../../../../../Store/actions/CabinetActions";
-import { useStandardLibraries } from "../../../../../generalComponents/collections";
+// import { useStandardLibraries } from "../../../../../generalComponents/collections";
 
 function WorkSpace({
   listCollapsed,
@@ -34,7 +34,7 @@ function WorkSpace({
   successLoad
 }) {
   const { __ } = useLocales();
-  const STANDARD_LIBRARIES = useStandardLibraries();
+  // const STANDARD_LIBRARIES = useStandardLibraries();
   const [containerRef, width] = useElementResize();
   const fileRef = useRef(null);
   const workElementsView = useSelector((s) => s.Cabinet.view);
@@ -52,9 +52,10 @@ function WorkSpace({
   const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
 
   useEffect(() => {
-    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
+    // delete
+    dispatch(onChooseFiles("global/all", "", 1, "", successLoad));
+    // dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
   }, []); //eslint-disable-line
-
   return (
     <>
       <div

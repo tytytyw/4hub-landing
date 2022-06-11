@@ -86,7 +86,6 @@ const ItemsList = ({
     const f = { ...item };
     f.is_dir ? dispatch(onSetNextFilesToPrevious(f.path, true)) : dispatch(onSetNextFilesToPrevious(f.gdir, false));
   };
-
   // Types of Files view
   const renderFiles = (Type, files, params) => {
     if (!files) return null;

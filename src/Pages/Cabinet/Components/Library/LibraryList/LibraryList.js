@@ -31,7 +31,7 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
 
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
-    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
+    dispatch(onChooseFiles(path, "", 1, "", successLoad, ""));
   };
 
   const addSection = () =>
