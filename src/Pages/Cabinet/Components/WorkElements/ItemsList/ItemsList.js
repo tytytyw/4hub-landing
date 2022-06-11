@@ -31,8 +31,8 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { JOURNAL, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
-import JournalFile from "../JournalFile/JournalFile";
+import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
+import JournalFileLine from "../JournalFileLine/JournalFileLine";
 
 const ItemsList = ({
   setGLoader,
@@ -117,6 +117,37 @@ const ItemsList = ({
       );
     });
   };
+
+  const renderJournalFileLine = (files, params) => {
+    if (!files) return null;
+    return files.map((file, i) => {
+      return (
+        <JournalFileLine
+          key={i}
+          file={file}
+          setChosenFile={setChosenFile}
+          chosen={
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
+          }
+          setMouseParams={setMouseParams}
+          setAction={setAction}
+          setFilePreview={setFilePreview}
+          filePreview={filePreview}
+          filePick={filePick}
+          setFilePick={setFilePick}
+          callbackArrMain={callbackArrMain}
+          folderSelect={folderSelect}
+          setGLoader={setGLoader}
+          params={params}
+          chooseItemNext={chooseItemNext}
+          openFolderMenu={openFolderMenu}
+          successLoad={successLoad}
+          sharedFilesInfo={sharedFilesInfo}
+        />
+      );
+    });
+  };
+
   // TODO - fix unused variable - Type
   //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
@@ -145,6 +176,7 @@ const ItemsList = ({
           chosenFolder={chosenFolder}
           gLoader={gLoader}
           renderFiles={renderFiles}
+          renderJournalFileLine={renderJournalFileLine}
           //WorkLinesPreview
           params={params}
           //WorkBarsPreview
@@ -210,7 +242,7 @@ const ItemsList = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive" || pathname.startsWith("/journal"))
+        (pathname.includes("files") || pathname === "/archive")
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
@@ -227,10 +259,6 @@ const ItemsList = ({
           dispatch(onLoadFiles(LIBRARY.API_GET_FILES, filesPage, type));
           setFilesPage((page) => page + 1);
         }
-        if (pathname.startsWith("/journal")) {
-          dispatch(onLoadFiles(JOURNAL.API_GET_FILES, filesPage, type));
-          setFilesPage((page) => page + 1);
-        }
       }
     }
   };
@@ -238,8 +266,6 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
-      {pathname.startsWith("/journal") ? <JournalFile /> : null}
-
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
           fileSelect={fileSelect}

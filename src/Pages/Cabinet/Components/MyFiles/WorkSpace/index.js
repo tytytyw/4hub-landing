@@ -17,7 +17,8 @@ import {
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
-  clearFileList
+  onSetWorkElementsView,
+  onGetJournalFiles
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -27,7 +28,7 @@ import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { CART } from "../../../../../generalComponents/globalVariables";
+import { CART, JOURNAL } from "../../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../../api";
 import { LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
@@ -72,24 +73,27 @@ const WorkSpace = ({
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     setFilesPage(0);
     setChosenFile(null);
-    pathname === "/files" && dispatch(onAddRecentFiles());
+    pathname.startsWith("/files") && dispatch(onAddRecentFiles());
     //TODO - Need to change request after server changes
-    if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
-    if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+    if (pathname.startsWith("/files"))
+      dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
+    if (pathname.startsWith("/archive")) dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
-    // if (pathname === "/journal") dispatch(onAddRecentFiles("history_files", 1)); TODO - vz - add API
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
+    if (pathname.startsWith("/journal")) {
+      dispatch(onGetJournalFiles(JOURNAL.API_GET_FILES, 1));
+      dispatch(onSetWorkElementsView("lines"));
+    }
 
     setFilesPage(2);
     //TODO: need dispatch downloaded-files
-    if (pathname === "/downloaded-files")
+    if (pathname.startsWith("/downloaded-files"))
       dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     dispatch({
       type: "SORT_FILES",
-      payload:
-        pathname === "/archive"
-          ? "byDateArchived&sort_reverse=1&group=date_archive"
-          : "byDateCreated&sort_reverse=1&group=ctime"
+      payload: pathname.startsWith("/archive")
+        ? "byDateArchived&sort_reverse=1&group=date_archive"
+        : "byDateCreated&sort_reverse=1&group=ctime"
     });
     return () => {
       dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
@@ -98,7 +102,6 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
       cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
-      dispatch(clearFileList());
     };
   }, [pathname]); // eslint-disable-line
 
@@ -130,7 +133,7 @@ const WorkSpace = ({
             <Profile setItem={setItem} />
           </div>
         </div>
-        {pathname === "/files" && recentFiles?.length > 0 && (
+        {pathname.startsWith("/files") && recentFiles?.length > 0 && (
           <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} width={width} />
         )}
         <ServePanel
@@ -148,7 +151,7 @@ const WorkSpace = ({
           setFilesPage={setFilesPage}
           dateFilter={dateFilter}
         />
-        {(pathname === "/archive" || pathname === "/cart" || pathname === "/journal") && (
+        {(pathname.startsWith("/archive") || pathname.startsWith("/cart") || pathname.startsWith("/journal")) && (
           <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter} />
         )}
         <ItemsList

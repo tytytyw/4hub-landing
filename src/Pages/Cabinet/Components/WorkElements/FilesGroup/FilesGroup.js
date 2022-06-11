@@ -27,6 +27,7 @@ function FilesGroup({
   chosenFolder,
   gLoader,
   renderFiles,
+  renderJournalFileLine,
   params,
   renderFileItem,
   setGroupInfo
@@ -105,7 +106,9 @@ function FilesGroup({
                 </WorkBars>
               )}
               {workElementsView === "lines" && (
-                <div className={styles.collapseContent}>{renderFiles(FileLine, fileList)}</div>
+                <div className={styles.collapseContent}>
+                  {pathname.startsWith("/journal") ? renderJournalFileLine(fileList) : renderFiles(FileLine, fileList)}
+                </div>
               )}
               {workElementsView === "workLinesPreview" ? (
                 pathname.includes("files") || pathname === "/archive" || pathname === "/cart" ? (
@@ -136,6 +139,7 @@ FilesGroup.propTypes = {
   chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   gLoader: PropTypes.bool,
   renderFiles: PropTypes.func,
+  renderJournalFileLine: PropTypes.func,
   params: mouseParamsProps,
   renderFileItem: PropTypes.func,
   setGroupInfo: PropTypes.func

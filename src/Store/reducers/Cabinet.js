@@ -25,7 +25,6 @@ import {
   SET_WORKELEMENTSVIEW,
   GET_PROJECT_FOLDER,
   GET_PROJECTS,
-  GET_JOURNAL_FOLDERS,
   SET_CALENDAR_DATE,
   SET_CALENDAR_EVENTS,
   SEARCH,
@@ -141,9 +140,6 @@ const INITIAL_STATE = {
 
   // ARCHIVE
   arhiveFileList: null,
-
-  //JOURNAL
-  journalFolders: [],
 
   //CALENDAR PAGE
   calendarDate: new Date(),
@@ -650,10 +646,6 @@ export default function startPage(state = INITIAL_STATE, action) {
     case CHOOSE_ARCHIVE_FILES: {
       return { ...state, fileList: { ...action.payload } };
     }
-
-    //JOURNAL
-    case GET_JOURNAL_FOLDERS:
-      return { ...state, journalFolders: action.payload };
 
     //CALENDAR PAGE
     case SET_CALENDAR_DATE:
