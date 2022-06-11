@@ -137,3 +137,21 @@ export const themes = [
     accentColor: "#272727"
   }
 ];
+
+export const imageFormats = ["JPEG", "JPG", "PNG"];
+
+export const calcImageSize = (parent, imageCount) => {
+  const parentWidth = parent?.clientWidth;
+  if (!parentWidth || !imageCount) return { width: 0, height: 0 };
+  const padding = parseInt(getComputedStyle(parent, null).getPropertyValue("padding")) ?? 0;
+  const calcRowsCount = () => {
+    if (imageCount < 6) return 1;
+    else if (imageCount < 12) return 2;
+    else if (imageCount < 16) return 3;
+    else return 4;
+  };
+  const width = (parentWidth - padding * 2) / Math.ceil(imageCount / calcRowsCount());
+  const height = (width * 3) / 4;
+
+  return { width, height };
+};

@@ -68,14 +68,18 @@ import {
   NULLIFY_FILES,
   SET_CHAT_THEME,
   GET_MAIL,
-  NULLIFY_MAILS
+  NULLIFY_MAILS,
+  SET_FOLDER_PATH
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
 import { getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
+/**
+ * @deprecated use onLoadFolders
+ */
 export const onGetFolders = (path, folders) => async (dispatch, getState) => {
   // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
   api
@@ -115,10 +119,54 @@ export const onGetFolders = (path, folders) => async (dispatch, getState) => {
     .catch((err) => console.log(err));
 };
 
+const addDepth = (params) => {
+  switch (getLocation()[0]) {
+    case LIBRARY.LIBRARY_PATH: {
+      return {
+        ...params,
+        dep: `/_${getLocation()[0].toUpperCase()}_/`
+      };
+    }
+    default:
+      return params;
+  }
+};
+
+export const onLoadFolders = (url) => async (dispatch, getState) => {
+  const cancelRequest = createCancelToken(url);
+  let params = {
+    uid: getState().user.uid
+  };
+  params = addDepth(params);
+
+  await api
+    .get(`/ajax/${url}.php`, {
+      params,
+      cancelToken: cancelRequest.token
+    })
+    .then((res) => {
+      dispatch(onChooseFolder(res.data, Object.keys(res.data)[0]));
+    })
+    .catch((e) => {
+      onSetModals(MODALS.ERROR, { open: true, message: "Library folders failed to load." });
+      console.log(e);
+    })
+    .finally(() => {
+      deleteCancelToken(url);
+    });
+};
+
 export const onChooseFolder = (folders, path) => {
   return {
     type: CHOOSE_FOLDER,
     payload: { folders, path }
+  };
+};
+
+export const onSetFolderPath = (path) => {
+  return {
+    type: SET_FOLDER_PATH,
+    payload: path
   };
 };
 
@@ -284,7 +332,7 @@ export const clearFileList = () => {
     type: NULLIFY_FILES,
     payload: {
       files: null,
-      path: "",
+      path: "global/all",
       filesNext: null
     }
   };
@@ -1266,20 +1314,21 @@ export const onLoadFiles =
   (endpoint, page, loadType = LOADING_STATE.LOADING) =>
   async (dispatch, getState) => {
     const cancelRequest = createCancelToken(endpoint);
+    const params = {
+      uid: getState().user.uid,
+      filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
+      filter_fig: getState().Cabinet.fileCriterion.filters.figure,
+      filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
+      search: getState().Cabinet.search,
+      sort_reverse: 1,
+      dir: getState().Cabinet.fileList.path,
+      page,
+      dep: `/_${getLocation()[0].toUpperCase()}_/`
+    };
+
     api
       .get(`/ajax/${endpoint}.php`, {
-        params: {
-          uid: getState().user.uid,
-          filter_emo: getState().Cabinet.fileCriterion.filters.emoji,
-          filter_fig: getState().Cabinet.fileCriterion.filters.figure,
-          filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
-          search: getState().Cabinet.search,
-          filters: getState().Cabinet.fileCriterion.filters,
-          sort_reverse: 1,
-          dir: getState().Cabinet.fileList.path,
-          page,
-          dep: `/_${getLocation()[0].toUpperCase()}_/`
-        },
+        params,
         cancelToken: cancelRequest.token
       })
       .then((files) => {

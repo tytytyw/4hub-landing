@@ -549,6 +549,7 @@ const ServePanel = ({
         </div>
       </div>
       <div className={styles.groupEnd}>
+        <div className={styles.buttons}>{tempDownload()}</div>
         <div className={styles.iconButtons}>
           {tempArchive()} {tempShare()} {tempDelete()}
         </div>

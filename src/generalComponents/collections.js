@@ -715,11 +715,11 @@ export function useStandardLibraries() {
     },
     DOCUMENTS: {
       name: __("Документы"),
-      path: "documents"
+      path: "doc"
     },
     ARTICLES: {
       name: __("Статьи"),
-      path: "articles"
+      path: "article"
     }
   };
 }

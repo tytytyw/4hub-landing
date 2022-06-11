@@ -220,7 +220,7 @@ const Buttons = ({
 export default Buttons;
 
 Buttons.propTypes = {
-  file: PropTypes.oneOfType([fileProps, fileSharedProps]),
+  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
   setAction: PropTypes.func,
   openFolderMenu: PropTypes.func,
   setMouseParams: PropTypes.func

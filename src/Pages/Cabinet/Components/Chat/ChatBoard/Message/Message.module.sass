@@ -20,7 +20,7 @@
             border-radius: 0 10px 10px 10px
             color: #5D5D5D
             padding: 12px 0 12px 12px
-            max-width: 620px
+            max-width: 570px
             .textWrapper
                 padding-right: 12px
                 .text
@@ -33,6 +33,44 @@
                 display: block
             &.video_content
                 padding-right: 12px
+            &.severalAttachments
+                display: flex
+                flex-direction: column
+                padding: 12px
+                .attachmentsWrapper
+                    display: flex
+                    flex-wrap: wrap
+                    align-items: center
+                    justify-content: center
+                    position: relative
+                    &.twoRows
+                        justify-content: flex-start
+                    &.withText
+                        margin-bottom: 15px
+                        padding-bottom: 15px
+                        &::after
+                            position: absolute
+                            bottom: 0
+                            left: 2%
+                            width: 96%
+                            content: ""
+                            display: block
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+                        &+.textWrapper
+                            width: 96%
+                            margin: 0 auto
+                            padding: 0
+                    &.previewImages
+                        justify-content: flex-start
+                        border-radius: 12px
+                        background: #fff
+                        padding: 5px
+                        img
+                            object-fit: cover
+                            padding: 7px 7px
+                            image-rendering: optimizequality
+                            image-rendering: -webkit-optimize-contrast
+                            cursor: pointer
         .time
             font-size: 10px
             color: #858585

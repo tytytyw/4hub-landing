@@ -97,7 +97,7 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
   const getYears = () => {
     const years = [];
     for (let i = new Date().getFullYear(); i >= 1920; i--) {
-      years.push({ id: i, text: i });
+      years.push({ id: i.toString(), text: i.toString() });
     }
     return years;
   };
@@ -109,7 +109,7 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
           <div className={styles.calendarPic}>
             <Select
               placeholder={__("Год")}
-              initValue={date.year}
+              initValue={date.year.toString()}
               data={getYears()}
               onChange={(value) => setDate({ ...date, year: value })}
             />

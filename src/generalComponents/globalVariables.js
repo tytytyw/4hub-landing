@@ -88,6 +88,8 @@ export const DARK = "dark";
 export const MAIN = "main";
 export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
+export const CHECKBOX = "checkBox";
+export const CONTEXT_MENU = "contextMenu";
 
 //Customable button
 export const BUTTON_TYPES = {
@@ -152,7 +154,9 @@ export const MAIL_MODALS = {
 
 // LIBRARY
 export const LIBRARY = {
-  API_GET_FILES: "lsjson"
+  LIBRARY_PATH: "library",
+  API_GET_FILES: "lsjson",
+  API_GET_FOLDERS: "get_folders"
 };
 
 export const VIEW_TYPE = {

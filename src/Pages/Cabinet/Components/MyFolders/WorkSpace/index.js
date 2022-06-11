@@ -97,7 +97,7 @@ const WorkSpace = ({
           view={workElementsView}
           chosenFile={chosenFile}
           setAction={setAction}
-          fileSelect={fileSelect}
+          fileSelect={fileSelect} //TODO - mkortelov - unused prop - delete?
           addFolder={(boolean) => {
             setNewFolder(boolean);
             setNewFolderInfo({ ...newFolderInfo, path: "" });

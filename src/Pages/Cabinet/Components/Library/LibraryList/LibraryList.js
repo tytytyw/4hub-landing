@@ -5,23 +5,16 @@ import PropTypes from "prop-types";
 import { useStandardLibraries } from "../../../../../generalComponents/collections";
 import ListItem from "../../../../../generalComponents/ListItem/ListItem";
 import { ReactComponent as AddIcon } from "assets/PrivateCabinet/plus-3.svg";
-import {
-  imageSrc,
-  LIBRARY,
-  LIBRARY_MODALS,
-  LOADING_STATE,
-  MODALS,
-  VIEW_TYPE
-} from "../../../../../generalComponents/globalVariables";
-import { onLoadFiles, onSetModals, onSetPath } from "../../../../../Store/actions/CabinetActions";
+import { imageSrc, LIBRARY_MODALS, MODALS } from "../../../../../generalComponents/globalVariables";
+import { onChooseFiles, onSetFolderPath, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 
-function LibraryList({ listCollapsed, setListCollapsed }) {
+function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
   const { __ } = useLocales();
 
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
-  const { fileList, view } = useSelector((s) => s.Cabinet);
+  const { folderList } = useSelector((s) => s.Cabinet);
 
   const renderLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
@@ -32,14 +25,13 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
         amount={0}
         icon={`${imageSrc}assets/PrivateCabinet/library/${key.toLowerCase()}.svg`}
         onClick={() => handleListItemClick(it.path)}
-        isChosen={it.path === fileList.path}
+        isChosen={it.path === folderList.path}
       />
     ));
 
   const handleListItemClick = (path) => {
-    const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
-    dispatch(onSetPath(path));
-    dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
+    dispatch(onSetFolderPath(path));
+    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
   };
 
   const addSection = () =>
@@ -61,7 +53,7 @@ function LibraryList({ listCollapsed, setListCollapsed }) {
         SvgIcon={AddIcon}
         onClick={addSection}
       />
-      {renderLibraryItem()}
+      {folderList.folders ? renderLibraryItem() : null}
     </List>
   );
 }
@@ -70,5 +62,6 @@ export default LibraryList;
 
 LibraryList.propTypes = {
   listCollapsed: PropTypes.bool,
-  setListCollapsed: PropTypes.func
+  setListCollapsed: PropTypes.func,
+  successLoad: PropTypes.func
 };

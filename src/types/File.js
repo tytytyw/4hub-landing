@@ -27,6 +27,7 @@ export const fileProps = PropTypes.exact({
   ext: PropTypes.string,
   fid: PropTypes.string,
   fig: PropTypes.string,
+  fids: PropTypes.arrayOf(PropTypes.string),
   file: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   file_link: PropTypes.string,
   fname: PropTypes.string,
@@ -91,6 +92,7 @@ export const fileSharedProps = PropTypes.exact({
   gdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   id_user: PropTypes.string,
   is_archive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  is_del: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   is_dir: PropTypes.number,
   is_del: PropTypes.string,
   is_download: PropTypes.string,
@@ -130,7 +132,8 @@ export const fileAddCustomizationProps = PropTypes.exact({
 
 export const fileListProps = PropTypes.exact({
   files: PropTypes.objectOf(PropTypes.arrayOf(fileProps)),
-  path: PropTypes.string
+  path: PropTypes.string,
+  filesNext: PropTypes.objectOf(PropTypes.arrayOf(fileProps))
 });
 
 export const loadedFileProps = PropTypes.exact({
@@ -141,7 +144,7 @@ export const loadedFileProps = PropTypes.exact({
     mtime: PropTypes.string,
     name: PropTypes.string,
     size: PropTypes.number,
-    size_now: PropTypes.string
+    size_now: PropTypes.number
   }),
   options: PropTypes.exact({
     color: PropTypes.string,

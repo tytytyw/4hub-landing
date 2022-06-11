@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./WorkSpace.module.sass";
 import BottomPanel from "../../BottomPanel";
@@ -8,7 +8,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
 import ServePanel from "../../ServePanel";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
@@ -16,6 +16,8 @@ import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList
 import { useLocales } from "react-localized";
 import { filePreviewProps } from "../../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../../types/File";
+import { onChooseFiles } from "../../../../../Store/actions/CabinetActions";
+import { useStandardLibraries } from "../../../../../generalComponents/collections";
 
 function WorkSpace({
   listCollapsed,
@@ -26,9 +28,13 @@ function WorkSpace({
   fileAddCustomization,
   setFileAddCustomization,
   setFilePreview,
-  filePreview
+  filePreview,
+  gLoader,
+  setGLoader,
+  successLoad
 }) {
   const { __ } = useLocales();
+  const STANDARD_LIBRARIES = useStandardLibraries();
   const [containerRef, width] = useElementResize();
   const fileRef = useRef(null);
   const workElementsView = useSelector((s) => s.Cabinet.view);
@@ -39,11 +45,15 @@ function WorkSpace({
     customize: false,
     intoZip: false
   });
-  const [gLoader, setGLoader] = useState(false); //TODO - default must be true
   const [mouseParams, setMouseParams] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
+  const dispatch = useDispatch();
 
   const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
+
+  useEffect(() => {
+    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
+  }, []); //eslint-disable-line
 
   return (
     <>
@@ -96,6 +106,7 @@ function WorkSpace({
           gLoader={gLoader}
           fileRef={fileRef}
           width={width}
+          successLoad={successLoad}
         />
         {filePick.show ? (
           <OptionButtomLine
@@ -137,5 +148,8 @@ WorkSpace.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
+  gLoader: PropTypes.bool,
+  setGLoader: PropTypes.func,
+  successLoad: PropTypes.func
 };

@@ -16,7 +16,6 @@ import {
   onChooseFiles,
   onChooseFolder,
   onGetArchiveFiles,
-  onLoadFiles,
   onSetNextFilesToPrevious,
   onSetPath
 } from "../../../../../Store/actions/CabinetActions";
@@ -31,8 +30,9 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
+import { LIBRARY, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 import JournalFileLine from "../JournalFileLine/JournalFileLine";
+import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 
 const ItemsList = ({
   setGLoader,
@@ -65,6 +65,7 @@ const ItemsList = ({
   const folderList = useSelector((state) => state.Cabinet.folderList);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const workElementsView = useSelector((state) => state.Cabinet.view);
+  const size = useSelector((state) => state.Cabinet.size);
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
@@ -147,6 +148,19 @@ const ItemsList = ({
       );
     });
   };
+  const addIconButton = () => (
+    <div
+      onClick={fileSelect}
+      className={`
+                    ${styles.addFileButtonInput}
+                    ${size === "medium" ? styles.mediumSize : null}
+                    ${size === "small" ? styles.smallSize : null}
+                `}
+    >
+      <AddIcon className={styles.addIcon} />
+      <span>{__("Перетащите файл или нажмите загрузить")}</span>
+    </div>
+  );
 
   // TODO - fix unused variable - Type
   //eslint-disable-next-line
@@ -199,6 +213,10 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
+    if (pathname.startsWith("/library")) {
+      dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
+      setFilesPage(1);
+    }
   }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {
@@ -232,8 +250,6 @@ const ItemsList = ({
 
   const load = (entry) => {
     if (!gLoader) {
-      const type =
-        workElementsView === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
       if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === "/folders") {
         setLoadingFiles(true);
         dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
@@ -256,8 +272,10 @@ const ItemsList = ({
             onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
         if (pathname.startsWith("/library")) {
-          dispatch(onLoadFiles(LIBRARY.API_GET_FILES, filesPage, type));
-          setFilesPage((page) => page + 1);
+          setLoadingFiles(true);
+          dispatch(
+            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", LIBRARY.API_GET_FILES, pathname)
+          );
         }
       }
     }
@@ -266,7 +284,7 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
-      {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
+      {workElementsView === VIEW_TYPE.BARS && Array.isArray(fileList?.files) ? (
         <WorkBars
           fileSelect={fileSelect}
           filePick={filePick}
@@ -283,7 +301,9 @@ const ItemsList = ({
         </WorkBars>
       ) : null}
 
-      {!Array.isArray(fileList?.files) && workElementsView !== "workLinesPreview" && workElementsView !== "preview" ? (
+      {!Array.isArray(fileList?.files) &&
+      workElementsView !== VIEW_TYPE.LINES_PREVIEW &&
+      workElementsView !== VIEW_TYPE.BARS_PREVIEW ? (
         <div
           className={classnames(
             renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
@@ -311,11 +331,13 @@ const ItemsList = ({
                 containerType="bounceDots"
               />
             </div>
-          ) : null}
+          ) : (
+            addIconButton()
+          )}
         </div>
       ) : null}
 
-      {workElementsView === "lines" && Array.isArray(fileList?.files) ? (
+      {workElementsView === VIEW_TYPE.LINES && Array.isArray(fileList?.files) ? (
         <WorkLines
           filePick={filePick}
           filesPage={filesPage}
@@ -330,7 +352,7 @@ const ItemsList = ({
         </WorkLines>
       ) : null}
 
-      {workElementsView === "preview" ? (
+      {workElementsView === VIEW_TYPE.BARS_PREVIEW ? (
         <WorkBarsPreview
           file={chosenFile}
           filePick={filePick}
@@ -352,7 +374,7 @@ const ItemsList = ({
         </WorkBarsPreview>
       ) : null}
 
-      {workElementsView === "workLinesPreview" ? (
+      {workElementsView === VIEW_TYPE.LINES_PREVIEW ? (
         <WorkLinesPreview
           file={chosenFile}
           filePick={filePick}
