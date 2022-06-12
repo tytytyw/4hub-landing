@@ -545,6 +545,7 @@ const ServePanel = ({
         </div>
       </div>
       <div className={styles.groupEnd}>
+        <div className={styles.buttons}>{tempDownload()}</div>
         <div className={styles.iconButtons}>
           {tempArchive()} {tempShare()} {tempDelete()}
         </div>
@@ -559,9 +560,6 @@ const ServePanel = ({
         <div className={styles.filterPanel}>
           {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
         </div>
-      </div>
-      <div className={styles.groupEnd}>
-        <div className={styles.iconButtons}>{tempDelete()}</div>
       </div>
     </>
   );

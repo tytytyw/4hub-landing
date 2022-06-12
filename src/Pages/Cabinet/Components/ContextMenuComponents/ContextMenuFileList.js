@@ -26,7 +26,6 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const uid = useSelector((state) => state.user.uid);
 
   const filterContextMenu = (location, array) => {
     if (location === "archive") {

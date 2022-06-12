@@ -85,6 +85,5 @@ RecentFiles.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   menuItem: PropTypes.string,
-  onDoubleClickCallback: PropTypes.func,
-  width: PropTypes.number
+  onDoubleClickCallback: PropTypes.func
 };
