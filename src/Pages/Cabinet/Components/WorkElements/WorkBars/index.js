@@ -10,20 +10,25 @@ import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../../../types/File";
+import classNames from "classnames";
 
 const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, fileRef, gLoader, load, options }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const size = useSelector((state) => state.Cabinet.size);
   const search = useSelector((state) => state.Cabinet.search);
 
   const [containerRef] = useScrollElementOnScreen(options, load);
+
+  const hideUploadFileStyle = hideUploadFile
+    ? styles.workBarsWrapNoScroll
+    : renderHeight(recentFiles, filePick, styles);
+
   return (
     <div
       ref={fileRef}
-      className={`${styles.workBarsWrap} ${
-        hideUploadFile ? styles.workBarsWrapNoScroll : renderHeight(recentFiles, filePick, styles)
-      }`}
+      className={classNames(styles.workBarsWrap, `scrollbar-${theme}`, hideUploadFileStyle)}
       style={{
         gridTemplateColumns:
           size === "small"
