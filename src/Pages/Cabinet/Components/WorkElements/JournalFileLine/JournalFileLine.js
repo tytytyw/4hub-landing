@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./JournalFileLine.module.sass";
 import { fileProps } from "../../../../../types/File";
 import File from "generalComponents/Files";
+import Buttons from "../FileLine/Buttons";
 
 function JournalFileLine({ file }) {
   //mylog
@@ -25,7 +26,9 @@ function JournalFileLine({ file }) {
         <div className={styles.safe}>Срок хранения: (8дней)</div>
       </div>
       <div className={styles.open}>Открыть в системе 4Hub</div>
-      <div className={styles.buttonsBlock}>1 2 3 D</div>
+      <div className={styles.buttonsBlock}>
+        <Buttons />
+      </div>
     </div>
   );
 }

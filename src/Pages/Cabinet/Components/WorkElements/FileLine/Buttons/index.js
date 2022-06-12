@@ -204,6 +204,13 @@ const Buttons = ({
     </>
   );
 
+  const renderJournalButtons = () => (
+    <>
+      {renderDownloadBtn()}
+      {renderDeleteBtn()}
+      {renderShareBtn()}
+    </>
+  );
   return (
     <div className={styles.optionsWrap}>
       {pathname.startsWith("/folders") && renderMyFilesButtons()}
@@ -213,6 +220,7 @@ const Buttons = ({
       {pathname.startsWith("/archive") && renderArchiveButtons()}
       {pathname.startsWith("/shared-files") && renderSharedFilesButtons()}
       {pathname.startsWith("/cart") && renderCartButtons()}
+      {pathname.startsWith("/journal") && renderJournalButtons()}
     </div>
   );
 };
