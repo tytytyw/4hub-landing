@@ -122,7 +122,9 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       <div className={styles.iconWrap}>
         {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? renderUsers() : renderUser(file)}
       </div>
-      <div className={styles.endTime}>{__(`Срок пользования: ${compareDates(new Date(file.deadline))}`)}</div>
+      <div className={styles.endTime}>
+        {__(`Срок пользования: ${compareDates(new Date(sharedUsers[0]?.deadline))}`)}
+      </div>
     </>
   );
 }
