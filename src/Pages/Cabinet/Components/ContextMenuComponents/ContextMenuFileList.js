@@ -42,7 +42,7 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
           name: __("Восстановить"),
           text: __(""),
           callback: () => {
-            fileCartRestore(file.fid, dispatch, uid, __("Файл успешно восстановлен"), __);
+            fileCartRestore(file.fid, dispatch, "", __("Файл успешно восстановлен"), __);
           }
         }
       ]);
