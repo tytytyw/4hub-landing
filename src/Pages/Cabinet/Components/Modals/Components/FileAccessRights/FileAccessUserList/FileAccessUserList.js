@@ -26,6 +26,8 @@ function FileAccessUserList({
   setChosenUser,
   isLoading
 }) {
+  //mylog
+  console.log(isLoading);
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
   const { theme } = useSelector((state) => state.user.userInfo);

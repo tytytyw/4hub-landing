@@ -79,9 +79,9 @@ function FileAccessRights() {
         } else {
           setTopMessage(TOP_MESSAGE_TYPE.ERROR, __("Не удалось загузить список пользователей"));
         }
+        setIsLoading(false);
       })
       .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -149,16 +149,18 @@ function FileAccessRights() {
   const changeUserAccessRights = async () => {
     for await (let user of params.usersToChangeAccessRights) {
       await api
-        .post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
-          uid,
-          fids: [fileAccessRights.file.fid],
-          dir: fileAccessRights.file.gdir,
-          user_to: user.email,
-          is_write: user.is_write,
-          is_download: user.is_download,
-          deadline: user.deadline, //TODO - wait for BE
-          prim: user.prim, //TODO - wait for BE
-          pass: user.pass //TODO - wait for BE
+        .get(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
+          params: {
+            uid,
+            fids: [fileAccessRights.file.fid],
+            dir: fileAccessRights.file.gdir,
+            user_to: user.email,
+            is_write: user.is_write,
+            is_download: user.is_download,
+            deadline: user.deadline, //TODO - wait for BE
+            prim: user.prim, //TODO - wait for BE
+            pass: user.pass //TODO - wait for BE
+          }
         })
         .catch(() => {
           setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось изменить права пользователя ${user.name}`));
@@ -173,7 +175,6 @@ function FileAccessRights() {
       await changeUserAccessRights();
     }
     closeModal();
-    // loadUserList();
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
@@ -183,7 +184,6 @@ function FileAccessRights() {
   };
 
   const isChanges = () => params.usersToDelete.length > 0 || params.usersToChangeAccessRights.length > 0;
-
   return (
     <>
       <PopUp set={closeModal}>
