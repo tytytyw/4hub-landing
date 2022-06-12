@@ -174,6 +174,10 @@ const FileLoader = ({
       if (file.options.destination === "project") {
         data.append("id_project", file?.options?.id_project);
       }
+      if (file.options.destination === "library") {
+        data.append("dep", `/_LIBRARY_/`);
+        //TODO - mkortelov - add dep to loading params
+      }
 
       // TODO need to delete this line after check - old version - await api.post(`/ajax/${menuItem === 'safe' ? 'safe_': ""}file_add.php`,
       await api

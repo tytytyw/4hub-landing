@@ -24,6 +24,7 @@ function Library({
 }) {
   const STANDARD_LIBRARIES = useStandardLibraries();
   const [listCollapsed, setListCollapsed] = useState(false);
+  const [gLoader, setGLoader] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,6 +36,13 @@ function Library({
     };
     //eslint-disable-next-line
   }, []);
+
+  const successLoad = () => {
+    if (fileSelect === 1) {
+      setGLoader(false);
+    }
+    setFilesPage(2);
+  };
 
   return (
     <div className={styles.libraryWrap}>
@@ -49,6 +57,9 @@ function Library({
         setFileAddCustomization={setFileAddCustomization}
         setFilePreview={setFilePreview}
         filePreview={filePreview}
+        gLoader={gLoader}
+        setGLoader={setGLoader}
+        successLoad={successLoad}
       />
     </div>
   );

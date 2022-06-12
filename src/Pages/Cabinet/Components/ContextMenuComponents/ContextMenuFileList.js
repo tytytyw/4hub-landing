@@ -9,6 +9,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileProps, filePickProps } from "../../../../types/File";
 import { mouseParamsProps } from "../../../../types/MouseParams";
+import { fileCartRestore } from "generalComponents/fileMenuHelper";
 
 export const share_types = {
   myFolders: "file_share",
@@ -34,7 +35,17 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
       return array.filter((item) => !["share", "copyLink"].includes(item.type));
     }
     if (location === "cart") {
-      return (array = []);
+      return (array = [
+        {
+          type: "restore",
+          img: "restore",
+          name: __("Восстановить"),
+          text: __(""),
+          callback: () => {
+            fileCartRestore(file.fid, dispatch, "", __("Файл успешно восстановлен"), __);
+          }
+        }
+      ]);
     }
     return array;
   };
