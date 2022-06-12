@@ -8,6 +8,7 @@ import { ReactComponent as SettingsIcon } from "../../../../../../assets/Private
 import { ReactComponent as DeleteIcon } from "../../../../../../assets/PrivateCabinet/delete.svg";
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
 import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabinet/zip.svg";
+import { ReactComponent as Restore } from "../../../../../../assets/PrivateCabinet/restore.svg";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
@@ -167,8 +168,8 @@ const Buttons = ({
   );
 
   const renderRestoreBtn = () => (
-    <div className={styles.iconView}>
-      <div onClick={restoreFile}> Restore </div>
+    <div className={styles.iconView} onClick={restoreFile}>
+      <Restore />
     </div>
   );
 

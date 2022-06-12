@@ -39,7 +39,7 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
       return (array = [
         {
           type: "restore",
-          img: "garbage",
+          img: "restore",
           name: __("Восстановить"),
           text: __(""),
           callback: () => {
