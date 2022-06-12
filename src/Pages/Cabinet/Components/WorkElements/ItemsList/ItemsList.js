@@ -31,6 +31,7 @@ import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
 import { LIBRARY } from "../../../../../generalComponents/globalVariables";
+import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 
 const ItemsList = ({
   setGLoader,
@@ -63,6 +64,7 @@ const ItemsList = ({
   const folderList = useSelector((state) => state.Cabinet.folderList);
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const workElementsView = useSelector((state) => state.Cabinet.view);
+  const size = useSelector((state) => state.Cabinet.size);
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
@@ -115,6 +117,21 @@ const ItemsList = ({
       );
     });
   };
+
+  const addIconButton = () => (
+    <div
+      onClick={fileSelect}
+      className={`
+                    ${styles.addFileButtonInput}
+                    ${size === "medium" ? styles.mediumSize : null}
+                    ${size === "small" ? styles.smallSize : null}
+                `}
+    >
+      <AddIcon className={styles.addIcon} />
+      <span>{__("Перетащите файл или нажмите загрузить")}</span>
+    </div>
+  );
+
   // TODO - fix unused variable - Type
   //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
@@ -281,7 +298,9 @@ const ItemsList = ({
                 containerType="bounceDots"
               />
             </div>
-          ) : null}
+          ) : (
+            addIconButton()
+          )}
         </div>
       ) : null}
 

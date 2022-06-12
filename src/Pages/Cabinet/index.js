@@ -10,7 +10,7 @@ import MyProfile from "./Components/MyProfile";
 import MyFiles from "./Components/MyFiles";
 import Programs from "./Components/Programs";
 
-import { Switch, Route, Redirect } from "react-router";
+import { Switch, Route, Redirect, useLocation } from "react-router";
 import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
@@ -51,6 +51,8 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [filesPage, setFilesPage] = useState(1);
   const menu = useMenu();
   const businessMenu = useBusinessMenu();
+  const { pathname } = useLocation();
+  const { folderList } = useSelector((s) => s.Cabinet);
 
   const stayOnline = (time) => {
     setTimeout(() => {
@@ -78,12 +80,31 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [loadingFile, setLoadingFile] = useState([]);
   const [loaded, setLoaded] = useState([]);
   const onInputFiles = (e) => {
-    const dir = menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : projectFolder ?? "";
+    //TODO - mkortelov - create switch-case function to define correct dir path
+    const findDir = () => {
+      //TODO - mkortelov - change for pathname.startsWith
+      if (menuItem === "myFolders") {
+        return path ?? "global/all";
+      }
+      //TODO - mkortelov - change for pathname.startsWith
+      if (menuItem === "myFiles") {
+        return "global/all";
+      }
+      if (projectFolder) {
+        return projectFolder;
+      }
+      if (pathname.startsWith("/library")) {
+        return folderList.path;
+      }
+      return "";
+    };
+
+    const dir = findDir();
     const files = [...e.target.files].map((file) => ({
       file,
       options: {
         filePath: path,
-        destination: menuItem,
+        destination: menuItem.length ? menuItem : pathname.split("/")[1],
         dir,
         id_project: project?.id ?? ""
       }
@@ -91,7 +112,6 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
     setAwaitingFiles([...awaitingFiles].concat(...files));
     inputRef.current.value = "";
   };
-
   const fileSelect = () => inputRef.current.click();
 
   const handleDragOver = (e) => e.preventDefault();
