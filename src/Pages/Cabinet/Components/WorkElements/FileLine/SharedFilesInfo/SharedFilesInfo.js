@@ -63,7 +63,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
           showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
         });
     }
-  }, []); //eslint-disable-line
+  }, [sharedUsers]); //eslint-disable-line
 
   const compareDates = (endDate) => {
     const today = new Date();
