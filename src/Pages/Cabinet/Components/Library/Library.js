@@ -54,9 +54,7 @@ function Library({
   }, []);
 
   const successLoad = () => {
-    if (fileSelect === 1) {
-      setGLoader(false);
-    }
+    setGLoader(false);
     setFilesPage(2);
   };
 
