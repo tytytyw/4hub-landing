@@ -73,6 +73,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH
+  // GROUP_FILES
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -102,6 +103,7 @@ const INITIAL_STATE = {
       emoji: "",
       figure: ""
     }
+    // group: ""
   },
 
   //SEARCH
@@ -489,6 +491,12 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
 
     //SORT FILES
+    // case GROUP_FILES: {
+    //   return {
+    //     ...state,
+    //     fileCriterion: { ...state.fileCriterion, group: action.payload }
+    //   };
+    // }
     case SORT_FILES: {
       return {
         ...state,

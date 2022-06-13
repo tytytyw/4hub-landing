@@ -70,6 +70,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH
+  // GROUP_FILES
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -684,103 +685,6 @@ export const onChooseProject = (project) => {
 };
 
 // JOURNAL
-export const onGetJournalFiles = () => ({
-  type: CHOOSE_FILES,
-  payload: {
-    files: {
-      1: [],
-      7: [
-        {
-          color: false,
-          ctime: "01.01.1970 03:00",
-          date: 1654808524,
-          deadline: 2208981600,
-          deny_edit: "0",
-          edit_url: "",
-          edit_url2: "http://fs.mh.net.ua/oo.php?fid=dce5a70ae38621acd7c5a2d5aedefefa&access_token=",
-          emo: "folder-",
-          ext: "JPG",
-          fid: "dce5a70ae38621acd7c5a2d5aedefefa",
-          fig: false,
-          file: "dce5a70ae38621acd7c5a2d5aedefefa",
-          fname: "rename.jpg",
-          id_color: "",
-          id_emo: "",
-          id_fig: "",
-          is_preview: 1,
-          mime_type: "image/jpeg",
-          mtime: "10.06.2022 00:04",
-          name: "rename.jpg",
-          preview: "/upload/227da18a5d0fd47124875596a8b92112/global/all/3cafa31b2fbff7ac594344008dbfe0cf",
-          qqq: "test",
-          size: 0,
-          size_now: "154.6 KB",
-          tag: ""
-        },
-        {
-          color: false,
-          ctime: "01.01.1970 03:00",
-          date: 1654808417,
-          deadline: 2208981600,
-          deny_edit: "0",
-          edit_url: "",
-          edit_url2: "http://fs.mh.net.ua/oo.php?fid=1ff9d1510aa73027443d920c0e91da99&access_token=",
-          emo: "folder-",
-          ext: "PNG",
-          fid: "1ff9d1510aa73027443d920c0e91da99",
-          fig: false,
-          file: "1ff9d1510aa73027443d920c0e91da99",
-          fname: "ava.png",
-          id_color: "rgb(52, 198, 162)",
-          id_emo: "",
-          id_fig: "",
-          is_preview: 1,
-          mime_type: "image/png",
-          mtime: "10.06.2022 00:00",
-          name: "ava.png",
-          preview: "/upload/227da18a5d0fd47124875596a8b92112/global/all/00517d109f2e7c5fb89b15cacfb8a065",
-          qqq: "test",
-          size: 0,
-          size_now: "0.4 KB",
-          tag: ""
-        },
-        {
-          color: false,
-          ctime: "11.06.3482 16:54",
-          date: 1654583482,
-          deadline: 2208981600,
-          deny_edit: "0",
-          edit_url: "",
-          edit_url2: "http://fs.mh.net.ua/oo.php?fid=f90693638b94e184b28a6cd09819ecf0&access_token=",
-          emo: "folder-",
-          ext: "JPG",
-          fid: "f90693638b94e184b28a6cd09819ecf0",
-          fig: false,
-          file: "f90693638b94e184b28a6cd09819ecf0",
-          fname: "bg.jpg",
-          id_color: "rgb(194, 52, 51)",
-          id_emo: "",
-          id_fig: "",
-          is_preview: 1,
-          mime_type: "image/jpeg",
-          mtime: "07.06.2022 20:35",
-          name: "bg.jpg",
-          preview: "/upload/227da18a5d0fd47124875596a8b92112/global/all/be6d5ddfc7b704b177322ce8eef0ea85",
-          qqq: "test",
-          size: 0,
-          size_now: "154.6 KB",
-          tag: ""
-        }
-      ],
-      14: [],
-      30: [],
-      60: [],
-      335: [],
-      999: []
-    }
-  }
-});
-
 export const onSetFileSize = (size) => {
   return {
     type: SET_SIZE,
@@ -794,6 +698,13 @@ export const onSetWorkElementsView = (view) => {
     payload: view
   };
 };
+
+// export const onSetGroupFiles = (view) => {
+//   return {
+//     type: GROUP_FILES,
+//     payload: view
+//   };
+// };
 
 // CALENDAR PAGE
 export const setCalendarDate = (date) => {
@@ -1324,6 +1235,7 @@ export const onLoadFiles =
       dir: getState().Cabinet.fileList.path,
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`
+      // group: ""
     };
 
     api

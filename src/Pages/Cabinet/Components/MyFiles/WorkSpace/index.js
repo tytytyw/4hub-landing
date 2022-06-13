@@ -17,8 +17,8 @@ import {
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
-  onSetWorkElementsView,
-  onGetJournalFiles
+  // onSetGroupFiles,
+  onSetWorkElementsView
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -81,7 +81,8 @@ const WorkSpace = ({
 
     if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
     if (pathname.startsWith("/journal")) {
-      dispatch(onGetJournalFiles(JOURNAL.API_GET_FILES, 1));
+      // dispatch(onSetGroupFiles("mtime"));
+      dispatch(onLoadFiles(JOURNAL.API_GET_FILES, 1));
       dispatch(onSetWorkElementsView("lines"));
     }
 
