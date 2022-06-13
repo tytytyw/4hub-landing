@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./WorkSpace.module.sass";
 import BottomPanel from "../../BottomPanel";
@@ -8,7 +8,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
 import ServePanel from "../../ServePanel";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
@@ -16,8 +16,6 @@ import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList
 import { useLocales } from "react-localized";
 import { filePreviewProps } from "../../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../../types/File";
-import { onChooseFiles } from "../../../../../Store/actions/CabinetActions";
-// import { useStandardLibraries } from "../../../../../generalComponents/collections";
 
 function WorkSpace({
   listCollapsed,
@@ -47,15 +45,10 @@ function WorkSpace({
   });
   const [mouseParams, setMouseParams] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
 
-  useEffect(() => {
-    // delete
-    dispatch(onChooseFiles("global/all", "", 1, "", successLoad));
-    // dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
-  }, []); //eslint-disable-line
   return (
     <>
       <div
