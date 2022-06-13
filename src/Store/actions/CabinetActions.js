@@ -69,8 +69,8 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
-  // GROUP_FILES
+  SET_FOLDER_PATH,
+  GROUP_FILES_JOURNAL
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -699,12 +699,12 @@ export const onSetWorkElementsView = (view) => {
   };
 };
 
-// export const onSetGroupFiles = (view) => {
-//   return {
-//     type: GROUP_FILES,
-//     payload: view
-//   };
-// };
+export const onSetGroupFiles = (view) => {
+  return {
+    type: GROUP_FILES_JOURNAL,
+    payload: view
+  };
+};
 
 // CALENDAR PAGE
 export const setCalendarDate = (date) => {
@@ -1234,8 +1234,8 @@ export const onLoadFiles =
       sort_reverse: 1,
       dir: getState().Cabinet.fileList.path,
       page,
-      dep: `/_${getLocation()[0].toUpperCase()}_/`
-      // group: ""
+      dep: `/_${getLocation()[0].toUpperCase()}_/`,
+      group: getState().Cabinet.fileCriterion.group
     };
 
     api

@@ -72,8 +72,8 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
-  // GROUP_FILES
+  SET_FOLDER_PATH,
+  GROUP_FILES_JOURNAL
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -102,8 +102,8 @@ const INITIAL_STATE = {
       color: "",
       emoji: "",
       figure: ""
-    }
-    // group: ""
+    },
+    group: ""
   },
 
   //SEARCH
@@ -490,13 +490,13 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, chat: { ...state.chat, theme: action.payload } };
     }
 
-    //SORT FILES
-    // case GROUP_FILES: {
-    //   return {
-    //     ...state,
-    //     fileCriterion: { ...state.fileCriterion, group: action.payload }
-    //   };
-    // }
+    // SORT FILES
+    case GROUP_FILES_JOURNAL: {
+      return {
+        ...state,
+        fileCriterion: { ...state.fileCriterion, group: action.payload }
+      };
+    }
     case SORT_FILES: {
       return {
         ...state,

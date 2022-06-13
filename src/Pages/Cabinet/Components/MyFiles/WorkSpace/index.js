@@ -17,7 +17,7 @@ import {
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
-  // onSetGroupFiles,
+  onSetGroupFiles,
   onSetWorkElementsView
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
@@ -81,7 +81,7 @@ const WorkSpace = ({
 
     if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
     if (pathname.startsWith("/journal")) {
-      // dispatch(onSetGroupFiles("mtime"));
+      dispatch(onSetGroupFiles("mtime"));
       dispatch(onLoadFiles(JOURNAL.API_GET_FILES, 1));
       dispatch(onSetWorkElementsView("lines"));
     }
@@ -103,6 +103,7 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
       cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
+      dispatch(onSetGroupFiles(""));
     };
   }, [pathname]); // eslint-disable-line
 
