@@ -20,8 +20,8 @@ export const fileChatProps = PropTypes.exact({
 
 const messageAttachmentProps = PropTypes.shape({
   error: PropTypes.number,
-  //fid: PropTypes.string,
-  //id: PropTypes.string,
+  fid: PropTypes.string,
+  id: PropTypes.string,
   kind: PropTypes.string,
   link: PropTypes.string,
   name: PropTypes.string,
@@ -100,19 +100,20 @@ export const groupProps = {
 };
 
 export const messageProps = PropTypes.exact({
-  attachment: PropTypes.oneOfType([messageAttachmentProps, messageAttachmentPropsSmallPreview]), //, PropTypes.array, PropTypes.string
+  attachment: PropTypes.oneOfType([
+    messageAttachmentProps,
+    messageAttachmentPropsSmallPreview,
+    PropTypes.arrayOf(messageAttachmentProps)
+  ]),
   day: PropTypes.string,
   deadline: PropTypes.string,
   id: PropTypes.string,
   id_user: PropTypes.string,
   id_user_to: PropTypes.string,
-  //id_group: PropTypes.string,
   is_del: PropTypes.string,
   is_read: PropTypes.string,
-  // messageType: PropTypes.string,
   text: PropTypes.string,
   ut: PropTypes.string
-  //unread: PropTypes.string
 });
 
 export const contactProps = {
