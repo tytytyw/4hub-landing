@@ -50,7 +50,7 @@ function DeleteFile() {
     dispatch(onAddRecentFiles());
   };
 
-  const deleteFileForce = () => {
+  const deleteFileFromCart = () => {
     if (contextMenuModals?.filePick?.show) {
       contextMenuModals.filePick.files.forEach((fid, i, arr) => {
         fileDeleteFromCart(fid, dispatch, uid, i === arr.length - 1 ? showMessage : "", __("Файлы удалены из системы"));
@@ -76,7 +76,7 @@ function DeleteFile() {
       name={contextMenuModals?.filePick?.show ? __("Удаление файлов") : __("Удалить файл")}
       text={textPopup()}
       set={close}
-      callback={pathname.startsWith("/cart") ? deleteFileForce : deleteFile}
+      callback={pathname.startsWith("/cart") ? deleteFileFromCart : deleteFile}
       approve={__("Удалить")}
     >
       <div className={styles.fileActionWrap}>
