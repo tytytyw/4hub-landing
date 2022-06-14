@@ -22,6 +22,7 @@ function Mail() {
 
   return (
     <div className={styles.mail}>
+      {/*<iframe src="https://fs2.mh.net.ua/mail/test" title="mail" frameBorder="0" allowFullScreen />*/}
       <MailList mailAccounts={mailAccounts} />
       <WorkSpace />
     </div>

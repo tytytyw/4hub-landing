@@ -22,12 +22,12 @@ class Pencil extends Tool {
     this.pushInDrawHistory(this.canvas.toDataURL());
     this.mouseDown = true;
     this.ctx.beginPath();
-    this.ctx.moveTo(e.layerX, e.layerY);
+    this.ctx.moveTo(e.pageX - e.target.getBoundingClientRect().x, e.pageY - e.target.getBoundingClientRect().y);
   }
 
   mouseMoveHandler(e) {
     if (this.mouseDown) {
-      this.draw(e.layerX, e.layerY);
+      this.draw(e.pageX - e.target.getBoundingClientRect().x, e.pageY - e.target.getBoundingClientRect().y);
     }
   }
 
