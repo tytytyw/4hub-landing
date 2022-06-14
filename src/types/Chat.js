@@ -65,7 +65,10 @@ export const fileChatBoardProps = PropTypes.exact({
   name: PropTypes.string,
   size: PropTypes.number,
   tmp_name: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  id_user: PropTypes.string,
+  preview_small: PropTypes.string,
+  ut: PropTypes.string
 });
 
 export const mediaRecorderProps = PropTypes.exact({

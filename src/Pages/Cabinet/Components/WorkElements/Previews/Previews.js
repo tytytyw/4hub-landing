@@ -12,7 +12,6 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileChatProps, fileProps, fileSharedProps } from "../../../../../types/File";
 
-// eslint-disable-next-line
 const Previews = React.forwardRef(({ file, width, height, errorHandler }, canvasRef) => {
   const { __ } = useLocales();
   const audioRef = useRef(null);
@@ -160,8 +159,14 @@ Previews.propTypes = {
   width: PropTypes.string,
   height: PropTypes.number,
   errorHandler: PropTypes.func,
-  canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) })
+  canvasRef: PropTypes.oneOfType([
+    PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
+    PropTypes.exact({ current: null })
+  ])
 };
+
+Previews.displayName = "Previews";
+
 Previews.defaultProps = {
   file: null,
   width: undefined,
