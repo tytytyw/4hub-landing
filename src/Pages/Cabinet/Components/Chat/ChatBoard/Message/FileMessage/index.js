@@ -20,7 +20,8 @@ const FileMessage = ({ file, size, style, amount }) => {
     return previewFormats.some((item) => item.toLocaleLowerCase() === ext.toLocaleLowerCase()) ||
       mime_type?.includes("audio") ||
       mime_type?.includes("video") ||
-      mime_type?.includes("image")
+      mime_type?.includes("image") ||
+      mime_type?.includes("application")
       ? 1
       : 0;
   };

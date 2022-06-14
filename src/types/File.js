@@ -66,7 +66,10 @@ export const fileChatProps = PropTypes.exact({
   ext: PropTypes.string,
   mime_type: PropTypes.string,
   preview: PropTypes.string,
-  is_preview: PropTypes.number
+  is_preview: PropTypes.number,
+  id_user: PropTypes.string,
+  preview_small: PropTypes.string,
+  ut: PropTypes.string
 });
 
 export const fileSharedProps = PropTypes.exact({
