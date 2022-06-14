@@ -311,7 +311,7 @@ const FileLoader = ({
     if (size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
     if (size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
     if (size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;
-    return size.toString();
+    return size;
   };
 
   const handleDragStart = (e) => {

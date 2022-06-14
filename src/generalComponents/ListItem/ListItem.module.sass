@@ -1,3 +1,4 @@
+@import "src/theme/theme"
 @keyframes showText
   0%
     width: 0
@@ -8,7 +9,7 @@
   background: rgba(64, 134, 241, 0.1)
 .listItemWrap
   transition: background 0.2s ease-in-out
-  border-bottom: 1px solid #dfdfdf
+  border-bottom: 1px solid $color-grey-secondary
   &:hover
     background: rgba(64, 134, 241, 0.1)
     transition: background 0.2s ease-in-out
@@ -24,7 +25,7 @@
     .name
       margin: 0 0 3px 0
       flex: 1 0
-      color: #7c7a7a
+      color: $color-grey_dark
       font-size: 13px
       font-family: 'SF Pro Light', sans-serif
       display: block
@@ -35,7 +36,7 @@
       animation: showText 0.2s ease-in-out
     .amount
       display: flex
-      color: #7c7a7a
+      color: $color-grey_dark
       font-family: 'SF Pro Light', sans-serif
       font-size: 14px
     .dots

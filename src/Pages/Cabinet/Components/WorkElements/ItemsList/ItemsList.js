@@ -21,7 +21,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
-import { usePeriods } from "../../../../../generalComponents/collections";
+import { usePeriods, useStandardLibraries } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
 
@@ -69,6 +69,8 @@ const ItemsList = ({
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
   const { theme } = useSelector((s) => s.user.userInfo);
+  const STANDARD_LIBRARIES = useStandardLibraries();
+
   const folderSelect = (folder) => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
@@ -182,7 +184,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {
-      dispatch(onChooseFiles("education", "", 1, "", successLoad, ""));
+      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line

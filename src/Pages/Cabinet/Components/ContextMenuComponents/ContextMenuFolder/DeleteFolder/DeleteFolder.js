@@ -7,7 +7,7 @@ import { useLocales } from "react-localized";
 import api from "api";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { LIBRARY } from "generalComponents/globalVariables";
-import { getDepartment } from "generalComponents/generalHelpers";
+import { checkResponseStatus, getDepartment } from "generalComponents/generalHelpers";
 
 function DeleteFolder() {
   const { __ } = useLocales();
@@ -33,7 +33,7 @@ function DeleteFolder() {
     api
       .post(`/ajax/dir_del.php?uid=${uid}&dir=${contextMenuModals.params.title}&dep=${getDepartment()}`)
       .then((res) => {
-        if (res.data.ok === 1) {
+        if (checkResponseStatus(res.data.ok)) {
           dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
           showMessage(__("Папка удалена"));
         } else {

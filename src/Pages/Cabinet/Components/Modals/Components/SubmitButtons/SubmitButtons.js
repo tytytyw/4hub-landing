@@ -31,7 +31,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
   const renderSubmitCancel = () => (
     <div className={styles.submitCancelWrap}>
       <TextButton text={__("Отмена")} type="cancel" callback={closeModal} />
-      <TextButton text={__(textButton)} type="ok" callback={onSubmit} />
+      <TextButton text={textButton} type="ok" callback={onSubmit} />
     </div>
   );
 

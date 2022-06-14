@@ -19,7 +19,7 @@ import { cancelRequest } from "../../../../api";
 import { useContextMenuFolderLibrary, useStandardLibraries } from "../../../../generalComponents/collections";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
-import { loadedFilesProps, loadingFileProps } from "types/LoadingFiles";
+import { awaitingFilesProps, loadedFilesProps, loadingFileProps } from "types/LoadingFiles";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 
@@ -112,7 +112,6 @@ function Library({
 
   const closeContextMenu = () => {
     setMouseParams(null);
-    // setChosenFolder((state) => ({ ...state, contextMenuFolder: null }));
   };
 
   return (
@@ -139,7 +138,6 @@ function Library({
           info={chosenFolder}
           blob={fileAddCustomization.file}
           setBlob={setFileAddCustomization}
-          // onToggleSafePassword={onSafePassword}
           awaitingFiles={awaitingFiles}
           setAwaitingFiles={setAwaitingFiles}
           loaded={loaded}
@@ -149,7 +147,6 @@ function Library({
           setLoadingFile={setLoadingFile}
           create={fileAddCustomization.create}
           setGLoader={setGLoader}
-          // initFolder={chosenFolder}
           showChoiceFolders={false}
           menuItem={menuItem}
         />
@@ -177,10 +174,10 @@ Library.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   setAwaitingFiles: PropTypes.func,
-  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.arrayOf(awaitingFilesProps)]),
   loaded: PropTypes.arrayOf(loadedFilesProps),
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps)]),
   fileErrors: PropTypes.arrayOf(PropTypes.string),
   setLoadingFile: PropTypes.func
 };

@@ -44,8 +44,6 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
     ));
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
-    // const query_path = path.split("/").length > 1 ? path.split("/").slice(1).join("/") : path;
-    // console.log(query_path);
     dispatch(onChooseFiles(path, "", 1, "", successLoad, ""));
   };
 

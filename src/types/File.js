@@ -48,7 +48,7 @@ export const fileProps = PropTypes.exact({
   size: PropTypes.number,
   sdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   size_now: PropTypes.string,
-  tag: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  tag: PropTypes.string,
   tag2: PropTypes.string,
   kind: PropTypes.string
 });

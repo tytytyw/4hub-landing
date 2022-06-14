@@ -1,3 +1,5 @@
+@import "src/theme/theme"
+
 @keyframes showPopup1420
   0%
     width: 10px
@@ -206,9 +208,9 @@
       height: 45px
       position: relative
       border-radius: 5px
-      border: 1px solid #bab8b8
+      border: 1px solid $color-grey
       cursor: default
-      color: #bab8b8
+      color: $color-grey
       font-family: "SF Pro Light", sans-serif
       font-size: 14px
       padding: 0 15px
@@ -224,12 +226,12 @@
         outline: none
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: #bab8b8
+        color: $color-grey
         border: none
       .inputField::placeholder
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: #bab8b8
+        color: $color-grey
       .tagList
         display: none
         position: absolute
@@ -241,7 +243,7 @@
         background: white
         overflow-x: hidden
         overflow-y: scroll
-        border: 1px solid #bab8b8
+        border: 1px solid $color-grey
         border-top: none
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
@@ -255,7 +257,7 @@
           height: 35px
           box-sizing: border-box
           padding: 0 15px
-          color: #bab8b8
+          color: $color-grey
         div:before
           content: ''
           position: absolute

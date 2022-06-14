@@ -232,10 +232,7 @@ const INITIAL_STATE = {
   mailList: {
     mails: [],
     path: ""
-  },
-
-  // DEPARTMENT
-  department: "/"
+  }
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
