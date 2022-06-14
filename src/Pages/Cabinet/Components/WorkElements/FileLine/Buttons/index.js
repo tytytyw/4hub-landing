@@ -7,7 +7,6 @@ import { ReactComponent as PrintIcon } from "../../../../../../assets/PrivateCab
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/settings.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../../assets/PrivateCabinet/delete.svg";
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
-import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabinet/zip.svg";
 import { ReactComponent as Restore } from "../../../../../../assets/PrivateCabinet/restore.svg";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
@@ -128,24 +127,6 @@ const Buttons = ({
   const renderShareBtn = () => (
     <div className={classNames(styles.iconView, styles.iconShare)}>
       <ShareIcon onClick={onShareFile} />
-    </div>
-  );
-  //eslint-disable-next-line
-  const renderIntoZipBtn = () => (
-    <div
-      className={classNames(styles.iconView)}
-      onClick={() => {
-        dispatch(
-          onSetModals(MODALS.CONTEXT_MENU_MODAL, {
-            ...contextMenuModals,
-            type: CONTEXT_MENU_FILE.CREATE_ZIP,
-            items: [file],
-            title: __("Сжать в ZIP")
-          })
-        );
-      }}
-    >
-      <ZipIcon />
     </div>
   );
 

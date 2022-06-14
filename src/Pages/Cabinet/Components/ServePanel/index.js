@@ -565,6 +565,9 @@ const ServePanel = ({
           {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
         </div>
       </div>
+      <div className={styles.groupEnd}>
+        <div className={styles.iconButtons}>{tempDelete()}</div>
+      </div>
     </>
   );
 

@@ -112,7 +112,12 @@ const WorkSpace = ({
           setFilesPage={setFilesPage}
           menuItem={menuItem}
         />
-        <FolderPath setFilesPage={setFilesPage} setGLoader={setGLoader} setChosenFolder={setChosenFolder} />
+        <FolderPath
+          setFilesPage={setFilesPage}
+          setGLoader={setGLoader}
+          setChosenFolder={setChosenFolder}
+          width={width}
+        />
         <ItemsList
           setGLoader={setGLoader}
           setFilesPage={setFilesPage}
