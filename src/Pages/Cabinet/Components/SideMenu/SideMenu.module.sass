@@ -1,11 +1,13 @@
+@import "theme/theme"
+
 .asideWrap
   overflow-y: auto
   display: flex
   flex-direction: column
   align-items: center
   height: 100%
-  width: 256px
-  min-width: 256px
+  width: $sidebar-width
+  min-width: $sidebar-width
   //background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 99.24%)
   font-family: "SF Pro Bold", sans-serif
   color: white
@@ -77,15 +79,10 @@
   .menuItem:hover span
     font-family: "SF Pro Bold", sans-serif
 
-@media (max-width: 1900px)
-  .asideWrap
-    min-width: 256px
-    max-width: 256px
-
 @media (max-width: 1437px)
   .asideWrap
-    min-width: 230px
-    max-width: 230px
+    min-width: $sidebar-width-sm
+    max-width: $sidebar-width-sm
   .hubIcon
     margin: 25px 0
   .menuItemsWrap

@@ -7,7 +7,7 @@ import { ReactComponent as PrintIcon } from "../../../../../../assets/PrivateCab
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/settings.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../../assets/PrivateCabinet/delete.svg";
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
-import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabinet/zip.svg";
+import { ReactComponent as Restore } from "../../../../../../assets/PrivateCabinet/restore.svg";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,12 +16,12 @@ import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/g
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 import PropTypes from "prop-types";
 import { fileProps, fileSharedProps } from "../../../../../../types/File";
-// import { fileProps, fileSharedProps } from "../../../../../../types/File";
+import { fileCartRestore } from "generalComponents/fileMenuHelper";
 
 const Buttons = ({
   file,
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
-  setAction,
+  //setAction,  TODO - vz - dell ?
   openFolderMenu,
   setMouseParams
 }) => {
@@ -30,6 +30,7 @@ const Buttons = ({
   const dispatch = useDispatch();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const uid = useSelector((state) => state.user.uid);
   const downloadFile = () => {
     // TODO - api for downloading folder
     if (file?.is_dir === 0) {
@@ -42,6 +43,10 @@ const Buttons = ({
         })
       );
     }
+  };
+
+  const restoreFile = () => {
+    fileCartRestore(file.fid, dispatch, uid, __("Файл успешно восстановлен"), __);
   };
 
   const printFile = () => {
@@ -106,11 +111,14 @@ const Buttons = ({
     <div
       className={classNames(styles.iconView, styles.iconTrash)}
       onClick={() =>
-        setAction({
-          type: "delete",
-          name: __("Удаление файла"),
-          text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
-        })
+        dispatch(
+          onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+            ...contextMenuModals,
+            type: MODALS.DELETE_FILE,
+            items: [file],
+            filePick: null
+          })
+        )
       }
     >
       <DeleteIcon />
@@ -119,24 +127,6 @@ const Buttons = ({
   const renderShareBtn = () => (
     <div className={classNames(styles.iconView, styles.iconShare)}>
       <ShareIcon onClick={onShareFile} />
-    </div>
-  );
-
-  const renderIntoZipBtn = () => (
-    <div
-      className={classNames(styles.iconView)}
-      onClick={() => {
-        dispatch(
-          onSetModals(MODALS.CONTEXT_MENU_MODAL, {
-            ...contextMenuModals,
-            type: CONTEXT_MENU_FILE.CREATE_ZIP,
-            items: [file],
-            title: __("Сжать в ZIP")
-          })
-        );
-      }}
-    >
-      <ZipIcon />
     </div>
   );
 
@@ -155,6 +145,12 @@ const Buttons = ({
       }}
     >
       <span className={styles.menu} />
+    </div>
+  );
+
+  const renderRestoreBtn = () => (
+    <div className={styles.iconView} onClick={restoreFile}>
+      <Restore />
     </div>
   );
 
@@ -196,11 +192,8 @@ const Buttons = ({
 
   const renderCartButtons = () => (
     <>
-      {renderDownloadBtn()}
-      {renderPrintBtn()}
-      {renderIntoZipBtn()}
+      {renderRestoreBtn()}
       {renderDeleteBtn()}
-      {renderShareBtn()}
     </>
   );
 

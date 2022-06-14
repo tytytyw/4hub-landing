@@ -562,9 +562,7 @@ const ServePanel = ({
         </div>
       </div>
       <div className={styles.groupEnd}>
-        <div className={styles.iconButtons}>
-          {tempArchive()} {tempShare()} {tempDelete()}
-        </div>
+        <div className={styles.iconButtons}>{tempDelete()}</div>
       </div>
     </>
   );
