@@ -17,7 +17,7 @@ export const fileDelete = (file, dispatch, uid, set, msg) => {
     .catch((err) => console.log(err));
 };
 
-export const fileDeleteFromCart = (fid, dispatch, uid, set, msg) => {
+export const fileDeleteFromCart = (fid, dispatch, uid, set, msg, __) => {
   api
     .delete(`/ajax/file_del_force.php?uid=${uid}&fid=${fid}`)
     .then((res) => {
@@ -25,6 +25,13 @@ export const fileDeleteFromCart = (fid, dispatch, uid, set, msg) => {
         dispatch(onLoadFiles(CART.API_GET_FILES, 1));
         if (set) set(msg);
       } else {
+        dispatch(
+          onSetModals(MODALS.TOP_MESSAGE, {
+            open: true,
+            type: TOP_MESSAGE_TYPE.ERROR,
+            message: __("Не удалось удалить файл")
+          })
+        );
         console.log(res?.error);
       }
     })
