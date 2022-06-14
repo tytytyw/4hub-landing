@@ -31,6 +31,7 @@ import { callbackArrMain } from "types/CallbackArrMain";
 import { CART, JOURNAL } from "../../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../../api";
 import { LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
+import { CHOOSE_FILES } from "Store/types";
 
 const WorkSpace = ({
   chosenFile,
@@ -83,7 +84,7 @@ const WorkSpace = ({
     if (pathname.startsWith("/journal")) {
       dispatch(onSetGroupFiles("mtime"));
       dispatch(onLoadFiles(JOURNAL.API_GET_FILES, 1));
-      dispatch(onSetWorkElementsView("lines"));
+      dispatch(onSetWorkElementsView(VIEW_TYPE.LINES));
     }
 
     setFilesPage(2);
@@ -97,7 +98,7 @@ const WorkSpace = ({
         : "byDateCreated&sort_reverse=1&group=ctime"
     });
     return () => {
-      dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
+      dispatch({ type: CHOOSE_FILES, payload: [] }); //cleaning fileList when changing tabs
       dispatch({
         type: "SORT_FILES",
         payload: "byDateCreated&sort_reverse=1&group=ctime"

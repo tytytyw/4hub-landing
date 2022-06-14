@@ -147,7 +147,7 @@ export const loadedFileProps = PropTypes.exact({
     size_now: PropTypes.number
   }),
   options: PropTypes.exact({
-    color: PropTypes.string,
+    color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     destination: PropTypes.string,
     dir: PropTypes.string,
     emoji: PropTypes.string,
@@ -156,4 +156,32 @@ export const loadedFileProps = PropTypes.exact({
     symbol: PropTypes.string,
     tag: PropTypes.string
   })
+});
+
+export const journalFileProps = PropTypes.exact({
+  color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  ctime: PropTypes.string,
+  date: PropTypes.number,
+  deadline: PropTypes.number,
+  deny_edit: PropTypes.string,
+  edit_url: PropTypes.string,
+  edit_url2: PropTypes.string,
+  emo: PropTypes.string,
+  ext: PropTypes.string,
+  fid: PropTypes.string,
+  fig: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  file: PropTypes.string,
+  fname: PropTypes.string,
+  id_color: PropTypes.string,
+  id_emo: PropTypes.string,
+  id_fig: PropTypes.string,
+  is_preview: PropTypes.number,
+  mime_type: PropTypes.string,
+  mtime: PropTypes.string,
+  name: PropTypes.string,
+  preview: PropTypes.string,
+  qqq: PropTypes.string,
+  size: PropTypes.number,
+  size_now: PropTypes.string,
+  tag: PropTypes.string
 });
