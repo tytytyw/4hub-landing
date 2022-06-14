@@ -103,7 +103,6 @@ const Previews = React.forwardRef(({ file, width, height, errorHandler }, canvas
       const img = new Image();
       img.src = `${file.preview}${file.fid === "printScreen" ? "" : `?${new Date()}`}`;
       img.onload = (e) => {
-        console.log(canvasRef?.current);
         if (canvasRef?.current) {
           const canvas = canvasRef.current.getContext("2d");
           const sizes = imageToRatio(

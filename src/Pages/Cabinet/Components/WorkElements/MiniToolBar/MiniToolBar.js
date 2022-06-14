@@ -40,7 +40,7 @@ import WhiteMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/pho
 import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { fileProps, fileSharedProps } from "../../../../../types/File";
+import { fileChatProps, fileProps, fileSharedProps } from "../../../../../types/File";
 
 const MiniToolBar = ({
   file,
@@ -572,7 +572,7 @@ const MiniToolBar = ({
 export default MiniToolBar;
 
 MiniToolBar.propTypes = {
-  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
+  file: PropTypes.oneOfType([fileChatProps, fileSharedProps, fileProps]),
   toolBarType: PropTypes.string,
   width: PropTypes.string,
   canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),
