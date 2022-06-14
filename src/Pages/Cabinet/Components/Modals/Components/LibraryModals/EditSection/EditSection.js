@@ -10,27 +10,17 @@ import { onLoadFolders, onSetModals } from "../../../../../../../Store/actions/C
 import InputField from "../../../../../../../generalComponents/InputField";
 import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import api from "api";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 function EditSection({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.uid);
-  const dep = useSelector((state) => state.Cabinet.department);
   // const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
 
   const onChangeTitle = (title) => {
     dispatch(onSetModals(MODALS.LIBRARY, { type, params: { ...params, title } }));
   };
-
-  // const close = () =>
-  //   dispatch(
-  //     onSetModals("contextMenuModals", {
-  //       ...contextMenuModals,
-  //       type: "",
-  //       items: [],
-  //       filePick: null
-  //     })
-  //   );
 
   const showMessage = (message) => {
     dispatch(onSetModals("topMessage", { open: true, type: "message", message }));
@@ -42,7 +32,7 @@ function EditSection({ type, params, closeModal }) {
     const parent = type === LIBRARY_MODALS.RENAME_SECTION ? "" : "&parent=other";
     const modalMessage = type === LIBRARY_MODALS.RENAME_SECTION ? __("Раздел изменён") : __("Раздел добавлен");
 
-    const url = `uid=${uid}&dir_name=${params.title}${parent}&dep=${dep}`;
+    const url = `uid=${uid}&dir_name=${params.title}${parent}&dep=${getDepartment()}`;
 
     api
       .post(`/ajax/${method}?${url}`)

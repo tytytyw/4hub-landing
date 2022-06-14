@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFiles";
 import { useLocation } from "react-router-dom";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 const FileLoader = ({
   awaitingFiles,
@@ -54,7 +55,6 @@ const FileLoader = ({
   const uid = useSelector((state) => state.user?.uid);
   const search = useSelector((state) => state.Cabinet.search);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
-  const dep = useSelector((state) => state.Cabinet.department);
   const [response, setResponse] = useState(null);
   const dispatch = useDispatch();
   const fileLoaderRef = useRef(null);
@@ -176,7 +176,7 @@ const FileLoader = ({
         data.append("id_project", file?.options?.id_project);
       }
       if (file.options.destination === "library") {
-        data.append("dep", dep);
+        data.append("dep", getDepartment());
         //TODO - mkortelov - add dep to loading params
       }
 

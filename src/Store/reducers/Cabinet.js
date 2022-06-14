@@ -73,8 +73,7 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH,
-  SET_DEPARTMENT
+  SET_FOLDER_PATH
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -714,9 +713,5 @@ export default function startPage(state = INITIAL_STATE, action) {
     case NULLIFY_MAILS: {
       return { ...state, mailList: action.payload };
     }
-
-    // DEPARTMENT
-    case SET_DEPARTMENT:
-      return { ...state, department: action.payload };
   }
 }

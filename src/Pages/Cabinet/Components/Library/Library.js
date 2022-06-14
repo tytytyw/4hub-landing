@@ -7,7 +7,7 @@ import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import LibraryList from "./LibraryList/LibraryList";
 import { useDispatch, useSelector } from "react-redux";
-import { onLoadFolders, onSetDepartment, onSetModals, onSetPath } from "../../../../Store/actions/CabinetActions";
+import { onLoadFolders, onSetModals, onSetPath } from "../../../../Store/actions/CabinetActions";
 import {
   CONTEXT_MENU_FOLDER,
   imageSrc,
@@ -55,14 +55,12 @@ function Library({
   const contextMenuFolderLibrary = useContextMenuFolderLibrary();
 
   useEffect(() => {
-    dispatch(onSetDepartment("/_LIBRARY_/"));
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
     setMenuItem("library");
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));
       cancelRequest(LIBRARY.API_GET_FOLDERS).then(() => console.log(`${LIBRARY.API_GET_FOLDERS}.php was cancelled`));
-      dispatch(onSetDepartment("/"));
     };
     //eslint-disable-next-line
   }, []);

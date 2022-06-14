@@ -213,6 +213,7 @@ const Buttons = ({
       {pathname.startsWith("/archive") && renderArchiveButtons()}
       {pathname.startsWith("/shared-files") && renderSharedFilesButtons()}
       {pathname.startsWith("/cart") && renderCartButtons()}
+      {pathname.startsWith("/library") && renderMyFilesButtons()}
     </div>
   );
 };

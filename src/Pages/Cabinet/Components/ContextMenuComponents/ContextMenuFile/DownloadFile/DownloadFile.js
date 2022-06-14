@@ -3,12 +3,12 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import { getDepartment } from "../../../../../../generalComponents/generalHelpers";
 
 function DownloadFile() {
   const { __ } = useLocales();
   const uid = useSelector((s) => s.user.uid);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
-  const dep = useSelector((s) => s.Cabinet.department);
   const error = useSelector((s) => s.Cabinet.modals.error);
   const dispatch = useDispatch();
   const formRef = useRef();
@@ -83,7 +83,7 @@ function DownloadFile() {
         <form
           style={{ display: "none" }}
           name="downloadFile"
-          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php?dep=${dep}`}
+          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php?dep=${getDepartment()}`}
           method="post"
           ref={formRef}
           onError={() =>

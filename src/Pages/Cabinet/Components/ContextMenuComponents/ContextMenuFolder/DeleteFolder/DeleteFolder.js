@@ -7,12 +7,12 @@ import { useLocales } from "react-localized";
 import api from "api";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { LIBRARY } from "generalComponents/globalVariables";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 function DeleteFolder() {
   const { __ } = useLocales();
   const uid = useSelector((s) => s.user.uid);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
-  const department = useSelector((s) => s.Cabinet.department);
   const dispatch = useDispatch();
   const close = () =>
     dispatch(
@@ -31,7 +31,7 @@ function DeleteFolder() {
 
   const deleteFolder = () => {
     api
-      .post(`/ajax/dir_del.php?uid=${uid}&dir=${contextMenuModals.params.title}&dep=${department}`)
+      .post(`/ajax/dir_del.php?uid=${uid}&dir=${contextMenuModals.params.title}&dep=${getDepartment()}`)
       .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
