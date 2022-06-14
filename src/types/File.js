@@ -176,7 +176,7 @@ export const journalFileProps = PropTypes.exact({
   id_emo: PropTypes.string,
   id_fig: PropTypes.string,
   is_preview: PropTypes.number,
-  mime_type: PropTypes.string,
+  mime_type: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   mtime: PropTypes.string,
   name: PropTypes.string,
   preview: PropTypes.string,
