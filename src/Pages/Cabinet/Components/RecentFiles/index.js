@@ -71,17 +71,23 @@ const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallb
   };
 
   return (
-    <div
-      className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
-      ref={containerRef}
-      style={{ width: width - 27 }}
-    >
-      <div className={styles.recentFilesWrap}>{renderRecent()}</div>
+    <div className={styles.recentFiles}>
+      <div
+        className={classnames(styles.wrap, `scrollbar-thin-${theme}`)}
+        style={{ width: width - 37 }}
+        ref={containerRef}
+      >
+        <div className={styles.recentFilesWrap}>{renderRecent()}</div>
+      </div>
     </div>
   );
 };
 
 export default RecentFiles;
+
+RecentFiles.defaultProps = {
+  width: "100%"
+};
 
 RecentFiles.propTypes = {
   setFilePreview: PropTypes.func,
@@ -89,8 +95,4 @@ RecentFiles.propTypes = {
   menuItem: PropTypes.string,
   onDoubleClickCallback: PropTypes.func,
   width: PropTypes.number
-};
-
-RecentFiles.defaultProps = {
-  width: "100%"
 };

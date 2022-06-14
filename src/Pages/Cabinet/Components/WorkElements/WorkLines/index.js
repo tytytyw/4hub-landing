@@ -8,9 +8,11 @@ import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../../../types/File";
+import classNames from "classnames";
 
 const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesPage }) => {
   const { __ } = useLocales();
+  const { theme } = useSelector((state) => state.user.userInfo);
   const recentFiles = useSelector((state) => state.Cabinet?.recentFiles);
   const search = useSelector((state) => state.Cabinet?.search);
   const size = useSelector((state) => state.Cabinet.size);
@@ -19,7 +21,7 @@ const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesP
   return (
     <div
       ref={fileRef}
-      className={`${styles.workLinesWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+      className={classNames(styles.workLinesWrap, `${renderHeight(recentFiles, filePick, styles)} scrollbar-${theme}`)}
       style={{
         gridTemplateColumns:
           size === "small"

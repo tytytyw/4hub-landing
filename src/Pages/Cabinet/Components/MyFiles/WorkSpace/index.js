@@ -77,7 +77,7 @@ const WorkSpace = ({
     if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
 
     setFilesPage(2);
     //TODO: need dispatch downloaded-files

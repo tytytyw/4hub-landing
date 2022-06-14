@@ -4,11 +4,14 @@ import styles from "../../../MyFolders/WorkSpace/WorkSpace.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { useDispatch, useSelector } from "react-redux";
 import { onAddRecentFiles, onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import { fileDelete } from "../../../../../../generalComponents/fileMenuHelper";
+import { fileDelete, fileDeleteFromCart } from "../../../../../../generalComponents/fileMenuHelper";
 import { useLocales } from "react-localized";
+import { useLocation } from "react-router";
+import { MODALS } from "generalComponents/globalVariables";
 
 function DeleteFile() {
   const { __ } = useLocales();
+  const { pathname } = useLocation();
   const uid = useSelector((s) => s.user.uid);
   const fileList = useSelector((s) => s.Cabinet.fileList);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
@@ -16,7 +19,7 @@ function DeleteFile() {
 
   const close = () =>
     dispatch(
-      onSetModals("contextMenuModals", {
+      onSetModals(MODALS.CONTEXT_MENU_MODAL, {
         ...contextMenuModals,
         type: "",
         items: [],
@@ -25,7 +28,7 @@ function DeleteFile() {
     );
 
   const showMessage = (message) => {
-    dispatch(onSetModals("topMessage", { open: true, type: "message", message }));
+    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: "message", message }));
     close();
   };
 
@@ -47,16 +50,34 @@ function DeleteFile() {
     dispatch(onAddRecentFiles());
   };
 
+  const deleteFileFromCart = () => {
+    if (contextMenuModals?.filePick?.show) {
+      contextMenuModals.filePick.files.forEach((fid) => {
+        fileDeleteFromCart(fid, dispatch, uid, __("Файлы удалены из системы"), __);
+      });
+    } else {
+      fileDeleteFromCart(contextMenuModals?.items[0].fid, dispatch, uid, __("Файл удалён из системы"), __);
+    }
+    close();
+  };
+
+  const textPopup = () => {
+    if (pathname.startsWith("/cart")) {
+      return contextMenuModals?.filePick?.show
+        ? __(`Вы уверены, что хотите удалить файлы навсегда?`)
+        : __(`Вы уверены, что хотите удалить ${contextMenuModals?.items[0]?.fname} навсегда?`);
+    } else {
+      return contextMenuModals?.filePick?.show
+        ? __("Вы действительно хотите удалить выбранные файлы?")
+        : contextMenuModals?.items[0]?.fname;
+    }
+  };
   return (
     <ActionApproval
       name={contextMenuModals?.filePick?.show ? __("Удаление файлов") : __("Удалить файл")}
-      text={
-        contextMenuModals?.filePick?.show
-          ? __("Вы действительно хотите удалить выбранные файлы?")
-          : contextMenuModals?.items[0]?.fname
-      }
+      text={textPopup()}
       set={close}
-      callback={deleteFile}
+      callback={pathname.startsWith("/cart") ? deleteFileFromCart : deleteFile}
       approve={__("Удалить")}
     >
       <div className={styles.fileActionWrap}>
