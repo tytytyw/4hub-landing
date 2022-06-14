@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { onGetUserInfo } from "Store/actions/startPageAction";
 import styles from "./Mail.module.sass";
-import MailList from "./MailList/MailList";
-import WorkSpace from "./WorkSpace/WorkSpace";
+// import MailList from "./MailList/MailList";
+// import WorkSpace from "./WorkSpace/WorkSpace";
 import { getMails, clearMailList, onSetMailPath } from "../../../../Store/actions/CabinetActions";
 
 function Mail() {
@@ -22,8 +22,9 @@ function Mail() {
 
   return (
     <div className={styles.mail}>
-      <MailList mailAccounts={mailAccounts} />
-      <WorkSpace />
+      <iframe src="https://fs2.mh.net.ua/mail/test" title="mail" frameBorder="0" allowFullScreen />
+      {/*<MailList mailAccounts={mailAccounts} />*/}
+      {/*<WorkSpace />*/}
     </div>
   );
 }
