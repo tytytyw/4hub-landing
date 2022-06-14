@@ -54,6 +54,7 @@ const FileLoader = ({
   const uid = useSelector((state) => state.user?.uid);
   const search = useSelector((state) => state.Cabinet.search);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
+  const dep = useSelector((state) => state.Cabinet.department);
   const [response, setResponse] = useState(null);
   const dispatch = useDispatch();
   const fileLoaderRef = useRef(null);
@@ -61,7 +62,6 @@ const FileLoader = ({
   const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
   const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
   const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
-
   //Cancel Loading variables
   const CancelToken = axios.CancelToken;
   const [options, setOptions] = useState({});
@@ -176,7 +176,7 @@ const FileLoader = ({
         data.append("id_project", file?.options?.id_project);
       }
       if (file.options.destination === "library") {
-        data.append("dep", `/_LIBRARY_/`);
+        data.append("dep", dep);
         //TODO - mkortelov - add dep to loading params
       }
 

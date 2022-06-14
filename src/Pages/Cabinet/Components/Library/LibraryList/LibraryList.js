@@ -9,14 +9,14 @@ import { imageSrc, LIBRARY_MODALS, MODALS } from "../../../../../generalComponen
 import { onChooseFiles, onSetFolderPath, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 
-function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
+function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMouseParams }) {
   const { __ } = useLocales();
 
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
   const { folderList } = useSelector((s) => s.Cabinet);
 
-  const renderLibraryItem = () =>
+  const renderDefaultLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
       <ListItem
         key={i}
@@ -29,15 +29,31 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
       />
     ));
 
+  const renderOtherLibraryItem = (other) =>
+    other.map((item, i) => (
+      <ListItem
+        key={i}
+        title={item.name}
+        listCollapsed={listCollapsed}
+        amount={0}
+        icon={`${imageSrc}assets/PrivateCabinet/library/${"education".toLowerCase()}.svg`}
+        onClick={() => handleListItemClick(item.path.split("/").slice(1).join("/"))}
+        isChosen={item.path.split("/").slice(1).join("/") === folderList.path}
+        setMouseParams={setMouseParams}
+      />
+    ));
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
+    // const query_path = path.split("/").length > 1 ? path.split("/").slice(1).join("/") : path;
+    // console.log(query_path);
     dispatch(onChooseFiles(path, "", 1, "", successLoad, ""));
   };
 
-  const addSection = () =>
+  const addSection = () => {
     dispatch(
       onSetModals(MODALS.LIBRARY, { type: LIBRARY_MODALS.ADD_SECTION, params: { width: 420, title: "", icon: "" } })
     );
+  };
 
   return (
     <List
@@ -53,7 +69,8 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
         SvgIcon={AddIcon}
         onClick={addSection}
       />
-      {folderList.folders ? renderLibraryItem() : null}
+      {folderList.folders ? renderDefaultLibraryItem() : null}
+      {folderList.folders?.other ? renderOtherLibraryItem(folderList.folders.other) : null}
     </List>
   );
 }
@@ -63,5 +80,6 @@ export default LibraryList;
 LibraryList.propTypes = {
   listCollapsed: PropTypes.bool,
   setListCollapsed: PropTypes.func,
-  successLoad: PropTypes.func
+  successLoad: PropTypes.func,
+  setMouseParams: PropTypes.func
 };

@@ -8,6 +8,7 @@ function DownloadFile() {
   const { __ } = useLocales();
   const uid = useSelector((s) => s.user.uid);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const dep = useSelector((s) => s.Cabinet.department);
   const error = useSelector((s) => s.Cabinet.modals.error);
   const dispatch = useDispatch();
   const formRef = useRef();
@@ -82,7 +83,7 @@ function DownloadFile() {
         <form
           style={{ display: "none" }}
           name="downloadFile"
-          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php`}
+          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php?dep=${dep}`}
           method="post"
           ref={formRef}
           onError={() =>

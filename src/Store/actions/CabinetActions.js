@@ -70,7 +70,8 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
+  SET_FOLDER_PATH,
+  SET_DEPARTMENT
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -191,7 +192,6 @@ export const onsetInitialChosenFile = (file) => {
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
     const filters = getState().Cabinet.fileCriterion.filters;
-
     const emoji = filters.emoji ? `&filter_emo=${filters.emoji}` : "";
     const sign = filters.figure ? `&filter_fig=${filters.figure}` : "";
     const color = filters.color.color ? `&filter_color=${filters.color.color}` : "";
@@ -199,13 +199,14 @@ export const onChooseFiles =
     const sortReverse = filters.reverse && filters.reverse[filters.sorting] ? `&sort_reverse=1` : "";
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
+    const department = getLocation()[0] === "library" ? "&dep=/_LIBRARY_/" : "";
 
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
       allFiles ? "" : path
     }${searched}&page=${page}&per_page=${30}&sort=${
       getState().Cabinet.fileCriterion.sorting
-    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}${department}`;
     await api
       .get(url, {
         cancelToken: cancelChooseFiles.token
@@ -1439,5 +1440,12 @@ export const onSetMailPath = (path) => {
     payload: {
       path
     }
+  };
+};
+
+export const onSetDepartment = (dep) => {
+  return {
+    type: SET_DEPARTMENT,
+    payload: dep
   };
 };

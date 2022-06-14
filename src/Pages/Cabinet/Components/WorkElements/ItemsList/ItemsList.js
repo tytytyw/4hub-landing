@@ -182,10 +182,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {
-      //TODO - mkortelov - delete
-      dispatch(onChooseFiles("global/all", "", 1, "", successLoad));
-      //end delete
-      // dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
+      dispatch(onChooseFiles("education", "", 1, "", successLoad, ""));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line
