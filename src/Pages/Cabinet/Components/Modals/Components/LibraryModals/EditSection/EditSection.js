@@ -10,13 +10,13 @@ import { onLoadFolders, onSetModals } from "../../../../../../../Store/actions/C
 import InputField from "../../../../../../../generalComponents/InputField";
 import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import api from "api";
-import { getDepartment } from "generalComponents/generalHelpers";
+import { checkResponseStatus, getDepartment } from "generalComponents/generalHelpers";
 
 function EditSection({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.uid);
-  // const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const dirName = useSelector((state) => state.Cabinet.folderList.path);
 
   const onChangeTitle = (title) => {
     dispatch(onSetModals(MODALS.LIBRARY, { type, params: { ...params, title } }));
@@ -31,13 +31,14 @@ function EditSection({ type, params, closeModal }) {
     const method = type === LIBRARY_MODALS.RENAME_SECTION ? "dir_edit.php" : "dir_add.php";
     const parent = type === LIBRARY_MODALS.RENAME_SECTION ? "" : "&parent=other";
     const modalMessage = type === LIBRARY_MODALS.RENAME_SECTION ? __("Раздел изменён") : __("Раздел добавлен");
+    const dirNameNew = LIBRARY_MODALS.RENAME_SECTION ? `&dir_name_new=other/${params.title}` : "";
 
-    const url = `uid=${uid}&dir_name=${params.title}${parent}&dep=${getDepartment()}`;
+    const url = `uid=${uid}&dir_name=${dirName}${dirNameNew}${parent}&dep=${getDepartment()}`;
 
     api
       .post(`/ajax/${method}?${url}`)
       .then((res) => {
-        if (res.data.ok === 1) {
+        if (checkResponseStatus(res.data.ok)) {
           dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
           showMessage(modalMessage);
         } else {
