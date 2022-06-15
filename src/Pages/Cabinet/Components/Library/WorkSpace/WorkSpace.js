@@ -32,7 +32,6 @@ function WorkSpace({
   successLoad
 }) {
   const { __ } = useLocales();
-  // const STANDARD_LIBRARIES = useStandardLibraries();
   const [containerRef, width] = useElementResize();
   const fileRef = useRef(null);
   const workElementsView = useSelector((s) => s.Cabinet.view);
@@ -45,7 +44,6 @@ function WorkSpace({
   });
   const [mouseParams, setMouseParams] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
-  // const dispatch = useDispatch();
 
   const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
 

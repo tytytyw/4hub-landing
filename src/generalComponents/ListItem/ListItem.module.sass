@@ -6,12 +6,12 @@
     width: max-content
 
 .listItemWrap.active
-  background: rgba(64, 134, 241, 0.1)
+  background: $color-blue-opacity
 .listItemWrap
   transition: background 0.2s ease-in-out
   border-bottom: 1px solid $color-grey-secondary
   &:hover
-    background: rgba(64, 134, 241, 0.1)
+    background: $color-blue-opacity
     transition: background 0.2s ease-in-out
   .listItem
     display: flex
@@ -47,12 +47,12 @@
       align-items: center
       cursor: pointer
       &:hover span
-        background: #477DE1
+        background: $color-primary
       span
         position: relative
         width: 3px
         height: 3px
-        background: #c1c0c0
+        background: $color-gray-light
         transition: background 0.2s ease
         &::after, &::before
           content: ''
