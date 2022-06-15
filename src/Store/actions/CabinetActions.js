@@ -75,7 +75,7 @@ import {
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { getLocation } from "../../generalComponents/generalHelpers";
+import { checkResponseStatus, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -837,7 +837,7 @@ export const onGetFilesUserShared = (endpoint, fid, __) => async (dispatch, getS
       }
     })
     .then((response) => {
-      if (response.data.ok) {
+      if (checkResponseStatus(response.data.ok)) {
         dispatch({
           type: FILES_USER_SHARED,
           payload: response.data.access
