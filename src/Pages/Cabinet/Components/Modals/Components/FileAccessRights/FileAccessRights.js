@@ -248,7 +248,14 @@ function FileAccessRights() {
         <input ref={linkRef} type="text" style={{ display: "none" }} />
       </PopUp>
       {loadingType ? (
-        <Loader position="absolute" zIndex={10000} containerType="bounceDots" type="bounceDots" animation={false} />
+        <Loader
+          position="absolute"
+          zIndex={10000}
+          containerType="bounceDots"
+          type="bounceDots"
+          animation={false}
+          background="rgba(255, 255, 255, 0.95)"
+        />
       ) : null}
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
