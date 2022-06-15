@@ -46,14 +46,12 @@ function Library({
   const [listCollapsed, setListCollapsed] = useState(false);
   const [gLoader, setGLoader] = useState(true);
   const dispatch = useDispatch();
-  const folderList = useSelector((s) => s.Cabinet.folderList);
+  const folderPath = useSelector((s) => s.Cabinet.folderList.path);
   const chosenFolder = {
-    dir: folderList.path,
-    name: folderList.folders?.other.find((el) => el.path === `_LIBRARY_/${folderList.path}`)?.name
+    dir: folderPath
   };
   const [mouseParams, setMouseParams] = useState(null);
   const contextMenuFolderLibrary = useContextMenuFolderLibrary();
-
   useEffect(() => {
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
@@ -92,7 +90,7 @@ function Library({
         dispatch(
           onSetModals(MODALS.LIBRARY, {
             type: LIBRARY_MODALS.RENAME_SECTION,
-            params: { width: 420, title: chosenFolder?.name, icon: "" }
+            params: { width: 420, title: folderPath.split("/").slice(1), icon: "" }
           })
         )
     },
@@ -104,7 +102,7 @@ function Library({
         dispatch(
           onSetModals("contextMenuModals", {
             type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
-            params: { width: 420, title: `other/${chosenFolder?.name}`, icon: "" }
+            params: { width: 420, title: folderPath, icon: "" }
           })
         )
     }

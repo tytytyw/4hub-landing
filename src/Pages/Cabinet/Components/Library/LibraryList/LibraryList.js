@@ -37,8 +37,8 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
         listCollapsed={listCollapsed}
         amount={0}
         icon={`${imageSrc}assets/PrivateCabinet/library/${"education".toLowerCase()}.svg`}
-        onClick={() => handleListItemClick(item.path.split("/").slice(1).join("/"))}
-        isChosen={item.path.split("/").slice(1).join("/") === folderList.path}
+        onClick={() => handleListItemClick(item.path)}
+        isChosen={item.path === folderList.path}
         setMouseParams={setMouseParams}
       />
     ));
