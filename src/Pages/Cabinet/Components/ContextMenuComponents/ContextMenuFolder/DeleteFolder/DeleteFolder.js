@@ -14,7 +14,8 @@ function DeleteFolder() {
   const uid = useSelector((s) => s.user.uid);
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
-  const close = () =>
+
+  const close = () => {
     dispatch(
       onSetModals("contextMenuModals", {
         ...contextMenuModals,
@@ -23,6 +24,7 @@ function DeleteFolder() {
         filePick: null
       })
     );
+  };
 
   const showMessage = (message) => {
     dispatch(onSetModals("topMessage", { open: true, type: "message", message }));
