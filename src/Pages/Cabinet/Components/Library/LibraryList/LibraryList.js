@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import List from "../../List";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -15,6 +15,10 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
   const { folderList } = useSelector((s) => s.Cabinet);
+
+  useEffect(() => {
+    dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
+  }, [folderList?.path]); //eslint-disable-line
 
   const renderDefaultLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
@@ -44,7 +48,6 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
     ));
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
-    dispatch(onChooseFiles(path, "", 1, "", successLoad, ""));
   };
 
   const addSection = () => {

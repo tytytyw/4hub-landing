@@ -179,10 +179,6 @@ const ItemsList = ({
   }, [fileList?.path]);
 
   useEffect(() => {
-    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
-  }, [folderList?.path]); //eslint-disable-line
-
-  useEffect(() => {
     if (pathname === "/archive") {
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
