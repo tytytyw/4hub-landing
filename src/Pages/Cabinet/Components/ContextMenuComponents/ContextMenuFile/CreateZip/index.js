@@ -17,6 +17,7 @@ import { onChooseFiles, onGetSafeFileList, onSetModals } from "../../../../../..
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const { __ } = useLocales();
@@ -75,7 +76,8 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
       color: color.color,
       emoji: emoji ? emoji : "",
       symbol: sign ? sign : "",
-      fids: items.length === 1 ? [items[0].fid] : items
+      fids: items.length === 1 ? [items[0].fid] : items,
+      dep: getDepartment()
     };
     if (pathname === "/safe") data.id_safe = authorizedSafe.id_safe;
 
