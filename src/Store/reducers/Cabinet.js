@@ -73,7 +73,8 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
+  SET_FOLDER_PATH,
+  FILES_USER_SHARED
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -139,7 +140,7 @@ const INITIAL_STATE = {
 
   // SHARED FILES
   sharedFiles: { sharedMe: null, sharedI: null },
-
+  filesUserShared: {},
   // ARCHIVE
   arhiveFileList: null,
 
@@ -647,6 +648,13 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.sharedFiles,
           [action.payload.key]: { files: action.payload.files }
         }
+      };
+    }
+
+    case FILES_USER_SHARED: {
+      return {
+        ...state,
+        filesUserShared: { ...state.filesUserShared, [action.payload[0].fid]: [...action.payload] }
       };
     }
 

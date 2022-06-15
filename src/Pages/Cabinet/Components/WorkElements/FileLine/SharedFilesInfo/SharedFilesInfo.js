@@ -6,8 +6,7 @@ import classnames from "classnames";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { diffDays } from "@fullcalendar/react";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import api from "../../../../../../api";
+import { onGetFilesUserShared, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 import { fileSharedProps } from "../../../../../../types/File";
@@ -21,23 +20,12 @@ const CONTEXT = {
 function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
-
-  const uid = useSelector((s) => s.user.uid);
+  const fileUserShared = useSelector((s) => s.Cabinet.filesUserShared);
   //eslint-disable-next-line
   const [accessRights, setAccessRights] = useState({
     text: ACCESS_RIGHTS.WATCH
   });
-  const [sharedUsers, setSharedUsers] = useState([]);
   const dispatch = useDispatch();
-
-  const showError = (message) =>
-    dispatch(
-      onSetModals(MODALS.TOP_MESSAGE, {
-        open: true,
-        type: MODALS.ERROR,
-        message
-      })
-    );
 
   const showAccess = (access) => {
     for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
@@ -46,24 +34,18 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       }
     }
   };
+  const sharedUsers = [];
 
+  for (const key in fileUserShared) {
+    if (key === file.fid) {
+      sharedUsers.push(...fileUserShared[key]);
+    }
+  }
   useEffect(() => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
-      const params = `?uid=${uid}&fid=${file.fid}`;
-      api
-        .get(SHARED_FILES.API_USERLIST_FILES_USER_SHARED + params)
-        .then((response) => {
-          if (response.data.ok) {
-            setSharedUsers(response.data.access);
-          } else {
-            showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
-          }
-        })
-        .catch(() => {
-          showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
-        });
+      dispatch(onGetFilesUserShared(SHARED_FILES.API_USERLIST_FILES_USER_SHARED, file.fid, __));
     }
-  }, [sharedUsers]); //eslint-disable-line
+  }, []); //eslint-disable-line
 
   const compareDates = (endDate) => {
     const today = new Date();
@@ -71,14 +53,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       return __("Бессрочно");
     }
     return __(`Осталось (${diffDays(today, endDate).toFixed()} дней)`);
-  };
-
-  const renderUser = (file) => {
-    return file?.user_icon?.[0] ? (
-      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
-    ) : (
-      <UserIcon title={file.user_name} />
-    );
   };
 
   const renderUsers = () =>
@@ -98,6 +72,14 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
           </div>
         ))
       : null;
+
+  const renderUser = (file) => {
+    return file?.user_icon?.length >= 1 ? (
+      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
+    ) : (
+      <UserIcon title={file.user_name} />
+    );
+  };
 
   const openFileAccessRightsModal = () => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
@@ -120,7 +102,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
         )}
       </div>
       <div className={styles.iconWrap}>
-        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? renderUsers() : renderUser(file)}
+        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? renderUsers() : renderUser(sharedUsers)}
       </div>
       <div className={styles.endTime}>
         {__(`Срок пользования: ${compareDates(new Date(sharedUsers[0]?.deadline))}`)}

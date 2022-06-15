@@ -16,16 +16,8 @@ import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import Loader from "generalComponents/Loaders/4HUB";
 
-function FileAccessUserList({
-  users,
-  deleteUser,
-  changeUserAccessRightsInUsers,
-  setShowCalendar,
-  setChosenUser,
-  isLoading
-}) {
+function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar, setChosenUser }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -114,22 +106,7 @@ function FileAccessUserList({
       </div>
     ));
 
-  return (
-    <div className={classNames(styles.userListWrap, `scrollbar-thin-${theme}`)}>
-      {isLoading ? (
-        <Loader
-          containerType="bounceDots"
-          type="bounceDots"
-          background="white"
-          position="relative"
-          width="100px"
-          height="100px"
-        />
-      ) : (
-        renderUsers()
-      )}
-    </div>
-  );
+  return <div className={classNames(styles.userListWrap, `scrollbar-thin-${theme}`)}>{renderUsers()}</div>;
 }
 
 export default FileAccessUserList;
@@ -139,6 +116,5 @@ FileAccessUserList.propTypes = {
   deleteUser: PropTypes.func,
   changeUserAccessRightsInUsers: PropTypes.func,
   setShowCalendar: PropTypes.func,
-  setChosenUser: PropTypes.func,
-  isLoading: PropTypes.bool
+  setChosenUser: PropTypes.func
 };

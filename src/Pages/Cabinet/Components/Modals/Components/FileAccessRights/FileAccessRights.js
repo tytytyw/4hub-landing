@@ -3,12 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FileAccessRights.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { onGetFilesUserShared, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import {
   NO_ELEMENT,
   FILE_ACCESS_RIGHTS,
   MODALS,
-  TOP_MESSAGE_TYPE
+  TOP_MESSAGE_TYPE,
+  SHARED_FILES
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
@@ -63,6 +64,9 @@ function FileAccessRights() {
       : setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Ссылка на файл не найдена. Попробуйте еще раз`)) &&
         setUrl(__("Ошибка"));
   };
+
+  //mylog
+  console.log(users);
 
   const loadUserList = () => {
     setIsLoading(true);
@@ -173,6 +177,7 @@ function FileAccessRights() {
     if (isChanges) {
       await deleteUsers();
       await changeUserAccessRights();
+      dispatch(onGetFilesUserShared(SHARED_FILES.API_USERLIST_FILES_USER_SHARED, fileAccessRights.file.fid, __));
     }
     closeModal();
     dispatch(
@@ -254,7 +259,7 @@ function FileAccessRights() {
           containerType="bounceDots"
           type="bounceDots"
           animation={false}
-          background="rgba(255, 255, 255, 0.95)"
+          background={"rgba(255, 255, 255, 0.95)"}
         />
       ) : null}
       {showCalendar && (
