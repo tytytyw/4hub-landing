@@ -16,7 +16,6 @@ import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabi
 import FileAccessUserList from "./FileAccessUserList/FileAccessUserList";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import api from "../../../../../../api";
-import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
 import classNames from "classnames";
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import { parseCalendarDateToDate } from "../../../../../../generalComponents/CalendarHelper";
@@ -26,11 +25,12 @@ import Loader from "generalComponents/Loaders/4HUB";
 function FileAccessRights() {
   const { __ } = useLocales();
 
+  let usersShared = [];
   const dispatch = useDispatch();
   const fileAccessRights = useSelector((s) => s.Cabinet.modals.fileAccessRights);
+  const fileUserShared = useSelector((s) => s.Cabinet.filesUserShared);
+  const [users, setUsers] = useState(usersShared);
   const [url, setUrl] = useState(__("Загрузка..."));
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const linkRef = useRef(null);
   const uid = useSelector((s) => s.user.uid);
   const [params, setParams] = useState({
@@ -40,6 +40,12 @@ function FileAccessRights() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [chosenUser, setChosenUser] = useState(null);
   const [loadingType, setLoadingType] = useState("");
+
+  for (const key in fileUserShared) {
+    if (key === fileAccessRights.file.fid) {
+      usersShared.push(...fileUserShared[key]);
+    }
+  }
 
   const changeCalendarDate = (date) => {
     changeUserAccessRightsInUsers({ ...chosenUser, deadline: formatDateStandard(parseCalendarDateToDate(date)) });
@@ -65,32 +71,8 @@ function FileAccessRights() {
         setUrl(__("Ошибка"));
   };
 
-  //mylog
-  console.log(users);
-
-  const loadUserList = () => {
-    setIsLoading(true);
-    api
-      .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
-        params: {
-          uid,
-          fid: fileAccessRights.file.fid
-        }
-      })
-      .then((res) => {
-        if (checkResponseStatus(res.data.ok)) {
-          setUsers(res.data.access);
-        } else {
-          setTopMessage(TOP_MESSAGE_TYPE.ERROR, __("Не удалось загузить список пользователей"));
-        }
-        setIsLoading(false);
-      })
-      .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
-  };
-
   useEffect(() => {
     getLink();
-    loadUserList();
   }, []); // eslint-disable-line
 
   const copyLink = () => {
@@ -232,7 +214,6 @@ function FileAccessRights() {
               changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
               setShowCalendar={setShowCalendar}
               setChosenUser={setChosenUser}
-              isLoading={isLoading}
             />
           </div>
           <div className={styles.buttons}>

@@ -41,6 +41,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       sharedUsers.push(...fileUserShared[key]);
     }
   }
+
   useEffect(() => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
       dispatch(onGetFilesUserShared(SHARED_FILES.API_USERLIST_FILES_USER_SHARED, file.fid, __));
