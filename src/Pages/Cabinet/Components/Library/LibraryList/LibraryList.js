@@ -33,19 +33,20 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
       />
     ));
 
-  const renderOtherLibraryItem = (other) =>
-    other.map((item, i) => (
+  const renderOtherLibraryItem = (other) => {
+    return other.map((item, i) => (
       <ListItem
         key={i}
         title={item.name}
         listCollapsed={listCollapsed}
         amount={0}
-        icon={`${imageSrc}assets/PrivateCabinet/library/${"education".toLowerCase()}.svg`}
+        icon={item?.fig ? `${imageSrc}assets/PrivateCabinet/library/own/${item?.fig}.svg` : null}
         onClick={() => handleListItemClick(item.path)}
         isChosen={item.path === folderList.path}
         setMouseParams={setMouseParams}
       />
     ));
+  };
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
   };

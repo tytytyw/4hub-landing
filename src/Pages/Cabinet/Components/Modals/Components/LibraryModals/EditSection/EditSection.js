@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import classnames from "classnames";
 import styles from "./EditSection.module.sass";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
-import { LIBRARY, LIBRARY_MODALS, MODALS } from "../../../../../../../generalComponents/globalVariables";
+import {
+  imageSrc,
+  LIBRARY,
+  LIBRARY_MODALS,
+  LIBRARY_OWN_ICONS,
+  MODALS
+} from "../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { editSectionParams } from "../../../../../../../types/Library";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,23 +24,26 @@ function EditSection({ type, params, closeModal }) {
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.uid);
   const dirName = useSelector((state) => state.Cabinet.folderList.path);
+  const [show, setShow] = useState(false);
 
   const onChangeTitle = (title) => {
     dispatch(onSetModals(MODALS.LIBRARY, { type, params: { ...params, title } }));
+  };
+
+  const onChangeIcon = (icon) => {
+    dispatch(onSetModals(MODALS.LIBRARY, { type, params: { ...params, icon } }));
   };
 
   const showMessage = (message) => {
     dispatch(onSetModals("topMessage", { open: true, type: "message", message }));
     closeModal();
   };
-
   const editSection = () => {
     const method = type === LIBRARY_MODALS.RENAME_SECTION ? "dir_edit.php" : "dir_add.php";
-    const parent = type === LIBRARY_MODALS.RENAME_SECTION ? "" : "&parent=other";
     const modalMessage = type === LIBRARY_MODALS.RENAME_SECTION ? __("Раздел изменён") : __("Раздел добавлен");
-    const dirNameNew = LIBRARY_MODALS.RENAME_SECTION ? `&dir_name_new=other/${params.title}` : "";
-
-    const url = `uid=${uid}&dir_name=${dirName}${dirNameNew}${parent}&dep=${getDepartment()}`;
+    const dir = type === LIBRARY_MODALS.RENAME_SECTION ? dirName.split("/").slice(1).join("") : params.title;
+    const dirNameNew = type === LIBRARY_MODALS.RENAME_SECTION ? `&dir_name_new=${params.title}` : "";
+    const url = `uid=${uid}&dir_name=${dir}${dirNameNew}&symbol=${params.icon}&parent=other&dep=${getDepartment()}`;
 
     api
       .post(`/ajax/${method}?${url}`)
@@ -60,14 +70,34 @@ function EditSection({ type, params, closeModal }) {
         editableClass={"fixedHeight"}
       />
       <div className={styles.margin} />
-      <InputField
-        model="text"
-        value={params.title}
-        set={onChangeTitle}
-        placeholder={__("Иконка раздела")}
-        editableClass={"fixedHeight"}
-        icon={<PlayIcon className={styles.playButton} />}
-      />
+      <div
+        className={classnames({ [styles.select]: true, [styles.selectShow]: !show, [styles.selectHide]: show })}
+        onClick={() => setShow((state) => !state)}
+      >
+        {params.icon ? (
+          <img src={`${imageSrc}assets/PrivateCabinet/library/own/${params.icon}.svg`} alt="icon" />
+        ) : (
+          <span>{__("Выбирите иконку раздела")}</span>
+        )}
+        <PlayIcon className={classnames({ [styles.playButton]: true, [styles.playBattonShow]: show })} />
+        <div
+          className={classnames({
+            [styles.optionsList]: true,
+            [styles.optionsListHide]: !show,
+            [styles.optionsListShow]: show
+          })}
+        >
+          {LIBRARY_OWN_ICONS.map((i) => (
+            <img
+              key={i}
+              src={`${imageSrc}assets/PrivateCabinet/library/own/${i}.svg`}
+              alt="icon"
+              className={styles.innerIcon}
+              onClick={() => onChangeIcon(i)}
+            />
+          ))}
+        </div>
+      </div>
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={editSection} />
     </div>
   );

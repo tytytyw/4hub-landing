@@ -43,15 +43,17 @@ function Library({
 }) {
   const { __ } = useLocales();
   const STANDARD_LIBRARIES = useStandardLibraries();
+  const contextMenuFolderLibrary = useContextMenuFolderLibrary();
+  const dispatch = useDispatch();
+  const folders = useSelector((s) => s.Cabinet.folderList);
   const [listCollapsed, setListCollapsed] = useState(false);
   const [gLoader, setGLoader] = useState(true);
-  const dispatch = useDispatch();
-  const folderPath = useSelector((s) => s.Cabinet.folderList.path);
-  const chosenFolder = {
-    dir: folderPath
-  };
   const [mouseParams, setMouseParams] = useState(null);
-  const contextMenuFolderLibrary = useContextMenuFolderLibrary();
+  const chosenFolder = {
+    dir: folders.path,
+    icon: folders.folders?.other.find((item) => item.path === folders.path)?.fig
+  };
+
   useEffect(() => {
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
@@ -62,6 +64,7 @@ function Library({
     };
     //eslint-disable-next-line
   }, []);
+
   const successLoad = () => {
     setGLoader(false);
     setFilesPage(2);
@@ -81,6 +84,7 @@ function Library({
       );
     });
   };
+
   const callbackArrMain = [
     {
       type: "",
@@ -90,7 +94,7 @@ function Library({
         dispatch(
           onSetModals(MODALS.LIBRARY, {
             type: LIBRARY_MODALS.RENAME_SECTION,
-            params: { width: 420, title: folderPath.split("/").slice(1), icon: "" }
+            params: { width: 420, title: chosenFolder.dir.split("/").slice(1), icon: chosenFolder.icon }
           })
         )
     },
@@ -102,7 +106,7 @@ function Library({
         dispatch(
           onSetModals("contextMenuModals", {
             type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
-            params: { width: 420, title: folderPath, icon: "" }
+            params: { width: 420, title: chosenFolder.dir, icon: "" }
           })
         )
     }

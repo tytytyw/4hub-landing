@@ -17,7 +17,9 @@ function ListItem({ title, SvgIcon, icon, amount, isChosen, onClick, listCollaps
           [styles.listItem]: true
         })}
       >
-        {icon ? <img src={icon} alt="icon" className={styles.innerIcon} /> : <SvgIcon className={styles.innerIcon} />}
+        {" "}
+        {SvgIcon && <SvgIcon className={styles.innerIcon} />}
+        {icon ? <img src={icon} alt="icon" className={styles.innerIcon} /> : <div className={styles.innerIcon} />}
         {!listCollapsed && <div className={styles.name}>{title}</div>}
         <div className={styles.amount}>{amount > NO_ELEMENT ? <div>({amount})</div> : null}</div>
         <div

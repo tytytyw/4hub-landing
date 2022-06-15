@@ -81,6 +81,7 @@ const CustomizeFolder = ({
   const customizeFolder = () => {
     setGLoader(true);
     //TODO: check api
+
     const params = `uid=${uid}&dir_name=${folder.info?.name}&dir_name_new=${name}&parent=${
       chosenFolder?.info?.path ? chosenFolder?.info.path.slice(0, chosenFolder?.info.path.lastIndexOf("/")) : "other"
     }&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ""}&color=${

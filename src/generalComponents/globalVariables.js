@@ -174,6 +174,30 @@ export const LIBRARY_MODALS = {
   RENAME_SECTION: "RenameSection"
 };
 
+export const LIBRARY_OWN_ICONS = [
+  "brain",
+  "chess",
+  "circuit",
+  "cube",
+  "curve",
+  "cutlery",
+  "gift",
+  "globe",
+  "graduation-hat",
+  "group",
+  "house",
+  "integration",
+  "layout",
+  "mouse",
+  "music-notes",
+  "photo-gallery",
+  "portfolio",
+  "settings",
+  "stats",
+  "vector",
+  "wallet"
+];
+
 // CART
 export const CART = {
   API_GET_FILES: "trash_list"
