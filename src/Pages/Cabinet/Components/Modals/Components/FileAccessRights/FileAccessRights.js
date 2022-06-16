@@ -159,7 +159,13 @@ function FileAccessRights() {
     if (isChanges) {
       await deleteUsers();
       await changeUserAccessRights();
-      dispatch(onGetFilesUserShared(SHARED_FILES.API_USERLIST_FILES_USER_SHARED, fileAccessRights.file.fid, __));
+      dispatch(
+        onGetFilesUserShared(
+          SHARED_FILES.API_USERLIST_FILES_USER_SHARED,
+          fileAccessRights.file.fid,
+          __(`Не удалось загрузить список пользователей`)
+        )
+      );
     }
     closeModal();
     dispatch(

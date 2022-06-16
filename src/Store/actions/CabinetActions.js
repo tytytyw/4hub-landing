@@ -828,7 +828,7 @@ export const onGetSharedFiles = (type) => async (dispatch, getState) => {
   }
 };
 
-export const onGetFilesUserShared = (endpoint, fid, __) => async (dispatch, getState) => {
+export const onGetFilesUserShared = (endpoint, fid, message) => async (dispatch, getState) => {
   api
     .get(`${endpoint}`, {
       params: {
@@ -843,11 +843,11 @@ export const onGetFilesUserShared = (endpoint, fid, __) => async (dispatch, getS
           payload: response.data.access
         });
       } else {
-        onSetModals(MODALS.ERROR, { open: true, message: __(`Не удалось загрузить список пользователей`) });
+        onSetModals(MODALS.ERROR, { open: true, message });
       }
     })
     .catch((e) => {
-      onSetModals(MODALS.ERROR, { open: true, message: __(`Не удалось загрузить список пользователей`) });
+      onSetModals(MODALS.ERROR, { open: true, message });
       console.log(e);
     });
 };

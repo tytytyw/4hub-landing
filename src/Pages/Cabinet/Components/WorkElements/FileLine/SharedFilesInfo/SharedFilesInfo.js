@@ -44,7 +44,13 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 
   useEffect(() => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
-      dispatch(onGetFilesUserShared(SHARED_FILES.API_USERLIST_FILES_USER_SHARED, file.fid, __));
+      dispatch(
+        onGetFilesUserShared(
+          SHARED_FILES.API_USERLIST_FILES_USER_SHARED,
+          file.fid,
+          __(`Не удалось загрузить список пользователей`)
+        )
+      );
     }
   }, []); //eslint-disable-line
 
