@@ -78,7 +78,7 @@ function Library({
           width={mouseParams.width}
           height={mouseParams.height}
           text={item.name}
-          callback={() => type[i]?.callback(type, i)}
+          callback={() => type.find((el) => el.type === item.type).callback()}
           imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
         />
       );
@@ -87,9 +87,7 @@ function Library({
 
   const callbackArrMain = [
     {
-      type: "",
-      name: __(""),
-      text: __(``),
+      type: "customize",
       callback: () =>
         dispatch(
           onSetModals(MODALS.LIBRARY, {
@@ -99,9 +97,7 @@ function Library({
         )
     },
     {
-      type: "",
-      name: __(""),
-      text: __(``),
+      type: "delete",
       callback: () =>
         dispatch(
           onSetModals("contextMenuModals", {

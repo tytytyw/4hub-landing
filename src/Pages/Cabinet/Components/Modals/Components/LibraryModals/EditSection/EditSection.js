@@ -25,8 +25,10 @@ function EditSection({ type, params, closeModal }) {
   const uid = useSelector((state) => state.user.uid);
   const dirName = useSelector((state) => state.Cabinet.folderList.path);
   const [show, setShow] = useState(false);
+  const [mistake, setMistake] = useState(false);
 
   const onChangeTitle = (title) => {
+    setMistake(false);
     dispatch(onSetModals(MODALS.LIBRARY, { type, params: { ...params, title } }));
   };
 
@@ -39,11 +41,13 @@ function EditSection({ type, params, closeModal }) {
     closeModal();
   };
   const editSection = () => {
+    if (!params.title) return setMistake(true);
     const method = type === LIBRARY_MODALS.RENAME_SECTION ? "dir_edit.php" : "dir_add.php";
     const modalMessage = type === LIBRARY_MODALS.RENAME_SECTION ? __("Раздел изменён") : __("Раздел добавлен");
     const dir = type === LIBRARY_MODALS.RENAME_SECTION ? dirName.split("/").slice(1).join("") : params.title;
     const dirNameNew = type === LIBRARY_MODALS.RENAME_SECTION ? `&dir_name_new=${params.title}` : "";
-    const url = `uid=${uid}&dir_name=${dir}${dirNameNew}&symbol=${params.icon}&parent=other&dep=${getDepartment()}`;
+    const symbol = params.icon ? `$symbol=${params.icon}` : "";
+    const url = `uid=${uid}&dir_name=${dir}${dirNameNew}${symbol}&parent=other&dep=${getDepartment()}`;
 
     api
       .post(`/ajax/${method}?${url}`)
@@ -68,6 +72,7 @@ function EditSection({ type, params, closeModal }) {
         set={onChangeTitle}
         placeholder={__("Имя раздела")}
         editableClass={"fixedHeight"}
+        mistake={mistake}
       />
       <div className={styles.margin} />
       <div
