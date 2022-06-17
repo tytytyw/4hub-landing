@@ -3,6 +3,7 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import { getDepartment } from "../../../../../../generalComponents/generalHelpers";
 
 function DownloadFile() {
   const { __ } = useLocales();
@@ -82,7 +83,7 @@ function DownloadFile() {
         <form
           style={{ display: "none" }}
           name="downloadFile"
-          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php`}
+          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php?dep=${getDepartment()}`}
           method="post"
           ref={formRef}
           onError={() =>

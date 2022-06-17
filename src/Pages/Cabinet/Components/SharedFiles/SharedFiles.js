@@ -95,12 +95,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
           chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
         />
-        <div
-          className={styles.workSpace}
-          style={{
-            height: `${filePick.show ? "calc(100% - 90px - 55px - 80px)" : "calc(100% - 90px - 55px)"}`
-          }}
-        >
+        <div className={styles.workSpace}>
           <ItemsList
             setGLoader={setGLoader}
             setFilesPage={setFilesPage}

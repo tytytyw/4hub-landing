@@ -146,12 +146,14 @@ export const loadedFileProps = PropTypes.exact({
     mtime: PropTypes.string,
     name: PropTypes.string,
     size: PropTypes.number,
-    size_now: PropTypes.number
+    size_now: PropTypes.string
   }),
   options: PropTypes.exact({
     color: PropTypes.string,
     destination: PropTypes.string,
+    filePath: PropTypes.string,
     dir: PropTypes.string,
+    id_project: PropTypes.string,
     emoji: PropTypes.string,
     name: PropTypes.string,
     pass: PropTypes.string,

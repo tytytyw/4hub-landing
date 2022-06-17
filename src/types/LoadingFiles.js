@@ -44,7 +44,7 @@ export const loadedFilesProps = PropTypes.exact({
   file: PropTypes.exact({
     name: PropTypes.string,
     fid: PropTypes.string,
-    size_now: PropTypes.number,
+    size_now: PropTypes.string,
     size: PropTypes.number,
     mtime: PropTypes.string,
     gdir: PropTypes.string,

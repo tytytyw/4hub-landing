@@ -70,11 +70,12 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
+  SET_FOLDER_PATH,
+  FILES_USER_SHARED
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { getLocation } from "../../generalComponents/generalHelpers";
+import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -191,7 +192,6 @@ export const onsetInitialChosenFile = (file) => {
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
     const filters = getState().Cabinet.fileCriterion.filters;
-
     const emoji = filters.emoji ? `&filter_emo=${filters.emoji}` : "";
     const sign = filters.figure ? `&filter_fig=${filters.figure}` : "";
     const color = filters.color.color ? `&filter_color=${filters.color.color}` : "";
@@ -205,7 +205,7 @@ export const onChooseFiles =
       allFiles ? "" : path
     }${searched}&page=${page}&per_page=${30}&sort=${
       getState().Cabinet.fileCriterion.sorting
-    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}&dep=${getDepartment()}`;
     await api
       .get(url, {
         cancelToken: cancelChooseFiles.token
@@ -827,6 +827,30 @@ export const onGetSharedFiles = (type) => async (dispatch, getState) => {
   }
 };
 
+export const onGetFilesUserShared = (endpoint, fid, message) => async (dispatch, getState) => {
+  api
+    .get(`${endpoint}`, {
+      params: {
+        uid: getState().user.uid,
+        fid
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch({
+          type: FILES_USER_SHARED,
+          payload: response.data.access
+        });
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message });
+      }
+    })
+    .catch((e) => {
+      onSetModals(MODALS.ERROR, { open: true, message });
+      console.log(e);
+    });
+};
+
 export const onSortFile = (sorting) => {
   return {
     type: SORT_FILES,
@@ -1286,7 +1310,6 @@ export const onLoadFiles =
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`
     };
-
     api
       .get(`/ajax/${endpoint}.php`, {
         params,

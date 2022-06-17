@@ -7,6 +7,7 @@ import { useLocales } from "react-localized";
 
 function SubmitButtons({ type, closeModal, onSubmit }) {
   const { __ } = useLocales();
+  const textButton = type === LIBRARY_MODALS.RENAME_SECTION ? __("Сохранить") : __("Добавить");
 
   const renderSubmitButtons = () => {
     if (
@@ -16,10 +17,11 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
         TASK_MODALS.ADD_TASK,
         TASK_MODALS.ADD_MEETING,
         TASK_MODALS.ADD_CALL,
-        TASK_MODALS.ADD_LETTERб,
+        TASK_MODALS.ADD_LETTER,
         TASK_MODALS.ADD_SECTION,
         //Library
-        LIBRARY_MODALS.ADD_SECTION
+        LIBRARY_MODALS.ADD_SECTION,
+        LIBRARY_MODALS.RENAME_SECTION
       ].includes(type)
     ) {
       return renderSubmitCancel();
@@ -29,7 +31,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
   const renderSubmitCancel = () => (
     <div className={styles.submitCancelWrap}>
       <TextButton text={__("Отмена")} type="cancel" callback={closeModal} />
-      <TextButton text={__("Добавить")} type="ok" callback={onSubmit} />
+      <TextButton text={textButton} type="ok" callback={onSubmit} />
     </div>
   );
 
@@ -45,7 +47,7 @@ SubmitButtons.defaultProps = {
 };
 
 SubmitButtons.propTypes = {
-  type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
+  type: PropTypes.oneOf(Object.values({ ...TASK_MODALS, ...LIBRARY_MODALS })).isRequired,
   closeModal: PropTypes.func,
   onSubmit: PropTypes.func
 };

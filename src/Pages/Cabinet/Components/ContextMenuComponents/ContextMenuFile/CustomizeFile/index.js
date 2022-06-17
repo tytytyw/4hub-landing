@@ -25,6 +25,8 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { projectProps } from "types/Project";
 import classnames from "classnames";
+import { useLocation } from "react-router-dom";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const { __ } = useLocales();
@@ -54,6 +56,8 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const [error, setError] = useState(false);
   const [visibility, setVisibility] = useState("password");
   const authorizedSafeData = useSelector((state) => state.Cabinet.authorizedSafe);
+  const { pathname } = useLocation();
+
   const dispatch = useDispatch();
 
   const close = () => {
@@ -94,7 +98,6 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const onAddFile = () => {
     if (password !== passwordRepeat) return setPasswordCoincide(false);
     setLoadingType("squarify");
-
     const data = {
       uid,
       fids: filePick.show ? filePick.files : [file.fid],
@@ -108,7 +111,8 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
       pass: password === passwordRepeat ? `${password}` : "",
       color: color?.color === file?.color ? "" : `${color?.color}`,
       symbol: sign === file.fig ? "" : `${sign}`,
-      emoji: emoji === file.emo ? "" : `${emoji}`
+      emoji: emoji === file.emo ? "" : `${emoji}`,
+      dep: getDepartment()
     };
 
     if (!data.fileName && !data.tag && !data.color && !data.symbol && !data.emoji && !data.pass) {
@@ -138,9 +142,12 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
             } else {
               dispatch(onAddRecentFiles());
               //TODO: add sort & filter params to dispatch
-              if (menuItem === "myFiles")
+              if (menuItem === "myFiles") {
                 dispatch(onChooseFiles(fileListAll?.path, search, 1, "", "", "", "file_list_all"));
-              if (menuItem === "myFolders") dispatch(onChooseFiles(path, search, 1, "", ""));
+              }
+              if (menuItem === "myFolders") {
+                dispatch(onChooseFiles(path, search, 1, "", ""));
+              }
             }
           }
         })
@@ -164,6 +171,9 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
                 if (menuItem === "myFiles")
                   dispatch(onChooseFiles(fileListAll?.path, search, 1, "", "", "", "file_list_all"));
                 if (menuItem === "myFolders") dispatch(onChooseFiles(path, search, 1, "", ""));
+                if (pathname.startsWith("/library")) {
+                  dispatch(onChooseFiles(path, search, 1, "", ""));
+                }
               }
             } else dispatch(onCustomizeSafeFile(newFile));
           } else {
