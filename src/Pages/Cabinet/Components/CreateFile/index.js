@@ -83,7 +83,6 @@ const CreateFile = ({
       );
     });
   };
-
   const onAddFile = (open) => {
     let options = {
       name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
@@ -95,6 +94,7 @@ const CreateFile = ({
       destination: menuItem,
       dir: menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : info?.dir ?? ""
     };
+
     if (menuItem === "project") options["id_project"] = info.id;
 
     if (blob.file.fid) {

@@ -742,10 +742,19 @@ export function useTaskModalTitles() {
   };
 }
 
+export function useContextMenuFolderLibrary() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Редактировать"), img: "edit", type: "customize" },
+    { name: __("Удалить раздел"), img: "garbage", type: "delete" }
+  ];
+}
+
 export function useLibraryModalTitles() {
   const { __ } = useLocales();
   return {
-    [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел")
+    [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел"),
+    [LIBRARY_MODALS.RENAME_SECTION]: __("Редактировать")
   };
 }
 

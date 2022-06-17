@@ -19,8 +19,10 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps, loadedFileProps } from "../../../../types/File";
-import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFiles";
+import { useLocation } from "react-router-dom";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 const FileLoader = ({
   awaitingFiles,
@@ -36,6 +38,7 @@ const FileLoader = ({
   menuItem
 }) => {
   const { __ } = useLocales();
+  const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [processing, setProcessing] = useState(0);
   const [closeApprove, setCloseApprove] = useState(true);
@@ -59,11 +62,9 @@ const FileLoader = ({
   const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
   const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
   const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
-
   //Cancel Loading variables
   const CancelToken = axios.CancelToken;
   const [options, setOptions] = useState({});
-
   //Closure FileLoader
   const clearLoadFiles = () => {
     setAwaitingFiles([]);
@@ -175,7 +176,7 @@ const FileLoader = ({
         data.append("id_project", file?.options?.id_project);
       }
       if (file.options.destination === "library") {
-        data.append("dep", `/_LIBRARY_/`);
+        data.append("dep", getDepartment());
         //TODO - mkortelov - add dep to loading params
       }
 
@@ -239,17 +240,25 @@ const FileLoader = ({
       console.log(res);
     }
     dispatch(nullifyFilters());
-    if (menuItem === "myFiles" && file.options.destination === "myFiles")
+    if (menuItem === "myFiles" && file.options.destination === "myFiles") {
       dispatch(onChooseFiles("", search, 1, "", "", "", "file_list_all"));
-    if (menuItem === "myFolders" && file.options.destination === "myFolders")
+    }
+    if (menuItem === "myFolders" && file.options.destination === "myFolders") {
       dispatch(onChooseFiles(fileList?.path, search, 1, "", ""));
-    if (menuItem === "safe" && file.options.destination === "safe")
+    }
+    if (menuItem === "safe" && file.options.destination === "safe") {
       dispatch(
         onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.pass, "", "", "", search, "", "")
       );
-    if (menuItem === "project" && file.options.destination === "project")
+    }
+    if (menuItem === "project" && file.options.destination === "project") {
       dispatch(onChooseProjectFiles({ name: file.options.dir }, { id: file.options.id_project }, 1)); //TODO - Need to finish after added pagination && filters
+    }
+    if (pathname.startsWith("/library") && file.options.destination === "library") {
+      dispatch(onChooseFiles(fileList?.path, "", 1, "", "", ""));
+    }
   };
+
   let firstRenderFixer = useRef(0);
   useEffect(() => {
     if (loadingFile.length > 0) sendFile(loadingFile[0]);
@@ -493,7 +502,7 @@ FileLoader.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
-  loaded: PropTypes.arrayOf(loadedFileProps),
+  loaded: PropTypes.arrayOf(loadedFilesProps),
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,

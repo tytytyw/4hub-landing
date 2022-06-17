@@ -239,3 +239,7 @@ export function capitalizeFirstLetter(string) {
 export function getLocation() {
   return window.location.pathname.split("/").filter((it) => it.length > 0);
 }
+
+export function getDepartment() {
+  return getLocation()[0] === "library" ? "/_LIBRARY_/" : "/";
+}
