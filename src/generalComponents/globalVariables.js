@@ -28,6 +28,9 @@ export const CONTEXT_MENU_FILE = {
   PRINT_FILE: "PrintFile",
   DELETE_FILE: "DeleteFile"
 };
+export const CONTEXT_MENU_FOLDER = {
+  DELETE_FOLDER: "DeleteFolder"
+};
 
 export const SHARED_FILES = {
   FILES_USER_SHARED: "file_share_mylist", // used for fileList endPoint
@@ -167,8 +170,33 @@ export const VIEW_TYPE = {
 };
 
 export const LIBRARY_MODALS = {
-  ADD_SECTION: "AddSection"
+  ADD_SECTION: "AddSection",
+  RENAME_SECTION: "RenameSection"
 };
+
+export const LIBRARY_OWN_ICONS = [
+  "brain",
+  "chess",
+  "circuit",
+  "cube",
+  "curve",
+  "cutlery",
+  "gift",
+  "globe",
+  "graduation-hat",
+  "group",
+  "house",
+  "integration",
+  "layout",
+  "mouse",
+  "music-notes",
+  "photo-gallery",
+  "portfolio",
+  "settings",
+  "stats",
+  "vector",
+  "wallet"
+];
 
 // CART
 export const CART = {

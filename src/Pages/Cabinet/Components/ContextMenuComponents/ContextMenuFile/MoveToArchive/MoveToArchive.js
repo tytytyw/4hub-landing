@@ -7,6 +7,7 @@ import { onDeleteFile, onSetModals } from "../../../../../../Store/actions/Cabin
 import api from "../../../../../../api";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import { getDepartment } from "generalComponents/generalHelpers";
 
 const endpoints = {
   project: "project_"
@@ -34,7 +35,7 @@ function MoveToArchive() {
 
   const addToArchive = (uid, fid, file, options) => {
     api
-      .post(`/ajax/${endpoints[path] ?? ""}file_archive.php?uid=${uid}&fid=${fid}`)
+      .post(`/ajax/${endpoints[path] ?? ""}file_archive.php?uid=${uid}&fid=${fid}&dep=${getDepartment()}`)
       .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onDeleteFile(file));

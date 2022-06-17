@@ -1,68 +1,66 @@
-.listItemWrap.active
-  background: rgba(64, 134, 241, 0.1)
-.listItemWrap
-  display: flex
-  flex-direction: column
-  width: 100%
-  transition: background 0.2s ease-in-out
-  &:hover
-    background: rgba(64, 134, 241, 0.1)
-    transition: background 0.2s ease-in-out
+@import "src/theme/theme"
+@keyframes showText
+  0%
+    width: 0
+  100%
+    width: max-content
 
-.listItem
-  display: flex
-  align-items: center
-  justify-content: space-between
-  box-sizing: border-box
-  width: 100%
-  padding: 21px 11px 14px 26px
-  font-size: 12px
-  cursor: pointer
-  .listItemName
+.listItemWrap.active
+  background: $color-blue-opacity
+.listItemWrap
+  transition: background 0.2s ease-in-out
+  border-bottom: 1px solid $color-grey-secondary
+  &:hover
+    background: $color-blue-opacity
+    transition: background 0.2s ease-in-out
+  .listItem
     display: flex
     align-items: center
-    position: relative
-    height: 100%
+    gap: 0 10px
+    padding: 21px 2px 14px 26px
+    cursor: pointer
     .innerIcon
       width: 18px
       height: 18px
-      margin: 0 10px 0 0
-    .nameWrap
+    .name
+      margin: 0 0 3px 0
+      flex: 1 0
+      color: $color-grey_dark
+      font-size: 13px
+      font-family: 'SF Pro Light', sans-serif
+      display: block
+      width: max-content
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      animation: showText 0.2s ease-in-out
+    .amount
       display: flex
-      flex-direction: column
+      color: $color-grey_dark
+      font-family: 'SF Pro Light', sans-serif
+      font-size: 14px
+    .dots
+      display: flex
+      width: 20px
+      height: 20px
       justify-content: center
-      .Name
-        display: flex
-        font-size: 13px
-        margin: 0 0 3px 0
-        color: #7c7a7a
-        .name
-          font-family: 'SF Pro Light', sans-serif
-          display: block
-          width: max-content
-          overflow: hidden
-          white-space: nowrap
-          text-overflow: ellipsis
-          animation: showText 0.2s ease-in-out
-        span
-          max-width: 15px
-          animation: showText 0.2s ease-in-out
-      .tag
-        display: block
-        font-size: 10px
-        box-sizing: border-box
-        padding: 1px 5px
-        background: rgb(0, 125, 255)
-        color: #FFFFFF
-        border-radius: 10px
-        width: max-content
-        max-width: 100px
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        animation: showText 0.2s ease-in-out
-  .amount
-    display: flex
-    color: #7c7a7a
-    font-family: 'SF Pro Light', sans-serif
-    font-size: 14px
+      align-items: center
+      cursor: pointer
+      &:hover span
+        background: $color-primary
+      span
+        position: relative
+        width: 3px
+        height: 3px
+        background: $color-gray-light
+        transition: background 0.2s ease
+        &::after, &::before
+          content: ''
+          position: absolute
+          width: 3px
+          height: 3px
+          background: inherit
+        &::after
+          top: 7.5px
+        &::before
+          top: -7.5px

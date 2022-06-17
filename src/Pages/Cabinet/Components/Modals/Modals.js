@@ -52,7 +52,6 @@ function Modals({
 
   const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
   const closeSuccess = () => dispatch(onSetModals("success", { open: false, message: "", title: "", icon: "" }));
-
   return (
     <>
       {mutualEdit.open ? <MutualEdit /> : null}

@@ -27,7 +27,9 @@ function TaskModals() {
           </button>
           <span className={styles.title}>{TITLES[type]}</span>
         </header>
-        {type === LIBRARY_MODALS.ADD_SECTION && <EditSection type={type} params={params} closeModal={closeModal} />}
+        {(type === LIBRARY_MODALS.ADD_SECTION || type === LIBRARY_MODALS.RENAME_SECTION) && (
+          <EditSection type={type} params={params} closeModal={closeModal} />
+        )}
       </form>
     </PopUp>
   );

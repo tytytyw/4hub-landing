@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import List from "../../List";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -9,14 +9,18 @@ import { imageSrc, LIBRARY_MODALS, MODALS } from "../../../../../generalComponen
 import { onChooseFiles, onSetFolderPath, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 
-function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
+function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMouseParams }) {
   const { __ } = useLocales();
 
   const STANDARD_LIBRARIES = useStandardLibraries();
   const dispatch = useDispatch();
   const { folderList } = useSelector((s) => s.Cabinet);
 
-  const renderLibraryItem = () =>
+  useEffect(() => {
+    dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
+  }, [folderList?.path]); //eslint-disable-line
+
+  const renderDefaultLibraryItem = () =>
     Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
       <ListItem
         key={i}
@@ -29,15 +33,33 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
       />
     ));
 
+  const renderOtherLibraryItem = (other) => {
+    return other.map((item, i) => (
+      <ListItem
+        key={i}
+        title={item.name}
+        listCollapsed={listCollapsed}
+        amount={0}
+        icon={
+          item?.fig
+            ? `${imageSrc}assets/PrivateCabinet/library/own/${item?.fig}.svg`
+            : `${imageSrc}assets/PrivateCabinet/folder-2.svg`
+        }
+        onClick={() => handleListItemClick(item.path)}
+        isChosen={item.path === folderList.path}
+        setMouseParams={setMouseParams}
+      />
+    ));
+  };
   const handleListItemClick = (path) => {
     dispatch(onSetFolderPath(path));
-    dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
   };
 
-  const addSection = () =>
+  const addSection = () => {
     dispatch(
       onSetModals(MODALS.LIBRARY, { type: LIBRARY_MODALS.ADD_SECTION, params: { width: 420, title: "", icon: "" } })
     );
+  };
 
   return (
     <List
@@ -53,7 +75,8 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad }) {
         SvgIcon={AddIcon}
         onClick={addSection}
       />
-      {folderList.folders ? renderLibraryItem() : null}
+      {folderList.folders ? renderDefaultLibraryItem() : null}
+      {folderList.folders?.other ? renderOtherLibraryItem(folderList.folders.other) : null}
     </List>
   );
 }
@@ -63,5 +86,6 @@ export default LibraryList;
 LibraryList.propTypes = {
   listCollapsed: PropTypes.bool,
   setListCollapsed: PropTypes.func,
-  successLoad: PropTypes.func
+  successLoad: PropTypes.func,
+  setMouseParams: PropTypes.func
 };
