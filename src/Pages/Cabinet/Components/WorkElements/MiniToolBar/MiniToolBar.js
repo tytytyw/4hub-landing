@@ -41,6 +41,7 @@ import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { fileChatProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { useLocales } from "react-localized";
 
 const MiniToolBar = ({
   file,
@@ -58,6 +59,7 @@ const MiniToolBar = ({
   toggleComment,
   buttonsStyle
 }) => {
+  const { __ } = useLocales();
   const sendFile = useSendFile();
   const [params, setParams] = useState({
     edit: false,
@@ -376,10 +378,10 @@ const MiniToolBar = ({
               );
             }}
           >
-            Отменить
+            {__("Отменить")}
           </span>
           <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>
-            {params.edit ? "Сохранить" : "Редактировать"}
+            {params.edit ? __("Сохранить") : __("Редактировать")}
           </span>
           {share !== null ? (
             <span
@@ -402,7 +404,7 @@ const MiniToolBar = ({
                 );
               }}
             >
-              Отправить
+              {__("Отправить")}
             </span>
           ) : null}
         </div>
