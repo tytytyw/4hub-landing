@@ -1285,7 +1285,6 @@ export const onLoadFiles =
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`
     };
-
     api
       .get(`/ajax/${endpoint}.php`, {
         params,

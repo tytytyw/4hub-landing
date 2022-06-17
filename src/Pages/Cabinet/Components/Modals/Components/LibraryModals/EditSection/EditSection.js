@@ -46,7 +46,7 @@ function EditSection({ type, params, closeModal }) {
     const modalMessage = type === LIBRARY_MODALS.RENAME_SECTION ? __("Раздел изменён") : __("Раздел добавлен");
     const dir = type === LIBRARY_MODALS.RENAME_SECTION ? dirName.split("/").slice(1).join("") : params.title;
     const dirNameNew = type === LIBRARY_MODALS.RENAME_SECTION ? `&dir_name_new=${params.title}` : "";
-    const symbol = params.icon ? `$symbol=${params.icon}` : "";
+    const symbol = params.icon ? `&symbol=${params.icon}` : "";
     const url = `uid=${uid}&dir_name=${dir}${dirNameNew}${symbol}&parent=other&dep=${getDepartment()}`;
 
     api

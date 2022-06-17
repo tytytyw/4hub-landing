@@ -1,11 +1,12 @@
 import api from "../api";
 import { onDeleteFile, onDeleteSafeFile, onLoadFiles, onSetModals } from "../Store/actions/CabinetActions";
-import { checkResponseStatus } from "./generalHelpers";
+import { checkResponseStatus, getDepartment } from "./generalHelpers";
 import { MODALS, CART, TOP_MESSAGE_TYPE } from "./globalVariables";
 
 export const fileDelete = (file, dispatch, uid, set, msg) => {
+  const dep = getDepartment();
   api
-    .post(`/ajax/file_del.php?uid=${uid}&dir=${file.gdir}&fid=${file.fid}`)
+    .post(`/ajax/file_del.php?uid=${uid}&dir=${file.gdir}&fid=${file.fid}&dep=${dep}`)
     .then((res) => {
       if (res.data.ok === 1) {
         dispatch(onDeleteFile(file));
