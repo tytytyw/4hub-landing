@@ -64,11 +64,13 @@ function FileAccessRights() {
   const setTopMessage = (type, message) => dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type, message }));
 
   const getLink = () => {
+    //mylog
+    console.log(fileAccessRights.file?.file_link);
     setUrl(__("Загрузка..."));
     fileAccessRights.file?.file_link
       ? setUrl(fileAccessRights.file.file_link)
       : setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Ссылка на файл не найдена. Попробуйте еще раз`)) &&
-        setUrl(__("Ошибка"));
+        setUrl(__("Ссылка на файл не найдена"));
   };
 
   useEffect(() => {
