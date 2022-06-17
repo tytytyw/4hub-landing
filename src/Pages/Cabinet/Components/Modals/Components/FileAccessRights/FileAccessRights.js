@@ -3,31 +3,34 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FileAccessRights.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { onGetFilesUserShared, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import {
   NO_ELEMENT,
   FILE_ACCESS_RIGHTS,
   MODALS,
-  TOP_MESSAGE_TYPE
+  TOP_MESSAGE_TYPE,
+  SHARED_FILES
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
 import FileAccessUserList from "./FileAccessUserList/FileAccessUserList";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import api from "../../../../../../api";
-import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
 import classNames from "classnames";
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import { parseCalendarDateToDate } from "../../../../../../generalComponents/CalendarHelper";
 import { formatDateStandard } from "../../../../../../generalComponents/CalendarHelper";
+import Loader from "generalComponents/Loaders/4HUB";
 
 function FileAccessRights() {
   const { __ } = useLocales();
 
+  let usersShared = [];
   const dispatch = useDispatch();
   const fileAccessRights = useSelector((s) => s.Cabinet.modals.fileAccessRights);
+  const fileUserShared = useSelector((s) => s.Cabinet.filesUserShared);
+  const [users, setUsers] = useState(usersShared);
   const [url, setUrl] = useState(__("Загрузка..."));
-  const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
   const uid = useSelector((s) => s.user.uid);
   const [params, setParams] = useState({
@@ -36,6 +39,13 @@ function FileAccessRights() {
   });
   const [showCalendar, setShowCalendar] = useState(false);
   const [chosenUser, setChosenUser] = useState(null);
+  const [loadingType, setLoadingType] = useState("");
+
+  for (const key in fileUserShared) {
+    if (key === fileAccessRights.file.fid) {
+      usersShared.push(...fileUserShared[key]);
+    }
+  }
 
   const changeCalendarDate = (date) => {
     changeUserAccessRightsInUsers({ ...chosenUser, deadline: formatDateStandard(parseCalendarDateToDate(date)) });
@@ -58,30 +68,11 @@ function FileAccessRights() {
     fileAccessRights.file?.file_link
       ? setUrl(fileAccessRights.file.file_link)
       : setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Ссылка на файл не найдена. Попробуйте еще раз`)) &&
-        setUrl(__("Ошибка"));
-  };
-
-  const loadUserList = () => {
-    api
-      .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
-        params: {
-          uid,
-          fid: fileAccessRights.file.fid
-        }
-      })
-      .then((res) => {
-        if (checkResponseStatus(res.data.ok)) {
-          setUsers(res.data.access);
-        } else {
-          setTopMessage(TOP_MESSAGE_TYPE.ERROR, __("Не удалось загузить список пользователей"));
-        }
-      })
-      .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
+        setUrl(__("Ссылка на файл не найдена"));
   };
 
   useEffect(() => {
     getLink();
-    loadUserList();
   }, []); // eslint-disable-line
 
   const copyLink = () => {
@@ -113,17 +104,14 @@ function FileAccessRights() {
     }));
     setUsers((s) => s.filter((it) => it.uid !== user.uid));
   };
-
   const deleteUsers = async () => {
     for await (let user of params.usersToDelete) {
       await api
         .post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
-          params: {
-            uid,
-            fids: [fileAccessRights.file.fid],
-            dir: fileAccessRights.file.gdir,
-            user_to: user.email
-          }
+          uid,
+          fids: [fileAccessRights.file.fid],
+          dir: fileAccessRights.file.gdir,
+          user_to: user.email
         })
         .catch(() => {
           setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось удалить права пользователя ${user.name} к файлу`));
@@ -147,7 +135,7 @@ function FileAccessRights() {
   const changeUserAccessRights = async () => {
     for await (let user of params.usersToChangeAccessRights) {
       await api
-        .post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
+        .get(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
           params: {
             uid,
             fids: [fileAccessRights.file.fid],
@@ -167,14 +155,28 @@ function FileAccessRights() {
   };
 
   const approveChanges = async () => {
+    setLoadingType("squarify");
     if (isChanges) {
       await deleteUsers();
       await changeUserAccessRights();
+      dispatch(
+        onGetFilesUserShared(
+          SHARED_FILES.API_USERLIST_FILES_USER_SHARED,
+          fileAccessRights.file.fid,
+          __(`Не удалось загрузить список пользователей`)
+        )
+      );
     }
+    closeModal();
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: __("Доступ успешно изменён")
+      })
+    );
   };
 
   const isChanges = () => params.usersToDelete.length > 0 || params.usersToChangeAccessRights.length > 0;
-
   return (
     <>
       <PopUp set={closeModal}>
@@ -237,6 +239,16 @@ function FileAccessRights() {
         </div>
         <input ref={linkRef} type="text" style={{ display: "none" }} />
       </PopUp>
+      {loadingType ? (
+        <Loader
+          position="absolute"
+          zIndex={10000}
+          containerType="bounceDots"
+          type="bounceDots"
+          animation={false}
+          background={"rgba(255, 255, 255, 0.95)"}
+        />
+      ) : null}
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
           <Calendar setShowCalendar={setShowCalendar} setDateValue={changeCalendarDate} />
