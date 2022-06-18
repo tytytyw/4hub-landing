@@ -70,11 +70,12 @@ import {
   SET_CHAT_THEME,
   GET_MAIL,
   NULLIFY_MAILS,
-  SET_FOLDER_PATH
+  SET_FOLDER_PATH,
+  FILES_USER_SHARED
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { getDepartment, getLocation } from "../../generalComponents/generalHelpers";
+import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -823,6 +824,30 @@ export const onGetSharedFiles = (type) => async (dispatch, getState) => {
     onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." });
     console.log(e);
   }
+};
+
+export const onGetFilesUserShared = (endpoint, fid, message) => async (dispatch, getState) => {
+  api
+    .get(`${endpoint}`, {
+      params: {
+        uid: getState().user.uid,
+        fid
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch({
+          type: FILES_USER_SHARED,
+          payload: response.data.access
+        });
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message });
+      }
+    })
+    .catch((e) => {
+      onSetModals(MODALS.ERROR, { open: true, message });
+      console.log(e);
+    });
 };
 
 export const onSortFile = (sorting) => {

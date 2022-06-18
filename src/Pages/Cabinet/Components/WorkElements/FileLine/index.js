@@ -73,7 +73,7 @@ const FileLine = ({
         [styles.wrapper]: true,
         [styles.active]: chosen,
         [styles?.[`wrapper_${size}`]]: size !== "medium",
-        [styles.shortWidth]: pathname === "/downloaded-files"
+        [styles.shortWidth]: pathname.startsWith("/downloaded-files")
       })}
     >
       <FileInfo file={file} />
