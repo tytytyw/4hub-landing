@@ -184,7 +184,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {
-      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
+      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, onSuccessLoading, successLoad, ""));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line
@@ -228,7 +228,7 @@ const ItemsList = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
+        (pathname.includes("files") || pathname === "/archive" || pathname.startsWith("/library"))
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&

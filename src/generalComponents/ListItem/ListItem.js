@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import styles from "./ListItem.module.sass";
 import PropTypes from "prop-types";
-import { NO_ELEMENT } from "../globalVariables";
+import api from "api";
+import { useSelector } from "react-redux";
+import { checkResponseStatus } from "generalComponents/generalHelpers";
+import { getStorageItem, setStorageItem } from "generalComponents/StorageHelper";
 
-function ListItem({ title, SvgIcon, icon, amount, isChosen, onClick, listCollapsed, setMouseParams }) {
+function ListItem({ title, icon, isChosen, onClick, listCollapsed, setMouseParams, dir }) {
+  const uid = useSelector((state) => state.user.uid);
+  const [folderAmount, setFolderAmount] = useState(getStorageItem(`${uid}+${dir}+/_LIBRARY_/`));
+  useEffect(() => {
+    if (dir) {
+      getQuantity();
+    }
+  }, []); // eslint-disable-line
+
+  const getQuantity = () => {
+    api
+      .post(`/ajax/get_folder_col.php?uid=${uid}&dir=${dir}&dep=/_LIBRARY_/`)
+      .then((res) => {
+        checkResponseStatus(res.data.ok);
+        if (res.data.col.toString() !== folderAmount) {
+          setFolderAmount(res.data.col);
+          setStorageItem(`${uid}+${dir}+/_LIBRARY_/`, res.data.col);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div
       className={classNames(styles.listItemWrap, {
@@ -17,11 +41,9 @@ function ListItem({ title, SvgIcon, icon, amount, isChosen, onClick, listCollaps
           [styles.listItem]: true
         })}
       >
-        {" "}
-        {SvgIcon && <SvgIcon className={styles.innerIcon} />}
         {icon ? <img src={icon} alt="icon" className={styles.innerIcon} /> : <div className={styles.innerIcon} />}
         {!listCollapsed && <div className={styles.name}>{title}</div>}
-        <div className={styles.amount}>{amount > NO_ELEMENT ? <div>({amount})</div> : null}</div>
+        {dir && <div className={styles.amount}>({folderAmount})</div>}
         <div
           className={styles.dots}
           onClick={(e) => {
@@ -44,9 +66,7 @@ export default ListItem;
 
 ListItem.defaultProps = {
   title: "",
-  SvgIcon: null,
   icon: "",
-  amount: NO_ELEMENT,
   isChosen: false,
   onClick: () => {
     console.log("ListItem empty click");
@@ -58,9 +78,9 @@ ListItem.propTypes = {
   title: PropTypes.string.isRequired,
   SvgIcon: PropTypes.elementType,
   icon: PropTypes.string,
-  amount: PropTypes.number,
   isChosen: PropTypes.bool,
   onClick: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
+  dir: PropTypes.string
 };

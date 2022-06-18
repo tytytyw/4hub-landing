@@ -114,7 +114,12 @@ function Library({
 
   return (
     <div className={styles.libraryWrap}>
-      <LibraryList listCollapsed={listCollapsed} setListCollapsed={setListCollapsed} setMouseParams={setMouseParams} />
+      <LibraryList
+        listCollapsed={listCollapsed}
+        setListCollapsed={setListCollapsed}
+        setMouseParams={setMouseParams}
+        successLoad={successLoad}
+      />
       <WorkSpace
         listCollapsed={listCollapsed}
         menuItem={menuItem}
