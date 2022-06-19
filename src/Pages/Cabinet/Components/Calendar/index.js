@@ -11,7 +11,7 @@ import ListCalendar from "./ListCalendar";
 import BottomPanel from "../BottomPanel";
 // import FullCalendarTable from "./FullCalendar";
 import { useDispatch, useSelector } from "react-redux";
-import { onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
+import { onDeleteTask, onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
 import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -28,7 +28,7 @@ const CalendarPage = () => {
   // eslint-disable-next-line
   const [viewType, setViewType] = useState("full");
   useEffect(() => {
-    // dispatch(onDeleteTask("1"));
+    // dispatch(onDeleteTask("2"));
     dispatch(onGetAllTasks(TASK.API_GET_TASKS));
     // dispatch(onGetAllTasks("task_calendar"));
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -825,7 +825,12 @@ export const onGetAllTasks = (endpoint) => async (dispatch, getState) => {
 
 export const onDeleteTask = (id) => async (dispatch, getState) => {
   api
-    .delete(`ajax/task_del.php?uid=${getState().user.uid}&id_task=${id}`)
+    .delete(`ajax/task_del.php`, {
+      params: {
+        uid: getState().user.uid,
+        id_task: id
+      }
+    })
     .then((response) => {
       if (checkResponseStatus(response.data.ok)) {
         console.log("task deleted");
