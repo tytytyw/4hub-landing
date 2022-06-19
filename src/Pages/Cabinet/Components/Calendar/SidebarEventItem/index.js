@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import styles from "./SidebarEventItem.module.sass";
-import { eventShowProps } from "types/CalendarPage";
+import { eventProps } from "types/CalendarPage";
 
-const SidebarEventItem = ({ event, index }) => {
+const SidebarEventItem = ({ task, index }) => {
   return (
     <div className={styles.eventWrap}>
       <div className={styles.event}>
         <div className={styles.eventIndex}>{index + 1}</div>
-        <div className={styles.eventText}>{event.name}</div>
+        <div className={styles.eventText}>{task.name}</div>
       </div>
       <div className={styles.eventOptions}>...</div>
     </div>
@@ -19,6 +19,6 @@ const SidebarEventItem = ({ event, index }) => {
 export default SidebarEventItem;
 
 SidebarEventItem.propTypes = {
-  event: eventShowProps,
+  task: eventProps,
   index: PropTypes.number
 };

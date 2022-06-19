@@ -1,17 +1,18 @@
 import React from "react";
 
 import styles from "./SuccessCreated.module.sass";
-
-import PopUp from "../../../../../../generalComponents/PopUp";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { eventProps } from "../../../../../../types/CalendarPage";
 
-const SuccessCreated = ({ set, event }) => {
+const SuccessCreated = ({ closeModal }) => {
   const { __ } = useLocales();
+  const event = useSelector((s) => s.Cabinet.taskCriterion);
+  //mylog
+  console.log(event);
   return (
-    <PopUp set={set}>
+    <>
       <div className={styles.wrapper}>
         <div className={styles.titleWrap}>
           <h4 className={styles.title}>{__("Задача успешно создана")}</h4>
@@ -81,24 +82,23 @@ const SuccessCreated = ({ set, event }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Сопроводительный текст")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.desc}</p>
+              <p className={styles.value}>{event?.text}</p>
             </div>
           </div>
         </div>
 
         <div className={styles.actionBlock}>
-          <button onClick={() => set(false)} className={styles.actionBtn}>
+          <button onClick={closeModal} className={styles.actionBtn}>
             {__("Готово")}
           </button>
         </div>
       </div>
-    </PopUp>
+    </>
   );
 };
 
 export default SuccessCreated;
 
 SuccessCreated.propTypes = {
-  set: PropTypes.func,
-  event: eventProps
+  closeModal: PropTypes.func
 };

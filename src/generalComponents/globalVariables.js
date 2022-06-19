@@ -15,7 +15,8 @@ export const MODALS = {
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
   LIBRARY: "libraryModals",
-  MAIL: "mailModals"
+  MAIL: "mailModals",
+  CALENDAR: "calendarModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -104,7 +105,18 @@ export const BUTTON_TYPES = {
   ICON: "icon"
 };
 
-//TASKS Component
+//CALENDAR && TASKS Component
+export const TASK = {
+  API_ADD_TASKS: "task_add",
+  API_GET_TASKS: "task_get",
+  API_GET_TASKS_CALENDAR: "task_calendar"
+};
+
+export const CALENDAR_MODALS = {
+  ADD_TASK: "ADD_TASK",
+  SUCCESS_ADD: "SUCCESS_ADD"
+};
+
 export const BOARDS = {
   MEETINGS_BOARD: "MEETINGS_BOARD",
   CALLS_BOARD: "CALLS_BOARD",

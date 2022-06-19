@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TasksGroup from "../TasksGroup";
-import { eventShowProps } from "types/CalendarPage";
+import { eventProps } from "types/CalendarPage";
 
-const SidebarTasks = ({ data }) => {
+const SidebarTasks = ({ tasks }) => {
   const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
-
   return (
     <>
       {tasksGroup.map((item, i) => {
-        return <TasksGroup key={i} title={item} events={data} />;
+        return <TasksGroup key={i} title={item} tasks={tasks} />;
       })}
     </>
   );
@@ -18,6 +17,6 @@ const SidebarTasks = ({ data }) => {
 export default SidebarTasks;
 
 SidebarTasks.propTypes = {
-  data: PropTypes.arrayOf(eventShowProps),
+  tasks: PropTypes.arrayOf(eventProps),
   tasksGroup: PropTypes.arrayOf(PropTypes.string)
 };
