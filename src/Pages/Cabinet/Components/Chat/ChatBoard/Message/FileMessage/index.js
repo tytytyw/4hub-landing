@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fileChatBoardProps } from "types/Chat";
 import { fileProps } from "types/File";
+import { MODALS } from "../../../../../../../generalComponents/globalVariables";
 
 const FileMessage = ({ file, size, style, amount }) => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const FileMessage = ({ file, size, style, amount }) => {
       preview,
       is_preview: checkPreviewFormat()
     };
-    dispatch(onSetModals("previewFile", { ...previewFile, open: true, file: fileInfo }));
+    dispatch(onSetModals(MODALS.FILE_PREVIEW, { ...previewFile, open: true, file: fileInfo, message: file }));
   };
 
   return (

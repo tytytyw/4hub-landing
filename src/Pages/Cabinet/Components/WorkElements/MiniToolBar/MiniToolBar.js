@@ -27,7 +27,7 @@ import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
-import { replaceFile, useSendFile } from "../../../../../generalComponents/generalHelpers";
+import { replaceFile, replaceChatMessage, useSendFile } from "../../../../../generalComponents/generalHelpers";
 import { drawCanvas } from "../../Modals/Components/PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
@@ -213,8 +213,12 @@ const MiniToolBar = ({
       canvasRef.current.onmouseup = null;
       dispatch(onSetPaint("tool", undefined));
       const preview = canvasRef.current.toDataURL("image/png");
-      if (file?.fid && file?.fid !== "printScreen") replaceFile(uid, file, preview);
-      if (file?.fid === "printScreen") sendFile(uid, file);
+      if (previewFile.message) {
+        replaceChatMessage(previewFile.message, uid, file);
+      } else {
+        if (file?.fid && file?.fid !== "printScreen") replaceFile(uid, file, preview);
+        if (file?.fid === "printScreen") sendFile(uid, file);
+      }
     } else {
       addTool(Pencil);
     }
