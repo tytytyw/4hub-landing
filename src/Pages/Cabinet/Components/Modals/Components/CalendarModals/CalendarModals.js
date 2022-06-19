@@ -7,11 +7,15 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
 import CreateTask from "./CreateTask";
 import SuccessCreated from "./SuccessCreated";
+import { CLEAR_TASK } from "Store/types";
 
 function CalendarModals() {
   const dispatch = useDispatch();
 
-  const closeModal = () => dispatch(onSetModals(MODALS.CALENDAR, { type: MODALS.NO_MODAL, params: null }));
+  const closeModal = () => {
+    dispatch(onSetModals(MODALS.CALENDAR, { type: MODALS.NO_MODAL, params: null }));
+    dispatch({ type: CLEAR_TASK, params: "" });
+  };
   const { type } = useSelector((s) => s.Cabinet.modals.calendarModals);
   const TITLES = useTaskModalTitles();
   return (

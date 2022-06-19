@@ -7,13 +7,13 @@ import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
 import Select from "./Select/Select";
-import { imageSrc, TASK } from "../../../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK } from "../../../../../../../generalComponents/globalVariables";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { ADD_NEW_TASK } from "Store/types";
-import { onAddNewTask, onGetAllTasks } from "Store/actions/CabinetActions";
+import { onAddNewTask, onGetAllTasks, onSetModals } from "Store/actions/CabinetActions";
 
 const CreateTask = ({ closeModal }) => {
   const { __ } = useLocales();
@@ -63,6 +63,7 @@ const CreateTask = ({ closeModal }) => {
         text
       }
     });
+    dispatch(onSetModals(MODALS.LOADER, true));
     dispatch(onAddNewTask(TASK.API_ADD_TASKS, __("Не удалось добавить задачу")));
     dispatch(onGetAllTasks(TASK.API_GET_TASKS));
   };

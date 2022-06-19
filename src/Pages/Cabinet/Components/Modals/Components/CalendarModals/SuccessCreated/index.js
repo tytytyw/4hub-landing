@@ -8,9 +8,7 @@ import PropTypes from "prop-types";
 
 const SuccessCreated = ({ closeModal }) => {
   const { __ } = useLocales();
-  const event = useSelector((s) => s.Cabinet.taskCriterion);
-  //mylog
-  console.log(event);
+  const task = useSelector((s) => s.Cabinet.taskCriterion);
   return (
     <>
       <div className={styles.wrapper}>
@@ -22,26 +20,26 @@ const SuccessCreated = ({ closeModal }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Имя задачи")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.name}</p>
+              <p className={styles.value}>{task?.name}</p>
               <div className={styles.icons}>
-                {event?.sign && (
+                {task?.sign && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${event.sign}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/signs/${task.sign}.svg`}
                     alt="Sign"
                   />
                 )}
-                {event?.emoji && (
+                {task?.emoji && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${event.emoji}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/smiles/${task.emoji}.svg`}
                     alt="Emoji"
                   />
                 )}
-                {event?.color && (
+                {task?.color && (
                   <span
                     style={{
-                      background: `${event.color?.dark}`
+                      background: `${task.color?.dark}`
                     }}
                     className={styles.circle}
                   />
@@ -55,11 +53,11 @@ const SuccessCreated = ({ closeModal }) => {
             <div className={styles.infoWrap}>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>С:</p>
-                <p className={styles.value}>{event?.dateFrom}</p>
+                <p className={styles.value}>{task?.dateFrom}</p>
               </div>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>{__("До:")}</p>
-                <p className={styles.value}>{event?.dateTo}</p>
+                <p className={styles.value}>{task?.dateTo}</p>
               </div>
             </div>
           </div>
@@ -75,14 +73,14 @@ const SuccessCreated = ({ closeModal }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Тег")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.tagOption?.chosen}</p>
+              <p className={styles.value}>{task?.tagOption?.chosen}</p>
             </div>
           </div>
 
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Сопроводительный текст")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.text}</p>
+              <p className={styles.value}>{task?.text}</p>
             </div>
           </div>
         </div>

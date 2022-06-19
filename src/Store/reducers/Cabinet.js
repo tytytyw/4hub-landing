@@ -75,7 +75,8 @@ import {
   SET_FOLDER_PATH,
   FILES_USER_SHARED,
   GET_TASK,
-  ADD_NEW_TASK
+  ADD_NEW_TASK,
+  CLEAR_TASK
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -691,27 +692,31 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, myTasks: { ...action.payload } };
 
     case ADD_NEW_TASK:
-      //mylog
-      console.log(action.payload);
       return {
         ...state,
         taskCriterion: {
           ...action.payload
-          // id_type: action.payload.name,
-          // id_dep: "",
-          // prim: action.payload.text,
-          // date_start: action.payload.dateFrom,
-          // date_end: action.payload.dateTo,
-          // id_act: 0,
-          // emails: [],
-          // filters: {
-          //   color: action.payload.color,
-          //   emoji: action.payload.emoji,
-          //   figure: action.payload.sign
-          // }
         }
       };
 
+    case CLEAR_TASK:
+      return {
+        ...state,
+        taskCriterion: {
+          id_type: "",
+          id_dep: "",
+          prim: "",
+          date_start: 0,
+          date_end: 0,
+          id_act: 0,
+          emails: [],
+          filters: {
+            color: "",
+            emoji: "",
+            figure: ""
+          }
+        }
+      };
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:
       return { ...state, guestSharedFiles: action.payload };

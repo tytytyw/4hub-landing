@@ -783,10 +783,10 @@ export const onAddNewTask = (endpoint, message) => async (dispatch, getState) =>
     .get(`/ajax/${endpoint}.php`, { params })
     .then((response) => {
       if (checkResponseStatus(response.data.ok)) {
+        dispatch(onSetModals(MODALS.LOADER, false));
         dispatch(
           onSetModals(MODALS.CALENDAR, {
-            type: CALENDAR_MODALS.SUCCESS_ADD,
-            params: { width: "", date: "", time: "", name: "" }
+            type: CALENDAR_MODALS.SUCCESS_ADD
           })
         );
       }
