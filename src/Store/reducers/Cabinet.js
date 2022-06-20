@@ -153,18 +153,20 @@ const INITIAL_STATE = {
   calendarDate: new Date(),
   myTasks: {},
   taskCriterion: {
-    id_type: "",
+    name: "",
+    id_type: 0,
     id_dep: "",
-    prim: "",
-    date_start: 0,
-    date_end: 0,
-    id_act: 0,
-    emails: [],
+    text: "",
+    date_start: "",
+    date_end: "",
+    tagOption: "",
     filters: {
       color: "",
       emoji: "",
       figure: ""
-    }
+    },
+    id_act: "",
+    emails: []
   },
 
   // GUEST MODE
@@ -703,18 +705,20 @@ export default function startPage(state = INITIAL_STATE, action) {
       return {
         ...state,
         taskCriterion: {
-          id_type: "",
+          name: "",
+          id_type: 0,
           id_dep: "",
-          prim: "",
-          date_start: 0,
-          date_end: 0,
-          id_act: 0,
-          emails: [],
+          text: "",
+          date_start: "",
+          date_end: "",
+          tagOption: "",
           filters: {
             color: "",
             emoji: "",
             figure: ""
-          }
+          },
+          id_act: "",
+          emails: []
         }
       };
     //GUEST MODE

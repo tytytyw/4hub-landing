@@ -22,24 +22,24 @@ const SuccessCreated = ({ closeModal }) => {
             <div className={styles.infoWrap}>
               <p className={styles.value}>{task?.name}</p>
               <div className={styles.icons}>
-                {task?.sign && (
+                {task?.filters?.figure && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${task.sign}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/signs/${task.filters.figure}.svg`}
                     alt="Sign"
                   />
                 )}
-                {task?.emoji && (
+                {task?.filters?.emoji && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${task.emoji}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/smiles/${task.filters.emoji}.svg`}
                     alt="Emoji"
                   />
                 )}
-                {task?.color && (
+                {task?.filters?.color && (
                   <span
                     style={{
-                      background: `${task.color?.dark}`
+                      background: `${task.filters.color.dark}`
                     }}
                     className={styles.circle}
                   />
@@ -53,11 +53,11 @@ const SuccessCreated = ({ closeModal }) => {
             <div className={styles.infoWrap}>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>С:</p>
-                <p className={styles.value}>{task?.dateFrom}</p>
+                <p className={styles.value}>{task?.date_start}</p>
               </div>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>{__("До:")}</p>
-                <p className={styles.value}>{task?.dateTo}</p>
+                <p className={styles.value}>{task?.date_end}</p>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ const SuccessCreated = ({ closeModal }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Тег")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{task?.tagOption?.chosen}</p>
+              <p className={styles.value}>{`# ${task?.tagOption?.chosen}`}</p>
             </div>
           </div>
 

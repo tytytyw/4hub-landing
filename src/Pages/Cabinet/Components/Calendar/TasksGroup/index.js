@@ -6,26 +6,30 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import SidebarEventItem from "../SidebarEventItem";
 import { eventProps } from "types/CalendarPage";
 
-const TasksGroup = ({ title, tasks }) => {
+const TasksGroup = ({ event, tasks }) => {
   const [isShowSubevents, setIsShowSubevents] = useState(false);
   const toggleEvents = () => {
     setIsShowSubevents((prevState) => !prevState);
   };
   const subeventsClass = isShowSubevents ? styles.subeventsShow : styles.subeventsHide;
   const eventsClass = isShowSubevents ? styles.tasksGroupOpen : "";
-  const taskArray = [];
-  for (let task in tasks) {
-    taskArray.push(tasks[task]);
-  }
+  const tasksGroup = [];
+
+  tasks.forEach((item) => {
+    if (event.id === +item.id_type) {
+      tasksGroup.push(item);
+    }
+  });
+
   return (
     <>
       <div onClick={toggleEvents} className={`${styles.tasksGroup} ${eventsClass}`}>
-        {title}
+        {event.name}
         <PlayIcon className={`${styles.playButton}`} />
       </div>
       <div className={subeventsClass}>
-        {taskArray.map((task, i) => {
-          return <SidebarEventItem task={task} index={i} key={i} />;
+        {tasksGroup.map((task, i) => {
+          return <SidebarEventItem task={task} count={i} key={i} />;
         })}
       </div>
     </>
@@ -35,6 +39,9 @@ const TasksGroup = ({ title, tasks }) => {
 export default TasksGroup;
 
 TasksGroup.propTypes = {
-  title: PropTypes.string,
+  event: PropTypes.exact({
+    id: PropTypes.number,
+    name: PropTypes.string
+  }),
   tasks: PropTypes.arrayOf(eventProps)
 };

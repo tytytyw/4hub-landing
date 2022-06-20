@@ -23,12 +23,13 @@ const CreateTask = ({ closeModal }) => {
   const [eventType, setEventType] = useState("");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
-  const [members, setMembers] = useState("");
+  const [email, setEmail] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
   const [text, setText] = useState("");
   const [color, setColor] = useState(colors[0]);
   const [sign, setSign] = useState("");
   const [emoji, setEmoji] = useState("");
+  const [idType, setIdType] = useState("");
 
   const events = [
     { id: 1, name: __("Задача"), icon: "task" },
@@ -53,14 +54,17 @@ const CreateTask = ({ closeModal }) => {
     dispatch({
       type: ADD_NEW_TASK,
       payload: {
-        name: getEventName(eventType),
-        emoji,
-        sign,
-        color,
-        dateFrom,
-        dateTo,
+        id_type: idType,
+        text,
+        date_start: dateFrom,
+        date_end: dateTo,
         tagOption,
-        text
+        filters: {
+          color,
+          emoji,
+          figure: sign
+        },
+        emails: [email]
       }
     });
     dispatch(onSetModals(MODALS.LOADER, true));
@@ -117,7 +121,14 @@ const CreateTask = ({ closeModal }) => {
               <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
                 <ul className={styles.eventsList}>
                   {events.map((event, index) => (
-                    <li key={index} onClick={() => setEventType(event?.id)} className={styles.eventItem}>
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setEventType(event?.id);
+                        setIdType(event?.id);
+                      }}
+                      className={styles.eventItem}
+                    >
                       <div className={styles.eventIconWrap}>
                         <img
                           className={styles.eventIcon}
@@ -161,8 +172,8 @@ const CreateTask = ({ closeModal }) => {
               <InputField
                 model="text"
                 height={width >= 1440 ? "40px" : "30px"}
-                value={members}
-                set={setMembers}
+                value={email}
+                set={setEmail}
                 placeholder={__("Участники (введите email или выбирите из списка)")}
               />
               <img
