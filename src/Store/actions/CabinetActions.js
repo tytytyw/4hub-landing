@@ -201,7 +201,7 @@ export const onChooseFiles =
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
-      allFiles ? (allFiles !== "lsjson" ? "" : path) : path
+      allFiles ? "" : path
     }${searched}&page=${page}&per_page=${30}&sort=${
       getState().Cabinet.fileCriterion.sorting
     }${sortReverse}${emoji}${sign}${color}${downloadedFiles}&dep=${getDepartment()}`;
