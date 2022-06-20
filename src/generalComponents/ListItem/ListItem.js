@@ -29,7 +29,6 @@ function ListItem({ title, icon, isChosen, onClick, listCollapsed, setMouseParam
           setFolderAmount(res.data.col);
           setStorageItem(`${uid}+${dir}+/_LIBRARY_/`, res.data.col);
         }
-        throw new Error();
       })
       .catch((err) => {
         dispatch(
