@@ -20,7 +20,8 @@ const PreviewFile = () => {
     if (close) closeModal();
   };
 
-  const closeModal = () => dispatch(onSetModals("previewFile", { ...previewFile, open: false, file: null }));
+  const closeModal = () =>
+    dispatch(onSetModals("previewFile", { ...previewFile, open: false, file: null, message: null }));
   return (
     <PopUp set={set} background={"none"} padding="0">
       <div className={styles.preview} onClick={set}>

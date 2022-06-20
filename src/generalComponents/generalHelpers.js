@@ -79,10 +79,18 @@ export const replaceFile = async (uid, info, file) => {
   data.append("myfile", blob);
   data.append("fid", info.fid);
   data.append("dir", info.gdir);
-  api
-    .post(`/ajax/file_replace.php`, data)
-    .then((res) => console.log(res))
-    .catch((e) => console.log(e));
+  api.post(`/ajax/file_replace.php`, data).catch((e) => console.log(e));
+};
+
+export const replaceChatMessage = (message, uid, file) => {
+  const newFIle = file.preview.replace("image/png", "image/octet-stream");
+  const blob = new Blob([newFIle], { type: "image/png" });
+  let data = new FormData();
+  data.append("uid", uid);
+  data.append("attachment", blob);
+  data.append("id_message", message.id);
+  data.append("text", ""); //TODO - mkortelov - check for text message
+  api.post(`/ajax/chat_message_edit.php`, data).catch((e) => console.log(e));
 };
 
 export const useSendFile = async () => {

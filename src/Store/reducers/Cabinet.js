@@ -207,7 +207,7 @@ const INITIAL_STATE = {
     share: { open: false, fids: [], fid: undefined, action_type: "", file: {} },
     previewWithComments: { open: false, files: [], chosenFile: null },
     printScreen: { open: false, result: "" },
-    previewFile: { open: false, file: null },
+    previewFile: { open: false, file: null, message: null },
     topMessage: { open: false, type: "message", message: "" }, //type = message(default) || error
     fileAccessRights: { open: false, file: {} },
     contextMenuModals: {
