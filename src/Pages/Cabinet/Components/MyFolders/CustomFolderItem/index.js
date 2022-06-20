@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./CustomFolderItem.module.sass";
 import { colors } from "../../../../../generalComponents/collections";
-import { onChooseFiles, onChooseFolder, onDeleteFile, onSetPath } from "../../../../../Store/actions/CabinetActions";
+import {
+  onChooseFiles,
+  onChooseFolder,
+  onDeleteFile,
+  onSetModals,
+  onSetPath
+} from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
@@ -67,7 +73,16 @@ const CustomFolderItem = ({
           setStorageItem(`${uid}+${f.path}`, res.data.col);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        dispatch(
+          onSetModals("topMessage", {
+            open: true,
+            type: "error",
+            message: __(`Kоличество файлов в папке не обновлено`)
+          })
+        );
+        console.log(err);
+      });
   };
 
   useEffect(() => {

@@ -3,13 +3,17 @@ import classNames from "classnames";
 import styles from "./ListItem.module.sass";
 import PropTypes from "prop-types";
 import api from "api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkResponseStatus } from "generalComponents/generalHelpers";
 import { getStorageItem, setStorageItem } from "generalComponents/StorageHelper";
+import { onSetModals } from "Store/actions/CabinetActions";
+import { useLocales } from "react-localized";
 
 function ListItem({ title, icon, isChosen, onClick, listCollapsed, setMouseParams, dir }) {
+  const { __ } = useLocales();
   const uid = useSelector((state) => state.user.uid);
   const [folderAmount, setFolderAmount] = useState(getStorageItem(`${uid}+${dir}+/_LIBRARY_/`));
+  const dispatch = useDispatch();
   useEffect(() => {
     if (dir) {
       getQuantity();
@@ -25,8 +29,18 @@ function ListItem({ title, icon, isChosen, onClick, listCollapsed, setMouseParam
           setFolderAmount(res.data.col);
           setStorageItem(`${uid}+${dir}+/_LIBRARY_/`, res.data.col);
         }
+        throw new Error();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        dispatch(
+          onSetModals("topMessage", {
+            open: true,
+            type: "error",
+            message: __(`Kоличество файлов в папке не обновлено`)
+          })
+        );
+        console.log(err);
+      });
   };
 
   return (
