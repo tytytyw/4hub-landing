@@ -74,7 +74,14 @@ import {
   GET_TASK
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { CALENDAR_MODALS, LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import {
+  CALENDAR_MODALS,
+  LIBRARY,
+  LOADING_STATE,
+  MODALS,
+  SHARED_FILES,
+  TOP_MESSAGE_TYPE
+} from "../../generalComponents/globalVariables";
 import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
@@ -789,8 +796,10 @@ export const onAddNewTask = (endpoint, message) => async (dispatch, getState) =>
             type: CALENDAR_MODALS.SUCCESS_ADD
           })
         );
+      } else {
+        dispatch(onSetModals(MODALS.LOADER, false));
+        dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
       }
-      onSetModals(MODALS.ERROR, { open: true, message });
     })
     .catch((error) => {
       onSetModals(MODALS.ERROR, { open: true, message });
