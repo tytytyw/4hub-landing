@@ -705,6 +705,9 @@ export default function startPage(state = INITIAL_STATE, action) {
 
     //GLOBAL MODAL
     case SET_MODALS: {
+      if (action.payload.key.open) {
+        return state;
+      }
       return {
         ...state,
         modals: { ...state.modals, [action.payload.key]: action.payload.value }
