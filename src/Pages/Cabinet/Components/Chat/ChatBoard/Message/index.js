@@ -90,7 +90,6 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
     }
     return "";
   };
-
   return (
     <div
       className={classNames({
@@ -147,7 +146,15 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
               </div>
             )
           ) : (
-            ""
+            <div className={classNames(styles.wrapper, styles[messageType])}>
+              <div className={styles.contentWrapper}>
+                {text.map((item, index) => (
+                  <p key={index} className={styles.content}>
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
           )}
           {messageType !== "inbox" || (Array.isArray(message.attachment) && message.attachment[0]?.kind === "file") ? (
             <div className={styles.menuWrapper}>
