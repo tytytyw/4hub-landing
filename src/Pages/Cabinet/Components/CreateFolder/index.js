@@ -39,7 +39,6 @@ const CreateFolder = ({ onCreate, title, showChoiceFolders, newFolderInfo, setGL
   const [error, setError] = useState(false);
   const [noNameError, setNoNameError] = useState(false);
   const [visibility, setVisibility] = useState("password");
-  // const [path] = useState(newFolderInfo.path);
   const dispatch = useDispatch();
   const folders = useFolders();
 

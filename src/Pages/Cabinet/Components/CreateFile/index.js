@@ -70,7 +70,6 @@ const CreateFile = ({
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
   const [isSafe, setIsSafe] = useState(false);
-  // const [path, setPath] = useState(fileList?.path);
   const theme = useSelector((s) => s.user.userInfo.theme);
 
   const onSwitch = (boolean) => setShowRepeat(boolean);

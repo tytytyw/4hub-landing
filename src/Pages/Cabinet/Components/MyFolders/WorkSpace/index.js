@@ -206,9 +206,6 @@ WorkSpace.propTypes = {
   setGLoader: PropTypes.func,
   setNewFolder: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
-  // newFolderInfo: PropTypes.exact({
-  //   path: PropTypes.string
-  // }),
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   menuItem: PropTypes.string,

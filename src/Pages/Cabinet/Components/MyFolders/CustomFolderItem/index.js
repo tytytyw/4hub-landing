@@ -344,9 +344,6 @@ CustomFolderItem.propTypes = {
   subFolder: PropTypes.bool,
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
-  // newFolderInfo: PropTypes.exact({
-  //   path: PropTypes.string
-  // }),
   setMouseParams: PropTypes.func,
   setError: PropTypes.func,
   setGLoader: PropTypes.func,
