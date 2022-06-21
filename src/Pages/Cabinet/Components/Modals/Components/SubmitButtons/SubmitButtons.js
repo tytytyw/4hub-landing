@@ -19,6 +19,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
         TASK_MODALS.ADD_CALL,
         TASK_MODALS.ADD_LETTER,
         TASK_MODALS.ADD_SECTION,
+        TASK_MODALS.DELETE_TASK,
         //Library
         LIBRARY_MODALS.ADD_SECTION,
         LIBRARY_MODALS.RENAME_SECTION

@@ -70,7 +70,7 @@ const CreateTask = ({ closeModal }) => {
     });
     dispatch(onSetModals(MODALS.LOADER, true));
     dispatch(onAddNewTask(TASK.API_ADD_TASKS, __("Не удалось добавить задачу")));
-    dispatch(onGetAllTasks(TASK.API_GET_TASKS));
+    dispatch(onGetAllTasks());
   };
 
   const width = window.innerWidth;

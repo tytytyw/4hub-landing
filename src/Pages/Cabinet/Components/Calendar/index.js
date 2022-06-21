@@ -13,7 +13,7 @@ import BottomPanel from "../BottomPanel";
 import { useDispatch, useSelector } from "react-redux";
 import { onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
-import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComponents/globalVariables";
+import { CALENDAR_MODALS, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
 import classnames from "classnames";
@@ -32,13 +32,10 @@ const CalendarPage = () => {
 
   // eslint-disable-next-line
   const [viewType, setViewType] = useState("full");
-  useEffect(() => {
-    // dispatch(onDeleteTask("6"));
-    dispatch(onGetAllTasks(TASK.API_GET_TASKS));
-    // dispatch(onGetAllTasks("task_calendar"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
+  useEffect(() => {
+    dispatch(onGetAllTasks());
+  }, []); // eslint-disable-line
   const getStrDate = () => {
     return __(
       `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
