@@ -108,7 +108,6 @@ export const BUTTON_TYPES = {
 //CALENDAR && TASKS Component
 export const TASK = {
   API_ADD_TASKS: "task_add",
-  API_GET_TASKS: "task_get",
   API_GET_TASKS_CALENDAR: "task_calendar"
 };
 

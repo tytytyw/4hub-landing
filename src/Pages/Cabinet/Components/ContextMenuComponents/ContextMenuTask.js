@@ -1,47 +1,45 @@
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
-import { imageSrc } from "generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
 import React from "react";
 import { useLocales } from "react-localized";
 import { eventProps } from "types/CalendarPage";
 // import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { onSetModals } from "Store/actions/CabinetActions";
 
 function ContextMenuTask({ task }) {
   const { __ } = useLocales();
-  //mylog
-  console.log(task);
-
-  const array = [
+  const dispatch = useDispatch();
+  const contextMenuTask = [
     {
-      type: "restore",
-      img: "restore",
-      name: __("Редактировать"),
-      text: __(""),
+      img: "edit",
+      name: __("Редактировать задачу"),
       callback: () => {
-        //mylog
-        console.log("hi");
-        // fileCartRestore(file.fid, dispatch, "", __("Файл успешно восстановлен"), __);
+        // TODO - VZkh - Добавить колбек радектирования задачи
       }
     },
     {
-      type: "restore",
-      img: "restore",
+      img: "garbage",
       name: __("Удалить"),
-      text: __(""),
       callback: () => {
-        //mylog
-        console.log("del");
-        // fileCartRestore(file.fid, dispatch, "", __("Файл успешно восстановлен"), __);
+        dispatch(
+          onSetModals(MODALS.TASKS, {
+            type: TASK_MODALS.DELETE_TASK,
+            taskChoosen: task,
+            params: { width: 420 }
+          })
+        );
       }
     }
   ];
 
   const renderMenuItems = () => {
-    return array.map((item, i) => {
+    return contextMenuTask.map((item, i) => {
       return (
         <ContextMenuItem
           key={i}
           width={240}
-          height={"auto"}
+          height={40}
           text={item.name}
           callback={() => {
             item.callback();

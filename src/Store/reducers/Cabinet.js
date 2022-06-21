@@ -154,7 +154,7 @@ const INITIAL_STATE = {
   myTasks: {},
   taskCriterion: {
     name: "",
-    id_type: 0,
+    id_type: "",
     id_dep: "",
     text: "",
     date_start: "",

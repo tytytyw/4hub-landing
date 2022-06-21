@@ -808,13 +808,13 @@ export const onAddNewTask = (endpoint, message) => async (dispatch, getState) =>
     });
 };
 
-export const onGetAllTasks = (endpoint) => async (dispatch, getState) => {
+export const onGetAllTasks = () => async (dispatch, getState) => {
   api
-    .get(`ajax/${endpoint}.php`, {
+    .get(`ajax/task_get.php`, {
       params: {
-        uid: getState().user.uid
-        // id_dep: getState().taskCriterion.id_dep,
-        // id_type: getState().taskCriterion.id_type
+        uid: getState().user.uid,
+        id_dep: getState().Cabinet.taskCriterion.id_dep,
+        id_type: getState().Cabinet.taskCriterion.id_type
       }
     })
     .then((response) => {
@@ -833,8 +833,9 @@ export const onGetAllTasks = (endpoint) => async (dispatch, getState) => {
     });
 };
 
-//eslint-disable-next-line
-export const onDeleteTask = (id) => async (dispatch, getState) => {
+export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
+  //mylog
+  console.log(message);
   api
     .delete(`ajax/task_del.php`, {
       params: {
@@ -844,13 +845,20 @@ export const onDeleteTask = (id) => async (dispatch, getState) => {
     })
     .then((response) => {
       if (checkResponseStatus(response.data.ok)) {
-        console.log("task deleted");
+        dispatch(onSetModals(MODALS.LOADER, false));
+        dispatch(
+          onSetModals(MODALS.SUCCESS, {
+            open: true,
+            message
+          })
+        );
+        dispatch(onGetAllTasks());
       } else {
-        onSetModals(MODALS.ERROR, { open: true, message: "error" });
+        dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
       }
     })
     .catch((error) => {
-      onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
       console.log(error);
     });
 };
