@@ -316,7 +316,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         for (let key in files) {
           files[key].forEach((file, i) => {
             if (file.fid === action.payload.fid) {
-              delete files[key][i];
+              files[key].splice(i, 1);
             }
           });
         }

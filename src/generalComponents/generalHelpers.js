@@ -251,3 +251,10 @@ export function getLocation() {
 export function getDepartment() {
   return getLocation()[0] === "library" ? "/_LIBRARY_/" : "/";
 }
+
+export const getIsIncludePath = (filePath, currentPath) => {
+  const filePathArray = filePath.split("/");
+  const currentPathArray = currentPath.split("/");
+  const result = filePathArray.filter((el) => currentPathArray.includes(el)).join("/");
+  return result === currentPath;
+};

@@ -199,7 +199,6 @@ export const onChooseFiles =
     const sortReverse = filters.reverse && filters.reverse[filters.sorting] ? `&sort_reverse=1` : "";
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
-
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
       allFiles ? "" : path
@@ -336,6 +335,13 @@ export const clearFileList = () => {
       path: "global/all",
       filesNext: null
     }
+  };
+};
+
+export const clearFolders = () => {
+  return {
+    type: "GET_FOLDERS",
+    payload: { global: null, other: null }
   };
 };
 

@@ -24,13 +24,11 @@ import FilesGroup from "../FilesGroup/FilesGroup";
 import { usePeriods, useStandardLibraries } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
-
 import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { LIBRARY } from "../../../../../generalComponents/globalVariables";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 
 const ItemsList = ({
@@ -184,7 +182,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {
-      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, "", successLoad, ""));
+      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, onSuccessLoading, successLoad, ""));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line
@@ -228,7 +226,7 @@ const ItemsList = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
+        (pathname.startsWith("/files") || pathname.startsWith("/archive") || pathname.startsWith("/library"))
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
@@ -243,9 +241,7 @@ const ItemsList = ({
           );
         if (pathname.startsWith("/library")) {
           setLoadingFiles(true);
-          dispatch(
-            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", LIBRARY.API_GET_FILES, pathname)
-          );
+          dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", null, pathname));
         }
       }
     }

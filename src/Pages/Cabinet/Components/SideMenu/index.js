@@ -27,11 +27,15 @@ const SideMenu = ({ data, collapsed, setCollapsed }) => {
           })}
           key={item.name}
           onClick={() => {
-            dispatch(clearFileList());
-            dispatch(clearRecentFiles());
-            setTimeout(() => {
-              history.push(item.path);
-            }, 0);
+            if (item.path !== pathname) {
+              dispatch(clearFileList());
+              dispatch(clearRecentFiles());
+              dispatch({ type: "GET_FOLDERS", payload: { global: null, other: null } });
+
+              setTimeout(() => {
+                history.push(item.path);
+              }, 0);
+            }
           }}
         >
           <img

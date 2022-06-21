@@ -9,9 +9,8 @@ import PropTypes from "prop-types";
 import { folderProps } from "../../types/Folder";
 import { createFilesProps } from "../../types/CreateFile";
 
-const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => {
+const SelectFolder = ({ initFolder, setNewFolderInfo, ...props }) => {
   const [open, setOpen] = useState(false);
-  const [value] = useState(initValue);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -43,15 +42,14 @@ const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => 
   };
 
   const renderPath = () => {
-    let newPath = initFolder?.path ?? path;
+    let newPath = initFolder.path || path;
     if (newPath.includes("global") && newPath.indexOf("global") === 0) {
       FOLDERS.forEach((el) => {
         newPath = newPath.replace(el.path, "/" + el.nameRu);
       });
     }
     if (newPath.indexOf("other") === 0) {
-      newPath = newPath.substr(5);
-      console.log(newPath);
+      newPath = newPath.substring(5);
     }
     return newPath;
   };
@@ -78,8 +76,7 @@ const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => 
       <div
         onClick={() => setOpen(!open)}
         className={classNames({
-          [styles.select]: true,
-          [styles.selected]: !!value
+          [styles.select]: true
         })}
       >
         <div className={styles.valueWrap}>
@@ -123,7 +120,7 @@ export default SelectFolder;
 SelectFolder.propTypes = {
   classNameSelect: PropTypes.string,
   initValue: PropTypes.string,
-  initFolder: PropTypes.oneOfType([folderProps, createFilesProps, PropTypes.string]),
+  initFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   setNewFolderInfo: PropTypes.func,
   className: PropTypes.string
 };
