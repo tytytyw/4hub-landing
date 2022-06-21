@@ -114,7 +114,9 @@ const Chat = ({ setMenuItem }) => {
               dispatch(MODALS.ERROR, { open: true, message: __("Ошибка удаления всех сообщений") });
             })
             .finally(() => {
-              dispatch(onSetSelectedContact(selectedContact));
+              const newContact = selectedContact;
+              dispatch(onSetSelectedContact(null));
+              dispatch(onSetSelectedContact(newContact));
             });
         }
       },
