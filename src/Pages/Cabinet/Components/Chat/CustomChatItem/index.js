@@ -40,7 +40,9 @@ const CustomChatItem = ({
 
     if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
       setCollapseMembersList((state) => !state);
-    } else setSelectedContact({ ...chatItem, status });
+    } else {
+      setSelectedContact({ ...chatItem, status });
+    }
   };
   return (
     <div
