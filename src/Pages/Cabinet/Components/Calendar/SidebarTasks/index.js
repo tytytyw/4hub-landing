@@ -4,7 +4,7 @@ import TasksGroup from "../TasksGroup";
 import { eventProps } from "types/CalendarPage";
 import { useLocales } from "react-localized";
 
-const SidebarTasks = ({ tasks }) => {
+const SidebarTasks = ({ tasks, setMouseParams, setChosenFile }) => {
   const { __ } = useLocales();
 
   const events = [
@@ -19,7 +19,15 @@ const SidebarTasks = ({ tasks }) => {
   return (
     <>
       {events.map((event, i) => {
-        return <TasksGroup key={i} event={event} tasks={tasks} />;
+        return (
+          <TasksGroup
+            key={i}
+            event={event}
+            tasks={tasks}
+            setMouseParams={setMouseParams}
+            setChosenFile={setChosenFile}
+          />
+        );
       })}
     </>
   );
@@ -29,5 +37,7 @@ export default SidebarTasks;
 
 SidebarTasks.propTypes = {
   tasks: PropTypes.arrayOf(eventProps),
-  tasksGroup: PropTypes.arrayOf(PropTypes.string)
+  tasksGroup: PropTypes.arrayOf(PropTypes.string),
+  setMouseParams: PropTypes.func,
+  setChosenFile: PropTypes.func
 };

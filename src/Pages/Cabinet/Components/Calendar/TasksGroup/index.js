@@ -6,7 +6,7 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import SidebarEventItem from "../SidebarEventItem";
 import { eventProps } from "types/CalendarPage";
 
-const TasksGroup = ({ event, tasks }) => {
+const TasksGroup = ({ event, tasks, setMouseParams, setChosenFile }) => {
   const [isShowSubevents, setIsShowSubevents] = useState(false);
   const toggleEvents = () => {
     setIsShowSubevents((prevState) => !prevState);
@@ -29,7 +29,15 @@ const TasksGroup = ({ event, tasks }) => {
       </div>
       <div className={subeventsClass}>
         {tasksGroup.map((task, i) => {
-          return <SidebarEventItem task={task} count={i} key={i} />;
+          return (
+            <SidebarEventItem
+              task={task}
+              count={i}
+              key={i}
+              setMouseParams={setMouseParams}
+              setChosenFile={setChosenFile}
+            />
+          );
         })}
       </div>
     </>
@@ -43,5 +51,7 @@ TasksGroup.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string
   }),
-  tasks: PropTypes.arrayOf(eventProps)
+  tasks: PropTypes.arrayOf(eventProps),
+  setMouseParams: PropTypes.func,
+  setChosenFile: PropTypes.func
 };

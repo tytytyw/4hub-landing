@@ -17,6 +17,8 @@ import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComp
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
 import classnames from "classnames";
+import ContextMenu from "generalComponents/ContextMenu";
+import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
@@ -25,6 +27,9 @@ const CalendarPage = () => {
   const myTasks = Object.values(tasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
+  const [mouseParams, setMouseParams] = useState(null);
+  const [chosenFile, setChosenFile] = useState(null);
+
   // eslint-disable-next-line
   const [viewType, setViewType] = useState("full");
   useEffect(() => {
@@ -76,7 +81,7 @@ const CalendarPage = () => {
             />
           </div>
           <ListCalendar setViewType={setViewType} />
-          <SidebarTasks tasks={myTasks} />
+          <SidebarTasks tasks={myTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />
@@ -98,13 +103,11 @@ const CalendarPage = () => {
           {viewType === "list" && <WorkSpaceList events={events} />} */}
         </div>
       </div>
-
-      {/* {createTask && (
-        <CreateTask title="Создание проекта" onCreate={setCreateTask} setSuccess={setSuccess} setEvent={setEvent} />
-      )} */}
-
-      {/* {success && <SuccessCreated event={event} set={setSuccess} />} */}
-
+      {mouseParams !== null && (
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <ContextMenuTask task={chosenFile}></ContextMenuTask>
+        </ContextMenu>
+      )}
       <BottomPanel />
     </div>
   );

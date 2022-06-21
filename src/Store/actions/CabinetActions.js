@@ -773,7 +773,7 @@ export const setCalendarDate = (date) => {
 
 export const onAddNewTask = (endpoint, message) => async (dispatch, getState) => {
   const params = {
-    name: "getState().Cabinet.taskCriterion.name",
+    name: getState().Cabinet.taskCriterion.name,
     id_type: getState().Cabinet.taskCriterion.id_type,
     id_dep: getState().Cabinet.taskCriterion.id_dep,
     prim: getState().Cabinet.taskCriterion.text,

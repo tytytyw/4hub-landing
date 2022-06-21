@@ -54,6 +54,7 @@ const CreateTask = ({ closeModal }) => {
     dispatch({
       type: ADD_NEW_TASK,
       payload: {
+        name: "Calendar task",
         id_type: idType,
         text,
         date_start: dateFrom,
