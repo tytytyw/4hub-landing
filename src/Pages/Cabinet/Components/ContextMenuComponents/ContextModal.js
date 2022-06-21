@@ -14,7 +14,6 @@ import DeleteFolder from "./ContextMenuFolder/DeleteFolder/DeleteFolder";
 
 function ContextModal({ saveCustomizeSeveralFiles }) {
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
-
   return (
     <>
       {contextMenuModals.type === CONTEXT_MENU_FILE.CREATE_ZIP ? <CreateZip /> : null}

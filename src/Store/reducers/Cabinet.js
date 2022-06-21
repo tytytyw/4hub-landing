@@ -27,7 +27,6 @@ import {
   GET_PROJECTS,
   GET_JOURNAL_FOLDERS,
   SET_CALENDAR_DATE,
-  SET_CALENDAR_EVENTS,
   SEARCH,
   CHOOSE_SHARED_FILES,
   CHOOSE_ARCHIVE_FILES,
@@ -74,7 +73,10 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  FILES_USER_SHARED
+  FILES_USER_SHARED,
+  GET_TASK,
+  ADD_NEW_TASK,
+  CLEAR_TASK
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -147,9 +149,25 @@ const INITIAL_STATE = {
   //JOURNAL
   journalFolders: [],
 
-  //CALENDAR PAGE
+  //CALENDAR && MY TASK
   calendarDate: new Date(),
-  calendarEvents: [],
+  myTasks: {},
+  taskCriterion: {
+    name: "",
+    id_type: 0,
+    id_dep: "",
+    text: "",
+    date_start: "",
+    date_end: "",
+    tagOption: "",
+    filters: {
+      color: "",
+      emoji: "",
+      figure: ""
+    },
+    id_act: "",
+    emails: []
+  },
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -222,7 +240,8 @@ const INITIAL_STATE = {
     }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     taskModals: { type: MODALS.NO_MODAL, params: null },
     libraryModals: { type: MODALS.NO_MODAL, params: null },
-    mailModals: { type: MODALS.NO_MODAL, params: null }
+    mailModals: { type: MODALS.NO_MODAL, params: null },
+    calendarModals: { type: MODALS.NO_MODAL, params: null }
   },
   //LIBRARY
   library: {
@@ -667,14 +686,41 @@ export default function startPage(state = INITIAL_STATE, action) {
     case GET_JOURNAL_FOLDERS:
       return { ...state, journalFolders: action.payload };
 
-    //CALENDAR PAGE
+    //CALENDAR && TASK PAGE
     case SET_CALENDAR_DATE:
       return { ...state, calendarDate: action.payload };
 
-    //CALENDAR PAGE
-    case SET_CALENDAR_EVENTS:
-      return { ...state, calendarEvents: action.payload };
+    case GET_TASK:
+      return { ...state, myTasks: { ...action.payload } };
 
+    case ADD_NEW_TASK:
+      return {
+        ...state,
+        taskCriterion: {
+          ...action.payload
+        }
+      };
+
+    case CLEAR_TASK:
+      return {
+        ...state,
+        taskCriterion: {
+          name: "",
+          id_type: 0,
+          id_dep: "",
+          text: "",
+          date_start: "",
+          date_end: "",
+          tagOption: "",
+          filters: {
+            color: "",
+            emoji: "",
+            figure: ""
+          },
+          id_act: "",
+          emails: []
+        }
+      };
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:
       return { ...state, guestSharedFiles: action.payload };

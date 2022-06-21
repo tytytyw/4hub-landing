@@ -30,7 +30,6 @@ import {
   GET_JOURNAL_FOLDERS,
   SEARCH,
   SET_CALENDAR_DATE,
-  SET_CALENDAR_EVENTS,
   SORT_FILES,
   LOAD_FILES,
   SET_FILTER_COLOR,
@@ -71,10 +70,18 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  FILES_USER_SHARED
+  FILES_USER_SHARED,
+  GET_TASK
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import {
+  CALENDAR_MODALS,
+  LIBRARY,
+  LOADING_STATE,
+  MODALS,
+  SHARED_FILES,
+  TOP_MESSAGE_TYPE
+} from "../../generalComponents/globalVariables";
 import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
@@ -770,42 +777,88 @@ export const setCalendarDate = (date) => {
   };
 };
 
-export const setCalendarEvents = () => {
-  return {
-    type: SET_CALENDAR_EVENTS,
-    payload: [
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-29 09:00"),
-        type: 1
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-25 12:00"),
-        type: 2
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-26 22:00"),
-        type: 3
-      }
-    ]
+export const onAddNewTask = (endpoint, message) => async (dispatch, getState) => {
+  const params = {
+    name: getState().Cabinet.taskCriterion.name,
+    id_type: getState().Cabinet.taskCriterion.id_type,
+    id_dep: getState().Cabinet.taskCriterion.id_dep,
+    prim: getState().Cabinet.taskCriterion.text,
+    date_start: getState().Cabinet.taskCriterion.dateFrom,
+    date_end: getState().Cabinet.taskCriterion.dateTo,
+    uid: getState().user.uid,
+    filter_color: getState().Cabinet.taskCriterion.filters.color.color,
+    filter_emo: getState().Cabinet.taskCriterion.filters.emoji,
+    filter_fig: getState().Cabinet.taskCriterion.filters.figure,
+    id_act: getState().Cabinet.taskCriterion.id_act,
+    emails: getState().Cabinet.taskCriterion.emails,
+    tags: getState().Cabinet.taskCriterion.tagOption
   };
+  api
+    .get(`/ajax/${endpoint}.php`, { params })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch(onSetModals(MODALS.LOADER, false));
+        dispatch(
+          onSetModals(MODALS.CALENDAR, {
+            type: CALENDAR_MODALS.SUCCESS_ADD
+          })
+        );
+      } else {
+        dispatch(onSetModals(MODALS.LOADER, false));
+        dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
+      }
+    })
+    .catch((error) => {
+      onSetModals(MODALS.ERROR, { open: true, message });
+      console.log(error);
+    });
+};
+
+export const onGetAllTasks = (endpoint) => async (dispatch, getState) => {
+  api
+    .get(`ajax/${endpoint}.php`, {
+      params: {
+        uid: getState().user.uid
+        // id_dep: getState().taskCriterion.id_dep,
+        // id_type: getState().taskCriterion.id_type
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch({
+          type: GET_TASK,
+          payload: response.data.tasks
+        });
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      }
+    })
+    .catch((error) => {
+      onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      console.log(error);
+    });
+};
+
+//eslint-disable-next-line
+export const onDeleteTask = (id) => async (dispatch, getState) => {
+  api
+    .delete(`ajax/task_del.php`, {
+      params: {
+        uid: getState().user.uid,
+        id_task: id
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        console.log("task deleted");
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      }
+    })
+    .catch((error) => {
+      onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      console.log(error);
+    });
 };
 
 export const onSearch = (value) => {
