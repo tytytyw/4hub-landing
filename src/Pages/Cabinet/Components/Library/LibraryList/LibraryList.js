@@ -4,7 +4,6 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { useStandardLibraries } from "../../../../../generalComponents/collections";
 import ListItem from "../../../../../generalComponents/ListItem/ListItem";
-import { ReactComponent as AddIcon } from "assets/PrivateCabinet/plus-3.svg";
 import { imageSrc, LIBRARY_MODALS, MODALS } from "../../../../../generalComponents/globalVariables";
 import { onChooseFiles, onSetFolderPath, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,34 +19,27 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
     dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
   }, [folderList?.path]); //eslint-disable-line
 
-  const renderDefaultLibraryItem = () =>
-    Object.entries(STANDARD_LIBRARIES).map(([key, it], i) => (
-      <ListItem
-        key={i}
-        title={it.name}
-        listCollapsed={listCollapsed}
-        amount={0}
-        icon={`${imageSrc}assets/PrivateCabinet/library/${key.toLowerCase()}.svg`}
-        onClick={() => handleListItemClick(it.path)}
-        isChosen={it.path === folderList.path}
-      />
-    ));
+  const getIcon = (item) => {
+    if (item.path.startsWith("other")) {
+      return item?.fig
+        ? `${imageSrc}assets/PrivateCabinet/library/own/${item.fig}.svg`
+        : `${imageSrc}assets/PrivateCabinet/folder-2.svg`;
+    } else {
+      return `${imageSrc}assets/PrivateCabinet/library/${item.path.toLowerCase()}.svg`;
+    }
+  };
 
-  const renderOtherLibraryItem = (other) => {
+  const renderLibraryItem = (other) => {
     return other.map((item, i) => (
       <ListItem
         key={i}
         title={item.name}
         listCollapsed={listCollapsed}
-        amount={0}
-        icon={
-          item?.fig
-            ? `${imageSrc}assets/PrivateCabinet/library/own/${item?.fig}.svg`
-            : `${imageSrc}assets/PrivateCabinet/folder-2.svg`
-        }
+        icon={getIcon(item)}
         onClick={() => handleListItemClick(item.path)}
         isChosen={item.path === folderList.path}
-        setMouseParams={setMouseParams}
+        setMouseParams={item.path.startsWith("other") ? setMouseParams : null}
+        dir={item.path}
       />
     ));
   };
@@ -72,11 +64,11 @@ function LibraryList({ listCollapsed, setListCollapsed, successLoad, setMousePar
       <ListItem
         title={__("Создать новый раздел")}
         listCollapsed={listCollapsed}
-        SvgIcon={AddIcon}
+        icon={`${imageSrc}assets/PrivateCabinet/plus-3.svg`}
         onClick={addSection}
       />
-      {folderList.folders ? renderDefaultLibraryItem() : null}
-      {folderList.folders?.other ? renderOtherLibraryItem(folderList.folders.other) : null}
+      {folderList.folders && renderLibraryItem(Object.values(STANDARD_LIBRARIES))}
+      {folderList.folders?.other && renderLibraryItem(folderList.folders.other)}
     </List>
   );
 }

@@ -56,12 +56,12 @@ const folderInfoProps = PropTypes.exact({
 // Choosen Folder
 
 export const folderProps = PropTypes.exact({
-  contextMenuFolder: PropTypes.oneOfType([PropTypes.objectOf(folderInfoProps), PropTypes.object]),
-  files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  folderWidth: PropTypes.number,
-  group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  path: PropTypes.string,
   info: folderInfoProps,
-  path: PropTypes.string
+  files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  contextMenuFolder: PropTypes.oneOfType([PropTypes.objectOf(folderInfoProps), PropTypes.object]),
+  folderWidth: PropTypes.number
 });
 
 // Project Folder
