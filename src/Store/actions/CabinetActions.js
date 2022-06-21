@@ -840,8 +840,6 @@ export const onGetAllTasks = () => async (dispatch, getState) => {
 };
 
 export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
-  //mylog
-  console.log(message);
   api
     .delete(`ajax/task_del.php`, {
       params: {

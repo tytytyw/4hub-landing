@@ -3,7 +3,6 @@ import { imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables
 import React from "react";
 import { useLocales } from "react-localized";
 import { eventProps } from "types/CalendarPage";
-// import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { onSetModals } from "Store/actions/CabinetActions";
 
