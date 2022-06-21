@@ -338,6 +338,13 @@ export const clearFileList = () => {
   };
 };
 
+export const clearFolders = () => {
+  return {
+    type: "GET_FOLDERS",
+    payload: { global: null, other: null }
+  };
+};
+
 export const onChooseRecentFile = (file) => {
   return {
     type: CHOOSE_RECENT_FILES,

@@ -23,6 +23,7 @@ import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/
 import api from "../../../../api";
 import {
   clearFileList,
+  clearFolders,
   onAddRecentFiles,
   onAddRecentFolders,
   onChooseFiles,
@@ -123,6 +124,7 @@ const MyFolders = ({
     }
     return async () => {
       setMenuItem("");
+      dispatch(clearFolders());
       await dispatch(clearFileList());
       dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
     };
@@ -137,7 +139,6 @@ const MyFolders = ({
           f={folder}
           listCollapsed={listCollapsed}
           setNewFolderInfo={setNewFolderInfo}
-          newFolderInfo={newFolderInfo}
           setNewFolder={setNewFolder}
           setChosenFolder={setChosenFolder}
           chosenFolder={chosenFolder}
@@ -340,7 +341,6 @@ const MyFolders = ({
         setGLoader={setGLoader}
         setNewFolder={setNewFolder}
         setNewFolderInfo={setNewFolderInfo}
-        newFolderInfo={newFolderInfo}
         filesPage={filesPage}
         setFilesPage={setFilesPage}
         menuItem={menuItem}
@@ -351,11 +351,10 @@ const MyFolders = ({
         <CreateFolder
           onCreate={setNewFolder}
           title={__("Создать папку")}
-          info={newFolderInfo}
           chosenFolder={chosenFolder}
           setChosenFolder={setChosenFolder}
           newFolderInfo={newFolderInfo}
-          seetNewFolderInfo={setNewFolderInfo}
+          setNewFolderInfo={setNewFolderInfo}
         />
       )}
       {fileAddCustomization.show ? (
@@ -377,6 +376,8 @@ const MyFolders = ({
           initFolder={chosenFolder}
           showChoiceFolders={true}
           menuItem={menuItem}
+          newFolderInfo={newFolderInfo}
+          setNewFolderInfo={setNewFolderInfo}
         />
       ) : null}
       {safePassword.open && <CreateSafePassword onToggle={onSafePassword} title={__("Создайте пароль для сейфа")} />}
@@ -420,7 +421,6 @@ const MyFolders = ({
           chosenSubFolder={chosenSubFolder}
           title={__("Редактировать папку")}
           setGLoader={setGLoader}
-          info={newFolderInfo}
           successLoad={successLoad}
         />
       ) : null}

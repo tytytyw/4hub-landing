@@ -42,7 +42,6 @@ const WorkSpace = ({
   setGLoader,
   setNewFolder,
   setNewFolderInfo,
-  newFolderInfo,
   filesPage,
   setFilesPage,
   menuItem,
@@ -100,7 +99,7 @@ const WorkSpace = ({
           fileSelect={fileSelect} //TODO - mkortelov - unused prop - delete?
           addFolder={(boolean) => {
             setNewFolder(boolean);
-            setNewFolderInfo({ ...newFolderInfo, path: "" });
+            setNewFolderInfo((state) => ({ ...state, path: "" }));
           }}
           addFile={fileSelect}
           chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
@@ -207,9 +206,9 @@ WorkSpace.propTypes = {
   setGLoader: PropTypes.func,
   setNewFolder: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
-  newFolderInfo: PropTypes.exact({
-    path: PropTypes.string
-  }),
+  // newFolderInfo: PropTypes.exact({
+  //   path: PropTypes.string
+  // }),
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   menuItem: PropTypes.string,

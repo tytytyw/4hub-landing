@@ -20,15 +20,7 @@ import PropTypes from "prop-types";
 import { folderProps } from "../../../../types/Folder";
 import classnames from "classnames";
 
-const CreateFolder = ({
-  onCreate,
-  title,
-  showChoiceFolders,
-  chosenFolder,
-  newFolderInfo,
-  setGLoader,
-  setNewFolderInfo
-}) => {
+const CreateFolder = ({ onCreate, title, showChoiceFolders, newFolderInfo, setGLoader, setNewFolderInfo }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -47,7 +39,7 @@ const CreateFolder = ({
   const [error, setError] = useState(false);
   const [noNameError, setNoNameError] = useState(false);
   const [visibility, setVisibility] = useState("password");
-  const [path, setPath] = useState(newFolderInfo?.path ?? chosenFolder?.path);
+  // const [path] = useState(newFolderInfo.path);
   const dispatch = useDispatch();
   const folders = useFolders();
 
@@ -70,7 +62,9 @@ const CreateFolder = ({
   const onAddFolder = () => {
     if (name) {
       const modifiedPath =
-        path.split("/").length === 2 && path.split("/")[1] === "" ? path.slice(0, path.indexOf("/")) : path;
+        newFolderInfo.path.split("/").length === 2 && newFolderInfo.path.split("/")[1] === ""
+          ? newFolderInfo.path.slice(0, newFolderInfo.path.indexOf("/"))
+          : newFolderInfo.path;
       const params = `uid=${uid}&dir_name=${name}&parent=${modifiedPath}&tag=${tagOption.chosen}&pass=${
         passwordCoincide ? password : ""
       }&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
@@ -212,9 +206,7 @@ const CreateFolder = ({
               <div className={styles.inputWrap}>
                 <SelectFolder
                   className={styles.select}
-                  path={path}
-                  setPath={setPath}
-                  initFolder={newFolderInfo?.path}
+                  initFolder={newFolderInfo}
                   setNewFolderInfo={setNewFolderInfo}
                 />
               </div>

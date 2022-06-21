@@ -32,7 +32,6 @@ const CustomFolderItem = ({
   setError,
   setNewFolderInfo,
   setNewFolder,
-  newFolderInfo,
   setMouseParams,
   setGLoader,
   setFilesPage,
@@ -168,7 +167,7 @@ const CustomFolderItem = ({
     if (!isRecent && !offDispatch) openFolder(e);
     //for SelectFile in Chat
     if (renderFiles && offDispatch) openFolder(e, true);
-    if (!fileList?.path !== f.path) {
+    if (fileList?.path !== f.path) {
       const cancel = new Promise((resolve) => {
         resolve(cancelRequest("cancelChooseFiles"));
       });
@@ -182,13 +181,15 @@ const CustomFolderItem = ({
         if (!offDispatch) dispatch(onChooseFiles(f.path, "", 1, "", setGLoader));
         if (offDispatch && renderFiles) dispatch(onChooseFiles(f.path, "", 1, "", setGLoader));
         if (!offDispatch) setFilesPage(1);
-        if (offDispatch && newFolderInfo?.path) setNewFolderInfo((state) => ({ ...state, path: "" }));
       });
+      if (offDispatch) {
+        setNewFolderInfo((state) => ({ ...state, path: f.path }));
+      }
     }
   };
 
   const handleAddFolder = () => {
-    setNewFolderInfo({ ...newFolderInfo, path: f.path });
+    setNewFolderInfo((state) => ({ ...state, path: f.path }));
     setNewFolder(true);
   };
 
@@ -345,9 +346,9 @@ CustomFolderItem.propTypes = {
   subFolder: PropTypes.bool,
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
-  newFolderInfo: PropTypes.exact({
-    path: PropTypes.string
-  }),
+  // newFolderInfo: PropTypes.exact({
+  //   path: PropTypes.string
+  // }),
   setMouseParams: PropTypes.func,
   setError: PropTypes.func,
   setGLoader: PropTypes.func,
