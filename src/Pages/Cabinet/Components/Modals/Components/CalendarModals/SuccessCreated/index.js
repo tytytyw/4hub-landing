@@ -52,12 +52,12 @@ const SuccessCreated = ({ closeModal }) => {
             <p className={styles.option}>{__("Срок Выполнения")}</p>
             <div className={styles.infoWrap}>
               <div className={styles.valueWrap}>
-                <p className={styles.option}>С:</p>
-                <p className={styles.value}>{task?.date_start}</p>
+                <p className={styles.option}>{__("Дата")}:</p>
+                <p className={styles.value}>{task?.dateStart}</p>
               </div>
               <div className={styles.valueWrap}>
-                <p className={styles.option}>{__("До:")}</p>
-                <p className={styles.value}>{task?.date_end}</p>
+                <p className={styles.option}>{__("Время")}:</p>
+                <p className={styles.value}>{task?.timeStart}</p>
               </div>
             </div>
           </div>
