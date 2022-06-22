@@ -7,7 +7,7 @@ import { ReactComponent as ContactsIcon } from "../../../../assets/PrivateCabine
 import { ReactComponent as SettingsIcon } from "../../../../assets/PrivateCabinet/gear-6.svg";
 import { ReactComponent as PhoneIcon } from "../../../../assets/PrivateCabinet/phone-5.svg";
 import AddContact from "./AddContact";
-import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import ContactList from "./ContactList";
 import ChatList from "./ChatList";
 import WorkSpace from "./WorkSpace";
@@ -31,6 +31,7 @@ import { groupDelete, secretChatDelete, leaveGroup } from "../ContextMenuCompone
 import { contactDelete } from "../../../../generalComponents/chatHelper";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { clearAllChatMessages } from "./chatService";
 
 const Chat = ({ setMenuItem }) => {
   const { __ } = useLocales();
@@ -103,7 +104,22 @@ const Chat = ({ setMenuItem }) => {
 
   const callbackArr = {
     contact: [
-      { name: __("Очистить историю"), type: "clearMessages" },
+      {
+        name: __("Очистить историю"),
+        type: "clearMessages",
+        callback: () => {
+          clearAllChatMessages(uid, selectedContact)
+            .catch((e) => {
+              console.log(e);
+              dispatch(MODALS.ERROR, { open: true, message: __("Ошибка удаления всех сообщений") });
+            })
+            .finally(() => {
+              const newContact = selectedContact;
+              dispatch(onSetSelectedContact(null));
+              dispatch(onSetSelectedContact(newContact));
+            });
+        }
+      },
       { name: __("Заблокировать"), type: "blockUser" },
       { name: __("Отметить непрочитанным"), type: "markAsUnread" },
       {
