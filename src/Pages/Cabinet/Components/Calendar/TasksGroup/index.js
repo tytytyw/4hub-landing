@@ -16,7 +16,7 @@ const TasksGroup = ({ event, tasks, setMouseParams, setChosenFile }) => {
   const tasksGroup = [];
 
   tasks.forEach((item) => {
-    if (event.id === +item.id_type) {
+    if (event.id === Number(item.id_type)) {
       tasksGroup.push(item);
     }
   });
@@ -49,7 +49,8 @@ export default TasksGroup;
 TasksGroup.propTypes = {
   event: PropTypes.exact({
     id: PropTypes.number,
-    name: PropTypes.string
+    name: PropTypes.string,
+    icon: PropTypes.string
   }),
   tasks: PropTypes.arrayOf(eventProps),
   setMouseParams: PropTypes.func,

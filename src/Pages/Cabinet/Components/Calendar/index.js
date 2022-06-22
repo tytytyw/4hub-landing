@@ -6,10 +6,7 @@ import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile/Profile";
 import DateBlock from "./DateBlock";
-// import WorkSpaceList from "./WorkSpaceList";
-import ListCalendar from "./ListCalendar";
 import BottomPanel from "../BottomPanel";
-// import FullCalendarTable from "./FullCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
@@ -30,9 +27,6 @@ const CalendarPage = () => {
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
 
-  // eslint-disable-next-line
-  const [viewType, setViewType] = useState("full");
-
   useEffect(() => {
     dispatch(onGetAllTasks());
   }, []); // eslint-disable-line
@@ -42,12 +36,7 @@ const CalendarPage = () => {
       `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
     );
   };
-  // const getEventsCount = () => {
-  //   const findEvents = events.filter((event) => {
-  //     return event?.date.getDate() === calendarDate.getDate();
-  //   });
-  //   return findEvents?.length;
-  // };
+
   const createTask = () => {
     dispatch(
       onSetModals(MODALS.CALENDAR, {
@@ -78,7 +67,6 @@ const CalendarPage = () => {
               alt="Add Task Icon"
             />
           </div>
-          <ListCalendar setViewType={setViewType} />
           <SidebarTasks tasks={myTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
@@ -87,7 +75,7 @@ const CalendarPage = () => {
             <p className={styles.date}>{getStrDate()}</p>
 
             <div className={styles.headerBtnWrap}>
-              <button className={styles.headerBtn}>{/* {getEventsCount()} {__("задач")} */}</button>
+              <button className={styles.headerBtn}></button>
             </div>
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>{__("1 новая задача")}</button>
@@ -97,8 +85,6 @@ const CalendarPage = () => {
               <button className={styles.headerBtn}>{__("1 напоминание")}</button>
             </div>
           </div>
-          {/* {viewType === "full" && <FullCalendarTable events={events} />}
-          {viewType === "list" && <WorkSpaceList events={events} />} */}
         </div>
       </div>
       {mouseParams !== null && (

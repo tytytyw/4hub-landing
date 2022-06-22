@@ -240,3 +240,15 @@ export function createArrayOfHoursPerDay(beginFrom, interval) {
     throw new Error("Type of the incoming parameter must be date");
   }
 }
+
+export const useEvents = () => {
+  const { __ } = useLocales();
+  return [
+    { id: 1, name: __("Задача"), icon: "task" },
+    { id: 2, name: __("День рождение"), icon: "birthday" },
+    { id: 3, name: __("Встреча online"), icon: "online-meeting" },
+    { id: 4, name: __("Встреча offline"), icon: "offline-meeting" },
+    { id: 5, name: __("Напоминание"), icon: "reminder" },
+    { id: 6, name: __("Другое"), icon: "other" }
+  ];
+};

@@ -14,6 +14,8 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { ADD_NEW_TASK } from "Store/types";
 import { onAddNewTask, onSetModals } from "Store/actions/CabinetActions";
+import { useEvents } from "generalComponents/CalendarHelper";
+import { getMaskDate } from "generalComponents/generalHelpers";
 
 const CreateTask = ({ closeModal }) => {
   const { __ } = useLocales();
@@ -31,15 +33,7 @@ const CreateTask = ({ closeModal }) => {
   const [emoji, setEmoji] = useState("");
   const [idType, setIdType] = useState("");
   const [name, setName] = useState("");
-
-  const events = [
-    { id: 1, name: __("Задача"), icon: "task" },
-    { id: 2, name: __("День рождение"), icon: "birthday" },
-    { id: 3, name: __("Встреча online"), icon: "online-meeting" },
-    { id: 4, name: __("Встреча offline"), icon: "offline-meeting" },
-    { id: 5, name: __("Напоминание"), icon: "reminder" },
-    { id: 6, name: __("Другое"), icon: "other" }
-  ];
+  const events = useEvents();
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -85,30 +79,15 @@ const CreateTask = ({ closeModal }) => {
     return event?.name;
   };
 
-  const maskDate = (date) => {
-    const tempValue = date.replace(/\D/gim, "");
-    return tempValue.replace(
-      ...({
-        2: [/(\d{2})/g, "$1"],
-        3: [/(\d{2})/g, "$1."],
-        4: [/(\d{2})(\d{0,2})/g, "$1.$2"],
-        5: [/(\d{2})(\d{2})/g, "$1.$2."],
-        6: [/(\d{2})(\d{2})(\d{0,4})/g, "$1.$2.$3"],
-        7: [/(\d{2})(\d{2})(\d{1,4})/g, "$1.$2.$3"],
-        8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"]
-      }[tempValue.length] || [])
-    );
-  };
-
   const onChangeDateFrom = (event) => {
     let { value } = event.target;
-    event.target.value = maskDate(value);
+    event.target.value = getMaskDate(value);
     setDateStart(event.target.value);
   };
 
   const onChangeTimeStart = (event) => {
     let { value } = event.target;
-    event.target.value = maskDate(value);
+    event.target.value = getMaskDate(value);
     setTimeStart(event.target.value);
   };
 
@@ -155,7 +134,7 @@ const CreateTask = ({ closeModal }) => {
             <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
             <div className={styles.rangeDateWrap}>
               <div className={styles.rangeDateBlock}>
-                <span>{__("Дата:")}</span>
+                <span>{__("Дата")}:</span>
                 <input
                   type="text"
                   className={styles.rangeInput}
@@ -167,7 +146,7 @@ const CreateTask = ({ closeModal }) => {
               </div>
               &nbsp;&nbsp;
               <div className={styles.rangeDateBlock}>
-                <span>{__("Время:")}</span>
+                <span>{__("Время")}:</span>
                 <input
                   type="text"
                   className={styles.rangeInput}

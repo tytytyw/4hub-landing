@@ -2,25 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import TasksGroup from "../TasksGroup";
 import { eventProps } from "types/CalendarPage";
-import { useLocales } from "react-localized";
+import { useEvents } from "generalComponents/CalendarHelper";
 
 const SidebarTasks = ({ tasks, setMouseParams, setChosenFile }) => {
-  const { __ } = useLocales();
-  //mylog
-  console.log(tasks);
-
-  const events = [
-    { id: 1, name: __("Задача") },
-    { id: 2, name: __("День рождение") },
-    { id: 3, name: __("Встреча online") },
-    { id: 4, name: __("Встреча offline") },
-    { id: 5, name: __("Напоминание") },
-    { id: 6, name: __("Другое") }
-  ];
-
   return (
     <>
-      {events.map((event, i) => {
+      {useEvents().map((event, i) => {
         return (
           <TasksGroup
             key={i}
