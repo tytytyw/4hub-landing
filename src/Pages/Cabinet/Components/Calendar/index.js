@@ -16,6 +16,7 @@ import { monthNameType } from "./helper";
 import classnames from "classnames";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
+import ListCalendar from "./ListCalendar";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
@@ -67,6 +68,7 @@ const CalendarPage = () => {
               alt="Add Task Icon"
             />
           </div>
+          <ListCalendar />
           <SidebarTasks tasks={myTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
