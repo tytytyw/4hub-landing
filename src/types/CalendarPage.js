@@ -21,6 +21,7 @@ export const eventProps = PropTypes.exact({
   sign: PropTypes.string,
   date_start: PropTypes.string,
   date_end: PropTypes.string,
+  start_time: PropTypes.string,
   emails: PropTypes.string,
   tags: tagOptionProps,
   prim: PropTypes.string,
