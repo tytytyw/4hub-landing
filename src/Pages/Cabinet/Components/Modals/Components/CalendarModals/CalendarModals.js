@@ -3,7 +3,7 @@ import styles from "./CalendarModals.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { CALENDAR_MODALS, MODALS } from "../../../../../../generalComponents/globalVariables";
-import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { onGetAllTasks, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
 import CreateTask from "./CreateTask";
 import SuccessCreated from "./SuccessCreated";
@@ -15,6 +15,7 @@ function CalendarModals() {
   const closeModal = () => {
     dispatch(onSetModals(MODALS.CALENDAR, { type: MODALS.NO_MODAL, params: null }));
     dispatch({ type: CLEAR_TASK, params: "" });
+    dispatch(onGetAllTasks());
   };
   const { type } = useSelector((s) => s.Cabinet.modals.calendarModals);
   const TITLES = useTaskModalTitles();

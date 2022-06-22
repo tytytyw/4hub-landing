@@ -6,6 +6,8 @@ import { useLocales } from "react-localized";
 
 const SidebarTasks = ({ tasks, setMouseParams, setChosenFile }) => {
   const { __ } = useLocales();
+  //mylog
+  console.log(tasks);
 
   const events = [
     { id: 1, name: __("Задача") },

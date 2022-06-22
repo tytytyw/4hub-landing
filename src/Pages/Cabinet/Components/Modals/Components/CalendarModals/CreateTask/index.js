@@ -13,7 +13,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { ADD_NEW_TASK } from "Store/types";
-import { onAddNewTask, onGetAllTasks, onSetModals } from "Store/actions/CabinetActions";
+import { onAddNewTask, onSetModals } from "Store/actions/CabinetActions";
 
 const CreateTask = ({ closeModal }) => {
   const { __ } = useLocales();
@@ -21,15 +21,16 @@ const CreateTask = ({ closeModal }) => {
   const { theme } = useSelector((state) => state.user.userInfo);
   const tags = useTags();
   const [eventType, setEventType] = useState("");
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [dateStart, setDateStart] = useState("");
+  const [timeStart, setTimeStart] = useState("");
   const [email, setEmail] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
   const [text, setText] = useState("");
   const [color, setColor] = useState(colors[0]);
-  const [sign, setSign] = useState("");
+  const [figure, setFigure] = useState("");
   const [emoji, setEmoji] = useState("");
   const [idType, setIdType] = useState("");
+  const [name, setName] = useState("");
 
   const events = [
     { id: 1, name: __("Задача"), icon: "task" },
@@ -54,23 +55,22 @@ const CreateTask = ({ closeModal }) => {
     dispatch({
       type: ADD_NEW_TASK,
       payload: {
-        name: "Calendar task",
-        id_type: idType,
+        name,
+        idType,
         text,
-        date_start: dateFrom,
-        date_end: dateTo,
+        dateStart,
+        timeStart,
         tagOption,
         filters: {
           color,
           emoji,
-          figure: sign
+          figure
         },
         emails: [email]
       }
     });
     dispatch(onSetModals(MODALS.LOADER, true));
     dispatch(onAddNewTask(TASK.API_ADD_TASKS, __("Не удалось добавить задачу")));
-    dispatch(onGetAllTasks());
   };
 
   const width = window.innerWidth;
@@ -103,13 +103,13 @@ const CreateTask = ({ closeModal }) => {
   const onChangeDateFrom = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
-    setDateFrom(event.target.value);
+    setDateStart(event.target.value);
   };
 
-  const onChangeDateTo = (event) => {
+  const onChangeTimeStart = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
-    setDateTo(event.target.value);
+    setTimeStart(event.target.value);
   };
 
   return (
@@ -118,6 +118,15 @@ const CreateTask = ({ closeModal }) => {
         <div className={styles.content}>
           <span className={styles.title}>{__("Добавить событие")}</span>
           <div className={styles.inputFieldsWrap}>
+            <div className={styles.inputWrap}>
+              <InputField
+                model="text"
+                height={width >= 1440 ? "40px" : "30px"}
+                value={name}
+                set={setName}
+                placeholder={__("Имя")}
+              />
+            </div>
             <div className={styles.selectWrap}>
               <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
                 <ul className={styles.eventsList}>
@@ -146,26 +155,26 @@ const CreateTask = ({ closeModal }) => {
             <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
             <div className={styles.rangeDateWrap}>
               <div className={styles.rangeDateBlock}>
-                <span>{__("С:")}</span>
+                <span>{__("Дата:")}</span>
                 <input
                   type="text"
                   className={styles.rangeInput}
                   placeholder="_ _ . _ _ . _ _ _ _"
-                  value={dateFrom}
+                  value={dateStart}
                   maxLength={10}
                   onChange={onChangeDateFrom}
                 />
               </div>
               &nbsp;&nbsp;
               <div className={styles.rangeDateBlock}>
-                <span>{__("До:")}</span>
+                <span>{__("Время:")}</span>
                 <input
                   type="text"
                   className={styles.rangeInput}
-                  placeholder={__("_ _ . _ _ . _ _ _ _")}
-                  value={dateTo}
-                  maxLength={10}
-                  onChange={onChangeDateTo}
+                  placeholder={__("_ _ . _ _ ")}
+                  value={timeStart}
+                  maxLength={5}
+                  onChange={onChangeTimeStart}
                 />
               </div>
             </div>
@@ -211,7 +220,7 @@ const CreateTask = ({ closeModal }) => {
           </div>
           <div className={styles.customizeEvent}>
             <Colors color={color} setColor={setColor} />
-            <Signs sign={sign} setSign={setSign} />
+            <Signs sign={figure} setSign={setFigure} />
             <Emoji emoji={emoji} setEmoji={setEmoji} />
           </div>
         </div>

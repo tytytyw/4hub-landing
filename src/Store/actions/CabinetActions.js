@@ -780,16 +780,17 @@ export const setCalendarDate = (date) => {
 export const onAddNewTask = (endpoint, message) => async (dispatch, getState) => {
   const params = {
     name: getState().Cabinet.taskCriterion.name,
-    id_type: getState().Cabinet.taskCriterion.id_type,
-    id_dep: getState().Cabinet.taskCriterion.id_dep,
+    id_type: getState().Cabinet.taskCriterion.idType,
+    id_dep: getState().Cabinet.taskCriterion.idDep,
     prim: getState().Cabinet.taskCriterion.text,
-    date_start: getState().Cabinet.taskCriterion.dateFrom,
-    date_end: getState().Cabinet.taskCriterion.dateTo,
+    date_start: getState().Cabinet.taskCriterion.dateStart,
+    date_end: getState().Cabinet.taskCriterion.dateEnd,
+    time_start: getState().Cabinet.taskCriterion.timeStart,
     uid: getState().user.uid,
-    filter_color: getState().Cabinet.taskCriterion.filters.color.color,
-    filter_emo: getState().Cabinet.taskCriterion.filters.emoji,
-    filter_fig: getState().Cabinet.taskCriterion.filters.figure,
-    id_act: getState().Cabinet.taskCriterion.id_act,
+    id_color: getState().Cabinet.taskCriterion.filters.color,
+    id_emo: getState().Cabinet.taskCriterion.filters.emoji,
+    id_fig: getState().Cabinet.taskCriterion.filters.figure,
+    id_act: getState().Cabinet.taskCriterion.idAct,
     emails: getState().Cabinet.taskCriterion.emails,
     tags: getState().Cabinet.taskCriterion.tagOption
   };

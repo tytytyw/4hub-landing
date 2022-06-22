@@ -36,6 +36,7 @@ const CalendarPage = () => {
   useEffect(() => {
     dispatch(onGetAllTasks());
   }, []); // eslint-disable-line
+
   const getStrDate = () => {
     return __(
       `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`

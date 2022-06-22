@@ -154,18 +154,19 @@ const INITIAL_STATE = {
   myTasks: {},
   taskCriterion: {
     name: "",
-    id_type: "",
-    id_dep: "",
+    idType: "",
+    idDep: "",
     text: "",
-    date_start: "",
-    date_end: "",
-    tagOption: "",
+    dateStart: "",
+    dateEnd: "",
+    timeStart: "",
+    tagOption: {},
     filters: {
-      color: "",
+      color: {},
       emoji: "",
       figure: ""
     },
-    id_act: "",
+    idAct: "",
     emails: []
   },
 
@@ -706,18 +707,19 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         taskCriterion: {
           name: "",
-          id_type: 0,
-          id_dep: "",
+          idType: "",
+          idDep: "",
           text: "",
-          date_start: "",
-          date_end: "",
-          tagOption: "",
+          dateStart: "",
+          dateEnd: "",
+          timeStart: "",
+          tagOption: {},
           filters: {
-            color: "",
+            color: {},
             emoji: "",
             figure: ""
           },
-          id_act: "",
+          idAct: "",
           emails: []
         }
       };
