@@ -33,14 +33,16 @@ const CustomChatItem = ({
       setMouseParams({
         x: e.clientX,
         y: e.clientY,
-        width: 210,
+        width: 230,
         height: 25,
         contextMenuList
       });
 
     if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
       setCollapseMembersList((state) => !state);
-    } else setSelectedContact({ ...chatItem, status });
+    } else {
+      setSelectedContact({ ...chatItem, status });
+    }
   };
   return (
     <div

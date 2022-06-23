@@ -478,7 +478,8 @@ export function useContextMenuChat() {
     ],
     secretChat: [{ name: __("Удалить"), img: "garbage", type: "deleteSecretChat" }],
     userInGroup: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Удалить из группы"),
@@ -487,7 +488,8 @@ export function useContextMenuChat() {
       }
     ],
     recentChat: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Отметить непрочитанным"),
@@ -496,7 +498,8 @@ export function useContextMenuChat() {
       }
     ],
     contact: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Отметить непрочитанным"),
