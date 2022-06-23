@@ -787,12 +787,12 @@ export const onAddNewTask = (endpoint, message) => async (dispatch, getState) =>
     date_end: getState().Cabinet.taskCriterion.dateEnd,
     time_start: getState().Cabinet.taskCriterion.timeStart,
     uid: getState().user.uid,
-    id_color: getState().Cabinet.taskCriterion.filters.color,
-    id_emo: getState().Cabinet.taskCriterion.filters.emoji,
-    id_fig: getState().Cabinet.taskCriterion.filters.figure,
+    color: getState().Cabinet.taskCriterion.filters.color,
+    emoji: getState().Cabinet.taskCriterion.filters.emoji,
+    symbol: getState().Cabinet.taskCriterion.filters.figure,
     id_act: getState().Cabinet.taskCriterion.idAct,
     emails: getState().Cabinet.taskCriterion.emails,
-    tags: getState().Cabinet.taskCriterion.tagOption
+    tag: getState().Cabinet.taskCriterion.tagOption
   };
   api
     .get(`/ajax/${endpoint}.php`, { params })

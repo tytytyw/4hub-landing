@@ -1,5 +1,5 @@
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
-import { imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
+import { CALENDAR_MODALS, imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
 import React from "react";
 import { useLocales } from "react-localized";
 import { eventProps } from "types/CalendarPage";
@@ -14,7 +14,12 @@ function ContextMenuTask({ task }) {
       img: "edit",
       name: __("Редактировать задачу"),
       callback: () => {
-        // TODO - VZkh - Добавить колбек радектирования задачи
+        dispatch(
+          onSetModals(MODALS.CALENDAR, {
+            type: CALENDAR_MODALS.ADD_TASK,
+            taskChoosen: task
+          })
+        );
       }
     },
     {
