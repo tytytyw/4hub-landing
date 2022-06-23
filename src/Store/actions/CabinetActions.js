@@ -777,40 +777,41 @@ export const setCalendarDate = (date) => {
   };
 };
 
-export const onAddNewTask = (endpoint, message) => async (dispatch, getState) => {
+export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
   const params = {
-    name: getState().Cabinet.taskCriterion.name,
-    id_type: getState().Cabinet.taskCriterion.idType,
-    id_dep: getState().Cabinet.taskCriterion.idDep,
-    prim: getState().Cabinet.taskCriterion.text,
-    date_start: getState().Cabinet.taskCriterion.dateStart,
-    date_end: getState().Cabinet.taskCriterion.dateEnd,
-    time_start: getState().Cabinet.taskCriterion.timeStart,
+    name: payload.name,
+    id_type: payload.eventType,
+    id_dep: payload.idDep,
+    prim: payload.text,
+    date_start: payload.dateStart,
+    date_end: payload.dateEnd,
+    time_start: payload.timeStart,
     uid: getState().user.uid,
-    color: getState().Cabinet.taskCriterion.filters.color,
-    emoji: getState().Cabinet.taskCriterion.filters.emoji,
-    symbol: getState().Cabinet.taskCriterion.filters.figure,
-    id_act: getState().Cabinet.taskCriterion.idAct,
-    emails: getState().Cabinet.taskCriterion.emails,
-    tag: getState().Cabinet.taskCriterion.tagOption
+    color: payload.color,
+    emoji: payload.emoji,
+    symbol: payload.figure,
+    id_act: payload.idAct,
+    emails: payload.emails,
+    tag: payload.tagOption
   };
   api
-    .get(`/ajax/${endpoint}.php`, { params })
+    .get(`/ajax/task_add.php`, { params })
     .then((response) => {
-      if (checkResponseStatus(response.data.ok)) {
-        dispatch(onSetModals(MODALS.LOADER, false));
-        dispatch(
-          onSetModals(MODALS.CALENDAR, {
-            type: CALENDAR_MODALS.SUCCESS_ADD
-          })
-        );
-      } else {
-        dispatch(onSetModals(MODALS.LOADER, false));
-        dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
-      }
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.CALENDAR, {
+          type: CALENDAR_MODALS.SUCCESS_ADD,
+          params: response
+        })
+      );
+      dispatch(onSetModals(MODALS.LOADER, false));
+    })
+    .then(() => {
+      dispatch(onGetAllTasks());
     })
     .catch((error) => {
-      onSetModals(MODALS.ERROR, { open: true, message });
+      dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
       console.log(error);
     });
 };
@@ -819,9 +820,7 @@ export const onGetAllTasks = () => async (dispatch, getState) => {
   api
     .get(`ajax/task_get.php`, {
       params: {
-        uid: getState().user.uid,
-        id_dep: getState().Cabinet.taskCriterion.id_dep,
-        id_type: getState().Cabinet.taskCriterion.id_type
+        uid: getState().user.uid
       }
     })
     .then((response) => {
@@ -849,22 +848,61 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
       }
     })
     .then((response) => {
-      if (checkResponseStatus(response.data.ok)) {
-        dispatch(onSetModals(MODALS.LOADER, false));
-        dispatch(
-          onSetModals(MODALS.SUCCESS, {
-            open: true,
-            message
-          })
-        );
-        dispatch(onGetAllTasks());
-      } else {
-        dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
-      }
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.SUCCESS, {
+          open: true,
+          message
+        })
+      );
     })
-    .catch((error) => {
+    .then(() => {
+      dispatch(onGetAllTasks());
+    })
+    .catch((e) => {
       dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
-      console.log(error);
+      console.log(e);
+    });
+};
+
+export const onEditTask = (payload, message, error) => async (dispatch, getState) => {
+  const params = {
+    name: payload.name,
+    id_task: payload.idTask,
+    id_type: payload.eventType,
+    id_dep: payload.idDep,
+    prim: payload.text,
+    date_start: payload.dateStart,
+    date_end: payload.dateEnd,
+    time_start: payload.timeStart,
+    uid: getState().user.uid,
+    color: payload.color,
+    emoji: payload.emoji,
+    symbol: payload.figure,
+    id_act: payload.idAct,
+    emails: payload.emails,
+    tag: payload.tagOption
+  };
+
+  api
+    .get(`ajax/task_edit.php`, { params })
+    .then((response) => {
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.SUCCESS, {
+          open: true,
+          message
+        })
+      );
+    })
+    .then(() => {
+      dispatch(onGetAllTasks());
+    })
+    .catch((err) => {
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+      console.log(err);
     });
 };
 

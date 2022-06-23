@@ -40,6 +40,9 @@
   position: relative
   width: 530px
   animation: showPopup 0.2s ease-in-out
+  .edditButtons
+    display: flex
+    justify-content: center
 
 .content
   display: flex
@@ -194,6 +197,7 @@
       width: 100%
       height: 45px
       margin-bottom: 15px
+      color: $color-text-grey
       .eventsList
         margin: 0
         padding: 0 15px
@@ -203,6 +207,8 @@
           align-items: center
           border-bottom: 1px solid $color-border-grey
           padding: 11px 10px 14px 10px
+          &:hover
+            color: $color-primary
           &:first-child
             border-top: 1px solid $color-border-grey
           &:last-child
@@ -211,7 +217,6 @@
             margin: 0
             font-size: 12px
             line-height: 16px
-            color: $color-text-grey
           .eventIconWrap
             width: 25px
             margin-right: 10px

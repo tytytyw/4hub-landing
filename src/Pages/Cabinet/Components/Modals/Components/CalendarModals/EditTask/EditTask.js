@@ -1,39 +1,40 @@
 import React, { useState } from "react";
 
-import styles from "./CreateTask.module.sass";
+import styles from "./EditTask.module.sass";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { colors, useTags } from "../../../../../../../generalComponents/collections";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
-import Select from "./Select/Select";
-import { imageSrc, MODALS, TASK } from "../../../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { ADD_NEW_TASK } from "Store/types";
-import { onAddNewTask, onSetModals } from "Store/actions/CabinetActions";
+import { onAddNewTask, onEditTask, onSetModals } from "Store/actions/CabinetActions";
 import { useEvents } from "generalComponents/CalendarHelper";
 import { getMaskDate } from "generalComponents/generalHelpers";
+import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
+import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 
-const CreateTask = ({ closeModal }) => {
+const EditTask = ({ closeModal, type }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.user.userInfo);
+  const { taskChoosen } = useSelector((state) => state.Cabinet.modals.calendarModals);
   const tags = useTags();
-  const [eventType, setEventType] = useState("");
+  const events = useEvents();
+
+  const [name, setName] = useState(taskChoosen ? taskChoosen.name : "");
+  const [eventType, setEventType] = useState(taskChoosen ? Number(taskChoosen.id_type) : "");
   const [dateStart, setDateStart] = useState("");
   const [timeStart, setTimeStart] = useState("");
   const [email, setEmail] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
-  const [text, setText] = useState("");
+  const [text, setText] = useState(taskChoosen ? taskChoosen.prim : "");
   const [color, setColor] = useState(colors[0]);
-  const [figure, setFigure] = useState("");
-  const [emoji, setEmoji] = useState("");
-  const [idType, setIdType] = useState("");
-  const [name, setName] = useState("");
-  const events = useEvents();
+  const [figure, setFigure] = useState(taskChoosen ? taskChoosen.id_fig : "");
+  const [emoji, setEmoji] = useState(taskChoosen ? taskChoosen.id_emo : "");
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -45,28 +46,41 @@ const CreateTask = ({ closeModal }) => {
     });
   };
 
-  const addNewTask = () => {
-    dispatch({
-      type: ADD_NEW_TASK,
-      payload: {
-        name,
-        idType,
-        text,
-        dateStart,
-        timeStart,
-        tagOption,
-        filters: {
-          color,
-          emoji,
-          figure
-        },
-        emails: [email]
-      }
-    });
-    dispatch(onSetModals(MODALS.LOADER, true));
-    dispatch(onAddNewTask(TASK.API_ADD_TASKS, __("Не удалось добавить задачу")));
+  const payload = {
+    name,
+    eventType,
+    text,
+    dateStart,
+    timeStart,
+    tagOption,
+    color,
+    emoji,
+    figure,
+    emails: [email],
+    idTask: taskChoosen ? taskChoosen.id : ""
   };
 
+  const addNewTask = () => {
+    dispatch(onSetModals(MODALS.LOADER, true));
+    dispatch(onAddNewTask(payload, __("Не удалось добавить задачу")));
+  };
+
+  const editTask = () => {
+    dispatch(onSetModals(MODALS.LOADER, true));
+    dispatch(onEditTask(payload, __("Задача успешно отредактирована"), __("Не удалось изменить задачу")));
+    closeModal();
+  };
+
+  const onSubmit = (type) => {
+    switch (type) {
+      case TASK_MODALS.ADD_TASK:
+        return addNewTask();
+      case TASK_MODALS.EDIT_TASK:
+        return editTask();
+      default:
+        return console.log("Error");
+    }
+  };
   const width = window.innerWidth;
 
   const onChangeTag = (chosen) => {
@@ -95,7 +109,6 @@ const CreateTask = ({ closeModal }) => {
     <>
       <div className={styles.createFolderWrap}>
         <div className={styles.content}>
-          <span className={styles.title}>{__("Добавить событие")}</span>
           <div className={styles.inputFieldsWrap}>
             <div className={styles.inputWrap}>
               <InputField
@@ -107,14 +120,13 @@ const CreateTask = ({ closeModal }) => {
               />
             </div>
             <div className={styles.selectWrap}>
-              <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
+              <SelectChosen placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
                 <ul className={styles.eventsList}>
                   {events.map((event, index) => (
                     <li
                       key={index}
                       onClick={() => {
                         setEventType(event?.id);
-                        setIdType(event?.id);
                       }}
                       className={styles.eventItem}
                     >
@@ -129,7 +141,7 @@ const CreateTask = ({ closeModal }) => {
                     </li>
                   ))}
                 </ul>
-              </Select>
+              </SelectChosen>
             </div>
             <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
             <div className={styles.rangeDateWrap}>
@@ -204,21 +216,17 @@ const CreateTask = ({ closeModal }) => {
           </div>
         </div>
 
-        <div className={styles.buttonsWrap}>
-          <div className={styles.cancel} onClick={closeModal}>
-            {__("Отмена")}
-          </div>
-          <div className={styles.add} onClick={addNewTask}>
-            {__("Создать")}
-          </div>
+        <div className={styles.edditButtons}>
+          <SubmitButtons type={type} closeModal={closeModal} onSubmit={() => onSubmit(type)} />
         </div>
       </div>
     </>
   );
 };
 
-export default CreateTask;
+export default EditTask;
 
-CreateTask.propTypes = {
-  closeModal: PropTypes.func
+EditTask.propTypes = {
+  closeModal: PropTypes.func,
+  type: PropTypes.string
 };

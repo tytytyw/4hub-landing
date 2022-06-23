@@ -75,7 +75,6 @@ export const GET_JOURNAL_FOLDERS = "GET_JOURNAL_FOLDERS";
 
 //CALENDAR && MY TASK
 export const SET_CALENDAR_DATE = "SET_CALENDAR_DATE";
-export const ADD_NEW_TASK = "ADD_NEW_TASK";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const GET_TASK = "GET_TASK";
@@ -84,7 +83,6 @@ export const ADD_NEW_DEP_TASK = "ADD_NEW_DEP_TASK";
 export const GET_DEP_TASKLIST = "GET_DEP_TASKLIST";
 export const DELETE_DEP_TASK = "DELETE_DEP_TASK";
 export const EDIT_DEP_TASK = "EDIT_DEP_TASK";
-export const CLEAR_TASK = "CLEAR_TASK";
 
 //GUEST MODE
 export const CHOOSE_GUEST_SHARED_FILES = "CHOOSE_GUEST_SHARED_FILES";

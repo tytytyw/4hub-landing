@@ -10,7 +10,7 @@ const SidebarEventItem = ({ task, count, setMouseParams, setChosenFile }) => {
     <div className={styles.eventWrap}>
       <div className={styles.event}>
         <div className={styles.eventIndex}>{count + 1}</div>
-        <div className={styles.eventText}>{task.prim}</div>
+        <div className={styles.eventText}>{task.name}</div>
       </div>
       <div className={styles.eventOptions}>
         <ThreeDots

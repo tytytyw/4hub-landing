@@ -224,10 +224,10 @@ export function dataURLintoBlobImage(dataURL) {
 }
 
 export const checkResponseStatus = (status) => {
-  if (typeof status === "number") {
+  if (typeof status === "number" && status === 1) {
     return status === 1;
   }
-  if (typeof status === "boolean") {
+  if (typeof status === "boolean" && status) {
     return status;
   }
   throw Error(`status ${status} with type ${typeof status} is not ok`);

@@ -74,9 +74,7 @@ import {
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
   FILES_USER_SHARED,
-  GET_TASK,
-  ADD_NEW_TASK,
-  CLEAR_TASK
+  GET_TASK
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -152,23 +150,6 @@ const INITIAL_STATE = {
   //CALENDAR && MY TASK
   calendarDate: new Date(),
   myTasks: {},
-  taskCriterion: {
-    name: "",
-    idType: "",
-    idDep: "",
-    text: "",
-    dateStart: "",
-    dateEnd: "",
-    timeStart: "",
-    tagOption: {},
-    filters: {
-      color: {},
-      emoji: "",
-      figure: ""
-    },
-    idAct: "",
-    emails: []
-  },
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -694,35 +675,6 @@ export default function startPage(state = INITIAL_STATE, action) {
     case GET_TASK:
       return { ...state, myTasks: { ...action.payload } };
 
-    case ADD_NEW_TASK:
-      return {
-        ...state,
-        taskCriterion: {
-          ...action.payload
-        }
-      };
-
-    case CLEAR_TASK:
-      return {
-        ...state,
-        taskCriterion: {
-          name: "",
-          idType: "",
-          idDep: "",
-          text: "",
-          dateStart: "",
-          dateEnd: "",
-          timeStart: "",
-          tagOption: {},
-          filters: {
-            color: {},
-            emoji: "",
-            figure: ""
-          },
-          idAct: "",
-          emails: []
-        }
-      };
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:
       return { ...state, guestSharedFiles: action.payload };

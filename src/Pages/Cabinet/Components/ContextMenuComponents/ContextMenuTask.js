@@ -16,7 +16,7 @@ function ContextMenuTask({ task }) {
       callback: () => {
         dispatch(
           onSetModals(MODALS.CALENDAR, {
-            type: CALENDAR_MODALS.ADD_TASK,
+            type: CALENDAR_MODALS.EDIT_TASK,
             taskChoosen: task
           })
         );

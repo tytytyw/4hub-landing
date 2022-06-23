@@ -107,13 +107,14 @@ export const BUTTON_TYPES = {
 
 //CALENDAR && TASKS Component
 export const TASK = {
-  API_ADD_TASKS: "task_add",
+  API_GET_TASKS: "task_calendar",
   API_GET_TASKS_CALENDAR: "task_calendar"
 };
 
 export const CALENDAR_MODALS = {
-  ADD_TASK: "ADD_TASK",
-  SUCCESS_ADD: "SUCCESS_ADD"
+  ADD_TASK: "AddTask",
+  EDIT_TASK: "EditTask",
+  SUCCESS_ADD: "SuccessAdd"
 };
 
 export const BOARDS = {

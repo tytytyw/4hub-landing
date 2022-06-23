@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const SuccessCreated = ({ closeModal }) => {
   const { __ } = useLocales();
-  const task = useSelector((s) => s.Cabinet.taskCriterion);
+  const task = useSelector((s) => s.Cabinet.myTasks);
   return (
     <>
       <div className={styles.wrapper}>
