@@ -14,6 +14,7 @@ function ListItem({ title, icon, isChosen, onClick, listCollapsed, setMouseParam
   const uid = useSelector((state) => state.user.uid);
   const [folderAmount, setFolderAmount] = useState(getStorageItem(`${uid}+${dir}+/_LIBRARY_/`));
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (dir) {
       getQuantity();
@@ -89,7 +90,6 @@ ListItem.defaultProps = {
 
 ListItem.propTypes = {
   title: PropTypes.string.isRequired,
-  SvgIcon: PropTypes.elementType,
   icon: PropTypes.string,
   isChosen: PropTypes.bool,
   onClick: PropTypes.func,
