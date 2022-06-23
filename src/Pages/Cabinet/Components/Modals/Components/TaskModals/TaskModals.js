@@ -11,12 +11,14 @@ import EditMeeting from "./EditMeeting/EditMeeting";
 import EditCall from "./EditCall/EditCall";
 import EditLetter from "./EditLetter/EditLetter";
 import EditSection from "./EditSection/EditSection";
+import DeleteSection from "./DeleteSection/DeleteSection";
 
 function TaskModals() {
   const dispatch = useDispatch();
+  const { type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
 
   const closeModal = () => dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
-  const { type, params } = useSelector((s) => s.Cabinet.modals.taskModals);
+
   const TITLES = useTaskModalTitles();
   return (
     <PopUp set={closeModal}>
@@ -37,7 +39,10 @@ function TaskModals() {
         {type === TASK_MODALS.ADD_MEETING && <EditMeeting type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_CALL && <EditCall type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_LETTER && <EditLetter type={type} params={params} closeModal={closeModal} />}
-        {type === TASK_MODALS.ADD_SECTION && <EditSection type={type} params={params} closeModal={closeModal} />}
+        {(type === TASK_MODALS.ADD_SECTION || type === TASK_MODALS.EDIT_SECTION) && (
+          <EditSection type={type} params={params} closeModal={closeModal} />
+        )}
+        {type === TASK_MODALS.DELETE_SECTION && <DeleteSection closeModal={closeModal} icon={params.icon} />}
       </form>
     </PopUp>
   );

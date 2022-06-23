@@ -9,6 +9,7 @@ import LibraryList from "./LibraryList/LibraryList";
 import { useDispatch, useSelector } from "react-redux";
 import { onLoadFolders, onSetModals, onSetPath } from "../../../../Store/actions/CabinetActions";
 import {
+  contextMenuFolder,
   CONTEXT_MENU_FOLDER,
   imageSrc,
   LIBRARY,
@@ -70,7 +71,7 @@ function Library({
     setFilesPage(2);
   };
 
-  const renderMenuItems = (target, type) => {
+  const renderMenuItems = (target) => {
     return target.map((item, i) => {
       return (
         <ContextMenuItem
@@ -78,35 +79,28 @@ function Library({
           width={mouseParams.width}
           height={mouseParams.height}
           text={item.name}
-          callback={() => type.find((el) => el.type === item.type).callback()}
+          callback={callbacks[item.type]}
           imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
         />
       );
     });
   };
-
-  const callbackArrMain = [
-    {
-      type: "customize",
-      callback: () =>
-        dispatch(
-          onSetModals(MODALS.LIBRARY, {
-            type: LIBRARY_MODALS.RENAME_SECTION,
-            params: { width: 420, title: chosenFolder.dir.split("/").slice(1), icon: chosenFolder.icon }
-          })
-        )
-    },
-    {
-      type: "delete",
-      callback: () =>
-        dispatch(
-          onSetModals("contextMenuModals", {
-            type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
-            params: { width: 420, title: chosenFolder.dir, icon: "" }
-          })
-        )
-    }
-  ];
+  const callbacks = {
+    [contextMenuFolder.CUSTOMIZE]: () =>
+      dispatch(
+        onSetModals(MODALS.LIBRARY, {
+          type: LIBRARY_MODALS.RENAME_SECTION,
+          params: { width: 420, title: chosenFolder.dir.split("/").slice(1), icon: chosenFolder.icon }
+        })
+      ),
+    [contextMenuFolder.DELETE]: () =>
+      dispatch(
+        onSetModals("contextMenuModals", {
+          type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
+          params: { width: 420, title: chosenFolder.dir, icon: "" }
+        })
+      )
+  };
 
   const closeContextMenu = () => {
     setMouseParams(null);
@@ -156,7 +150,7 @@ function Library({
       ) : null}
       {mouseParams !== null ? (
         <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
-          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFolderLibrary, callbackArrMain)}</div>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFolderLibrary)}</div>
         </ContextMenu>
       ) : null}
     </div>

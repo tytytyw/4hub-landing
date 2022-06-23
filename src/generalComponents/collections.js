@@ -1,5 +1,5 @@
 import { useLocales } from "react-localized";
-import { BOARDS, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
+import { BOARDS, contextMenuFolder, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -698,6 +698,20 @@ export function useTaskBoardTitle() {
   };
 }
 
+export function useStandartTasksDepartment() {
+  const { __ } = useLocales();
+  return {
+    WORK_TASK: {
+      name: __("Рабочие задачи"),
+      id_dep: "worktask"
+    },
+    HOME_TASK: {
+      name: __("Личные задачи"),
+      id_dep: "hometask"
+    }
+  };
+}
+
 export function useStandardLibraries() {
   const { __ } = useLocales();
   return {
@@ -727,12 +741,14 @@ export function useStandardLibraries() {
 export function useTaskModalTitles() {
   const { __ } = useLocales();
   return {
+    [TASK_MODALS.ADD_SECTION]: __("Создать раздел"),
+    [TASK_MODALS.EDIT_SECTION]: __("Редактировать раздел"),
+    [TASK_MODALS.DELETE_SECTION]: __("Удалить раздел"),
     [TASK_MODALS.ADD_NOTE]: __("Создать заметку"),
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
-    [TASK_MODALS.ADD_SECTION]: __("Создать раздел"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
     [TASK_MODALS.ADD_COOMENT_TASK]: __("Комментарий к задаче"),
     [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
@@ -745,8 +761,8 @@ export function useTaskModalTitles() {
 export function useContextMenuFolderLibrary() {
   const { __ } = useLocales();
   return [
-    { name: __("Редактировать"), img: "edit", type: "customize" },
-    { name: __("Удалить раздел"), img: "garbage", type: "delete" }
+    { name: __("Редактировать"), img: "edit", type: contextMenuFolder.CUSTOMIZE },
+    { name: __("Удалить раздел"), img: "garbage", type: contextMenuFolder.DELETE }
   ];
 }
 

@@ -135,18 +135,25 @@ export const LOADING_STATE = {
 };
 
 export const TASK_MODALS = {
+  ADD_SECTION: "AddSection",
+  EDIT_SECTION: "EditSection",
+  DELETE_SECTION: "DeleteSection",
   ADD_NOTE: "AddNote",
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
-  ADD_SECTION: "AddSection",
   DELETE_TASK: "DeleteTask",
   ADD_COOMENT_TASK: "AddCommentTask",
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
   ADD_PASSWORD: "AddPassword"
+};
+
+export const contextMenuFolder = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
 };
 
 // MAIL

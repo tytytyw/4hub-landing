@@ -7,7 +7,8 @@ import { useLocales } from "react-localized";
 
 function SubmitButtons({ type, closeModal, onSubmit }) {
   const { __ } = useLocales();
-  const textButton = type === LIBRARY_MODALS.RENAME_SECTION ? __("Сохранить") : __("Добавить");
+  const textButton =
+    type === LIBRARY_MODALS.RENAME_SECTION || type === TASK_MODALS.EDIT_SECTION ? __("Сохранить") : __("Добавить");
 
   const renderSubmitButtons = () => {
     if (
@@ -19,6 +20,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
         TASK_MODALS.ADD_CALL,
         TASK_MODALS.ADD_LETTER,
         TASK_MODALS.ADD_SECTION,
+        TASK_MODALS.EDIT_SECTION,
         //Library
         LIBRARY_MODALS.ADD_SECTION,
         LIBRARY_MODALS.RENAME_SECTION
