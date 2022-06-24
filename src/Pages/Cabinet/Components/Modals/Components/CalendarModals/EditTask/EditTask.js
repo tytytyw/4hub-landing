@@ -12,7 +12,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { onAddNewTask, onEditTask, onSetModals } from "Store/actions/CabinetActions";
-import { useEvents } from "generalComponents/CalendarHelper";
+import { getStartDate, getStartTime, useEvents } from "generalComponents/CalendarHelper";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
@@ -24,15 +24,16 @@ const EditTask = ({ closeModal, type }) => {
   const { taskChoosen } = useSelector((state) => state.Cabinet.modals.calendarModals);
   const tags = useTags();
   const events = useEvents();
-
   const [name, setName] = useState(taskChoosen ? taskChoosen.name : "");
   const [eventType, setEventType] = useState(taskChoosen ? Number(taskChoosen.id_type) : "");
-  const [dateStart, setDateStart] = useState("");
-  const [timeStart, setTimeStart] = useState("");
-  const [email, setEmail] = useState("");
-  const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
+  const [dateStart, setDateStart] = useState(taskChoosen ? getStartDate(taskChoosen.date_start) : "");
+  const [timeStart, setTimeStart] = useState(taskChoosen ? getStartTime(taskChoosen.date_start) : "");
+  const [email, setEmail] = useState(taskChoosen ? taskChoosen.emails : "");
+  const [tagOption, setTagOption] = useState(
+    taskChoosen ? { chosen: taskChoosen.tags.chosen, count: taskChoosen.tags.count } : { chosen: "", count: 30 }
+  );
   const [text, setText] = useState(taskChoosen ? taskChoosen.prim : "");
-  const [color, setColor] = useState(colors[0]);
+  const [color, setColor] = useState(taskChoosen ? taskChoosen.id_color : colors[0]);
   const [figure, setFigure] = useState(taskChoosen ? taskChoosen.id_fig : "");
   const [emoji, setEmoji] = useState(taskChoosen ? taskChoosen.id_emo : "");
 
@@ -53,10 +54,10 @@ const EditTask = ({ closeModal, type }) => {
     dateStart,
     timeStart,
     tagOption,
-    color,
+    color: color.color,
     emoji,
     figure,
-    emails: [email],
+    emails: email,
     idTask: taskChoosen ? taskChoosen.id : ""
   };
 
@@ -143,7 +144,7 @@ const EditTask = ({ closeModal, type }) => {
                 </ul>
               </SelectChosen>
             </div>
-            <div className={styles.rangeDateLabel}>{__("Срок выполнения:")}</div>
+            <div className={styles.rangeDateLabel}>{__("Срок выполнения")}:</div>
             <div className={styles.rangeDateWrap}>
               <div className={styles.rangeDateBlock}>
                 <span>{__("Дата")}:</span>
@@ -162,7 +163,7 @@ const EditTask = ({ closeModal, type }) => {
                 <input
                   type="text"
                   className={styles.rangeInput}
-                  placeholder={__("_ _ . _ _ ")}
+                  placeholder={__("_ _ : _ _ ")}
                   value={timeStart}
                   maxLength={5}
                   onChange={onChangeTimeStart}

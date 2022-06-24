@@ -149,7 +149,7 @@ const INITIAL_STATE = {
 
   //CALENDAR && MY TASK
   calendarDate: new Date(),
-  myTasks: {},
+  myTasks: [],
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -673,7 +673,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, calendarDate: action.payload };
 
     case GET_TASK:
-      return { ...state, myTasks: { ...action.payload } };
+      return { ...state, myTasks: [...action.payload] };
 
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:

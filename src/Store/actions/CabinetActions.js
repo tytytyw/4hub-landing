@@ -802,7 +802,7 @@ export const onAddNewTask = (payload, message) => async (dispatch, getState) => 
       dispatch(
         onSetModals(MODALS.CALENDAR, {
           type: CALENDAR_MODALS.SUCCESS_ADD,
-          params: response
+          task: response.data.task
         })
       );
       dispatch(onSetModals(MODALS.LOADER, false));
@@ -861,6 +861,7 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
       dispatch(onGetAllTasks());
     })
     .catch((e) => {
+      dispatch(onSetModals(MODALS.LOADER, false));
       dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
       console.log(e);
     });
@@ -901,6 +902,7 @@ export const onEditTask = (payload, message, error) => async (dispatch, getState
       dispatch(onGetAllTasks());
     })
     .catch((err) => {
+      dispatch(onSetModals(MODALS.LOADER, false));
       dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
       console.log(err);
     });

@@ -22,7 +22,6 @@ const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.Cabinet.myTasks);
-  const myTasks = Object.values(tasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
@@ -69,7 +68,7 @@ const CalendarPage = () => {
             />
           </div>
           <ListCalendar />
-          <SidebarTasks tasks={myTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
+          <SidebarTasks tasks={tasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />

@@ -27,7 +27,7 @@ export const eventProps = PropTypes.exact({
   prim: PropTypes.string,
   id_emo: PropTypes.string,
   id_fig: PropTypes.string,
-  id_color: colorProps,
+  id_color: PropTypes.oneOfType([PropTypes.string, colorProps]),
   is_del: PropTypes.string,
   id_type: PropTypes.string,
   id_dep: PropTypes.string,
