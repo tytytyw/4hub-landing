@@ -241,6 +241,18 @@ export function createArrayOfHoursPerDay(beginFrom, interval) {
   }
 }
 
+export const opacityColor = (color) => `${color.slice(0, -1)}, 0.1)`;
+
+export const getStartDate = (item) => {
+  const date = item.split(" ");
+  return date[0].replace(/-/g, ".");
+};
+
+export const getStartTime = (item) => {
+  const date = item.split(" ");
+  return date[1].slice(0, -3);
+};
+
 export const useEvents = () => {
   const { __ } = useLocales();
   return [
