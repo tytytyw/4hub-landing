@@ -105,10 +105,26 @@ const Chat = ({ setMenuItem }) => {
   const callbackArr = {
     contact: [
       {
-        name: __("Очистить историю"),
+        name: __("Очистить историю у меня"),
         type: "clearMessages",
         callback: () => {
-          clearAllChatMessages(uid, selectedContact)
+          clearAllChatMessages(uid, selectedContact, 0)
+            .catch((e) => {
+              console.log(e);
+              dispatch(MODALS.ERROR, { open: true, message: __("Ошибка удаления всех сообщений") });
+            })
+            .finally(() => {
+              const newContact = selectedContact;
+              dispatch(onSetSelectedContact(null));
+              dispatch(onSetSelectedContact(newContact));
+            });
+        }
+      },
+      {
+        name: __("Очистить историю у всех"),
+        type: "clearAllMessages",
+        callback: () => {
+          clearAllChatMessages(uid, selectedContact, 1)
             .catch((e) => {
               console.log(e);
               dispatch(MODALS.ERROR, { open: true, message: __("Ошибка удаления всех сообщений") });
@@ -181,7 +197,18 @@ const Chat = ({ setMenuItem }) => {
     userInGroup: [
       {
         type: "clearMessages",
-        name: __("Очистить историю"),
+        name: __("Очистить историю у меня"),
+        text: ``,
+        callback: (list, index) =>
+          setAction({
+            text: list[index].text,
+            type: list[index].type,
+            name: list[index].name
+          })
+      },
+      {
+        type: "clearAllMessages",
+        name: __("Очистить историю у всех"),
         text: ``,
         callback: (list, index) =>
           setAction({

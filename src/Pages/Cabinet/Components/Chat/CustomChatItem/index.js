@@ -33,7 +33,7 @@ const CustomChatItem = ({
       setMouseParams({
         x: e.clientX,
         y: e.clientY,
-        width: 210,
+        width: 230,
         height: 25,
         contextMenuList
       });
