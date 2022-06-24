@@ -4,6 +4,11 @@ import { MODALS } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
+export const selectDepartment = (data) => ({
+  type: TasksTypes.SELECT_TASK_DEPARTMENT,
+  payload: data
+});
+
 export const onFetchTaskDepartment = () => async (dispatch, getState) => {
   const uid = getState().user.uid;
   try {
@@ -40,15 +45,13 @@ export const onCreateTaskDepartment = () => async (dispatch, getState) => {
 export const onEditTaskDepartment = () => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
-  const dep = getState().Tasks.dep;
   try {
     const { data } = await api.post(
       `/ajax/task_dep_edit.php?uid=${uid}&name=${params.title}&icon=${params.icon}&id_dep=${params.id}`
     );
     checkResponseStatus(data.ok);
-    const index = dep.findIndex((el) => el.id === data.id);
-    dep.splice(index, 1, { name: data.name, id: data.id, icon: data.icon });
-    dispatch({ type: TasksTypes.EDIT_TASK_DEPARTMENT, payload: dep });
+
+    dispatch({ type: TasksTypes.EDIT_TASK_DEPARTMENT, payload: { name: data.name, id: data.id, icon: data.icon } });
     // TODO -mk- fixed  message
     dispatch(onSetModals("topMessage", { open: true, type: "message", message: "Раздел изменён" }));
   } catch (error) {
@@ -65,12 +68,11 @@ export const onEditTaskDepartment = () => async (dispatch, getState) => {
 export const onDeleteDepartment = () => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
-  const dep = getState().Tasks.dep;
+
   try {
     const { data } = await api.post(`/ajax/task_dep_del.php?uid=${uid}&id_dep=${params.id}`);
     checkResponseStatus(data.ok);
-    const deps = dep.filter((el) => el.id !== data.id);
-    dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: deps });
+    dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: data.id_dep });
     // TODO -mk- fixed  message
     dispatch(onSetModals("topMessage", { open: true, type: "message", message: `Раздел  удалён` }));
   } catch (error) {
@@ -83,8 +85,3 @@ export const onDeleteDepartment = () => async (dispatch, getState) => {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
   }
 };
-
-export const selectDepartment = (data) => ({
-  type: TasksTypes.SELECT_TASK_DEPARTMENT,
-  payload: data
-});
