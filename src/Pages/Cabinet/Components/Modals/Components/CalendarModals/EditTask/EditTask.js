@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import styles from "./EditTask.module.sass";
 import InputField from "../../../../../../../generalComponents/InputField";
-import { colors, useTags } from "../../../../../../../generalComponents/collections";
+import { colors } from "../../../../../../../generalComponents/collections";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
@@ -10,19 +10,17 @@ import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalCompo
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import classnames from "classnames";
 import { onAddNewTask, onEditTask, onSetModals } from "Store/actions/CabinetActions";
 import { getStartDate, getStartTime, useEvents } from "generalComponents/CalendarHelper";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
+import TagPicker from "generalComponents/TagPicker/TagPicker";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 
 const EditTask = ({ closeModal, type }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const { theme } = useSelector((state) => state.user.userInfo);
   const { taskChoosen } = useSelector((state) => state.Cabinet.modals.calendarModals);
-  const tags = useTags();
   const events = useEvents();
   const [name, setName] = useState(taskChoosen ? taskChoosen.name : "");
   const [eventType, setEventType] = useState(taskChoosen ? Number(taskChoosen.id_type) : "");
@@ -37,16 +35,6 @@ const EditTask = ({ closeModal, type }) => {
   const [figure, setFigure] = useState(taskChoosen ? taskChoosen.id_fig : "");
   const [emoji, setEmoji] = useState(taskChoosen ? taskChoosen.id_emo : "");
 
-  const renderTags = () => {
-    return tags.map((tag, i) => {
-      return (
-        <div key={i} onClick={() => onChangeTag(tag)}>
-          {tag}
-        </div>
-      );
-    });
-  };
-
   const payload = {
     name,
     eventType,
@@ -54,7 +42,7 @@ const EditTask = ({ closeModal, type }) => {
     dateStart,
     timeStart,
     tagOption,
-    color: color.color,
+    color,
     emoji,
     figure,
     emails: email,
@@ -184,20 +172,8 @@ const EditTask = ({ closeModal, type }) => {
                 alt="Arrow Input"
               />
             </div>
-            <div className={styles.tagPicker}>
-              <span>#</span>
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder={__("Добавте #Тег")}
-                value={tagOption.chosen}
-                onChange={(e) => onChangeTag(e.target.value)}
-                onFocus={() => {
-                  setTagOption({ ...tagOption, show: true });
-                }}
-              />
-              <span>{tagOption.count}/30</span>
-              <div className={classnames(styles.tagList, `scrollbar-thin-${theme}`)}>{renderTags()}</div>
+            <div className={styles.inputWrap}>
+              <TagPicker tag={tagOption.chosen} onSelectTag={onChangeTag} />
             </div>
             <div className={styles.inputWrap}>
               <textarea

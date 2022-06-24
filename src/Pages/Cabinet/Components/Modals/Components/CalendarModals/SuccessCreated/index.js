@@ -5,7 +5,7 @@ import { imageSrc } from "../../../../../../../generalComponents/globalVariables
 import { useLocales } from "react-localized";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { opacityColor } from "generalComponents/CalendarHelper";
+import { getStartDate, getStartTime, opacityColor } from "generalComponents/CalendarHelper";
 
 const SuccessCreated = ({ closeModal }) => {
   const { __ } = useLocales();
@@ -18,7 +18,7 @@ const SuccessCreated = ({ closeModal }) => {
           <h4 className={styles.title}>{__("Задача успешно создана")}</h4>
         </div>
 
-        <div className={styles.content} style={{ background: `${opacityColor(task.id_color)}` }}>
+        <div className={styles.content} style={{ background: `${opacityColor(task.id_color.color)}` }}>
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Имя задачи")}</p>
             <div className={styles.infoWrap}>
@@ -41,7 +41,7 @@ const SuccessCreated = ({ closeModal }) => {
                 {task?.id_color && (
                   <span
                     style={{
-                      background: `${task.id_color}`
+                      background: `${task.id_color.color}`
                     }}
                     className={styles.circle}
                   />
@@ -55,11 +55,11 @@ const SuccessCreated = ({ closeModal }) => {
             <div className={styles.infoWrap}>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>{__("Дата")}:</p>
-                <p className={styles.value}>{task?.dateStart}</p>
+                <p className={styles.value}>{getStartDate(task.date_start)}</p>
               </div>
               <div className={styles.valueWrap}>
                 <p className={styles.option}>{__("Время")}:</p>
-                <p className={styles.value}>{task?.timeStart}</p>
+                <p className={styles.value}>{getStartTime(task.date_start)}</p>
               </div>
             </div>
           </div>
