@@ -11,9 +11,10 @@ import App from "./App";
 import reducers from "./Store/reducers";
 
 const composeEnhancers =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV === "development" && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === "function"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose
     : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(reducers, composeEnhancers(applyMiddleware(reduxThunk)));
 
 ReactDOM.render(

@@ -90,6 +90,30 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
     }
     return "";
   };
+
+  const isViewedStatus = () => (
+    <div
+      className={classNames(styles.isViewedStatus, {
+        [styles.isHidden]: messageType === "inbox"
+      })}
+    >
+      <div
+        className={classNames({
+          [styles.statusSend]: message.is_read === "1"
+        })}
+      >
+        &#10003;
+      </div>
+      <div
+        className={classNames({
+          [styles.statusNotViewed]: message.is_read === "0"
+        })}
+      >
+        &#10003;
+      </div>
+    </div>
+  );
+
   return (
     <div
       className={classNames({
@@ -153,6 +177,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
                     {item}
                   </p>
                 ))}
+                {isViewedStatus()}
               </div>
             </div>
           )}

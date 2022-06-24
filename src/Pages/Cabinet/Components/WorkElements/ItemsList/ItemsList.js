@@ -30,6 +30,7 @@ import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
+import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -118,16 +119,25 @@ const ItemsList = ({
   };
 
   const addIconButton = () => (
-    <div
-      onClick={fileSelect}
-      className={`
+    <div className={styles.addButtonBlock}>
+      <div
+        onClick={fileSelect}
+        className={`
                     ${styles.addFileButtonInput}
                     ${size === "medium" ? styles.mediumSize : null}
                     ${size === "small" ? styles.smallSize : null}
                 `}
-    >
-      <AddIcon className={styles.addIcon} />
-      <span>{__("Перетащите файл или нажмите загрузить")}</span>
+      >
+        <AddIcon className={styles.addIcon} />
+        <span>{__("Перетащите файл или нажмите загрузить")}</span>
+      </div>
+      <img
+        src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
+        alt="addFile"
+        className={
+          size === "big" ? styles.textAddIcon : size === "medium" ? styles.textAddIconMedium : styles.textAddIconSmall
+        }
+      />
     </div>
   );
 
@@ -250,6 +260,12 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
+      {fileList?.files && Array.isArray(fileList?.files) && fileList?.files.length === 0 && addIconButton()}
+      {fileList?.files &&
+        !Array.isArray(fileList?.files) &&
+        Object.values(fileList?.files).flat().length === 0 &&
+        addIconButton()}
+
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
           fileSelect={fileSelect}
