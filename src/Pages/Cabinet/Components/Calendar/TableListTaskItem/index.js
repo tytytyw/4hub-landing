@@ -5,7 +5,6 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { eventProps } from "../../../../../types/CalendarPage";
-import PropTypes from "prop-types";
 import { currentEvent, useEvents } from "generalComponents/CalendarHelper";
 
 const TableListTaskItem = ({ task }) => {
@@ -97,5 +96,5 @@ const TableListTaskItem = ({ task }) => {
 export default TableListTaskItem;
 
 TableListTaskItem.propTypes = {
-  task: PropTypes.arrayOf(eventProps)
+  task: eventProps
 };
