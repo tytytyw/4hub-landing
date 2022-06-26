@@ -10,25 +10,35 @@ import BottomPanel from "../BottomPanel";
 import { useDispatch, useSelector } from "react-redux";
 import { onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
-import { CALENDAR_MODALS, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
+import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
 import classnames from "classnames";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
+import { formatDateStandard, getStartDate } from "generalComponents/CalendarHelper";
+import FullCalendarTable from "./FullCalendar";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.Cabinet.myTasks);
+  const myTasks = useSelector((state) => state.Cabinet.myTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
 
+  const currentDayTasks = [];
+
+  for (let key in myTasks) {
+    if (getStartDate(formatDateStandard(calendarDate)).startsWith(getStartDate(myTasks[key].date_start))) {
+      currentDayTasks.push(myTasks[key]);
+    }
+  }
+
   useEffect(() => {
-    dispatch(onGetAllTasks());
+    dispatch(onGetAllTasks(TASK.API_GET_TASKS, __("Ошибка загрузки задач")));
   }, []); // eslint-disable-line
 
   const getStrDate = () => {
@@ -68,7 +78,7 @@ const CalendarPage = () => {
             />
           </div>
           <ListCalendar />
-          <SidebarTasks tasks={tasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
+          <SidebarTasks tasks={currentDayTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />
@@ -76,7 +86,9 @@ const CalendarPage = () => {
             <p className={styles.date}>{getStrDate()}</p>
 
             <div className={styles.headerBtnWrap}>
-              <button className={styles.headerBtn}></button>
+              <button className={styles.headerBtn}>
+                {myTasks?.length} {__("задач")}
+              </button>
             </div>
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>{__("1 новая задача")}</button>
@@ -86,6 +98,7 @@ const CalendarPage = () => {
               <button className={styles.headerBtn}>{__("1 напоминание")}</button>
             </div>
           </div>
+          <FullCalendarTable tasks={myTasks} />
         </div>
       </div>
       {mouseParams !== null && (

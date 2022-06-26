@@ -10,9 +10,13 @@ import { days } from "../helper";
 import TableTaskItem from "../TableTaskItem";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { eventShowProps } from "../../../../../types/CalendarPage";
+import { eventProps } from "../../../../../types/CalendarPage";
+import classNames from "classnames";
 
-const FullCalendarTable = ({ events }) => {
+const FullCalendarTable = ({ tasks }) => {
+  const newT = tasks.map((item) => {
+    return { ...item, date: new Date(item.date_start), id_color: "#792794" };
+  });
   const calendarRef = useRef();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const renderEventContent = (eventInfo) => {
@@ -22,10 +26,11 @@ const FullCalendarTable = ({ events }) => {
   const renderHeaderCell = (eventInfo) => {
     const day = days.find((item) => item.id === eventInfo.date.getDay());
     const date = eventInfo.date.getDate();
+    const currentDay = date === new Date().getDate() ? styles.active : "";
     return (
       <div className={styles.dayItem}>
         <span className={styles.day}>{day?.day}</span>
-        <h4 className={styles.dayNumber}>{date}</h4>
+        <h4 className={classNames(styles.dayNumber, currentDay)}>{date}</h4>
       </div>
     );
   };
@@ -40,7 +45,7 @@ const FullCalendarTable = ({ events }) => {
       <FullCalendar
         initialDate={calendarDate}
         ref={calendarRef}
-        events={events}
+        events={newT}
         plugins={[timeGridPlugin, interactionPlugin]}
         allDaySlot={false}
         headerToolbar={{
@@ -57,7 +62,7 @@ const FullCalendarTable = ({ events }) => {
           minute: "2-digit",
           omitZeroMinute: false
         }}
-        firstDay={1}
+        firstDay={0}
         locale="ru" //TODO - according real location
         eventContent={renderEventContent}
       />
@@ -68,5 +73,5 @@ const FullCalendarTable = ({ events }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  events: PropTypes.arrayOf(eventShowProps)
+  tasks: PropTypes.arrayOf(eventProps)
 };

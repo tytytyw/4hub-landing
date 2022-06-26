@@ -54,5 +54,10 @@ thead .fc-scroller-harness {
 .fc-timegrid-event {
   background: none;
   border: none;
-  margin: -1px -4px;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.fc-timegrid-more-link {
+  box-shadow: none;
 }

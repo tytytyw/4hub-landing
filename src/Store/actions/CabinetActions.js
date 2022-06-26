@@ -807,35 +807,29 @@ export const onAddNewTask = (payload, message) => async (dispatch, getState) => 
       );
       dispatch(onSetModals(MODALS.LOADER, false));
     })
-    .then(() => {
-      dispatch(onGetAllTasks());
-    })
     .catch((error) => {
       dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
       console.log(error);
     });
 };
 
-export const onGetAllTasks = () => async (dispatch, getState) => {
+export const onGetAllTasks = (endpoint, error) => async (dispatch, getState) => {
   api
-    .get(`ajax/task_get.php`, {
+    .get(`ajax/${endpoint}.php`, {
       params: {
         uid: getState().user.uid
       }
     })
     .then((response) => {
-      if (checkResponseStatus(response.data.ok)) {
-        dispatch({
-          type: GET_TASK,
-          payload: response.data.tasks
-        });
-      } else {
-        onSetModals(MODALS.ERROR, { open: true, message: "error" });
-      }
+      checkResponseStatus(response.data.ok);
+      dispatch({
+        type: GET_TASK,
+        payload: response.data.tasks
+      });
     })
-    .catch((error) => {
-      onSetModals(MODALS.ERROR, { open: true, message: "error" });
-      console.log(error);
+    .catch((er) => {
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+      console.log(er);
     });
 };
 
@@ -844,7 +838,7 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
     .delete(`ajax/task_del.php`, {
       params: {
         uid: getState().user.uid,
-        id_task: id
+        id_task: 88
       }
     })
     .then((response) => {
@@ -856,9 +850,6 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
           message
         })
       );
-    })
-    .then(() => {
-      dispatch(onGetAllTasks());
     })
     .catch((e) => {
       dispatch(onSetModals(MODALS.LOADER, false));
@@ -897,9 +888,6 @@ export const onEditTask = (payload, message, error) => async (dispatch, getState
           message
         })
       );
-    })
-    .then(() => {
-      dispatch(onGetAllTasks());
     })
     .catch((err) => {
       dispatch(onSetModals(MODALS.LOADER, false));
