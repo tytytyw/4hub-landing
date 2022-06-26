@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./WorkSpace.module.sass";
-import { hexToRgb, hours, eventTypesColor } from "../helper";
+import { hours } from "../helper";
 import TableListTaskItem from "../TableListTaskItem";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { eventShowProps } from "../../../../../types/CalendarPage";
+import { opacityColor } from "generalComponents/CalendarHelper";
 
 const WorkSpaceList = ({ events }) => {
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
@@ -43,14 +44,12 @@ const WorkSpaceList = ({ events }) => {
       <div className={styles.list}>
         {hours?.map((hour, index) => {
           const event = getTask(hour.value);
-          const color = eventTypesColor?.[event?.type];
-          const rgba = hexToRgb(color);
           return event ? (
             <div
               key={index}
               className={styles.listItemActive}
               style={{
-                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+                background: opacityColor()
               }}
             >
               <div className={styles.hour}>{hour.text}</div>

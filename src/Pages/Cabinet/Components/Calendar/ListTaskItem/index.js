@@ -1,7 +1,6 @@
 import React from "react";
 
 import styles from "./ListTaskItem.module.sass";
-import { hexToRgb, eventTypesColor } from "../helper";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -10,15 +9,13 @@ import { eventShowProps } from "../../../../../types/CalendarPage";
 
 const ListTaskItem = ({ event, collapsed }) => {
   const { __ } = useLocales();
-  const color = eventTypesColor?.[event?.type];
-  const rgba = hexToRgb(color);
   return (
     <>
       {!collapsed ? (
         <div
           className={styles.wrapper}
           style={{
-            background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+            background: `red`
           }}
         >
           <p className={styles.timeBlock}>{event?.ctime}</p>
@@ -26,7 +23,7 @@ const ListTaskItem = ({ event, collapsed }) => {
           <div className={styles.leftBlock}>
             <span
               style={{
-                background: `${color}`
+                background: `red`
               }}
               className={styles.circle}
             />
@@ -65,7 +62,7 @@ const ListTaskItem = ({ event, collapsed }) => {
         <div
           className={classNames(styles.wrapper, styles.wrapperCollapsed)}
           style={{
-            background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+            background: `red`
           }}
         >
           <p className={styles.timeBlock}>{event?.ctime}</p>
@@ -73,7 +70,7 @@ const ListTaskItem = ({ event, collapsed }) => {
           <div className={styles.topBlock}>
             <span
               style={{
-                background: `${color}`
+                background: `red`
               }}
               className={styles.circle}
             />

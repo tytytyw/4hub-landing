@@ -18,6 +18,10 @@ thead .fc-scroller-harness {
   height: calc(45px * 25 + 30px) !important;
 }
 
+.fc-event-main {
+  position: relative;
+}
+
 .fc .fc-daygrid-day.fc-day-today {
   background-color: transparent;
 }
@@ -58,6 +62,12 @@ thead .fc-scroller-harness {
   margin-right: -3px;
 }
 
+.fc-timegrid-more-link {
+  box-shadow: none;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event,
+.fc-timegrid-event.fc-event-mirror,
 .fc-timegrid-more-link {
   box-shadow: none;
 }

@@ -1,17 +1,15 @@
 import React from "react";
 
 import styles from "./PopoverTaskItem.module.sass";
-import { hexToRgb, eventTypesColor } from "../../helper";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../../types/CalendarPage";
+import { opacityColor } from "generalComponents/CalendarHelper";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
-  const color = eventTypesColor?.[task?.type];
-  const rgba = hexToRgb(color);
   return (
     <div
       className={classNames({
@@ -25,7 +23,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
       <div
         className={styles.content}
         style={{
-          background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+          background: opacityColor(task?.id_color?.color)
         }}
       >
         <div className={styles.flexBlock}>
@@ -34,7 +32,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
               <img src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`} alt="Suitcase" />
               <span
                 style={{
-                  background: `${color}`
+                  background: task?.id_color?.color
                 }}
                 className={styles.circle}
               />
@@ -54,12 +52,12 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Срок")}</p>
-                <p className={styles.value}>{task?.term}</p>
+                <p className={styles.value}>{task?.date_start}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Тег")}</p>
-                <p className={styles.value}>{task?.tag}</p>
+                <p className={styles.value}>{task?.tags.chosen}</p>
               </div>
 
               <div className={styles.infoItem}>
@@ -67,8 +65,6 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
                 <p className={styles.value}>{task?.sender}</p>
               </div>
             </div>
-
-            <p className={styles.timeBlock}>{task?.ctime}</p>
           </div>
         </div>
 

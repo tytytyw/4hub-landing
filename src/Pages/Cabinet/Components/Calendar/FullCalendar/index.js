@@ -14,8 +14,8 @@ import { eventProps } from "../../../../../types/CalendarPage";
 import classNames from "classnames";
 
 const FullCalendarTable = ({ tasks }) => {
-  const newT = tasks.map((item) => {
-    return { ...item, date: new Date(item.date_start), id_color: "#792794" };
+  const weekTasks = tasks.map((item) => {
+    return { ...item, date: new Date(item.date_start) };
   });
   const calendarRef = useRef();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
@@ -45,7 +45,7 @@ const FullCalendarTable = ({ tasks }) => {
       <FullCalendar
         initialDate={calendarDate}
         ref={calendarRef}
-        events={newT}
+        events={weekTasks}
         plugins={[timeGridPlugin, interactionPlugin]}
         allDaySlot={false}
         headerToolbar={{

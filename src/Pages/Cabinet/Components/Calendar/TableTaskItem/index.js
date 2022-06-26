@@ -7,7 +7,7 @@ import { eventProps } from "types/CalendarPage";
 
 const TableTaskItem = ({ task, date }) => {
   const [visible, setVisible] = useState(false);
-  const color = task?.id_color;
+  const color = task?.id_color?.dark;
   const checkReverse = () => {
     const hour = date.getHours();
     return hour > 17;
@@ -15,7 +15,8 @@ const TableTaskItem = ({ task, date }) => {
 
   const checkReverseSide = () => {
     const dayIndex = date.getDay();
-    return dayIndex >= 6 || dayIndex === 0;
+
+    return dayIndex > 3;
   };
 
   return (

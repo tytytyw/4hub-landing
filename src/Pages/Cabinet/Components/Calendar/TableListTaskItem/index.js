@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import styles from "./TableListTaskItem.module.sass";
-import { eventTypesColor } from "../helper";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -10,7 +9,6 @@ import { eventShowProps } from "../../../../../types/CalendarPage";
 const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(false);
-  const color = eventTypesColor?.[task?.type];
 
   return (
     <div className={styles.wrapper}>
@@ -18,7 +16,7 @@ const TableListTaskItem = ({ task }) => {
         <div className={styles.icons}>
           <span
             style={{
-              background: `${color}`
+              background: `red`
             }}
             className={styles.circle}
           />
