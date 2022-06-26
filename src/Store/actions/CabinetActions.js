@@ -838,7 +838,7 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
     .delete(`ajax/task_del.php`, {
       params: {
         uid: getState().user.uid,
-        id_task: 88
+        id_task: id
       }
     })
     .then((response) => {

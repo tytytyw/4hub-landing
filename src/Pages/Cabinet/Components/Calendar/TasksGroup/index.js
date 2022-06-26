@@ -15,11 +15,7 @@ const TasksGroup = ({ event, tasks, setMouseParams, setChosenFile }) => {
   const eventsClass = isShowSubevents ? styles.tasksGroupOpen : "";
   const tasksGroup = [];
 
-  tasks.map((item) => {
-    if (event.id === Number(item.id_type)) {
-      tasksGroup.push(item);
-    }
-  });
+  tasks.map((item) => (event.id === Number(item.id_type) ? tasksGroup.push(item) : ""));
 
   return (
     <>

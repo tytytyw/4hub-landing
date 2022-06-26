@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
 import styles from "./TableTaskItem.module.sass";
-// import { eventTypesColor } from "../helper";
 import PopoverTaskItem from "./PopoverTaskItem";
 import PropTypes from "prop-types";
-import { eventShowProps } from "types/CalendarPage";
+import { eventProps } from "types/CalendarPage";
 
 const TableTaskItem = ({ task, date }) => {
   const [visible, setVisible] = useState(false);
@@ -35,6 +34,6 @@ const TableTaskItem = ({ task, date }) => {
 export default TableTaskItem;
 
 TableTaskItem.propTypes = {
-  task: eventShowProps,
+  task: eventProps,
   date: PropTypes.instanceOf(Date)
 };
