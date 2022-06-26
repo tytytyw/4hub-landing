@@ -40,7 +40,16 @@ export const days = [
 ];
 
 export const hours = [
-  { text: "9:00", value: 9 },
+  { text: "00:00", value: 0 },
+  { text: "01:00", value: 1 },
+  { text: "02:00", value: 2 },
+  { text: "03:00", value: 3 },
+  { text: "04:00", value: 4 },
+  { text: "05:00", value: 5 },
+  { text: "06:00", value: 6 },
+  { text: "07:00", value: 7 },
+  { text: "08:00", value: 8 },
+  { text: "09:00", value: 9 },
   { text: "10:00", value: 10 },
   { text: "11:00", value: 11 },
   { text: "12:00", value: 12 },

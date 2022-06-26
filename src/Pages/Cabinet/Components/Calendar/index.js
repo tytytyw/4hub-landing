@@ -19,6 +19,7 @@ import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
 import { formatDateStandard, getStartDate } from "generalComponents/CalendarHelper";
 import FullCalendarTable from "./FullCalendar";
+import WorkSpaceList from "./WorkSpaceList";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
@@ -28,7 +29,8 @@ const CalendarPage = () => {
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
-
+  // eslint-disable-next-line
+  const [viewType, setViewType] = useState("day");
   const currentDayTasks = [];
 
   for (let key in myTasks) {
@@ -98,7 +100,8 @@ const CalendarPage = () => {
               <button className={styles.headerBtn}>{__("1 напоминание")}</button>
             </div>
           </div>
-          <FullCalendarTable tasks={myTasks} />
+          {viewType === "week" && <FullCalendarTable tasks={myTasks} />}
+          {viewType === "day" && <WorkSpaceList tasks={currentDayTasks} />}
         </div>
       </div>
       {mouseParams !== null && (
