@@ -30,7 +30,6 @@ import {
   GET_JOURNAL_FOLDERS,
   SEARCH,
   SET_CALENDAR_DATE,
-  SET_CALENDAR_EVENTS,
   SORT_FILES,
   LOAD_FILES,
   SET_FILTER_COLOR,
@@ -71,10 +70,18 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  FILES_USER_SHARED
+  FILES_USER_SHARED,
+  GET_TASK
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
-import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
+import {
+  CALENDAR_MODALS,
+  LIBRARY,
+  LOADING_STATE,
+  MODALS,
+  SHARED_FILES,
+  TOP_MESSAGE_TYPE
+} from "../../generalComponents/globalVariables";
 import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
@@ -770,42 +777,135 @@ export const setCalendarDate = (date) => {
   };
 };
 
-export const setCalendarEvents = () => {
-  return {
-    type: SET_CALENDAR_EVENTS,
-    payload: [
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-29 09:00"),
-        type: 1
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-25 12:00"),
-        type: 2
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-26 22:00"),
-        type: 3
-      }
-    ]
+export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
+  const params = {
+    name: payload.name,
+    id_type: payload.eventType,
+    id_dep: payload.idDep,
+    prim: payload.text,
+    date_start: payload.dateStart,
+    date_end: payload.dateEnd,
+    time_start: payload.timeStart,
+    uid: getState().user.uid,
+    color: payload.color,
+    emoji: payload.emoji,
+    symbol: payload.figure,
+    id_act: payload.idAct,
+    emails: payload.emails,
+    tag: payload.tagOption
   };
+  api
+    .get(`/ajax/task_add.php`, { params })
+    .then((response) => {
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.CALENDAR, {
+          type: CALENDAR_MODALS.SUCCESS_ADD,
+          task: response.data.task
+        })
+      );
+      dispatch(onSetModals(MODALS.LOADER, false));
+    })
+    .then(() => {
+      dispatch(onGetAllTasks());
+    })
+    .catch((error) => {
+      dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
+      console.log(error);
+    });
+};
+
+export const onGetAllTasks = () => async (dispatch, getState) => {
+  api
+    .get(`ajax/task_get.php`, {
+      params: {
+        uid: getState().user.uid
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch({
+          type: GET_TASK,
+          payload: response.data.tasks
+        });
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      }
+    })
+    .catch((error) => {
+      onSetModals(MODALS.ERROR, { open: true, message: "error" });
+      console.log(error);
+    });
+};
+
+export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
+  api
+    .delete(`ajax/task_del.php`, {
+      params: {
+        uid: getState().user.uid,
+        id_task: id
+      }
+    })
+    .then((response) => {
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.SUCCESS, {
+          open: true,
+          message
+        })
+      );
+    })
+    .then(() => {
+      dispatch(onGetAllTasks());
+    })
+    .catch((e) => {
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+      console.log(e);
+    });
+};
+
+export const onEditTask = (payload, message, error) => async (dispatch, getState) => {
+  const params = {
+    name: payload.name,
+    id_task: payload.idTask,
+    id_type: payload.eventType,
+    id_dep: payload.idDep,
+    prim: payload.text,
+    date_start: payload.dateStart,
+    date_end: payload.dateEnd,
+    time_start: payload.timeStart,
+    uid: getState().user.uid,
+    color: payload.color,
+    emoji: payload.emoji,
+    symbol: payload.figure,
+    id_act: payload.idAct,
+    emails: payload.emails,
+    tag: payload.tagOption
+  };
+
+  api
+    .get(`ajax/task_edit.php`, { params })
+    .then((response) => {
+      checkResponseStatus(response.data.ok);
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(
+        onSetModals(MODALS.SUCCESS, {
+          open: true,
+          message
+        })
+      );
+    })
+    .then(() => {
+      dispatch(onGetAllTasks());
+    })
+    .catch((err) => {
+      dispatch(onSetModals(MODALS.LOADER, false));
+      dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+      console.log(err);
+    });
 };
 
 export const onSearch = (value) => {

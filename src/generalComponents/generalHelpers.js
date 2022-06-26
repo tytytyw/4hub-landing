@@ -224,10 +224,10 @@ export function dataURLintoBlobImage(dataURL) {
 }
 
 export const checkResponseStatus = (status) => {
-  if (typeof status === "number") {
+  if (typeof status === "number" && status === 1) {
     return status === 1;
   }
-  if (typeof status === "boolean") {
+  if (typeof status === "boolean" && status) {
     return status;
   }
   throw Error(`status ${status} with type ${typeof status} is not ok`);
@@ -257,4 +257,19 @@ export const getIsIncludePath = (filePath, currentPath) => {
   const currentPathArray = currentPath.split("/");
   const result = filePathArray.filter((el) => currentPathArray.includes(el)).join("/");
   return result === currentPath;
+};
+
+export const getMaskDate = (date) => {
+  const tempValue = date.replace(/\D/gim, "");
+  return tempValue.replace(
+    ...({
+      2: [/(\d{2})/g, "$1"],
+      3: [/(\d{2})/g, "$1."],
+      4: [/(\d{2})(\d{0,2})/g, "$1.$2"],
+      5: [/(\d{2})(\d{2})/g, "$1.$2."],
+      6: [/(\d{2})(\d{2})(\d{0,4})/g, "$1.$2.$3"],
+      7: [/(\d{2})(\d{2})(\d{1,4})/g, "$1.$2.$3"],
+      8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"]
+    }[tempValue.length] || [])
+  );
 };
