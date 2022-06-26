@@ -6,10 +6,13 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../../types/CalendarPage";
-import { opacityColor } from "generalComponents/CalendarHelper";
+import { opacityColor, useEvents } from "generalComponents/CalendarHelper";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
+  const event = useEvents();
+  const currentEvent = () => event.find((item) => (item.id === Number(task.id_type) ? item : ""));
+
   return (
     <div
       className={classNames({
@@ -29,7 +32,10 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
         <div className={styles.flexBlock}>
           <div className={styles.leftBlock}>
             <div className={styles.topIcons}>
-              <img src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`} alt="Suitcase" />
+              <img
+                src={`${imageSrc}assets/PrivateCabinet/events/${currentEvent().icon}.svg`}
+                alt={currentEvent().name}
+              />
               <span
                 style={{
                   background: task?.id_color?.color
