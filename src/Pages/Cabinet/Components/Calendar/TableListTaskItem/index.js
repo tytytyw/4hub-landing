@@ -82,11 +82,7 @@ const TableListTaskItem = ({ task }) => {
         <div className={styles.descWrap}>
           <div className={styles.descBlock}>
             <p className={styles.descTitle}>{__("Описание задачи")}</p>
-            <p className={styles.descText}>
-              {__(
-                "Текст большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
-              )}
-            </p>
+            <p className={styles.descText}>{task?.prim}</p>
           </div>
 
           <div className={styles.actionBlock}>
