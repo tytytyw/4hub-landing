@@ -208,6 +208,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
                     </p>
                   ))}
                 </div>
+                {isViewedStatus()}
               </div>
             )
           ) : (
