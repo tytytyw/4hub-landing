@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import { messageProps, selectedContactProps } from "types/Chat";
 import { imageFormats, calcImageSize } from "../../../../../../generalComponents/chatHelper";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 
 function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
   const messageTime = useMessageTime();
@@ -24,6 +25,18 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const attachmentsWrapperRef = useRef();
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
+
+  const setMessageToRead = () => {
+    console.log("is_read", message.id);
+  };
+  const [containerRef] = useScrollElementOnScreen(
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0
+    },
+    setMessageToRead
+  );
 
   const attachmentIsOnlyImages = () => {
     const files = message.attachment;
@@ -97,15 +110,9 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
         [styles.isHidden]: messageType === "inbox"
       })}
     >
+      <div className={styles.statusSend}>&#10003;</div>
       <div
-        className={classNames({
-          [styles.statusSend]: message.is_read === "1"
-        })}
-      >
-        &#10003;
-      </div>
-      <div
-        className={classNames({
+        className={classNames(styles.statusViewed, {
           [styles.statusNotViewed]: message.is_read === "0"
         })}
       >
@@ -121,6 +128,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
         [styles[messageType]]: true,
         [styles.darkTheme]: chatTheme.name === "dark"
       })}
+      ref={containerRef}
     >
       {messageType === "inbox" ? (
         <img
