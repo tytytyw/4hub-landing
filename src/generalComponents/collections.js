@@ -1,5 +1,12 @@
 import { useLocales } from "react-localized";
-import { BOARDS, contextMenuFolder, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
+import {
+  BOARDS,
+  contextMenuFolder,
+  contextMenuTask,
+  LIBRARY_MODALS,
+  MAIL_MODALS,
+  TASK_MODALS
+} from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -715,6 +722,14 @@ export function useStandartTasksDepartment() {
   };
 }
 
+export function useContextMenuTasks() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Редактировать"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+    { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
+  ];
+}
+
 export function useStandardLibraries() {
   const { __ } = useLocales();
   return {
@@ -748,6 +763,7 @@ export function useTaskModalTitles() {
     [TASK_MODALS.EDIT_SECTION]: __("Редактировать раздел"),
     [TASK_MODALS.DELETE_SECTION]: __("Удалить раздел"),
     [TASK_MODALS.ADD_NOTE]: __("Создать заметку"),
+    [TASK_MODALS.EDIT_NOTE]: __("Редактировать заметку"),
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),

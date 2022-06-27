@@ -1,6 +1,6 @@
 import { useLocales } from "react-localized";
 import { typeCheck } from "./generalHelpers";
-import { TYPES } from "./globalVariables";
+import { TASK_TYPES, TYPES } from "./globalVariables";
 import { addHours, format } from "date-fns";
 
 const d = new Date();
@@ -240,3 +240,15 @@ export function createArrayOfHoursPerDay(beginFrom, interval) {
     throw new Error("Type of the incoming parameter must be date");
   }
 }
+
+export const useEvents = () => {
+  const { __ } = useLocales();
+  return [
+    { id: TASK_TYPES.TASK, name: __("Задача"), icon: "task" },
+    { id: TASK_TYPES.BIRTHDAY, name: __("День рождение"), icon: "birthday" },
+    { id: TASK_TYPES.ONLINE_MEETING, name: __("Встреча online"), icon: "online-meeting" },
+    { id: TASK_TYPES.OFFLINE_MEETIGN, name: __("Встреча offline"), icon: "offline-meeting" },
+    { id: TASK_TYPES.REMINDER, name: __("Напоминание"), icon: "reminder" },
+    { id: TASK_TYPES.OTHER, name: __("Другое"), icon: "other" }
+  ];
+};

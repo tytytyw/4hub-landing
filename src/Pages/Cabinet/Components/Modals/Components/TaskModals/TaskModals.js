@@ -12,6 +12,7 @@ import EditCall from "./EditCall/EditCall";
 import EditLetter from "./EditLetter/EditLetter";
 import EditSection from "./EditSection/EditSection";
 import DeleteSection from "./DeleteSection/DeleteSection";
+import DeleteTask from "./DeleteTask/DeleteTaskm";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -34,7 +35,9 @@ function TaskModals() {
           </button>
           <span className={styles.title}>{TITLES[type]}</span>
         </header>
-        {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
+        {(type === TASK_MODALS.ADD_NOTE || type === TASK_MODALS.EDIT_NOTE) && (
+          <AddNote type={type} params={params} closeModal={closeModal} />
+        )}
         {type === TASK_MODALS.ADD_TASK && <EditTask type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_MEETING && <EditMeeting type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_CALL && <EditCall type={type} params={params} closeModal={closeModal} />}
@@ -43,6 +46,7 @@ function TaskModals() {
           <EditSection type={type} params={params} closeModal={closeModal} />
         )}
         {type === TASK_MODALS.DELETE_SECTION && <DeleteSection closeModal={closeModal} icon={params.icon} />}
+        {type === TASK_MODALS.DELETE_TASK && <DeleteTask closeModal={closeModal} name={params.name} />}
       </form>
     </PopUp>
   );

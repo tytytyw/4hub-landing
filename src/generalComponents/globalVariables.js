@@ -139,6 +139,7 @@ export const TASK_MODALS = {
   EDIT_SECTION: "EditSection",
   DELETE_SECTION: "DeleteSection",
   ADD_NOTE: "AddNote",
+  EDIT_NOTE: "EditNote",
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
   ADD_CALL: "AddCall",
@@ -152,6 +153,11 @@ export const TASK_MODALS = {
 };
 
 export const contextMenuFolder = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
+};
+
+export const contextMenuTask = {
   CUSTOMIZE: "customize",
   DELETE: "delete"
 };
@@ -208,4 +214,15 @@ export const LIBRARY_OWN_ICONS = [
 // CART
 export const CART = {
   API_GET_FILES: "trash_list"
+};
+
+// MY TASKS
+export const TASK_TYPES = {
+  TASK: 1,
+  BIRTHDAY: 2,
+  ONLINE_MEETING: 3,
+  OFFLINE_MEETIGN: 4,
+  REMINDER: 5,
+  OTHER: 6,
+  NOTES: 7
 };

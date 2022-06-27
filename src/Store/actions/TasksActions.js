@@ -1,11 +1,16 @@
 import api from "api";
 import { checkResponseStatus } from "generalComponents/generalHelpers";
-import { MODALS } from "generalComponents/globalVariables";
+import { MODALS, TOP_MESSAGE_TYPE } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
 export const selectDepartment = (data) => ({
   type: TasksTypes.SELECT_TASK_DEPARTMENT,
+  payload: data
+});
+
+export const onSelectTask = (data) => ({
+  type: TasksTypes.SELECT_TASK,
   payload: data
 });
 
@@ -35,7 +40,7 @@ export const onCreateTaskDepartment = () => async (dispatch, getState) => {
     dispatch(onSetModals("topMessage", { open: true, type: "message", message: "Раздел добавлен" }));
   } catch (error) {
     // TODO -mk- fixed error message
-    dispatch(onSetModals("topMessage", { open: true, type: "error", message: "Изменить раздел не удалось" }));
+    dispatch(onSetModals("topMessage", { open: true, type: "error", message: "Додавить раздел не удалось" }));
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
@@ -83,5 +88,120 @@ export const onDeleteDepartment = () => async (dispatch, getState) => {
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+  }
+};
+//////////////=================/////////////////
+export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
+  try {
+    const params = {
+      uid: getState().user.uid,
+      name: payload.name,
+      id_type: payload.eventType,
+      id_dep: payload.idDep,
+      prim: payload.text,
+      date_start: payload.dateStart,
+      date_end: payload.dateEnd,
+      time_start: payload.timeStart,
+      color: payload.color,
+      emoji: payload.emoji,
+      symbol: payload.figure,
+      id_act: payload.idAct,
+      emails: payload.emails,
+      tag: payload.tagOption
+    };
+    const { data } = await api.get(`/ajax/task_add.php`, { params });
+    checkResponseStatus(data.ok);
+    // dispatch(
+    //   onSetModals(MODALS.CALENDAR, {
+    //     type: CALENDAR_MODALS.SUCCESS_ADD,
+    //     params: response
+    //   })
+    // );
+    dispatch({ type: TasksTypes.ADD_TASK, payload: data.task });
+  } catch (error) {
+    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
+    console.log(error);
+  } finally {
+    dispatch(onSetModals(MODALS.LOADER, false));
+    dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+  }
+};
+
+export const onGetAllTasks = () => async (dispatch, getState) => {
+  try {
+    const response = await api.get(`ajax/task_get.php`, {
+      params: {
+        uid: getState().user.uid
+      }
+    });
+    checkResponseStatus(response.data.ok);
+    dispatch({
+      type: TasksTypes.GET_TASKS,
+      payload: response.data.tasks ?? []
+    });
+  } catch (error) {
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: "error" }));
+    console.log(error);
+  }
+};
+
+export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
+  try {
+    const { data } = await api.delete(`ajax/task_del.php`, {
+      params: {
+        uid: getState().user.uid,
+        id_task: id
+      }
+    });
+    checkResponseStatus(data.ok);
+
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message
+      })
+    );
+    dispatch({ type: TasksTypes.DELETE_TASK, payload: id });
+  } catch (e) {
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+    console.log(e);
+  } finally {
+    dispatch(onSetModals(MODALS.LOADER, false));
+  }
+};
+
+export const onEditTask = (payload, message, error) => async (dispatch, getState) => {
+  try {
+    const params = {
+      name: payload.name,
+      id_task: payload.idTask,
+      id_type: payload.eventType,
+      id_dep: payload.idDep,
+      prim: payload.text,
+      date_start: payload.dateStart,
+      date_end: payload.dateEnd,
+      time_start: payload.timeStart,
+      uid: getState().user.uid,
+      color: payload.color,
+      emoji: payload.emoji,
+      symbol: payload.figure,
+      id_act: payload.idAct,
+      emails: payload.emails,
+      tag: payload.tagOption
+    };
+    const { data } = await api.get(`ajax/task_edit.php`, { params });
+    checkResponseStatus(data.ok);
+    dispatch(onGetAllTasks());
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message
+      })
+    );
+  } catch (err) {
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+    console.log(err);
+  } finally {
+    dispatch(onSetModals(MODALS.LOADER, false));
   }
 };

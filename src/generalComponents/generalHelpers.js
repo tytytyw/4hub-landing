@@ -258,3 +258,9 @@ export const getIsIncludePath = (filePath, currentPath) => {
   const result = filePathArray.filter((el) => currentPathArray.includes(el)).join("/");
   return result === currentPath;
 };
+
+export const getFormatDate = (date) => {
+  const newDate = date.split(" ").join("T");
+  const formatDate = new Date(newDate).toLocaleString("ru", { year: "numeric", month: "2-digit", day: "2-digit" });
+  return formatDate;
+};
