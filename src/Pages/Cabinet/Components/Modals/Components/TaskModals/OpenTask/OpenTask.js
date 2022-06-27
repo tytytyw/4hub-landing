@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 import { editMeetingParams } from "../../../../../../../types/Tasks";
-// import styles from "./OpenTask.module.sass";
 import { eventProps } from "types/CalendarPage";
 
 function OpenTask({ task }) {

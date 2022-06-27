@@ -2,16 +2,31 @@ import React, { useState } from "react";
 
 import styles from "./TableListTaskItem.module.sass";
 import classNames from "classnames";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { eventProps } from "../../../../../types/CalendarPage";
 import { currentEvent, useEvents } from "generalComponents/CalendarHelper";
+import { onSetModals } from "Store/actions/CabinetActions";
+import { useDispatch } from "react-redux";
 
 const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(false);
   const events = useEvents();
   const color = task?.id_color?.color;
+  const dispatch = useDispatch();
+
+  const openTask = (task) => {
+    dispatch(
+      onSetModals(MODALS.TASKS, {
+        type: TASK_MODALS.OPEN_TASK,
+        choosenTask: task,
+        params: {
+          width: 620
+        }
+      })
+    );
+  };
   return (
     <div className={styles.wrapper}>
       <div onClick={() => setCollapse(!collapse)} className={styles.headBlock}>
@@ -85,7 +100,14 @@ const TableListTaskItem = ({ task }) => {
           </div>
 
           <div className={styles.actionBlock}>
-            <button className={styles.actionBtn}>{__("Перейти к задаче")}</button>
+            <button
+              className={styles.actionBtn}
+              onClick={() => {
+                openTask(task);
+              }}
+            >
+              {__("Перейти к задаче")}
+            </button>
           </div>
         </div>
       )}

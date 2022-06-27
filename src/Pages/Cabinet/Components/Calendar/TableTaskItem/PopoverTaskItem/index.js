@@ -2,15 +2,30 @@ import React from "react";
 
 import styles from "./PopoverTaskItem.module.sass";
 import classNames from "classnames";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../../types/CalendarPage";
 import { currentEvent, opacityColor, useEvents } from "generalComponents/CalendarHelper";
+import { onSetModals } from "Store/actions/CabinetActions";
+import { useDispatch } from "react-redux";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
   const events = useEvents();
+  const dispatch = useDispatch();
+
+  const openTask = (task) => {
+    dispatch(
+      onSetModals(MODALS.TASKS, {
+        type: TASK_MODALS.OPEN_TASK,
+        choosenTask: task,
+        params: {
+          width: 620
+        }
+      })
+    );
+  };
 
   return (
     <div
@@ -74,7 +89,12 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
         </div>
 
         <div className={styles.actionBlock}>
-          <button className={styles.actionBtn} onClick={() => {}}>
+          <button
+            className={styles.actionBtn}
+            onClick={() => {
+              openTask(task);
+            }}
+          >
             {__("Перейти к задаче")}
           </button>
         </div>
