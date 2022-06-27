@@ -16,7 +16,6 @@ import { onSetModals } from "Store/actions/CabinetActions";
 
 function Tasks() {
   const [mouseParams, setMouseParams] = useState(null);
-  // const [chosenFile, setChosenFile] = useState(null);
   const contextMenu = useContextMenuTasks();
   const chosenTask = useSelector((s) => s.Tasks.chosenTask);
   const dispatch = useDispatch();

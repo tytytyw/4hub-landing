@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { LIBRARY_MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalVariables";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import { useLocales } from "react-localized";
-// import TaskModals from "../TaskModals/TaskModals";
 
 function SubmitButtons({ type, closeModal, onSubmit }) {
   const { __ } = useLocales();

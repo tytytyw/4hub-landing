@@ -1,20 +1,12 @@
 import api from "api";
 import { checkResponseStatus } from "generalComponents/generalHelpers";
-import {
-  MODALS,
-  // CALENDAR_MODALS,
-  TOP_MESSAGE_TYPE
-} from "generalComponents/globalVariables";
+import { MODALS, TOP_MESSAGE_TYPE } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
+// department actions
 export const selectDepartment = (data) => ({
   type: TasksTypes.SELECT_TASK_DEPARTMENT,
-  payload: data
-});
-
-export const onSelectTask = (data) => ({
-  type: TasksTypes.SELECT_TASK,
   payload: data
 });
 
@@ -94,7 +86,13 @@ export const onDeleteDepartment = () => async (dispatch, getState) => {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
   }
 };
-//////////////=================/////////////////
+
+// Task actions
+export const onSelectTask = (data) => ({
+  type: TasksTypes.SELECT_TASK,
+  payload: data
+});
+
 export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
   try {
     dispatch(onSetModals(MODALS.LOADER, true));
@@ -117,7 +115,7 @@ export const onAddNewTask = (payload, message) => async (dispatch, getState) => 
     };
     const { data } = await api.get(`/ajax/task_add.php`, { params });
     checkResponseStatus(data.ok);
-    // TODO need to fix
+    // TODO need to fix - different modals for different types of tasks
     // dispatch(
     //   onSetModals(MODALS.CALENDAR, {
     //     type: CALENDAR_MODALS.SUCCESS_ADD,

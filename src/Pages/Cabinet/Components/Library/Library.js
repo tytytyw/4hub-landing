@@ -95,7 +95,7 @@ function Library({
       ),
     [contextMenuFolder.DELETE]: () =>
       dispatch(
-        onSetModals("contextMenuModals", {
+        onSetModals(MODALS.CONTEXT_MENU_MODAL, {
           type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
           params: { width: 420, title: chosenFolder.dir, icon: "" }
         })
