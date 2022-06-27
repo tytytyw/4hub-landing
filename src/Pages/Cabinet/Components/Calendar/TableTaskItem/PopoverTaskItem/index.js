@@ -59,7 +59,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
             </div>
             <img
               className={styles.avatar}
-              src={`${imageSrc}assets/PrivateCabinet/avatars/${task?.avatar}.svg`}
+              src={`${imageSrc}assets/PrivateCabinet/avatars/${task.avatar}.svg`}
               alt="Avatar 1"
             />
           </div>
@@ -67,22 +67,22 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
             <div className={styles.infoBlock}>
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Имя задачи")}</p>
-                <p className={styles.value}>{task?.name}</p>
+                <p className={styles.value}>{task.name}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Срок")}</p>
-                <p className={styles.value}>{task?.date_start}</p>
+                <p className={styles.value}>{task.date_start}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Тег")}</p>
-                <p className={styles.value}>{task?.tags.chosen}</p>
+                <p className={styles.value}>{task.tags.chosen}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Отправитель")}</p>
-                <p className={styles.value}>{task?.sender}</p>
+                <p className={styles.value}>{task.sender}</p>
               </div>
             </div>
           </div>
