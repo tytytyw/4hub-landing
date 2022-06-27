@@ -11,7 +11,7 @@ import EditMeeting from "./EditMeeting/EditMeeting";
 import EditCall from "./EditCall/EditCall";
 import EditLetter from "./EditLetter/EditLetter";
 import EditSection from "./EditSection/EditSection";
-import DeleteSection from "./DeleteSection/DeleteSection";
+// import DeleteSection from "./DeleteSection/DeleteSection";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ function TaskModals() {
         {(type === TASK_MODALS.ADD_SECTION || type === TASK_MODALS.EDIT_SECTION) && (
           <EditSection type={type} params={params} closeModal={closeModal} />
         )}
-        {type === TASK_MODALS.DELETE_SECTION && <DeleteSection closeModal={closeModal} icon={params.icon} />}
+        {/* {type === TASK_MODALS.DELETE_SECTION && <DeleteSection closeModal={closeModal} icon={params.icon} />} */}
       </form>
     </PopUp>
   );
