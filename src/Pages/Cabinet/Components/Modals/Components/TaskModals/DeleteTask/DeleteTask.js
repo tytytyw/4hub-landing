@@ -4,8 +4,8 @@ import styles from "./DeleteTask.module.sass";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
-import { onDeleteTask, onSetModals } from "Store/actions/CabinetActions";
-import { MODALS } from "generalComponents/globalVariables";
+
+import { onDeleteTask } from "Store/actions/TasksActions";
 
 function DeleteTask({ closeModal, type }) {
   const { __ } = useLocales();
@@ -14,8 +14,6 @@ function DeleteTask({ closeModal, type }) {
 
   const deleteTask = async () => {
     dispatch(onDeleteTask(taskChoosen.id, __("Задача успешно удалена"), __("Ошибка при удалении задачи")));
-    dispatch(onSetModals(MODALS.LOADER, true));
-    closeModal();
   };
 
   return (

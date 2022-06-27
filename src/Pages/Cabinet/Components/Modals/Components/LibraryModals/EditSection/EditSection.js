@@ -1,30 +1,22 @@
 import React, { useState } from "react";
-import classnames from "classnames";
 import styles from "./EditSection.module.sass";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
-import {
-  imageSrc,
-  LIBRARY,
-  LIBRARY_MODALS,
-  LIBRARY_OWN_ICONS,
-  MODALS
-} from "../../../../../../../generalComponents/globalVariables";
+import { LIBRARY, LIBRARY_MODALS, MODALS } from "../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { editSectionParams } from "../../../../../../../types/Library";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import { onLoadFolders, onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import InputField from "../../../../../../../generalComponents/InputField";
-import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import api from "api";
 import { checkResponseStatus, getDepartment } from "generalComponents/generalHelpers";
+import SelectCustomIcon from "generalComponents/SelectCustomIcon/SelectCustomIcon";
 
 function EditSection({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const uid = useSelector((state) => state.user.uid);
   const dirName = useSelector((state) => state.Cabinet.folderList.path);
-  const [show, setShow] = useState(false);
   const [mistake, setMistake] = useState(false);
 
   const onChangeTitle = (title) => {
@@ -75,34 +67,7 @@ function EditSection({ type, params, closeModal }) {
         mistake={mistake}
       />
       <div className={styles.margin} />
-      <div
-        className={classnames({ [styles.select]: true, [styles.selectShow]: !show, [styles.selectHide]: show })}
-        onClick={() => setShow((state) => !state)}
-      >
-        {params.icon ? (
-          <img src={`${imageSrc}assets/PrivateCabinet/library/own/${params.icon}.svg`} alt="icon" />
-        ) : (
-          <span>{__("Выбирите иконку раздела")}</span>
-        )}
-        <PlayIcon className={classnames({ [styles.playButton]: true, [styles.playBattonShow]: show })} />
-        <div
-          className={classnames({
-            [styles.optionsList]: true,
-            [styles.optionsListHide]: !show,
-            [styles.optionsListShow]: show
-          })}
-        >
-          {LIBRARY_OWN_ICONS.map((i) => (
-            <img
-              key={i}
-              src={`${imageSrc}assets/PrivateCabinet/library/own/${i}.svg`}
-              alt="icon"
-              className={styles.innerIcon}
-              onClick={() => onChangeIcon(i)}
-            />
-          ))}
-        </div>
-      </div>
+      <SelectCustomIcon icon={params.icon} onChangeIcon={onChangeIcon} />
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={editSection} />
     </div>
   );

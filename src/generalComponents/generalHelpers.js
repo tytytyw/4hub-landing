@@ -259,6 +259,12 @@ export const getIsIncludePath = (filePath, currentPath) => {
   return result === currentPath;
 };
 
+export const getFormatDate = (date) => {
+  const newDate = date.split(" ").join("T");
+  const formatDate = new Date(newDate).toLocaleString("ru", { year: "numeric", month: "2-digit", day: "2-digit" });
+  return formatDate;
+};
+
 export const getMaskDate = (date) => {
   const tempValue = date.replace(/\D/gim, "");
   return tempValue.replace(

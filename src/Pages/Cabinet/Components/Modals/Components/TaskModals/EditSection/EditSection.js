@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { useLocales } from "react-localized";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import InputField from "../../../../../../../generalComponents/InputField";
+import { onCreateTaskDepartment, onEditTaskDepartment } from "Store/actions/TasksActions";
+import SelectCustomIcon from "generalComponents/SelectCustomIcon/SelectCustomIcon";
 
 function EditSection({ type, params, closeModal }) {
   const { __ } = useLocales();
@@ -15,6 +17,14 @@ function EditSection({ type, params, closeModal }) {
 
   const onChangeTitle = (title) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, title } }));
+  };
+
+  const onChangeIcon = (icon) => {
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, icon } }));
+  };
+
+  const handleSubmit = () => {
+    TASK_MODALS.ADD_SECTION === type ? dispatch(onCreateTaskDepartment()) : dispatch(onEditTaskDepartment());
   };
 
   return (
@@ -27,7 +37,8 @@ function EditSection({ type, params, closeModal }) {
         editableClass={"fixedHeight"}
       />
       <div className={styles.margin} />
-      <SubmitButtons type={type} closeModal={closeModal} />
+      <SelectCustomIcon icon={params.icon} onChangeIcon={onChangeIcon} />
+      <SubmitButtons type={type} closeModal={closeModal} onSubmit={handleSubmit} />
     </div>
   );
 }
