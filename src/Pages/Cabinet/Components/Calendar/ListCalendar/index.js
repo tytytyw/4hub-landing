@@ -9,7 +9,7 @@ import { setCalendarDate } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 
-const ListCalendar = ({ setViewType }) => {
+const ListCalendar = () => {
   const dispatch = useDispatch();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
 
@@ -35,7 +35,6 @@ const ListCalendar = ({ setViewType }) => {
       date.setMonth(month);
     }
     dispatch(setCalendarDate(date));
-    setViewType("list");
   };
 
   const dayActive = (day) => calendarDate.getDate() === day;
@@ -98,7 +97,6 @@ const ListCalendar = ({ setViewType }) => {
 export default ListCalendar;
 
 ListCalendar.propTypes = {
-  setViewType: PropTypes.func,
   collapsed: PropTypes.bool
 };
 

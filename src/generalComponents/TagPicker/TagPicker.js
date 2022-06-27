@@ -11,6 +11,7 @@ function TagPicker({ tag, onSelectTag, placeholder }) {
   const { theme } = useSelector((s) => s.user.userInfo);
 
   const tagRef = useRef(null);
+
   const handleChoose = () => {
     tagRef.current.style.display = "none";
     setTimeout(() => {

@@ -14,14 +14,24 @@ const tagOptionProps = PropTypes.exact({
 });
 
 export const eventProps = PropTypes.exact({
+  id: PropTypes.string,
+  id_user: PropTypes.string,
+  ut: PropTypes.string,
   name: PropTypes.string,
   sign: PropTypes.string,
-  emoji: PropTypes.string,
-  color: colorProps,
-  dateFrom: PropTypes.string,
-  dateTo: PropTypes.string,
-  tagOption: tagOptionProps,
-  desc: PropTypes.string
+  date_start: PropTypes.string,
+  date_end: PropTypes.string,
+  start_time: PropTypes.string,
+  emails: PropTypes.string,
+  tags: tagOptionProps,
+  prim: PropTypes.string,
+  id_emo: PropTypes.string,
+  id_fig: PropTypes.string,
+  id_color: PropTypes.oneOfType([PropTypes.string, colorProps]),
+  is_del: PropTypes.string,
+  id_type: PropTypes.string,
+  id_dep: PropTypes.string,
+  id_act: PropTypes.string
 });
 
 export const eventShowProps = PropTypes.exact({

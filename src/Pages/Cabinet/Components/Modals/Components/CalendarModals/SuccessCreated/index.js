@@ -1,46 +1,47 @@
 import React from "react";
 
 import styles from "./SuccessCreated.module.sass";
-
-import PopUp from "../../../../../../generalComponents/PopUp";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { eventProps } from "../../../../../../types/CalendarPage";
+import { getStartDate, getStartTime, opacityColor } from "generalComponents/CalendarHelper";
 
-const SuccessCreated = ({ set, event }) => {
+const SuccessCreated = ({ closeModal }) => {
   const { __ } = useLocales();
+  const { task } = useSelector((s) => s.Cabinet.modals.calendarModals);
+
   return (
-    <PopUp set={set}>
+    <>
       <div className={styles.wrapper}>
         <div className={styles.titleWrap}>
           <h4 className={styles.title}>{__("Задача успешно создана")}</h4>
         </div>
 
-        <div className={styles.content}>
+        <div className={styles.content} style={{ background: `${opacityColor(task.id_color.color)}` }}>
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Имя задачи")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.name}</p>
+              <p className={styles.value}>{task?.name}</p>
               <div className={styles.icons}>
-                {event?.sign && (
+                {task?.id_fig && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${event.sign}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/signs/${task.id_fig}.svg`}
                     alt="Sign"
                   />
                 )}
-                {event?.emoji && (
+                {task?.id_emo && (
                   <img
                     className={styles.icon}
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${event.emoji}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/smiles/${task.id_emo}.svg`}
                     alt="Emoji"
                   />
                 )}
-                {event?.color && (
+                {task?.id_color && (
                   <span
                     style={{
-                      background: `${event.color?.dark}`
+                      background: `${task.id_color.color}`
                     }}
                     className={styles.circle}
                   />
@@ -53,12 +54,12 @@ const SuccessCreated = ({ set, event }) => {
             <p className={styles.option}>{__("Срок Выполнения")}</p>
             <div className={styles.infoWrap}>
               <div className={styles.valueWrap}>
-                <p className={styles.option}>С:</p>
-                <p className={styles.value}>{event?.dateFrom}</p>
+                <p className={styles.option}>{__("Дата")}:</p>
+                <p className={styles.value}>{getStartDate(task.date_start)}</p>
               </div>
               <div className={styles.valueWrap}>
-                <p className={styles.option}>{__("До:")}</p>
-                <p className={styles.value}>{event?.dateTo}</p>
+                <p className={styles.option}>{__("Время")}:</p>
+                <p className={styles.value}>{getStartTime(task.date_start)}</p>
               </div>
             </div>
           </div>
@@ -74,31 +75,30 @@ const SuccessCreated = ({ set, event }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Тег")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.tagOption?.chosen}</p>
+              <p className={styles.value}>{`# ${task?.tags?.chosen}`}</p>
             </div>
           </div>
 
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Сопроводительный текст")}</p>
             <div className={styles.infoWrap}>
-              <p className={styles.value}>{event?.desc}</p>
+              <p className={styles.value}>{task?.prim}</p>
             </div>
           </div>
         </div>
 
         <div className={styles.actionBlock}>
-          <button onClick={() => set(false)} className={styles.actionBtn}>
+          <button onClick={closeModal} className={styles.actionBtn}>
             {__("Готово")}
           </button>
         </div>
       </div>
-    </PopUp>
+    </>
   );
 };
 
 export default SuccessCreated;
 
 SuccessCreated.propTypes = {
-  set: PropTypes.func,
-  event: eventProps
+  closeModal: PropTypes.func
 };
