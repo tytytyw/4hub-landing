@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Note.module.sass";
-import { colorType } from "types/Color";
 import { getFormatDate } from "generalComponents/generalHelpers";
 import { imageSrc } from "generalComponents/globalVariables";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 import { onSelectTask } from "Store/actions/TasksActions";
+import { taskTypes } from "types/Tasks";
 
 const Note = ({ note, setMouseParams }) => {
   const { theme } = useSelector((s) => s.user.userInfo);
@@ -78,12 +78,6 @@ const Note = ({ note, setMouseParams }) => {
 export default Note;
 
 Note.propTypes = {
-  note: PropTypes.exact({
-    ut: PropTypes.string,
-    id: PropTypes.string,
-    prim: PropTypes.string,
-    id_color: PropTypes.oneOfType([colorType, PropTypes.string]),
-    tags: PropTypes.string
-  }),
+  note: taskTypes,
   setMouseParams: PropTypes.func
 };

@@ -19,6 +19,7 @@ import { loadedFilesProps, loadingFileProps } from "../../../../types/LoadingFil
 import TaskModals from "./Components/TaskModals/TaskModals";
 import LibraryModals from "./Components/LibraryModals/LibraryModals";
 import MailModals from "./Components/MailModals/MailModals";
+import CalendarModals from "./Components/CalendarModals/CalendarModals";
 
 function Modals({
   awaitingFiles,
@@ -49,6 +50,8 @@ function Modals({
   const dispatch = useDispatch();
   //MAIL
   const mailModalsType = useSelector((s) => s.Cabinet.modals.mailModals.type);
+  //CALENDAR
+  const calendarModalsType = useSelector((s) => s.Cabinet.modals.calendarModals.type);
 
   const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
   const closeSuccess = () => dispatch(onSetModals("success", { open: false, message: "", title: "", icon: "" }));
@@ -98,6 +101,7 @@ function Modals({
       {taskModalsType ? <TaskModals /> : null}
       {mailModalsType ? <MailModals /> : null}
       {libraryModalsType ? <LibraryModals /> : null}
+      {calendarModalsType ? <CalendarModals /> : null}
     </>
   );
 }

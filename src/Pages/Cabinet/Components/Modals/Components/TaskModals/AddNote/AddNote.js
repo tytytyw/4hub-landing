@@ -36,7 +36,6 @@ function AddNote({ type, params, closeModal }) {
       eventType: TASK_TYPES.NOTES,
       name: "note"
     };
-    console.log("first", type);
     type === TASK_MODALS.ADD_NOTE
       ? dispatch(onAddNewTask(payload, __("Не удалось создать заметку")))
       : dispatch(onEditTask(payload, __("Не удалось изменить заметку")));

@@ -55,16 +55,18 @@ function Tasks() {
       <BottomPanel />
       {mouseParams !== null && (
         <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-          {contextMenu.map((item, i) => (
-            <ContextMenuItem
-              key={i}
-              width={mouseParams.width}
-              height={mouseParams.height}
-              text={item.name}
-              callback={callbacks[item.type]}
-              imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-          ))}
+          <div className={styles.mainMenuItems}>
+            {contextMenu.map((item, i) => (
+              <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                callback={callbacks[item.type]}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+              />
+            ))}
+          </div>
         </ContextMenu>
       )}
     </div>

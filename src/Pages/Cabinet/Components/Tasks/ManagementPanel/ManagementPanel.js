@@ -4,9 +4,7 @@ import { useLocales } from "react-localized";
 import {
   BUTTON_TYPES,
   contextMenuFolder,
-  // CONTEXT_MENU_FOLDER,
   imageSrc,
-  // LIBRARY_MODALS,
   MODALS,
   TASK_MODALS
 } from "../../../../../generalComponents/globalVariables";
@@ -73,8 +71,8 @@ function ManagementPanel() {
     <div className={styles.panelWrap}>
       <Button
         style={BUTTON_TYPES.LIGHT_LONG}
-        onClick={() => onSelectDep(standartDepartment.WORK_TASK.id_dep, standartDepartment.WORK_TASK.name)}
-        isSelected={standartDepartment.WORK_TASK.id_dep === currentDep.id}
+        onClick={() => onSelectDep(standartDepartment.WORK_TASK)}
+        isSelected={standartDepartment.WORK_TASK.id === currentDep.id}
       >
         <Bag />
         <span className={styles.text}>{standartDepartment.WORK_TASK.name}</span>
@@ -82,8 +80,8 @@ function ManagementPanel() {
       </Button>
       <Button
         style={BUTTON_TYPES.LIGHT_LONG}
-        onClick={() => onSelectDep(standartDepartment.HOME_TASK.id_dep, standartDepartment.HOME_TASK.name)}
-        isSelected={standartDepartment.HOME_TASK.id_dep === currentDep.id}
+        onClick={() => onSelectDep(standartDepartment.HOME_TASK)}
+        isSelected={standartDepartment.HOME_TASK.id === currentDep.id}
       >
         <Home />
         <span className={styles.text}>{standartDepartment.HOME_TASK.name}</span>

@@ -713,11 +713,11 @@ export function useStandartTasksDepartment() {
   return {
     WORK_TASK: {
       name: __("Рабочие задачи"),
-      id_dep: "worktask"
+      id: "worktask"
     },
     HOME_TASK: {
       name: __("Личные задачи"),
-      id_dep: "hometask"
+      id: "hometask"
     }
   };
 }

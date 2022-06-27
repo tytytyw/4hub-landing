@@ -1,6 +1,10 @@
 import api from "api";
 import { checkResponseStatus } from "generalComponents/generalHelpers";
-import { MODALS, TOP_MESSAGE_TYPE } from "generalComponents/globalVariables";
+import {
+  MODALS,
+  // CALENDAR_MODALS,
+  TOP_MESSAGE_TYPE
+} from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
@@ -93,6 +97,8 @@ export const onDeleteDepartment = () => async (dispatch, getState) => {
 //////////////=================/////////////////
 export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
+
     const params = {
       uid: getState().user.uid,
       name: payload.name,
@@ -111,10 +117,11 @@ export const onAddNewTask = (payload, message) => async (dispatch, getState) => 
     };
     const { data } = await api.get(`/ajax/task_add.php`, { params });
     checkResponseStatus(data.ok);
+    // TODO need to fix
     // dispatch(
     //   onSetModals(MODALS.CALENDAR, {
     //     type: CALENDAR_MODALS.SUCCESS_ADD,
-    //     params: response
+    //     params: data.task
     //   })
     // );
     dispatch({ type: TasksTypes.ADD_TASK, payload: data.task });
@@ -147,6 +154,8 @@ export const onGetAllTasks = () => async (dispatch, getState) => {
 
 export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
+
     const { data } = await api.delete(`ajax/task_del.php`, {
       params: {
         uid: getState().user.uid,
@@ -155,18 +164,19 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
     });
     checkResponseStatus(data.ok);
 
+    dispatch({ type: TasksTypes.DELETE_TASK, payload: data.id_task });
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
         message
       })
     );
-    dispatch({ type: TasksTypes.DELETE_TASK, payload: id });
   } catch (e) {
     dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
     console.log(e);
   } finally {
     dispatch(onSetModals(MODALS.LOADER, false));
+    dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
   }
 };
 

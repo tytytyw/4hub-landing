@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import styles from "./Select.module.sass";
+import styles from "./SelectChosen.module.sass";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const Select = ({ value, ...props }) => {
+const SelectChosen = ({ value, ...props }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -58,9 +58,9 @@ const Select = ({ value, ...props }) => {
   );
 };
 
-export default Select;
+export default SelectChosen;
 
-Select.propTypes = {
+SelectChosen.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   children: PropTypes.element
