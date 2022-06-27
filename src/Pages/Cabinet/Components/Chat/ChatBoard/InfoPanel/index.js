@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./InfoPanel.module.sass";
 
-import MainPanel from "./MainPanel";
+import MainPanel from "./MainPanel/MainPanel";
 import Media from "./Media";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
