@@ -18,7 +18,7 @@ const SuccessCreated = ({ closeModal }) => {
           <h4 className={styles.title}>{__("Задача успешно создана")}</h4>
         </div>
 
-        <div className={styles.content} style={{ background: `${opacityColor(task.id_color.color)}` }}>
+        <div className={styles.content} style={{ background: `${opacityColor(task?.id_color.color)}` }}>
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Имя задачи")}</p>
             <div className={styles.infoWrap}>

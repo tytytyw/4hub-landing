@@ -38,5 +38,26 @@ export const editLetterParams = PropTypes.exact({
 
 export const editSectionParams = PropTypes.exact({
   width: PropTypes.number,
-  title: PropTypes.string
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  id: PropTypes.string
+});
+
+export const taskTypes = PropTypes.exact({
+  id: PropTypes.string,
+  name: PropTypes.string,
+  id_user: PropTypes.string,
+  ut: PropTypes.string,
+  date_start: PropTypes.string,
+  date_end: PropTypes.string,
+  emails: PropTypes.string,
+  tags: PropTypes.string,
+  prim: PropTypes.string,
+  id_emo: PropTypes.string,
+  id_fig: PropTypes.string,
+  id_color: PropTypes.oneOfType([colorType, PropTypes.string]),
+  is_del: PropTypes.string,
+  id_type: PropTypes.string,
+  id_dep: PropTypes.string,
+  id_act: PropTypes.string
 });

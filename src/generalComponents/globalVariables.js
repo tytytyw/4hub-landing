@@ -147,12 +147,15 @@ export const LOADING_STATE = {
 };
 
 export const TASK_MODALS = {
+  ADD_SECTION: "AddSection",
+  EDIT_SECTION: "EditSection",
+  DELETE_SECTION: "DeleteSection",
   ADD_NOTE: "AddNote",
+  EDIT_NOTE: "EditNote",
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
-  ADD_SECTION: "AddSection",
   DELETE_TASK: "DeleteTask",
   ADD_COOMENT_TASK: "AddCommentTask",
   ADD_REMINDER: "AddReminder",
@@ -160,6 +163,16 @@ export const TASK_MODALS = {
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
   ADD_PASSWORD: "AddPassword",
   OPEN_TASK: "OpenTask"
+};
+
+export const contextMenuFolder = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
+};
+
+export const contextMenuTask = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
 };
 
 // MAIL
@@ -214,4 +227,15 @@ export const LIBRARY_OWN_ICONS = [
 // CART
 export const CART = {
   API_GET_FILES: "trash_list"
+};
+
+// MY TASKS
+export const TASK_TYPES = {
+  TASK: 1,
+  BIRTHDAY: 2,
+  ONLINE_MEETING: 3,
+  OFFLINE_MEETIGN: 4,
+  REMINDER: 5,
+  OTHER: 6,
+  NOTES: 7
 };

@@ -1,6 +1,6 @@
 import { useLocales } from "react-localized";
 import { typeCheck } from "./generalHelpers";
-import { TYPES } from "./globalVariables";
+import { TASK_TYPES, TYPES } from "./globalVariables";
 import { addHours, format } from "date-fns";
 
 const d = new Date();
@@ -241,6 +241,17 @@ export function createArrayOfHoursPerDay(beginFrom, interval) {
   }
 }
 
+export const useEvents = () => {
+  const { __ } = useLocales();
+  return [
+    { id: TASK_TYPES.TASK, name: __("Задача"), icon: "task" },
+    { id: TASK_TYPES.BIRTHDAY, name: __("День рождение"), icon: "birthday" },
+    { id: TASK_TYPES.ONLINE_MEETING, name: __("Встреча online"), icon: "online-meeting" },
+    { id: TASK_TYPES.OFFLINE_MEETIGN, name: __("Встреча offline"), icon: "offline-meeting" },
+    { id: TASK_TYPES.REMINDER, name: __("Напоминание"), icon: "reminder" },
+    { id: TASK_TYPES.OTHER, name: __("Другое"), icon: "other" }
+  ];
+};
 export const opacityColor = (color) => `${color.slice(0, -1)}, 0.1)`;
 
 export const getStartDate = (item) => {
@@ -251,18 +262,6 @@ export const getStartDate = (item) => {
 export const getStartTime = (item) => {
   const date = item.split(" ");
   return date[1].slice(0, -3);
-};
-
-export const useEvents = () => {
-  const { __ } = useLocales();
-  return [
-    { id: 1, name: __("Задача"), icon: "task" },
-    { id: 2, name: __("День рождение"), icon: "birthday" },
-    { id: 3, name: __("Встреча online"), icon: "online-meeting" },
-    { id: 4, name: __("Встреча offline"), icon: "offline-meeting" },
-    { id: 5, name: __("Напоминание"), icon: "reminder" },
-    { id: 6, name: __("Другое"), icon: "other" }
-  ];
 };
 
 export const currentEvent = (events, task) => events.find((item) => (item.id === Number(task.id_type) ? item : ""));

@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./Message.module.sass";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TOP_MESSAGE_TYPE } from "../../../../../../generalComponents/globalVariables";
 import { useMessageTime } from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
 import VoiceMessagePlayer from "./VoiceMessagePlayer";
@@ -12,8 +12,14 @@ import PropTypes from "prop-types";
 import { messageProps, selectedContactProps } from "types/Chat";
 import { imageFormats, calcImageSize } from "../../../../../../generalComponents/chatHelper";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
+import api from "../../../../../../api";
+import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
+import { useLocales } from "react-localized";
 
 function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
+  const { __ } = useLocales();
+  const { uid } = useSelector((s) => s.user);
   const messageTime = useMessageTime();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -24,6 +30,46 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const attachmentsWrapperRef = useRef();
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
+  const [isRead, setIsRead] = useState(message.is_read === "1");
+
+  const setMessageToRead = async () => {
+    if (messageType === "outbox" && message.is_read === "0" && !isRead) {
+      setIsRead(true);
+      await api
+        .post(
+          "/ajax/chat_message_update.php",
+          {},
+          {
+            params: {
+              uid,
+              id_messages: [message.id],
+              is_read: 1
+            }
+          }
+        )
+        .then((res) => {
+          checkResponseStatus(res.data.ok);
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch(
+            onSetModals(MODALS.TOP_MESSAGE, {
+              open: true,
+              type: TOP_MESSAGE_TYPE.ERROR,
+              message: __(`Сообщение ${message.id} не прочитано`)
+            })
+          );
+        });
+    }
+  };
+  const [containerRef] = useScrollElementOnScreen(
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0
+    },
+    setMessageToRead
+  );
 
   const attachmentIsOnlyImages = () => {
     const files = message.attachment;
@@ -97,15 +143,9 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
         [styles.isHidden]: messageType === "inbox"
       })}
     >
+      <div className={styles.statusSend}>&#10003;</div>
       <div
-        className={classNames({
-          [styles.statusSend]: message.is_read === "1"
-        })}
-      >
-        &#10003;
-      </div>
-      <div
-        className={classNames({
+        className={classNames(styles.statusViewed, {
           [styles.statusNotViewed]: message.is_read === "0"
         })}
       >
@@ -121,6 +161,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
         [styles[messageType]]: true,
         [styles.darkTheme]: chatTheme.name === "dark"
       })}
+      ref={containerRef}
     >
       {messageType === "inbox" ? (
         <img
