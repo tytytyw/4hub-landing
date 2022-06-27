@@ -13,7 +13,7 @@ const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(false);
   const events = useEvents();
-  const color = task?.id_color?.color;
+  const color = task.id_color.color;
   const dispatch = useDispatch();
 
   const openTask = (task) => {

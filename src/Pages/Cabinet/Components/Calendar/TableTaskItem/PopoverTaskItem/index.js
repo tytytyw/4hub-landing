@@ -40,7 +40,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
       <div
         className={styles.content}
         style={{
-          background: opacityColor(task?.id_color?.color)
+          background: opacityColor(task.id_color.color)
         }}
       >
         <div className={styles.flexBlock}>
@@ -52,7 +52,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
               />
               <span
                 style={{
-                  background: task?.id_color?.color
+                  background: task.id_color.color
                 }}
                 className={styles.circle}
               />

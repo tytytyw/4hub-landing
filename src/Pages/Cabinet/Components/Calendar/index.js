@@ -33,6 +33,7 @@ const CalendarPage = () => {
   const [viewType, setViewType] = useState("day");
   const currentDayTasks = [];
 
+  // TODO - VZ - Сделать через сервер
   for (let key in myTasks) {
     if (getStartDate(formatDateStandard(calendarDate)).startsWith(getStartDate(myTasks[key].date_start))) {
       currentDayTasks.push(myTasks[key]);
