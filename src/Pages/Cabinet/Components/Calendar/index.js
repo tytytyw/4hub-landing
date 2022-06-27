@@ -8,7 +8,7 @@ import Profile from "../Profile/Profile";
 import DateBlock from "./DateBlock";
 import BottomPanel from "../BottomPanel";
 import { useDispatch, useSelector } from "react-redux";
-import { onGetAllTasks, onSetModals } from "../../../../Store/actions/CabinetActions";
+import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
 import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -20,11 +20,12 @@ import ListCalendar from "./ListCalendar";
 import { formatDateStandard, getStartDate } from "generalComponents/CalendarHelper";
 import FullCalendarTable from "./FullCalendar";
 import WorkSpaceList from "./WorkSpaceList";
+import { onGetAllTasks } from "Store/actions/TasksActions";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const myTasks = useSelector((state) => state.Cabinet.myTasks);
+  const myTasks = useSelector((state) => state.Tasks.myTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);

@@ -10,12 +10,13 @@ import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalCompo
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { onAddNewTask, onEditTask, onSetModals } from "Store/actions/CabinetActions";
+import { onSetModals } from "Store/actions/CabinetActions";
 import { getStartDate, getStartTime, useEvents } from "generalComponents/CalendarHelper";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 import TagPicker from "generalComponents/TagPicker/TagPicker";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
+import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 
 const EditTask = ({ closeModal, type }) => {
   const { __ } = useLocales();
