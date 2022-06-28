@@ -14,10 +14,12 @@ import InputField from "generalComponents/InputField";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
 import Calendar from "Pages/StartPage/Components/Calendar";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditMeeting({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
@@ -26,6 +28,7 @@ function EditMeeting({ type, params, closeModal }) {
   };
 
   const onChangeDate = ({ target }) => {
+    if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
@@ -36,22 +39,11 @@ function EditMeeting({ type, params, closeModal }) {
 
   const onChangeHour = ({ target }) => {
     if (target.value.length > 2) return;
-    const h = getMaskDate(target.value);
-    setHh(h);
+    setHh(getMaskDate(target.value));
   };
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
-    const m = getMaskDate(target.value);
-    setMm(m);
-  };
-  const messagesAdd = {
-    error: __("Не удалось создать встречу"),
-    success: __("Новая встреча создана")
-  };
-
-  const messagesEdit = {
-    error: __("Не удалось изменить встречу"),
-    success: __("Встреча изменина")
+    setMm(getMaskDate(target.value));
   };
 
   const onSubmit = () => {
@@ -63,8 +55,8 @@ function EditMeeting({ type, params, closeModal }) {
       idTask: params.id
     };
     type === TASK_MODALS.ADD_MEETING
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MEETINGS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.MEETINGS][type]));
   };
 
   return (
@@ -86,7 +78,7 @@ function EditMeeting({ type, params, closeModal }) {
         <input
           className={styles.date}
           type="text"
-          value={params.date_start.slice(0, 10)}
+          value={params?.date_start.slice(0, 10)}
           placeholder={__("_ _._ _._ _ _ _")}
           onChange={onChangeDate}
         />

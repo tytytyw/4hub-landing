@@ -11,10 +11,12 @@ import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as ContactBookIcon } from "assets/PrivateCabinet/contact-book.svg";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditLetter({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
 
   const onChangeText = (prim) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, prim } }));
@@ -28,16 +30,6 @@ function EditLetter({ type, params, closeModal }) {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, emails } }));
   };
 
-  const messagesAdd = {
-    error: __("Не удалось создать звонок"),
-    success: __("Новый звонок создан")
-  };
-
-  const messagesEdit = {
-    error: __("Не удалось изменить звонок"),
-    success: __("Звонок изменина")
-  };
-
   const onSubmit = () => {
     const payload = {
       name: params.name,
@@ -47,15 +39,15 @@ function EditLetter({ type, params, closeModal }) {
       eventType: TASK_TYPES.MAILS
     };
     type === TASK_MODALS.ADD_LETTER
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MAILS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.MAILS][type]));
   };
 
   return (
     <div className={styles.editLetterWrap}>
       <InputField
         model="text"
-        value={params.topic}
+        value={params.name}
         set={onChangeTopic}
         placeholder={__("Тема письма")}
         editableClass={"fixedHeight"}
@@ -63,7 +55,7 @@ function EditLetter({ type, params, closeModal }) {
       <div className={styles.margin} />
       <InputField
         model="text"
-        value={params.receiver}
+        value={params.emails}
         set={onChangeReceiver}
         placeholder={__("Получатель")}
         editableClass={"fixedHeight"}

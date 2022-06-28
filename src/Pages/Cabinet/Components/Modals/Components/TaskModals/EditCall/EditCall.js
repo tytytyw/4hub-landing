@@ -12,13 +12,14 @@ import { useDispatch } from "react-redux";
 import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditCall({ type, params, closeModal }) {
-  console.log("TYPE", type);
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const messages = useTaskMessages();
 
   const onChangeName = (name) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
@@ -32,23 +33,13 @@ function EditCall({ type, params, closeModal }) {
 
   const onChangeHour = ({ target }) => {
     if (target.value.length > 2) return;
-    const h = getMaskDate(target.value);
-    setHh(h);
+    setHh(getMaskDate(target.value));
   };
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
-    const m = getMaskDate(target.value);
-    setMm(m);
-  };
-  const messagesAdd = {
-    error: __("Не удалось создать звонок"),
-    success: __("Новый звонок создан")
+    setMm(getMaskDate(target.value));
   };
 
-  const messagesEdit = {
-    error: __("Не удалось изменить звонок"),
-    success: __("Звонок изменина")
-  };
   const onSubmit = () => {
     const payload = {
       dateStart: params.date_start,
@@ -58,8 +49,8 @@ function EditCall({ type, params, closeModal }) {
       idTask: params.id
     };
     type === TASK_MODALS.ADD_CALL
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.CALLS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.CALLS][type]));
   };
   return (
     <div className={styles.editMeetingWrap}>

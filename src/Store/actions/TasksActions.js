@@ -133,13 +133,12 @@ export const onAddNewTask = (payload, messages) => async (dispatch, getState) =>
     };
     const { data } = await api.get(`/ajax/task_add.php`, { params });
     checkResponseStatus(data.ok);
-    // TODO need to fix - different modals for different types of tasks
-    // dispatch(
-    //   onSetModals(MODALS.CALENDAR, {
-    //     type: CALENDAR_MODALS.SUCCESS_ADD,
-    //     params: data.task
-    //   })
-    // );
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: messages.success
+      })
+    );
     dispatch({ type: TasksTypes.ADD_TASK, payload: data.task });
   } catch (error) {
     dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message: messages.error }));
@@ -168,7 +167,7 @@ export const onGetAllTasks = () => async (dispatch, getState) => {
   }
 };
 
-export const onDeleteTask = (id, message, error) => async (dispatch, getState) => {
+export const onDeleteTask = (id, messages) => async (dispatch, getState) => {
   try {
     dispatch(onSetModals(MODALS.LOADER, true));
 
@@ -184,11 +183,11 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
-        message
+        message: messages.success
       })
     );
   } catch (e) {
-    dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: messages.error }));
     console.log(e);
   } finally {
     dispatch(onSetModals(MODALS.LOADER, false));

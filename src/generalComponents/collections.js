@@ -730,6 +730,37 @@ export function useContextMenuTasks() {
   ];
 }
 
+export function useTaskMessages() {
+  const { __ } = useLocales();
+  return {
+    [TASK_MODALS.DELETE_TASK]: { success: __("Задача успешно удалена"), error: __("Ошибка при удалении задачи") },
+
+    [TASK_MODALS.ADD_SECTION]: { success: __("Раздел добавлен"), error: __("Раздел добавить не удалось") },
+    [TASK_MODALS.EDIT_SECTION]: { success: __("Раздел изменен"), error: __("Раздел изменить не удалось") },
+
+    [TASK_TYPES.NOTES]: {
+      [TASK_MODALS.ADD_NOTE]: { success: __("Заметка добавлена"), error: __("Заметку добавить не удалось") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Заметка изменена"), error: __("Не удалось изменить заметку") }
+    },
+    [TASK_TYPES.MEETINGS]: {
+      [TASK_MODALS.ADD_MEETING]: { success: __("Встреча добавлена"), error: __("Встречу создать не удалось") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Встреча изменена"), error: __("Встречу изменить не удалось") }
+    },
+    [TASK_TYPES.CALLS]: {
+      [TASK_MODALS.ADD_CALL]: { success: __("Звонок добавлен"), error: __("Звонок добавить не удалось") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Звонок изменен"), error: __("Звонок изменить не удалось") }
+    },
+    [TASK_TYPES.MAILS]: {
+      [TASK_MODALS.ADD_LETTER]: { success: __("Письмо добавлено"), error: __("Письмо добавить не удалось") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Письмо изменено"), error: __("Письмо изменить не удалось") }
+    },
+    [TASK_TYPES.TASK]: {
+      [TASK_MODALS.ADD_TASK]: { success: __("Задача добавлена"), error: __("Задачу добавить не удалось") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Задача изменена"), error: __("Задачу изменить не удалось") }
+    }
+  };
+}
+
 export function useStandardLibraries() {
   const { __ } = useLocales();
   return {
