@@ -46,7 +46,7 @@ const CalendarPage = () => {
         setTasks(dayTasks[key]);
       }
     }
-  }, [dayTasks, calendarDate]); // eslint-disable-line
+  }, [dayTasks, calendarDate]);
 
   const getStrDate = () => {
     return __(
