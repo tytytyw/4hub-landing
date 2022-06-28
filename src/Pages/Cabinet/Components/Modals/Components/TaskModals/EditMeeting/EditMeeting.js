@@ -24,21 +24,18 @@ function EditMeeting({ type, params, closeModal }) {
   };
 
   const onChangeDate = ({ target }) => {
-    // if (target.value.length > 10) return;
-    console.log("first", target.value);
+    if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
   const onChangeHour = ({ target }) => {
     if (target.value.length > 2) return;
-    const h = getMaskDate(target.value);
-    setHh(h);
+    setHh(getMaskDate(target.value));
   };
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
-    const m = getMaskDate(target.value);
-    setMm(m);
+    setMm(getMaskDate(target.value));
   };
   const messagesAdd = {
     error: __("Не удалось создать встречу"),

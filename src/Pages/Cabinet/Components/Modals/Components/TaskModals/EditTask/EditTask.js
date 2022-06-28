@@ -98,13 +98,6 @@ function EditTask({ type, params, closeModal }) {
           placeholder={__("Имя задачи")}
           editableClass={"fixedHeight"}
         />
-        {/* <InputField
-            model="text"
-            value={params.category}
-            set={onChangeCategory}
-            placeholder={__("Имя категории")}
-            editableClass={"fixedHeight"}
-          /> */}
         <InputField
           model="text"
           value={params.urgency}

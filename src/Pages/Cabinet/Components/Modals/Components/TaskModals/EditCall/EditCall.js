@@ -14,7 +14,6 @@ import { onSetModals } from "Store/actions/CabinetActions";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 
 function EditCall({ type, params, closeModal }) {
-  console.log("TYPE", type);
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
@@ -32,13 +31,11 @@ function EditCall({ type, params, closeModal }) {
 
   const onChangeHour = ({ target }) => {
     if (target.value.length > 2) return;
-    const h = getMaskDate(target.value);
-    setHh(h);
+    setHh(getMaskDate(target.value));
   };
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
-    const m = getMaskDate(target.value);
-    setMm(m);
+    setMm(getMaskDate(target.value));
   };
   const messagesAdd = {
     error: __("Не удалось создать звонок"),
