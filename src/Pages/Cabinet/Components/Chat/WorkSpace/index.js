@@ -72,13 +72,13 @@ const WorkSpace = ({
     if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
       const newMsg = {
         attachment: data.attachment,
-        day: data.api?.day ?? "today", //TODO - need to modify socket for BE
-        deadline: data.api?.deadline ?? "0", //TODO - need to modify socket for BE
+        day: data.api?.day ?? "today", //TODO - mkortelov - need to modify socket for BE
+        deadline: data.api?.deadline ?? "0", //TODO - mkortelov -  need to modify socket for BE
         id: data.api?.id_message,
         id_user: data.api?.id_user,
         id_user_to: data.api?.id_user_to,
-        is_del: data.api?.is_del ?? "0", //TODO - need to modify socket for BE
-        is_read: data.api?.is_read ?? "0", //TODO - need to modify socket for BE
+        is_del: data.api?.is_del ?? "0", //TODO - mkortelov -  need to modify socket for BE
+        is_read: data.api?.is_read ?? "0", //TODO - mkortelov -  need to modify socket for BE
         text: data.text,
         ut: data.api?.ut_message
       };
