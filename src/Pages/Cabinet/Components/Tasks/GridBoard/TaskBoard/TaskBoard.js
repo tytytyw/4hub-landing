@@ -3,19 +3,25 @@ import styles from "./TaskBoard.module.sass";
 import classes from "../GridBoard.module.sass";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { BOARDS, MIDNIGHT, TASKS_SCHEMA, STYLED_CLASSES } from "../../../../../../generalComponents/globalVariables";
+import {
+  TASK_TYPES,
+  MIDNIGHT,
+  TASKS_SCHEMA,
+  STYLED_CLASSES
+} from "../../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
-import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
 import DayTimetable from "./DayTimetable/DayTimetable";
 import { createArrayOfHoursPerDay } from "../../../../../../generalComponents/CalendarHelper";
 import MailTasks from "./MailTasks/MailTasks";
 import MyTasks from "./MyTasks/MyTasks";
+import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
 
-function TaskBoard({ classNameWrap, type, schema, setSchema }) {
+function TaskBoard({ classNameWrap, type, schema, setSchema, setMouseParams }) {
   const { theme } = useSelector((s) => s.user.userInfo);
-
+  const tasks = useSelector((s) => s.Tasks.myTasks);
   const INITIAL_TIMETABLE_DATE = new Date("1971-01-01 " + MIDNIGHT);
 
+  const getTasks = () => tasks.filter((item) => item.id_type === type);
   return (
     <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>
       <BoardServicePanel
@@ -23,14 +29,22 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         isLastElement={classNameWrap === STYLED_CLASSES[schema][STYLED_CLASSES[schema].length - 1]}
         setSchema={setSchema}
         schema={schema}
+        isTask={getTasks().length > 0}
       />
-      {(type === BOARDS.MEETINGS_BOARD || type === BOARDS.CALLS_BOARD) && (
-        <DayTimetable timePeriod={createArrayOfHoursPerDay(INITIAL_TIMETABLE_DATE, 1)} />
+      {(type === TASK_TYPES.MEETINGS || type === TASK_TYPES.CALLS) && (
+        <DayTimetable
+          timePeriod={createArrayOfHoursPerDay(INITIAL_TIMETABLE_DATE, 1)}
+          tasks={getTasks(type)}
+          setMouseParams={setMouseParams}
+        />
       )}
-      {type === BOARDS.MAIL_BOARD && (
+      {/* {type === TASK_TYPES.CALLS && (
+        <DayTimetable timePeriod={createArrayOfHoursPerDay(INITIAL_TIMETABLE_DATE, 1)} tasks={getTasks(type)} />
+      )} */}
+      {type === TASK_TYPES.MAILS && (
         <MailTasks tasks={["Write a letter to my friend right after the meeting", "Second mail"]} />
       )}
-      {type === BOARDS.TASKS_BOARD && <MyTasks />}
+      {type === TASK_TYPES.TASK && <MyTasks />}
     </div>
   );
 }
@@ -43,7 +57,8 @@ TaskBoard.defaultProps = {
 
 TaskBoard.propTypes = {
   classNameWrap: PropTypes.oneOf(Object.values(STYLED_CLASSES).reduce((acc, styles) => [...acc, ...styles], [])),
-  type: PropTypes.oneOf(Object.values(BOARDS)).isRequired,
+  type: PropTypes.oneOf(Object.values(TASK_TYPES)).isRequired,
   schema: PropTypes.oneOf(Object.values(TASKS_SCHEMA)),
-  setSchema: PropTypes.func.isRequired
+  setSchema: PropTypes.func.isRequired,
+  setMouseParams: PropTypes.func
 };

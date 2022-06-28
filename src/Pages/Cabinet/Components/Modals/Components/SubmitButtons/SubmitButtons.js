@@ -13,6 +13,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
       case LIBRARY_MODALS.RENAME_SECTION:
       case TASK_MODALS.EDIT_SECTION:
       case TASK_MODALS.EDIT_NOTE:
+      case TASK_MODALS.EDIT_TASK:
         return __("Сохранить");
 
       case TASK_MODALS.DELETE_TASK:
