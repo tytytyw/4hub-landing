@@ -4,12 +4,6 @@ import { MODALS, TOP_MESSAGE_TYPE } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
-// department actions
-export const selectDepartment = (data) => ({
-  type: TasksTypes.SELECT_TASK_DEPARTMENT,
-  payload: data
-});
-
 export const onFetchTaskDepartment = () => async (dispatch, getState) => {
   const uid = getState().user.uid;
   try {
