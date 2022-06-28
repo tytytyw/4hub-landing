@@ -33,7 +33,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const [isRead, setIsRead] = useState(message.is_read === "1");
 
   const setMessageToRead = async () => {
-    if (messageType === "outbox" && message.is_read === "0" && !isRead) {
+    if (messageType === "inbox" && message.is_read === "0" && !isRead) {
       setIsRead(true);
       await api
         .post(
