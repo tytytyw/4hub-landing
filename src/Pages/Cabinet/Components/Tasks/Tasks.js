@@ -37,8 +37,8 @@ function Tasks() {
     [contextMenuTask.CUSTOMIZE]: () => {
       dispatch(
         onSetModals(MODALS.TASKS, {
-          type: TASK_MODALS.EDIT_NOTE,
-          params: { width: 420, tag: chosenTask.tags, color: chosenTask.id_color.name, text: chosenTask.prim }
+          type: TASK_MODALS.EDIT_TASK,
+          params: { width: 420, ...chosenTask }
         })
       );
     }
@@ -50,7 +50,7 @@ function Tasks() {
       <Notes setMouseParams={setMouseParams} />
       <ManagementPanel />
       <BreadCrumbs path={["Рабочие задачи", "TEST", "PATH"]} />
-      <GridBoard />
+      <GridBoard setMouseParams={setMouseParams} />
       <BottomPanel />
       {mouseParams !== null && (
         <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>

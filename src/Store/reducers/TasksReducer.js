@@ -19,23 +19,27 @@ export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
       return { ...state, dep: newDep };
     }
 
-    case TasksTypes.ADD_TASK_DEPARTMENT: {
-      const nnn = [...state.dep];
-      console.log(nnn);
+    case TasksTypes.ADD_TASK_DEPARTMENT:
       return { ...state, dep: [...state.dep, payload] };
-    }
 
     case TasksTypes.SELECT_TASK_DEPARTMENT:
       return { ...state, currentDep: payload };
 
     case TasksTypes.DELETE_TASK_DEPARTMENT:
-      return { ...INITIAL_STATE, dep: state.dep.filter((item) => item.id !== payload) };
+      return { ...state, currentDep: INITIAL_STATE.currentDep, dep: state.dep.filter((item) => item.id !== payload) };
 
     case TasksTypes.GET_TASKS:
       return { ...state, myTasks: payload };
 
     case TasksTypes.ADD_TASK:
       return { ...state, myTasks: [...state.myTasks, payload] };
+
+    case TasksTypes.EDIT_TASK: {
+      const newTasks = [...state.myTasks];
+      const index = newTasks.findIndex((item) => item.id === payload.id);
+      newTasks.splice(index, 1, payload);
+      return { ...state, myTasks: newTasks };
+    }
 
     case TasksTypes.DELETE_TASK:
       return { ...state, myTasks: state.myTasks.filter((item) => item.id !== payload) };

@@ -93,7 +93,7 @@ export const onSelectTask = (data) => ({
   payload: data
 });
 
-export const onAddNewTask = (payload, message) => async (dispatch, getState) => {
+export const onAddNewTask = (payload, messages) => async (dispatch, getState) => {
   try {
     dispatch(onSetModals(MODALS.LOADER, true));
 
@@ -124,7 +124,7 @@ export const onAddNewTask = (payload, message) => async (dispatch, getState) => 
     // );
     dispatch({ type: TasksTypes.ADD_TASK, payload: data.task });
   } catch (error) {
-    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message }));
+    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message: messages.error }));
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.LOADER, false));
@@ -178,7 +178,7 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
   }
 };
 
-export const onEditTask = (payload, message, error) => async (dispatch, getState) => {
+export const onEditTask = (payload, messages) => async (dispatch, getState) => {
   try {
     const params = {
       name: payload.name,
@@ -199,17 +199,18 @@ export const onEditTask = (payload, message, error) => async (dispatch, getState
     };
     const { data } = await api.get(`ajax/task_edit.php`, { params });
     checkResponseStatus(data.ok);
-    dispatch(onGetAllTasks());
+    dispatch({ type: TasksTypes.EDIT_TASK, payload: data.task });
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
-        message
+        message: messages.success
       })
     );
   } catch (err) {
-    dispatch(onSetModals(MODALS.ERROR, { open: true, message: error }));
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: messages.error }));
     console.log(err);
   } finally {
     dispatch(onSetModals(MODALS.LOADER, false));
+    dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
   }
 };
