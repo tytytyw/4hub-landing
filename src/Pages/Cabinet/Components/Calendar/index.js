@@ -10,41 +10,49 @@ import BottomPanel from "../BottomPanel";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
-import { CALENDAR_MODALS, imageSrc, MODALS, TASK } from "../../../../generalComponents/globalVariables";
+import { CALENDAR_MODALS, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
 import classnames from "classnames";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
-import { formatDateStandard, getStartDate } from "generalComponents/CalendarHelper";
 import FullCalendarTable from "./FullCalendar";
 import WorkSpaceList from "./WorkSpaceList";
 import { onGetAllTasks } from "Store/actions/TasksActions";
+import { onGetAllTasksCalendar } from "Store/actions/CalendarActions";
+import { formatDateStandard } from "generalComponents/CalendarHelper";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const myTasks = useSelector((state) => state.Tasks.myTasks);
+  const allTasks = useSelector((state) => state.Tasks.myTasks);
+  const dayTasks = useSelector((state) => state.Calendar.dayTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
-  // eslint-disable-next-line
-  const [viewType, setViewType] = useState("day");
-  const currentDayTasks = [];
-
-  // TODO - VZ - Сделать через сервер
-  for (let key in myTasks) {
-    if (getStartDate(formatDateStandard(calendarDate)).startsWith(getStartDate(myTasks[key].date_start))) {
-      currentDayTasks.push(myTasks[key]);
-    }
-  }
+  const [viewType, setViewType] = useState("week");
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    dispatch(onGetAllTasks(TASK.API_GET_TASKS, __("Ошибка загрузки задач")));
+    dispatch(onGetAllTasks());
+    dispatch(onGetAllTasksCalendar());
   }, []); // eslint-disable-line
 
+  useEffect(() => {
+    filterDayTasks();
+  }, [calendarDate]); // eslint-disable-line
+
+  const filterDayTasks = () => {
+    for (let key in dayTasks) {
+      if (formatDateStandard(calendarDate).includes(key)) {
+        setTasks(dayTasks[key]);
+      }
+    }
+  };
+  //mylog
+  console.log(tasks);
   const getStrDate = () => {
     return __(
       `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
@@ -82,7 +90,7 @@ const CalendarPage = () => {
             />
           </div>
           <ListCalendar />
-          <SidebarTasks tasks={currentDayTasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
+          <SidebarTasks tasks={tasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />
@@ -91,7 +99,7 @@ const CalendarPage = () => {
 
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>
-                {myTasks?.length} {__("задач")}
+                {dayTasks?.length} {__("задач")}
               </button>
             </div>
             <div className={styles.headerBtnWrap}>
@@ -102,8 +110,8 @@ const CalendarPage = () => {
               <button className={styles.headerBtn}>{__("1 напоминание")}</button>
             </div>
           </div>
-          {viewType === "week" && <FullCalendarTable tasks={myTasks} />}
-          {viewType === "day" && <WorkSpaceList tasks={currentDayTasks} />}
+          {viewType === "week" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} />}
+          {viewType === "day" && <WorkSpaceList tasks={tasks} />}
         </div>
       </div>
       {mouseParams !== null && (

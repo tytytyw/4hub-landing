@@ -8,12 +8,14 @@ import styles from "./FullCalendar.module.sass";
 import "./FullCalendar.css";
 import { days } from "../helper";
 import TableTaskItem from "../TableTaskItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../types/CalendarPage";
 import classNames from "classnames";
+import { setCalendarDate } from "Store/actions/CabinetActions";
 
-const FullCalendarTable = ({ tasks }) => {
+const FullCalendarTable = ({ tasks, setViewType }) => {
+  const dispatch = useDispatch();
   const weekTasks = tasks.map((item) => {
     return { ...item, date: new Date(item.date_start) };
   });
@@ -23,14 +25,22 @@ const FullCalendarTable = ({ tasks }) => {
     return <TableTaskItem date={eventInfo?.event.start} task={eventInfo.event?.extendedProps} />;
   };
 
+  const getThisDay = (date) => {
+    setViewType("day");
+    dispatch(setCalendarDate(date));
+  };
+
   const renderHeaderCell = (eventInfo) => {
     const day = days.find((item) => item.id === eventInfo.date.getDay());
     const date = eventInfo.date.getDate();
     const currentDay = date === new Date().getDate() ? styles.active : "";
+
     return (
       <div className={styles.dayItem}>
         <span className={styles.day}>{day?.day}</span>
-        <h4 className={classNames(styles.dayNumber, currentDay)}>{date}</h4>
+        <h4 className={classNames(styles.dayNumber, currentDay)} onClick={() => getThisDay(eventInfo.date)}>
+          {date}
+        </h4>
       </div>
     );
   };
@@ -73,5 +83,6 @@ const FullCalendarTable = ({ tasks }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  tasks: PropTypes.arrayOf(eventProps)
+  tasks: PropTypes.arrayOf(eventProps),
+  setViewType: PropTypes.func
 };

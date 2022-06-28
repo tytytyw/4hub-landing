@@ -6,11 +6,10 @@ import { colors } from "../../../../../../../generalComponents/collections";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
-import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
+import { imageSrc, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { onSetModals } from "Store/actions/CabinetActions";
 import { getStartDate, getStartTime, useEvents } from "generalComponents/CalendarHelper";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
@@ -51,12 +50,10 @@ const EditTask = ({ closeModal, type }) => {
   };
 
   const addNewTask = () => {
-    dispatch(onSetModals(MODALS.LOADER, true));
     dispatch(onAddNewTask(payload, __("Не удалось добавить задачу")));
   };
 
   const editTask = () => {
-    dispatch(onSetModals(MODALS.LOADER, true));
     dispatch(onEditTask(payload, __("Задача успешно отредактирована"), __("Не удалось изменить задачу")));
     closeModal();
   };
