@@ -107,7 +107,7 @@ export const BUTTON_TYPES = {
 
 //CALENDAR && TASKS Component
 export const TASK = {
-  API_GET_TASKS: "task_calendar",
+  API_GET_TASKS: "task_get",
   API_GET_TASKS_CALENDAR: "task_calendar"
 };
 
@@ -117,11 +117,25 @@ export const CALENDAR_MODALS = {
   SUCCESS_ADD: "SuccessAdd"
 };
 
+// MY TASKS
+export const TASK_TYPES = {
+  TASK: "task",
+  BIRTHDAY: 2,
+  ONLINE_MEETING: 3,
+  OFFLINE_MEETIGN: 4,
+  REMINDER: 5,
+  OTHER: 6,
+  NOTES: "notes",
+  MEETINGS: "meetings",
+  CALLS: "calls",
+  MAILS: "mails"
+};
+
 export const BOARDS = {
-  MEETINGS_BOARD: "MEETINGS_BOARD",
-  CALLS_BOARD: "CALLS_BOARD",
-  MAIL_BOARD: "MAIL_BOARD",
-  TASKS_BOARD: "TASKS_BOARD"
+  [TASK_TYPES.MEETINGS]: TASK_TYPES.MEETINGS,
+  [TASK_TYPES.CALLS]: TASK_TYPES.CALLS,
+  [TASK_TYPES.MAILS]: TASK_TYPES.MAILS,
+  [TASK_TYPES.TASK]: TASK_TYPES.TASK
 };
 
 export const TASKS_SCHEMA = {
@@ -154,6 +168,7 @@ export const TASK_MODALS = {
   EDIT_NOTE: "EditNote",
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
+  EDIT_MEETING: "EditMeeting",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
   DELETE_TASK: "DeleteTask",
@@ -161,7 +176,8 @@ export const TASK_MODALS = {
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
-  ADD_PASSWORD: "AddPassword"
+  ADD_PASSWORD: "AddPassword",
+  OPEN_TASK: "OpenTask"
 };
 
 export const contextMenuFolder = {
@@ -226,15 +242,4 @@ export const LIBRARY_OWN_ICONS = [
 // CART
 export const CART = {
   API_GET_FILES: "trash_list"
-};
-
-// MY TASKS
-export const TASK_TYPES = {
-  TASK: 1,
-  BIRTHDAY: 2,
-  ONLINE_MEETING: 3,
-  OFFLINE_MEETIGN: 4,
-  REMINDER: 5,
-  OTHER: 6,
-  NOTES: 7
 };

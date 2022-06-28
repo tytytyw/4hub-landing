@@ -73,8 +73,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  FILES_USER_SHARED,
-  GET_TASK
+  FILES_USER_SHARED
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -147,9 +146,8 @@ const INITIAL_STATE = {
   //JOURNAL
   journalFolders: [],
 
-  //CALENDAR && MY TASK
+  //CALENDAR
   calendarDate: new Date(),
-  myTasks: [],
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -671,9 +669,6 @@ export default function startPage(state = INITIAL_STATE, action) {
     //CALENDAR && TASK PAGE
     case SET_CALENDAR_DATE:
       return { ...state, calendarDate: action.payload };
-
-    case GET_TASK:
-      return { ...state, myTasks: [...action.payload] };
 
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:

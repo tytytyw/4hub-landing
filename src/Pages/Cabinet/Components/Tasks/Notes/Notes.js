@@ -14,11 +14,14 @@ function Notes({ setMouseParams }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const { theme } = useSelector((s) => s.user.userInfo);
-  const myTasks = useSelector((s) => s.Tasks.myTasks).filter((item) => +item.id_type === TASK_TYPES.NOTES);
+  const myTasks = useSelector((s) => s.Tasks.myTasks).filter((item) => item.id_type === TASK_TYPES.NOTES);
 
   const onAddNote = () =>
     dispatch(
-      onSetModals(MODALS.TASKS, { type: TASK_MODALS.ADD_NOTE, params: { width: 420, tag: "", color: "", text: "" } })
+      onSetModals(MODALS.TASKS, {
+        type: TASK_MODALS.ADD_NOTE,
+        params: { width: 420, tags: "", id_color: "", prim: "" }
+      })
     );
 
   return (
@@ -41,7 +44,7 @@ function Notes({ setMouseParams }) {
           />
           <img
             className={styles.inscription}
-            src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/note_board.svg`}
+            src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/notes.svg`}
             alt="inscription"
           />
         </>

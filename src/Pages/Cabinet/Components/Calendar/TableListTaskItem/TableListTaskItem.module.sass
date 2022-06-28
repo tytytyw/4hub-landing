@@ -1,5 +1,7 @@
+@import "theme/theme"
+  
 .wrapper
-  padding: 5px 19px 5px 10px
+  padding: 5px 20px 5px 10px
 
   .headBlock
     cursor: pointer
@@ -37,12 +39,12 @@
       margin: 0
       font-size: 10px
       line-height: 16px
-      color: #7F7F7F
+      color: $color-text-grey-light
     .value
       margin: 0
       font-size: 12px
       line-height: 16px
-      color: #49494B
+      color: $color-text-grey
 
   .infoItemName
     margin-left: 15px
@@ -60,18 +62,20 @@
   .arrowWrap
     margin-left: 15px
     .arrow.active
-      border-top: 6px solid #4086F1
+      border-top: 6px solid $color-blue-smooth
+      transform: rotate(180deg)
     .arrow
       display: block
       width: 0
       height: 0
       border-left: 6px solid transparent
       border-right: 6px solid transparent
-      border-top: 6px solid #666666
+      border-top: 6px solid $color-text-grey-light
 
   .descWrap
     display: flex
     align-items: stretch
+    flex-direction: column
     padding: 15px 0 9px 0
     min-height: 75px
 
@@ -80,13 +84,14 @@
       .descTitle
         font-size: 10px
         line-height: 16px
-        color: #9A9A9A
+        color: $color-text-grey-light
         margin: 0 0 5px 0
       .descText
         margin: 0
         font-size: 12px
         line-height: 16px
-        color: #5D5D5D
+        color: $color-text-grey-medium
+        padding-bottom: 10px
 
     .actionBlock
       display: flex
@@ -94,14 +99,15 @@
       justify-content: flex-end
       margin-left: 25px
       .actionBtn
-        min-width: 131px
+        width: max-content
         font-size: 12px
         line-height: 16px
-        color: #ffffff
+        color: $color-white
         white-space: nowrap
         text-overflow: ellipsis
         overflow: hidden
-        background: #4086F1
+        background: $color-blue-smooth
         border-radius: 3px
-        padding: 7px 22px 5px 13px
+        padding: 7px 13px
+        margin-left: auto
 

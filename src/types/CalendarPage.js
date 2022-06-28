@@ -31,7 +31,8 @@ export const eventProps = PropTypes.exact({
   is_del: PropTypes.string,
   id_type: PropTypes.string,
   id_dep: PropTypes.string,
-  id_act: PropTypes.string
+  id_act: PropTypes.string,
+  date: PropTypes.instanceOf(Date)
 });
 
 export const eventShowProps = PropTypes.exact({

@@ -1,11 +1,11 @@
 import { useLocales } from "react-localized";
 import {
-  BOARDS,
   contextMenuFolder,
   contextMenuTask,
   LIBRARY_MODALS,
   MAIL_MODALS,
-  TASK_MODALS
+  TASK_MODALS,
+  TASK_TYPES
 } from "./globalVariables";
 // global folders
 export function useFolders() {
@@ -701,10 +701,10 @@ export function useFileSharedPeriods() {
 export function useTaskBoardTitle() {
   const { __ } = useLocales();
   return {
-    [BOARDS.MEETINGS_BOARD]: __("Встречи"),
-    [BOARDS.CALLS_BOARD]: __("Звонки"),
-    [BOARDS.MAIL_BOARD]: __("Письма"),
-    [BOARDS.TASKS_BOARD]: __("Мои задачи")
+    [TASK_TYPES.MEETINGS]: __("Встречи"),
+    [TASK_TYPES.CALLS]: __("Звонки"),
+    [TASK_TYPES.MAILS]: __("Письма"),
+    [TASK_TYPES.TASK]: __("Мои задачи")
   };
 }
 
@@ -773,7 +773,8 @@ export function useTaskModalTitles() {
     [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
     [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
     [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),
-    [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль")
+    [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль"),
+    [TASK_MODALS.OPEN_TASK]: __("Задача")
   };
 }
 
