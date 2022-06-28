@@ -24,7 +24,15 @@ function EditSection({ type, params, closeModal }) {
   };
 
   const handleSubmit = () => {
-    TASK_MODALS.ADD_SECTION === type ? dispatch(onCreateTaskDepartment()) : dispatch(onEditTaskDepartment());
+    const messagesAdd = {
+      success: __("Раздел добавлен")
+    };
+    const messagesEdit = {
+      success: __("Раздел изменен")
+    };
+    TASK_MODALS.ADD_SECTION === type
+      ? dispatch(onCreateTaskDepartment(messagesAdd))
+      : dispatch(onEditTaskDepartment(messagesEdit));
   };
 
   return (

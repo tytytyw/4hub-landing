@@ -38,12 +38,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema, setMouseParams }) {
           setMouseParams={setMouseParams}
         />
       )}
-      {/* {type === TASK_TYPES.CALLS && (
-        <DayTimetable timePeriod={createArrayOfHoursPerDay(INITIAL_TIMETABLE_DATE, 1)} tasks={getTasks(type)} />
-      )} */}
-      {type === TASK_TYPES.MAILS && (
-        <MailTasks tasks={["Write a letter to my friend right after the meeting", "Second mail"]} />
-      )}
+      {type === TASK_TYPES.MAILS && <MailTasks tasks={getTasks(type)} />}
       {type === TASK_TYPES.TASK && <MyTasks />}
     </div>
   );

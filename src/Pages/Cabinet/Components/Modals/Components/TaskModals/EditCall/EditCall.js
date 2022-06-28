@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
-import { editMeetingParams } from "../../../../../../../types/Tasks";
+import { taskTypes } from "../../../../../../../types/Tasks";
 import styles from "./EditCall.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
@@ -106,6 +106,6 @@ EditCall.defaultProps = {
 
 EditCall.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: editMeetingParams.isRequired,
+  params: taskTypes,
   closeModal: PropTypes.func
 };

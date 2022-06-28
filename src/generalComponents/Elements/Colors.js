@@ -19,7 +19,7 @@ const Colors = ({ color, setColor, title, editableClass }) => {
         <div
           className={`
                     ${styles.circleColorWrap} 
-                    ${el.name === color.name ? styles.chosenColorWrap : ""}`}
+                    ${el.name === color?.name ? styles.chosenColorWrap : ""}`}
           key={i}
         >
           <div
@@ -31,7 +31,7 @@ const Colors = ({ color, setColor, title, editableClass }) => {
             }}
             onClick={() => set(el)}
           >
-            {el.name === color.name && <span>&#10003;</span>}
+            {el.name === color?.name && <span>&#10003;</span>}
           </div>
         </div>
       );

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./EditTask.module.sass";
 import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
-import { editTaskParams } from "../../../../../../../types/Tasks";
+import { taskTypes } from "../../../../../../../types/Tasks";
 import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
@@ -98,13 +98,6 @@ function EditTask({ type, params, closeModal }) {
           placeholder={__("Имя задачи")}
           editableClass={"fixedHeight"}
         />
-        {/* <InputField
-            model="text"
-            value={params.category}
-            set={onChangeCategory}
-            placeholder={__("Имя категории")}
-            editableClass={"fixedHeight"}
-          /> */}
         <InputField
           model="text"
           value={params.urgency}
@@ -155,6 +148,6 @@ EditTask.defaultProps = {
 
 EditTask.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: editTaskParams.isRequired,
+  params: taskTypes,
   closeModal: PropTypes.func
 };

@@ -11,7 +11,7 @@ function MailTasks({ tasks }) {
   const renderTimetableLine = () =>
     tasks.map((task, i) => (
       <div key={i} className={classNames(styles.taskLine)}>
-        <div className={styles.task}>{task}</div>
+        <div className={styles.task}>{task.name}</div>
         <ThreeDots />
       </div>
     ));

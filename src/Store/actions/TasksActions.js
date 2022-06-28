@@ -23,38 +23,49 @@ export const onFetchTaskDepartment = () => async (dispatch, getState) => {
   }
 };
 
-export const onCreateTaskDepartment = () => async (dispatch, getState) => {
+export const onCreateTaskDepartment = (messages) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
     const { data } = await api.post(
       `/ajax/task_dep_add.php?uid=${uid}&name=${params.title}&icon=${params.icon ? params.icon : ""}`
     );
     checkResponseStatus(data.ok);
     dispatch({ type: TasksTypes.ADD_TASK_DEPARTMENT, payload: { name: data.name, id: data.id, icon: data.icon } });
-    // TODO -mk- fixed message
-    dispatch(onSetModals("topMessage", { open: true, type: "message", message: "Раздел добавлен" }));
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: messages.success
+      })
+    );
   } catch (error) {
     // TODO -mk- fixed error message
     dispatch(onSetModals("topMessage", { open: true, type: "error", message: "Додавить раздел не удалось" }));
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+    dispatch(onSetModals(MODALS.LOADER, false));
   }
 };
 
-export const onEditTaskDepartment = () => async (dispatch, getState) => {
+export const onEditTaskDepartment = (messages) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
     const { data } = await api.post(
       `/ajax/task_dep_edit.php?uid=${uid}&name=${params.title}&icon=${params.icon}&id_dep=${params.id}`
     );
     checkResponseStatus(data.ok);
 
     dispatch({ type: TasksTypes.EDIT_TASK_DEPARTMENT, payload: { name: data.name, id: data.id, icon: data.icon } });
-    // TODO -mk- fixed  message
-    dispatch(onSetModals("topMessage", { open: true, type: "message", message: "Раздел изменён" }));
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: messages.success
+      })
+    );
   } catch (error) {
     // TODO -mk- fixed error message
     dispatch(
@@ -63,19 +74,25 @@ export const onEditTaskDepartment = () => async (dispatch, getState) => {
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+    dispatch(onSetModals(MODALS.LOADER, false));
   }
 };
 
-export const onDeleteDepartment = () => async (dispatch, getState) => {
+export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
 
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
     const { data } = await api.post(`/ajax/task_dep_del.php?uid=${uid}&id_dep=${params.id}`);
     checkResponseStatus(data.ok);
     dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: data.id_dep });
-    // TODO -mk- fixed  message
-    dispatch(onSetModals("topMessage", { open: true, type: "message", message: `Раздел  удалён` }));
+    dispatch(
+      onSetModals(MODALS.SUCCESS, {
+        open: true,
+        message: messages.success
+      })
+    );
   } catch (error) {
     // TODO -mk- fixed error message
     dispatch(
@@ -84,6 +101,7 @@ export const onDeleteDepartment = () => async (dispatch, getState) => {
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+    dispatch(onSetModals(MODALS.LOADER, false));
   }
 };
 
@@ -180,6 +198,8 @@ export const onDeleteTask = (id, message, error) => async (dispatch, getState) =
 
 export const onEditTask = (payload, messages) => async (dispatch, getState) => {
   try {
+    dispatch(onSetModals(MODALS.LOADER, true));
+
     const params = {
       name: payload.name,
       id_task: payload.idTask,

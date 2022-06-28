@@ -12,21 +12,25 @@ import { onSetModals } from "Store/actions/CabinetActions";
 import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import InputField from "generalComponents/InputField";
 import { taskTypes } from "types/Tasks";
+import PopUp from "generalComponents/PopUp";
+import Calendar from "Pages/StartPage/Components/Calendar";
 
 function EditMeeting({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
-
+  const [showCalendar, setShowCalendar] = useState(false);
   const onChangeName = (name) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
   };
 
   const onChangeDate = ({ target }) => {
-    // if (target.value.length > 10) return;
-    console.log("first", target.value);
     const date_start = getMaskDate(target.value);
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
+  };
+
+  const setDateValue = (date_start) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
@@ -49,9 +53,10 @@ function EditMeeting({ type, params, closeModal }) {
     error: __("Не удалось изменить встречу"),
     success: __("Встреча изменина")
   };
+
   const onSubmit = () => {
     const payload = {
-      dateStart: params.date_start,
+      dateStart: params.date_start.split(" ")[0],
       timeStart: `${hh}:${mm}`,
       eventType: TASK_TYPES.MEETINGS,
       name: params.name,
@@ -61,6 +66,7 @@ function EditMeeting({ type, params, closeModal }) {
       ? dispatch(onAddNewTask(payload, messagesAdd))
       : dispatch(onEditTask(payload, messagesEdit));
   };
+
   return (
     <div className={styles.editMeetingWrap}>
       <InputField
@@ -89,11 +95,16 @@ function EditMeeting({ type, params, closeModal }) {
           <span className={styles.dots}>:</span>
           <input className={styles.time_count} type="text" placeholder={__("ММ")} value={mm} onChange={onChangeMin} />
         </div>
-        <span className={styles.open_calendar} onClick={() => {}}>
+        <span className={styles.open_calendar} onClick={() => setShowCalendar(true)}>
           {__("Календарь")}
         </span>
       </div>
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
+      {showCalendar && (
+        <PopUp set={setShowCalendar} zIndex={102}>
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+        </PopUp>
+      )}
     </div>
   );
 }

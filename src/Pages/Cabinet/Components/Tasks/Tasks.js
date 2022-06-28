@@ -35,6 +35,7 @@ function Tasks() {
     },
 
     [contextMenuTask.CUSTOMIZE]: () => {
+      console.log(chosenTask);
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.EDIT_TASK,

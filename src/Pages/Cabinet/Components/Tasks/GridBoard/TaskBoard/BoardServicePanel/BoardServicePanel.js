@@ -65,7 +65,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, isTask }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_LETTER,
-          params: { width: 420, topic: "", receiver: "", text: "" }
+          params: { width: 420, name: "", emails: "", text: "" }
         })
       );
     }
