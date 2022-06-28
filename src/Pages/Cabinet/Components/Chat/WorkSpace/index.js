@@ -217,6 +217,16 @@ const WorkSpace = ({
     );
   };
 
+  const setIsReadMessage = (params) => {
+    console.log(params);
+    socket.send(
+      JSON.stringify({
+        ...params,
+        uid
+      })
+    );
+  };
+
   const renderCreateCameraMedia = useCallback(
     () => (
       <CreateCameraMedia
@@ -300,6 +310,7 @@ const WorkSpace = ({
             showSettings={showSettings}
             attachedFiles={attachedFiles}
             setAttachedFiles={setAttachedFiles}
+            setIsReadMessage={setIsReadMessage}
           />
         ) : (
           ""
