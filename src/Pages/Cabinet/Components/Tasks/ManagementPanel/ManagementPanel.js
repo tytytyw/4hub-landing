@@ -16,11 +16,12 @@ import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
-import { onFetchTaskDepartment, selectDepartment } from "Store/actions/TasksActions";
+import { onFetchTaskDepartment } from "Store/actions/TasksActions";
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 import { useContextMenuFolderLibrary, useStandartTasksDepartment } from "generalComponents/collections";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
+import { getStorageItem, setStorageItem } from "generalComponents/StorageHelper";
 
 function ManagementPanel() {
   const { __ } = useLocales();
@@ -28,12 +29,23 @@ function ManagementPanel() {
   const standartDepartment = useStandartTasksDepartment();
   const contextMenuFolderLibrary = useContextMenuFolderLibrary();
   const department = useSelector((state) => state.Tasks.dep);
-  const currentDep = useSelector((state) => state.Tasks.currentDep);
+  const [currentDep, setCurrentDep] = useState(null);
   const [mouseParams, setMouseParams] = useState(null);
 
   useEffect(() => {
+    const dep = getStorageItem("taskDepartment");
+    if (!dep) {
+      setStorageItem("taskDepartment", JSON.stringify(standartDepartment.WORK_TASK));
+      setCurrentDep(standartDepartment.WORK_TASK);
+    } else {
+      setCurrentDep(JSON.parse(dep));
+    }
     dispatch(onFetchTaskDepartment());
   }, []); //eslint-disable-line
+
+  useEffect(() => {
+    setStorageItem("taskDepartment", JSON.stringify(currentDep));
+  }, [currentDep]);
 
   const callbacks = {
     [contextMenuFolder.CUSTOMIZE]: () =>
@@ -54,7 +66,7 @@ function ManagementPanel() {
 
   const closeContextMenu = () => setMouseParams(null);
 
-  const onSelectDep = (dep) => dispatch(selectDepartment({ id: dep.id, name: dep.name, icon: dep.icon }));
+  const onSelectDep = (dep) => setCurrentDep(dep);
 
   const onAddSection = () =>
     dispatch(onSetModals(MODALS.TASKS, { type: TASK_MODALS.ADD_SECTION, params: { width: 420, title: "" } }));
@@ -72,7 +84,7 @@ function ManagementPanel() {
       <Button
         style={BUTTON_TYPES.LIGHT_LONG}
         onClick={() => onSelectDep(standartDepartment.WORK_TASK)}
-        isSelected={standartDepartment.WORK_TASK.id === currentDep.id}
+        isSelected={standartDepartment.WORK_TASK.id === currentDep?.id}
       >
         <Bag />
         <span className={styles.text}>{standartDepartment.WORK_TASK.name}</span>
@@ -81,7 +93,7 @@ function ManagementPanel() {
       <Button
         style={BUTTON_TYPES.LIGHT_LONG}
         onClick={() => onSelectDep(standartDepartment.HOME_TASK)}
-        isSelected={standartDepartment.HOME_TASK.id === currentDep.id}
+        isSelected={standartDepartment.HOME_TASK.id === currentDep?.id}
       >
         <Home />
         <span className={styles.text}>{standartDepartment.HOME_TASK.name}</span>
@@ -93,7 +105,7 @@ function ManagementPanel() {
             key={dep.id}
             style={BUTTON_TYPES.LIGHT_LONG}
             onClick={() => onSelectDep(dep)}
-            isSelected={dep.id === currentDep.id}
+            isSelected={dep.id === currentDep?.id}
           >
             {dep.icon ? (
               <img src={`${imageSrc}assets/PrivateCabinet/library/own/${dep.icon}.svg`} alt={dep.icon} />

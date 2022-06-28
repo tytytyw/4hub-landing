@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
-import { editMeetingParams } from "../../../../../../../types/Tasks";
+import { taskTypes } from "../../../../../../../types/Tasks";
 import styles from "./EditCall.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
@@ -12,12 +12,14 @@ import { useDispatch } from "react-redux";
 import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditCall({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const messages = useTaskMessages();
 
   const onChangeName = (name) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
@@ -37,15 +39,7 @@ function EditCall({ type, params, closeModal }) {
     if (target.value.length > 2) return;
     setMm(getMaskDate(target.value));
   };
-  const messagesAdd = {
-    error: __("Не удалось создать звонок"),
-    success: __("Новый звонок создан")
-  };
 
-  const messagesEdit = {
-    error: __("Не удалось изменить звонок"),
-    success: __("Звонок изменина")
-  };
   const onSubmit = () => {
     const payload = {
       dateStart: params.date_start,
@@ -55,8 +49,8 @@ function EditCall({ type, params, closeModal }) {
       idTask: params.id
     };
     type === TASK_MODALS.ADD_CALL
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.CALLS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.CALLS][type]));
   };
   return (
     <div className={styles.editMeetingWrap}>
@@ -103,6 +97,6 @@ EditCall.defaultProps = {
 
 EditCall.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: editMeetingParams.isRequired,
+  params: taskTypes,
   closeModal: PropTypes.func
 };

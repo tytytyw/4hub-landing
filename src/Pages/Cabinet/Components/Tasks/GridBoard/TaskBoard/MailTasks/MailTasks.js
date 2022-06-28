@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import ThreeDots from "../../../../../../../generalComponents/ThreeDots/ThreeDots";
+import { taskTypes } from "types/Tasks";
 
 function MailTasks({ tasks }) {
   const { theme } = useSelector((s) => s.user.userInfo);
@@ -11,7 +12,7 @@ function MailTasks({ tasks }) {
   const renderTimetableLine = () =>
     tasks.map((task, i) => (
       <div key={i} className={classNames(styles.taskLine)}>
-        <div className={styles.task}>{task}</div>
+        <div className={styles.task}>{task.name}</div>
         <ThreeDots />
       </div>
     ));
@@ -26,5 +27,5 @@ MailTasks.defaultProps = {
 };
 
 MailTasks.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.string) //list of tasks //TODO - wait for BE
+  tasks: PropTypes.arrayOf(taskTypes)
 };

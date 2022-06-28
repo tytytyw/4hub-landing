@@ -11,8 +11,12 @@ import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
 const DeleteSection = ({ closeModal, icon }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+
   const deleteDepartment = () => {
-    dispatch(onDeleteDepartment());
+    const messages = {
+      success: __("Раздел удален")
+    };
+    dispatch(onDeleteDepartment(messages));
   };
 
   return (

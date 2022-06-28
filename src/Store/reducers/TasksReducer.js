@@ -2,7 +2,6 @@ import { TasksTypes } from "Store/types";
 
 const INITIAL_STATE = {
   dep: [],
-  currentDep: { id: "worktask", icon: "", name: "" },
   myTasks: [],
   chosenTask: null
 };
@@ -21,9 +20,6 @@ export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
 
     case TasksTypes.ADD_TASK_DEPARTMENT:
       return { ...state, dep: [...state.dep, payload] };
-
-    case TasksTypes.SELECT_TASK_DEPARTMENT:
-      return { ...state, currentDep: payload };
 
     case TasksTypes.DELETE_TASK_DEPARTMENT:
       return { ...state, currentDep: INITIAL_STATE.currentDep, dep: state.dep.filter((item) => item.id !== payload) };
