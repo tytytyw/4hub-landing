@@ -71,13 +71,16 @@ const WorkSpace = ({
     // PrivateMessage - direct message; PublicMessage- message from group
     if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
       const newMsg = {
+        attachment: data.attachment,
+        day: data.api?.day ?? "today", //TODO - need to modify socket for BE
+        deadline: data.api?.deadline ?? "0", //TODO - need to modify socket for BE
         id: data.api?.id_message,
         id_user: data.api?.id_user,
         id_user_to: data.api?.id_user_to,
+        is_del: data.api?.is_del ?? "0", //TODO - need to modify socket for BE
+        is_read: data.api?.is_read ?? "0", //TODO - need to modify socket for BE
         text: data.text,
-        ut: data.api?.ut_message,
-        isNewMessage: true,
-        attachment: data.attachment
+        ut: data.api?.ut_message
       };
 
       if (isForGroups) {
@@ -218,7 +221,6 @@ const WorkSpace = ({
   };
 
   const setIsReadMessage = (params) => {
-    console.log(params);
     socket.send(
       JSON.stringify({
         ...params,
