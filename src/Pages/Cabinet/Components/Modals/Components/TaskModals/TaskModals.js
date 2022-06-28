@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TaskModals.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import { MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalVariables";
+import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useTaskModalTitles } from "../../../../../../generalComponents/collections";
 import AddNote from "./AddNote/AddNote";
@@ -21,6 +21,23 @@ function TaskModals() {
   const { type, params, choosenTask } = useSelector((s) => s.Cabinet.modals.taskModals);
 
   const TITLES = useTaskModalTitles();
+
+  const getEditTask = () => {
+    switch (params.id_type) {
+      case TASK_TYPES.NOTES:
+        return <AddNote type={type} params={params} closeModal={closeModal} />;
+
+      case TASK_TYPES.MEETINGS:
+        return <EditMeeting type={type} params={params} closeModal={closeModal} />;
+
+      case TASK_TYPES.CALLS:
+        return <EditCall type={type} params={params} closeModal={closeModal} />;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <PopUp set={closeModal}>
       <form
@@ -35,9 +52,8 @@ function TaskModals() {
           </button>
           <span className={styles.title}>{TITLES[type]}</span>
         </header>
-        {(type === TASK_MODALS.ADD_NOTE || type === TASK_MODALS.EDIT_NOTE) && (
-          <AddNote type={type} params={params} closeModal={closeModal} />
-        )}
+        {type === TASK_MODALS.EDIT_TASK && getEditTask()}
+        {type === TASK_MODALS.ADD_NOTE && <AddNote type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_TASK && <EditTask type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_MEETING && <EditMeeting type={type} params={params} closeModal={closeModal} />}
         {type === TASK_MODALS.ADD_CALL && <EditCall type={type} params={params} closeModal={closeModal} />}
