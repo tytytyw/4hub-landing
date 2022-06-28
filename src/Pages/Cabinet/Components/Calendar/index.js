@@ -33,26 +33,20 @@ const CalendarPage = () => {
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
   const [viewType, setViewType] = useState("week");
-  const [tasks, setTasks] = useState([]);
+
+  const tasks = [];
 
   useEffect(() => {
     dispatch(onGetAllTasks());
     dispatch(onGetAllTasksCalendar());
   }, []); // eslint-disable-line
 
-  useEffect(() => {
-    filterDayTasks();
-  }, [calendarDate]); // eslint-disable-line
-
-  const filterDayTasks = () => {
-    for (let key in dayTasks) {
-      if (formatDateStandard(calendarDate).includes(key)) {
-        setTasks(dayTasks[key]);
-      }
+  for (let key in dayTasks) {
+    if (formatDateStandard(calendarDate).includes(key)) {
+      tasks.push(...dayTasks[key]);
     }
-  };
-  //mylog
-  console.log(tasks);
+  }
+
   const getStrDate = () => {
     return __(
       `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
