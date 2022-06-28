@@ -15,9 +15,7 @@ import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 function AddNote({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  console.log(params);
   const onChangeColor = (id_color) => {
-    console.log("id_color", id_color);
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, id_color } }));
   };
 
