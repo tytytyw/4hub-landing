@@ -107,7 +107,7 @@ export const BUTTON_TYPES = {
 
 //CALENDAR && TASKS Component
 export const TASK = {
-  API_GET_TASKS: "task_calendar",
+  API_GET_TASKS: "task_get",
   API_GET_TASKS_CALENDAR: "task_calendar"
 };
 
@@ -176,7 +176,8 @@ export const TASK_MODALS = {
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
-  ADD_PASSWORD: "AddPassword"
+  ADD_PASSWORD: "AddPassword",
+  OPEN_TASK: "OpenTask"
 };
 
 export const contextMenuFolder = {

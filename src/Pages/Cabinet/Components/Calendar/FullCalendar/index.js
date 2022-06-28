@@ -8,24 +8,39 @@ import styles from "./FullCalendar.module.sass";
 import "./FullCalendar.css";
 import { days } from "../helper";
 import TableTaskItem from "../TableTaskItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { eventShowProps } from "../../../../../types/CalendarPage";
+import { eventProps } from "../../../../../types/CalendarPage";
+import classNames from "classnames";
+import { setCalendarDate } from "Store/actions/CabinetActions";
 
-const FullCalendarTable = ({ events }) => {
+const FullCalendarTable = ({ tasks, setViewType }) => {
+  const dispatch = useDispatch();
+  const weekTasks = tasks.map((item) => {
+    return { ...item, date: new Date(item.date_start) };
+  });
   const calendarRef = useRef();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const renderEventContent = (eventInfo) => {
     return <TableTaskItem date={eventInfo?.event.start} task={eventInfo.event?.extendedProps} />;
   };
 
+  const getThisDay = (date) => {
+    setViewType("day");
+    dispatch(setCalendarDate(date));
+  };
+
   const renderHeaderCell = (eventInfo) => {
     const day = days.find((item) => item.id === eventInfo.date.getDay());
     const date = eventInfo.date.getDate();
+    const currentDay = date === new Date().getDate() ? styles.active : "";
+
     return (
       <div className={styles.dayItem}>
         <span className={styles.day}>{day?.day}</span>
-        <h4 className={styles.dayNumber}>{date}</h4>
+        <h4 className={classNames(styles.dayNumber, currentDay)} onClick={() => getThisDay(eventInfo.date)}>
+          {date}
+        </h4>
       </div>
     );
   };
@@ -40,7 +55,7 @@ const FullCalendarTable = ({ events }) => {
       <FullCalendar
         initialDate={calendarDate}
         ref={calendarRef}
-        events={events}
+        events={weekTasks}
         plugins={[timeGridPlugin, interactionPlugin]}
         allDaySlot={false}
         headerToolbar={{
@@ -57,7 +72,7 @@ const FullCalendarTable = ({ events }) => {
           minute: "2-digit",
           omitZeroMinute: false
         }}
-        firstDay={1}
+        firstDay={0}
         locale="ru" //TODO - according real location
         eventContent={renderEventContent}
       />
@@ -68,5 +83,6 @@ const FullCalendarTable = ({ events }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  events: PropTypes.arrayOf(eventShowProps)
+  tasks: PropTypes.arrayOf(eventProps),
+  setViewType: PropTypes.func
 };

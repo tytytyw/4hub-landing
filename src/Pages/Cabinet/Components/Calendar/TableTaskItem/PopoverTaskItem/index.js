@@ -1,17 +1,32 @@
 import React from "react";
 
 import styles from "./PopoverTaskItem.module.sass";
-import { hexToRgb, eventTypesColor } from "../../helper";
 import classNames from "classnames";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { taskProps } from "../../../../../../types/CalendarPage";
+import { eventProps } from "../../../../../../types/CalendarPage";
+import { currentEvent, opacityColor, useEvents } from "generalComponents/CalendarHelper";
+import { onSetModals } from "Store/actions/CabinetActions";
+import { useDispatch } from "react-redux";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
-  const color = eventTypesColor?.[task?.type];
-  const rgba = hexToRgb(color);
+  const events = useEvents();
+  const dispatch = useDispatch();
+
+  const openTask = (task) => {
+    dispatch(
+      onSetModals(MODALS.TASKS, {
+        type: TASK_MODALS.OPEN_TASK,
+        choosenTask: task,
+        params: {
+          width: 620
+        }
+      })
+    );
+  };
+
   return (
     <div
       className={classNames({
@@ -25,23 +40,26 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
       <div
         className={styles.content}
         style={{
-          background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+          background: opacityColor(task.id_color.color)
         }}
       >
         <div className={styles.flexBlock}>
           <div className={styles.leftBlock}>
             <div className={styles.topIcons}>
-              <img src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`} alt="Suitcase" />
+              <img
+                src={`${imageSrc}assets/PrivateCabinet/events/${currentEvent(events, task).icon}.svg`}
+                alt={currentEvent(events, task).name}
+              />
               <span
                 style={{
-                  background: `${color}`
+                  background: task.id_color.color
                 }}
                 className={styles.circle}
               />
             </div>
             <img
               className={styles.avatar}
-              src={`${imageSrc}assets/PrivateCabinet/avatars/${task?.avatar}.svg`}
+              src={`${imageSrc}assets/PrivateCabinet/avatars/${task.avatar}.svg`}
               alt="Avatar 1"
             />
           </div>
@@ -49,31 +67,34 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
             <div className={styles.infoBlock}>
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Имя задачи")}</p>
-                <p className={styles.value}>{task?.name}</p>
+                <p className={styles.value}>{task.name}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Срок")}</p>
-                <p className={styles.value}>{task?.term}</p>
+                <p className={styles.value}>{task.date_start}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Тег")}</p>
-                <p className={styles.value}>{task?.tag}</p>
+                <p className={styles.value}>{task.tags.chosen}</p>
               </div>
 
               <div className={styles.infoItem}>
                 <p className={styles.option}>{__("Отправитель")}</p>
-                <p className={styles.value}>{task?.sender}</p>
+                <p className={styles.value}>{task.sender}</p>
               </div>
             </div>
-
-            <p className={styles.timeBlock}>{task?.ctime}</p>
           </div>
         </div>
 
         <div className={styles.actionBlock}>
-          <button className={styles.actionBtn} onClick={() => {}}>
+          <button
+            className={styles.actionBtn}
+            onClick={() => {
+              openTask(task);
+            }}
+          >
             {__("Перейти к задаче")}
           </button>
         </div>
@@ -85,7 +106,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
 export default PopoverTaskItem;
 
 PopoverTaskItem.propTypes = {
-  task: taskProps,
+  task: eventProps,
   reverseSide: PropTypes.bool,
   reverse: PropTypes.bool
 };
