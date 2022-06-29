@@ -5,11 +5,14 @@ import { onChooseFiles, onsetInitialChosenFile, onSetPath } from "Store/actions/
 import { useHistory } from "react-router";
 import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
-function OpenInFolderButton({ file }) {
+function OpenInFolderButton({ file, isHover }) {
   const history = useHistory();
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const hover = isHover ? styles.hover : "";
 
   const goToFolder = () => {
     const path = file.gdir;
@@ -20,7 +23,7 @@ function OpenInFolderButton({ file }) {
   };
 
   return (
-    <div className={styles.button} onClick={goToFolder}>
+    <div className={classNames(styles.button, hover)} onClick={goToFolder}>
       <span>{__("Открыть в системе 4Hub")}</span>
     </div>
   );
@@ -29,5 +32,6 @@ function OpenInFolderButton({ file }) {
 export default OpenInFolderButton;
 
 OpenInFolderButton.propTypes = {
-  file: fileProps
+  file: fileProps,
+  isHover: PropTypes.bool
 };

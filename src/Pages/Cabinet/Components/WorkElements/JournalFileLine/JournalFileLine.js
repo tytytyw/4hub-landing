@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./JournalFileLine.module.sass";
 import { journalFileProps } from "../../../../../types/File";
 import File from "generalComponents/Files";
-import Buttons from "../FileLine/Buttons";
 import { useLocales } from "react-localized";
 import OpenInFolderButton from "generalComponents/OpenInFolderButton/OpenInFolderButton";
 
 function JournalFileLine({ file }) {
   const { __ } = useLocales();
+
+  const [isHover, setIsHover] = useState(false);
 
   const testFile = {
     adate: false,
@@ -46,7 +47,7 @@ function JournalFileLine({ file }) {
   };
 
   return (
-    <div className={styles.journalFileLine}>
+    <div className={styles.journalFileLine} onMouseOver={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
       <div className={styles.fileAbout}>
         <div className={styles.icon}>
           <File color={file?.id_color} format={file?.ext} />
@@ -63,10 +64,7 @@ function JournalFileLine({ file }) {
         <div className={styles.userIcon}>ICO</div>
         <div className={styles.safe}>Срок хранения: (8дней)</div>
       </div>
-      <OpenInFolderButton file={testFile} />
-      <div className={styles.buttonsBlock}>
-        <Buttons />
-      </div>
+      <OpenInFolderButton file={testFile} isHover={isHover} />
     </div>
   );
 }

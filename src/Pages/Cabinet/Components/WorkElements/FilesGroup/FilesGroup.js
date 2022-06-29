@@ -106,7 +106,7 @@ function FilesGroup({
                 </WorkBars>
               )}
               {workElementsView === "lines" && (
-                <div className={styles.collapseContent}>
+                <div className={styles.collapseContentJournal}>
                   {pathname.startsWith("/journal") ? renderJournalFileLine(fileList) : renderFiles(FileLine, fileList)}
                 </div>
               )}
