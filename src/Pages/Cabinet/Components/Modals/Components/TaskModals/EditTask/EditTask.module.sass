@@ -1,19 +1,23 @@
+@import src/theme/theme
+
 .editTaskWrap
   display: flex
   flex-direction: column
   width: 95%
   .columnsWrap
     display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    gap: 10px
     width: 100%
-    .leftColumn, .rightColumn
-      display: flex
-      flex-direction: column
+    & > div
+      align-self: stretch
       width: 49%
-    .leftColumn
-      align-items: flex-end
-      margin: 0 10px 0 0
-    .rightColumn
-      align-items: flex-start
+      min-width: 49%
+    & > div:first-child
+      min-height: 45px
+      display: flex
+      align-items: center
   .bottomWrap
     display: flex
     flex-direction: column
@@ -23,7 +27,26 @@
       display: flex
       width: 53%
       justify-content: center
-
-.margin
-  min-height: 10px
-  min-width: 10px
+.eventsList
+  padding: 0 15px
+  .eventItem
+    display: flex
+    gap: 10px
+    align-items: center
+    cursor: pointer
+    border-bottom: 1px solid $color-border-grey
+    padding: 11px 10px 14px 10px
+    &:hover
+      color: $color-primary
+    &:first-child
+      border-top: 1px solid $color-border-grey
+    &:last-child
+      border-bottom: none
+    .eventName
+      margin: 0
+      font-size: 12px
+      line-height: 16px
+    .eventIconWrap
+      width: 25px
+      margin-right: 10px
+      text-align: center

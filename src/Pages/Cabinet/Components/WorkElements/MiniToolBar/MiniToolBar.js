@@ -27,7 +27,7 @@ import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
-import { replaceFile, useSendFile } from "../../../../../generalComponents/generalHelpers";
+import { replaceFile, replaceChatMessage, useSendFile } from "../../../../../generalComponents/generalHelpers";
 import { drawCanvas } from "../../Modals/Components/PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
@@ -40,7 +40,8 @@ import WhiteMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/pho
 import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { fileProps, fileSharedProps } from "../../../../../types/File";
+import { fileChatProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { useLocales } from "react-localized";
 
 const MiniToolBar = ({
   file,
@@ -58,6 +59,7 @@ const MiniToolBar = ({
   toggleComment,
   buttonsStyle
 }) => {
+  const { __ } = useLocales();
   const sendFile = useSendFile();
   const [params, setParams] = useState({
     edit: false,
@@ -211,8 +213,12 @@ const MiniToolBar = ({
       canvasRef.current.onmouseup = null;
       dispatch(onSetPaint("tool", undefined));
       const preview = canvasRef.current.toDataURL("image/png");
-      if (file?.fid && file?.fid !== "printScreen") replaceFile(uid, file, preview);
-      if (file?.fid === "printScreen") sendFile(uid, file);
+      if (previewFile.message) {
+        replaceChatMessage(previewFile.message, uid, file);
+      } else {
+        if (file?.fid && file?.fid !== "printScreen") replaceFile(uid, file, preview);
+        if (file?.fid === "printScreen") sendFile(uid, file);
+      }
     } else {
       addTool(Pencil);
     }
@@ -376,10 +382,10 @@ const MiniToolBar = ({
               );
             }}
           >
-            Отменить
+            {__("Отменить")}
           </span>
           <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>
-            {params.edit ? "Сохранить" : "Редактировать"}
+            {params.edit ? __("Сохранить") : __("Редактировать")}
           </span>
           {share !== null ? (
             <span
@@ -402,7 +408,7 @@ const MiniToolBar = ({
                 );
               }}
             >
-              Отправить
+              {__("Отправить")}
             </span>
           ) : null}
         </div>
@@ -572,7 +578,7 @@ const MiniToolBar = ({
 export default MiniToolBar;
 
 MiniToolBar.propTypes = {
-  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
+  file: PropTypes.oneOfType([fileChatProps, fileSharedProps, fileProps]),
   toolBarType: PropTypes.string,
   width: PropTypes.string,
   canvasRef: PropTypes.exact({ current: PropTypes.instanceOf(Element) }),

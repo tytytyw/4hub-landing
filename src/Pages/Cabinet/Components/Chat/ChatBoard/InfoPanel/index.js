@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./InfoPanel.module.sass";
 
-import MainPanel from "./MainPanel";
-import Media from "./Media";
+import MainPanel from "./MainPanel/MainPanel";
+import Media from "./Media/Media";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";

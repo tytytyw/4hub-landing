@@ -1,5 +1,12 @@
 import { useLocales } from "react-localized";
-import { BOARDS, LIBRARY_MODALS, MAIL_MODALS, TASK_MODALS } from "./globalVariables";
+import {
+  contextMenuFolder,
+  contextMenuTask,
+  LIBRARY_MODALS,
+  MAIL_MODALS,
+  TASK_MODALS,
+  TASK_TYPES
+} from "./globalVariables";
 // global folders
 export function useFolders() {
   // eslint-disable-line
@@ -478,7 +485,8 @@ export function useContextMenuChat() {
     ],
     secretChat: [{ name: __("Удалить"), img: "garbage", type: "deleteSecretChat" }],
     userInGroup: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Удалить из группы"),
@@ -487,7 +495,8 @@ export function useContextMenuChat() {
       }
     ],
     recentChat: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Отметить непрочитанным"),
@@ -496,7 +505,8 @@ export function useContextMenuChat() {
       }
     ],
     contact: [
-      { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у меня"), img: "brush-2", type: "clearMessages" },
+      { name: __("Очистить историю у всех"), img: "brush-2", type: "clearAllMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
       {
         name: __("Отметить непрочитанным"),
@@ -691,11 +701,33 @@ export function useFileSharedPeriods() {
 export function useTaskBoardTitle() {
   const { __ } = useLocales();
   return {
-    [BOARDS.MEETINGS_BOARD]: __("Встречи"),
-    [BOARDS.CALLS_BOARD]: __("Звонки"),
-    [BOARDS.MAIL_BOARD]: __("Письма"),
-    [BOARDS.TASKS_BOARD]: __("Мои задачи")
+    [TASK_TYPES.MEETINGS]: __("Встречи"),
+    [TASK_TYPES.CALLS]: __("Звонки"),
+    [TASK_TYPES.MAILS]: __("Письма"),
+    [TASK_TYPES.TASK]: __("Мои задачи")
   };
+}
+
+export function useStandartTasksDepartment() {
+  const { __ } = useLocales();
+  return {
+    WORK_TASK: {
+      name: __("Рабочие задачи"),
+      id: "worktask"
+    },
+    HOME_TASK: {
+      name: __("Личные задачи"),
+      id: "hometask"
+    }
+  };
+}
+
+export function useContextMenuTasks() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Редактировать"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+    { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
+  ];
 }
 
 export function useStandardLibraries() {
@@ -727,25 +759,38 @@ export function useStandardLibraries() {
 export function useTaskModalTitles() {
   const { __ } = useLocales();
   return {
+    [TASK_MODALS.ADD_SECTION]: __("Создать раздел"),
+    [TASK_MODALS.EDIT_SECTION]: __("Редактировать раздел"),
+    [TASK_MODALS.DELETE_SECTION]: __("Удалить раздел"),
     [TASK_MODALS.ADD_NOTE]: __("Создать заметку"),
+    [TASK_MODALS.EDIT_NOTE]: __("Редактировать заметку"),
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
-    [TASK_MODALS.ADD_SECTION]: __("Создать раздел"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
     [TASK_MODALS.ADD_COOMENT_TASK]: __("Комментарий к задаче"),
     [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
     [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
     [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),
-    [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль")
+    [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль"),
+    [TASK_MODALS.OPEN_TASK]: __("Задача")
   };
+}
+
+export function useContextMenuFolderLibrary() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Редактировать"), img: "edit", type: contextMenuFolder.CUSTOMIZE },
+    { name: __("Удалить раздел"), img: "garbage", type: contextMenuFolder.DELETE }
+  ];
 }
 
 export function useLibraryModalTitles() {
   const { __ } = useLocales();
   return {
-    [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел")
+    [LIBRARY_MODALS.ADD_SECTION]: __("Создать раздел"),
+    [LIBRARY_MODALS.RENAME_SECTION]: __("Редактировать")
   };
 }
 

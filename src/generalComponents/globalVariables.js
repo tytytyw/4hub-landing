@@ -15,7 +15,8 @@ export const MODALS = {
   FILE_ACCESS_RIGHTS: "fileAccessRights",
   TASKS: "taskModals",
   LIBRARY: "libraryModals",
-  MAIL: "mailModals"
+  MAIL: "mailModals",
+  CALENDAR: "calendarModals"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -27,6 +28,9 @@ export const CONTEXT_MENU_FILE = {
   DOWNLOAD_FILE: "DownloadFile",
   PRINT_FILE: "PrintFile",
   DELETE_FILE: "DeleteFile"
+};
+export const CONTEXT_MENU_FOLDER = {
+  DELETE_FOLDER: "DeleteFolder"
 };
 
 export const SHARED_FILES = {
@@ -101,12 +105,37 @@ export const BUTTON_TYPES = {
   ICON: "icon"
 };
 
-//TASKS Component
+//CALENDAR && TASKS Component
+export const TASK = {
+  API_GET_TASKS: "task_get",
+  API_GET_TASKS_CALENDAR: "task_calendar"
+};
+
+export const CALENDAR_MODALS = {
+  ADD_TASK: "AddTask",
+  EDIT_TASK: "EditTask",
+  SUCCESS_ADD: "SuccessAdd"
+};
+
+// MY TASKS
+export const TASK_TYPES = {
+  TASK: "task",
+  BIRTHDAY: 2,
+  ONLINE_MEETING: 3,
+  OFFLINE_MEETIGN: 4,
+  REMINDER: 5,
+  OTHER: 6,
+  NOTES: "notes",
+  MEETINGS: "meetings",
+  CALLS: "calls",
+  MAILS: "mails"
+};
+
 export const BOARDS = {
-  MEETINGS_BOARD: "MEETINGS_BOARD",
-  CALLS_BOARD: "CALLS_BOARD",
-  MAIL_BOARD: "MAIL_BOARD",
-  TASKS_BOARD: "TASKS_BOARD"
+  [TASK_TYPES.MEETINGS]: TASK_TYPES.MEETINGS,
+  [TASK_TYPES.CALLS]: TASK_TYPES.CALLS,
+  [TASK_TYPES.MAILS]: TASK_TYPES.MAILS,
+  [TASK_TYPES.TASK]: TASK_TYPES.TASK
 };
 
 export const TASKS_SCHEMA = {
@@ -132,18 +161,33 @@ export const LOADING_STATE = {
 };
 
 export const TASK_MODALS = {
+  ADD_SECTION: "AddSection",
+  EDIT_SECTION: "EditSection",
+  DELETE_SECTION: "DeleteSection",
   ADD_NOTE: "AddNote",
+  EDIT_NOTE: "EditNote",
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
+  EDIT_MEETING: "EditMeeting",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
-  ADD_SECTION: "AddSection",
   DELETE_TASK: "DeleteTask",
   ADD_COOMENT_TASK: "AddCommentTask",
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
-  ADD_PASSWORD: "AddPassword"
+  ADD_PASSWORD: "AddPassword",
+  OPEN_TASK: "OpenTask"
+};
+
+export const contextMenuFolder = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
+};
+
+export const contextMenuTask = {
+  CUSTOMIZE: "customize",
+  DELETE: "delete"
 };
 
 // MAIL
@@ -167,8 +211,33 @@ export const VIEW_TYPE = {
 };
 
 export const LIBRARY_MODALS = {
-  ADD_SECTION: "AddSection"
+  ADD_SECTION: "AddSection",
+  RENAME_SECTION: "RenameSection"
 };
+
+export const LIBRARY_OWN_ICONS = [
+  "brain",
+  "chess",
+  "circuit",
+  "cube",
+  "curve",
+  "cutlery",
+  "gift",
+  "globe",
+  "graduation-hat",
+  "group",
+  "house",
+  "integration",
+  "layout",
+  "mouse",
+  "music-notes",
+  "photo-gallery",
+  "portfolio",
+  "settings",
+  "stats",
+  "vector",
+  "wallet"
+];
 
 // CART
 export const CART = {

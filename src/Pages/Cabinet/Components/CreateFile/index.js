@@ -38,9 +38,10 @@ const CreateFile = ({
   create,
   setGLoader,
   menuItem,
-  initFolder,
   showChoiceFolders,
-  info
+  info,
+  newFolderInfo,
+  setNewFolderInfo
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
@@ -69,7 +70,6 @@ const CreateFile = ({
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
   const [isSafe, setIsSafe] = useState(false);
-  const [path, setPath] = useState(fileList?.path);
   const theme = useSelector((s) => s.user.userInfo.theme);
 
   const onSwitch = (boolean) => setShowRepeat(boolean);
@@ -83,7 +83,6 @@ const CreateFile = ({
       );
     });
   };
-
   const onAddFile = (open) => {
     let options = {
       name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
@@ -93,8 +92,9 @@ const CreateFile = ({
       symbol: sign,
       emoji: emoji,
       destination: menuItem,
-      dir: menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : info?.dir ?? ""
+      dir: menuItem === "myFiles" ? "global/all" : menuItem === "myFolders" ? newFolderInfo.path : info?.dir
     };
+
     if (menuItem === "project") options["id_project"] = info.id;
 
     if (blob.file.fid) {
@@ -302,7 +302,11 @@ const CreateFile = ({
             </div>
             {showChoiceFolders && (
               <div className={styles.inputWrap}>
-                <SelectFolder className={styles.select} path={path} setPath={setPath} initFolder={initFolder} />
+                <SelectFolder
+                  className={styles.select}
+                  setNewFolderInfo={setNewFolderInfo}
+                  initFolder={{ path: "global/all" }}
+                />
               </div>
             )}
             <div className={styles.inputWrap}>
@@ -393,5 +397,9 @@ CreateFile.propTypes = {
   menuItem: PropTypes.string,
   initFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   showChoiceFolders: PropTypes.bool,
-  info: PropTypes.oneOfType([folderProps, createFilesProps])
+  info: PropTypes.oneOfType([folderProps, createFilesProps]),
+  newFolderInfo: PropTypes.exact({
+    path: PropTypes.string
+  }),
+  setNewFolderInfo: PropTypes.func
 };

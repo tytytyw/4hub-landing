@@ -1,3 +1,5 @@
+@import "src/theme/theme"
+  
 @keyframes showPopup1420
   0%
     width: 10px
@@ -34,10 +36,13 @@
 
 .createFolderWrap
   font-family: 'SF Pro Regular', sans-serif
-  padding: 40px
+  padding: 0 40px 20px 40px
   position: relative
   width: 530px
   animation: showPopup 0.2s ease-in-out
+  .edditButtons
+    display: flex
+    justify-content: center
 
 .content
   display: flex
@@ -52,7 +57,7 @@
     right: 15px
     width: 18px
     height: 2px
-    background: #a7a4a4
+    background: $color-background-grey
     transform: rotate(45deg)
     cursor: pointer
   .cross:before
@@ -62,7 +67,7 @@
     right: 0
     width: 18px
     height: 2px
-    background: #a7a4a4
+    background: $color-background-grey
     transform: rotate(90deg)
   .redCross
     position: relative
@@ -115,7 +120,7 @@
         align-items: center
       .minitag
         display: block
-        color: #477DE1
+        color: $color-primary
         font-family: "SF Pro Medium", sans-serif
         font-size: 16px
         min-width: 20%
@@ -147,14 +152,14 @@
       box-sizing: border-box
       min-height: 105px
       width: 100%
-      border: 1px solid #bab8b8
+      border: 1px solid $color-border-grey
       border-radius: 8px
       padding: 18px
       font-family: "SF Pro Light", sans-serif
       font-size: 14px
-      color: #bab8b8
+      color: $color-text-grey-light
       &::placeholder
-        color: #bab8b8
+        color: $color-text-grey-light
       &:focus
         outline: none
 
@@ -174,11 +179,11 @@
         align-items: center
         height: 45px
         border-radius: 5px
-        border: 1px solid #bab8b8
+        border: 1px solid $color-border-grey
         span
           font-size: 13px
           line-height: 18px
-          color: #B0B0B0
+          color: $color-grey
           margin-right: 20px
         .rangeInput
           width: 70%
@@ -192,6 +197,7 @@
       width: 100%
       height: 45px
       margin-bottom: 15px
+      color: $color-text-grey
       .eventsList
         margin: 0
         padding: 0 15px
@@ -199,17 +205,18 @@
           cursor: pointer
           display: flex
           align-items: center
-          border-bottom: 1px solid #E3E3E3
+          border-bottom: 1px solid $color-border-grey
           padding: 11px 10px 14px 10px
+          &:hover
+            color: $color-primary
           &:first-child
-            border-top: 1px solid #E3E3E3
+            border-top: 1px solid $color-border-grey
           &:last-child
             border-bottom: none
           .eventName
             margin: 0
             font-size: 12px
             line-height: 16px
-            color: #777777
           .eventIconWrap
             width: 25px
             margin-right: 10px
@@ -229,10 +236,10 @@
       align-items: center
       height: 45px
       position: relative
-      border: 1px solid #bab8b8
+      border: 1px solid $color-border-grey
       border-radius: 5px
       cursor: default
-      color: #bab8b8
+      color: $color-text-grey-light
       font-family: "SF Pro Light", sans-serif
       font-size: 14px
       padding: 0 15px
@@ -245,12 +252,12 @@
         outline: none
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: #bab8b8
+        color: $color-text-grey-light
         border: none
       .inputField::placeholder
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: #bab8b8
+        color: $color-text-grey-light
 
       .tagList
         display: none
@@ -263,7 +270,7 @@
         background: white
         overflow-x: hidden
         overflow-y: scroll
-        border: 1px solid #bab8b8
+        border: 1px solid $color-border-grey
         border-top: none
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
@@ -278,14 +285,14 @@
           height: 35px
           box-sizing: border-box
           padding: 0 15px
-          color: #bab8b8
+          color: $color-text-grey
         div:before
           content: ''
           position: absolute
           top: 0
           height: 1px
           width: 90%
-          background: #bab8b8
+          background: $color-border-grey
         div:hover
           background: linear-gradient(276deg, rgba(255,255,255,1) 0%, rgb(236, 236, 236) 50%, rgba(255,255,255,1) 100%)
       .inputField:focus ~ .tagList,
@@ -315,15 +322,15 @@
     font-size: 14px
     margin: 0 4px
   .cancel
-    background: #e3e3e3
-    border: 1px solid #e9e9e9
+    background: $color-background-grey
+    border: 1px solid $color-border-grey
     color: grey
   .cancel:hover
-    background: #fc7a7a
+    background: $color-background-orange
     color: white
   .add
-    background: #477DE1
-    border: 1px solid #477DE1
+    background: $color-primary
+    border: 1px solid $color-primary
     color: white
   .add:hover
-    background: #3b6dcb
+    background: $color-secondary

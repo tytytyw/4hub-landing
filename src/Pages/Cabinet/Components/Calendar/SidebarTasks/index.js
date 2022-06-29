@@ -1,15 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TasksGroup from "../TasksGroup";
-import { eventShowProps } from "types/CalendarPage";
+import { eventProps } from "types/CalendarPage";
+import { useEvents } from "generalComponents/CalendarHelper";
 
-const SidebarTasks = ({ data }) => {
-  const tasksGroup = ["Встречи", "Звонки", "Письма", "Задачи", "Срочные задачи"];
-
+const SidebarTasks = ({ tasks, setMouseParams, setChosenFile }) => {
   return (
     <>
-      {tasksGroup.map((item, i) => {
-        return <TasksGroup key={i} title={item} events={data} />;
+      {useEvents().map((event, i) => {
+        return (
+          <TasksGroup
+            key={i}
+            event={event}
+            tasks={tasks}
+            setMouseParams={setMouseParams}
+            setChosenFile={setChosenFile}
+          />
+        );
       })}
     </>
   );
@@ -18,6 +25,8 @@ const SidebarTasks = ({ data }) => {
 export default SidebarTasks;
 
 SidebarTasks.propTypes = {
-  data: PropTypes.arrayOf(eventShowProps),
-  tasksGroup: PropTypes.arrayOf(PropTypes.string)
+  tasks: PropTypes.arrayOf(eventProps),
+  tasksGroup: PropTypes.arrayOf(PropTypes.string),
+  setMouseParams: PropTypes.func,
+  setChosenFile: PropTypes.func
 };

@@ -66,7 +66,10 @@ export const fileChatProps = PropTypes.exact({
   ext: PropTypes.string,
   mime_type: PropTypes.string,
   preview: PropTypes.string,
-  is_preview: PropTypes.number
+  is_preview: PropTypes.number,
+  id_user: PropTypes.string,
+  preview_small: PropTypes.string,
+  ut: PropTypes.string
 });
 
 export const fileSharedProps = PropTypes.exact({
@@ -144,12 +147,14 @@ export const loadedFileProps = PropTypes.exact({
     mtime: PropTypes.string,
     name: PropTypes.string,
     size: PropTypes.number,
-    size_now: PropTypes.number
+    size_now: PropTypes.string
   }),
   options: PropTypes.exact({
     color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     destination: PropTypes.string,
+    filePath: PropTypes.string,
     dir: PropTypes.string,
+    id_project: PropTypes.string,
     emoji: PropTypes.string,
     name: PropTypes.string,
     pass: PropTypes.string,

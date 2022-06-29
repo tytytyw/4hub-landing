@@ -6,36 +6,47 @@ import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile/Profile";
 import DateBlock from "./DateBlock";
-import WorkSpaceList from "./WorkSpaceList";
-import ListCalendar from "./ListCalendar";
-import CreateTask from "./CreateTask";
-import SuccessCreated from "./CreateTask/SuccessCreated";
 import BottomPanel from "../BottomPanel";
-import FullCalendarTable from "./FullCalendar";
 import { useDispatch, useSelector } from "react-redux";
-import { setCalendarEvents } from "../../../../Store/actions/CabinetActions";
+import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import SidebarTasks from "./SidebarTasks";
-import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { CALENDAR_MODALS, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { monthNameType } from "./helper";
 import classnames from "classnames";
+import ContextMenu from "generalComponents/ContextMenu";
+import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
+import ListCalendar from "./ListCalendar";
+import FullCalendarTable from "./FullCalendar";
+import WorkSpaceList from "./WorkSpaceList";
+import { onGetAllTasks } from "Store/actions/TasksActions";
+import { onGetAllTasksCalendar } from "Store/actions/CalendarActions";
+import { formatDateStandard } from "generalComponents/CalendarHelper";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.Cabinet.calendarEvents);
+  const allTasks = useSelector((state) => state.Tasks.myTasks);
+  const dayTasks = useSelector((state) => state.Calendar.dayTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
-  const [viewType, setViewType] = useState("full");
-  const [createTask, setCreateTask] = useState(false);
-
-  const [event, setEvent] = useState({});
-  const [success, setSuccess] = useState(false);
+  const [mouseParams, setMouseParams] = useState(null);
+  const [chosenFile, setChosenFile] = useState(null);
+  const [viewType, setViewType] = useState("week");
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    dispatch(setCalendarEvents());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(onGetAllTasks());
+    dispatch(onGetAllTasksCalendar());
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    for (let key in dayTasks) {
+      if (formatDateStandard(calendarDate).includes(key)) {
+        setTasks(dayTasks[key]);
+      }
+    }
+  }, [dayTasks, calendarDate]);
 
   const getStrDate = () => {
     return __(
@@ -43,11 +54,12 @@ const CalendarPage = () => {
     );
   };
 
-  const getEventsCount = () => {
-    const findEvents = events.filter((event) => {
-      return event?.date.getDate() === calendarDate.getDate();
-    });
-    return findEvents?.length;
+  const createTask = () => {
+    dispatch(
+      onSetModals(MODALS.CALENDAR, {
+        type: CALENDAR_MODALS.ADD_TASK
+      })
+    );
   };
 
   return (
@@ -66,14 +78,14 @@ const CalendarPage = () => {
           <div className={styles.addTaskBlock}>
             <p>{__("Создать задачу")}</p>
             <img
-              onClick={() => setCreateTask(true)}
+              onClick={createTask}
               className={styles.addTaskIcon}
               src={imageSrc + "./assets/PrivateCabinet/folders/plus-white.svg"}
               alt="Add Task Icon"
             />
           </div>
-          <ListCalendar setViewType={setViewType} />
-          <SidebarTasks data={events} />
+          <ListCalendar />
+          <SidebarTasks tasks={tasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
         <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
           <DateBlock />
@@ -82,7 +94,7 @@ const CalendarPage = () => {
 
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>
-                {getEventsCount()} {__("задач")}
+                {dayTasks?.length} {__("задач")}
               </button>
             </div>
             <div className={styles.headerBtnWrap}>
@@ -93,17 +105,15 @@ const CalendarPage = () => {
               <button className={styles.headerBtn}>{__("1 напоминание")}</button>
             </div>
           </div>
-          {viewType === "full" && <FullCalendarTable events={events} />}
-          {viewType === "list" && <WorkSpaceList events={events} />}
+          {viewType === "week" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} />}
+          {viewType === "day" && <WorkSpaceList tasks={tasks} />}
         </div>
       </div>
-
-      {createTask && (
-        <CreateTask title="Создание проекта" onCreate={setCreateTask} setSuccess={setSuccess} setEvent={setEvent} />
+      {mouseParams !== null && (
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <ContextMenuTask task={chosenFile}></ContextMenuTask>
+        </ContextMenu>
       )}
-
-      {success && <SuccessCreated event={event} set={setSuccess} />}
-
       <BottomPanel />
     </div>
   );

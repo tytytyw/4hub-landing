@@ -73,7 +73,8 @@ const ChatBoard = ({
   const renderMessages = (day) => {
     const messagesOfDay = [...messages[day]].reverse();
     return messagesOfDay.map((msg) => {
-      if (!msg.id_user || !msg.id || !msg.id_user || !msg.id_user_to) {
+      if (!msg.id_user || !msg.id || !msg.id_user) {
+        //TODO - deleted (|| !msg.id_user_to) - need to check
         dispatch(
           onSetModals(MODALS.TOP_MESSAGE, {
             open: true,

@@ -6,30 +6,59 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import LibraryList from "./LibraryList/LibraryList";
-import { useDispatch } from "react-redux";
-import { onLoadFolders, onSetPath } from "../../../../Store/actions/CabinetActions";
-import { LIBRARY } from "../../../../generalComponents/globalVariables";
+import { useDispatch, useSelector } from "react-redux";
+import { onLoadFolders, onSetModals, onSetPath } from "../../../../Store/actions/CabinetActions";
+import {
+  contextMenuFolder,
+  CONTEXT_MENU_FOLDER,
+  imageSrc,
+  LIBRARY,
+  LIBRARY_MODALS,
+  MODALS
+} from "../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../api";
-import { useStandardLibraries } from "../../../../generalComponents/collections";
+import { useContextMenuFolderLibrary, useStandardLibraries } from "../../../../generalComponents/collections";
+import CreateFile from "../CreateFile";
+import { useLocales } from "react-localized";
+import { awaitingFilesProps, loadedFilesProps, loadingFileProps } from "types/LoadingFiles";
+import ContextMenu from "generalComponents/ContextMenu";
+import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 
 function Library({
   menuItem,
+  setMenuItem,
   filesPage,
   setFilesPage,
   fileSelect,
   fileAddCustomization,
   setFileAddCustomization,
   setFilePreview,
-  filePreview
+  filePreview,
+  setAwaitingFiles,
+  awaitingFiles,
+  loaded,
+  setLoaded,
+  loadingFile,
+  fileErrors,
+  setLoadingFile
 }) {
+  const { __ } = useLocales();
   const STANDARD_LIBRARIES = useStandardLibraries();
+  const contextMenuFolderLibrary = useContextMenuFolderLibrary();
+  const dispatch = useDispatch();
+  const folders = useSelector((s) => s.Cabinet.folderList);
   const [listCollapsed, setListCollapsed] = useState(false);
   const [gLoader, setGLoader] = useState(true);
-  const dispatch = useDispatch();
+  const [mouseParams, setMouseParams] = useState(null);
+  const chosenFolder = {
+    dir: folders.path,
+    icon: folders.folders?.other.find((item) => item.path === folders.path)?.fig
+  };
 
   useEffect(() => {
     dispatch(onSetPath(STANDARD_LIBRARIES.EDUCATION.path));
     dispatch(onLoadFolders(LIBRARY.API_GET_FOLDERS));
+    setMenuItem("library");
     return () => {
       cancelRequest(LIBRARY.API_GET_FILES).then(() => console.log(`${LIBRARY.API_GET_FILES}.php was cancelled`));
       cancelRequest(LIBRARY.API_GET_FOLDERS).then(() => console.log(`${LIBRARY.API_GET_FOLDERS}.php was cancelled`));
@@ -38,15 +67,53 @@ function Library({
   }, []);
 
   const successLoad = () => {
-    if (fileSelect === 1) {
-      setGLoader(false);
-    }
+    setGLoader(false);
     setFilesPage(2);
+  };
+
+  const renderMenuItems = (target) => {
+    return target.map((item, i) => {
+      return (
+        <ContextMenuItem
+          key={i}
+          width={mouseParams.width}
+          height={mouseParams.height}
+          text={item.name}
+          callback={callbacks[item.type]}
+          imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+        />
+      );
+    });
+  };
+  const callbacks = {
+    [contextMenuFolder.CUSTOMIZE]: () =>
+      dispatch(
+        onSetModals(MODALS.LIBRARY, {
+          type: LIBRARY_MODALS.RENAME_SECTION,
+          params: { width: 420, title: chosenFolder.dir.split("/").slice(1), icon: chosenFolder.icon }
+        })
+      ),
+    [contextMenuFolder.DELETE]: () =>
+      dispatch(
+        onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+          type: CONTEXT_MENU_FOLDER.DELETE_FOLDER,
+          params: { width: 420, title: chosenFolder.dir, icon: "" }
+        })
+      )
+  };
+
+  const closeContextMenu = () => {
+    setMouseParams(null);
   };
 
   return (
     <div className={styles.libraryWrap}>
-      <LibraryList listCollapsed={listCollapsed} setListCollapsed={setListCollapsed} />
+      <LibraryList
+        listCollapsed={listCollapsed}
+        setListCollapsed={setListCollapsed}
+        setMouseParams={setMouseParams}
+        successLoad={successLoad}
+      />
       <WorkSpace
         listCollapsed={listCollapsed}
         menuItem={menuItem}
@@ -61,6 +128,31 @@ function Library({
         setGLoader={setGLoader}
         successLoad={successLoad}
       />
+
+      {fileAddCustomization.show ? (
+        <CreateFile
+          title={__("Добавление файла")}
+          info={chosenFolder}
+          blob={fileAddCustomization.file}
+          setBlob={setFileAddCustomization}
+          awaitingFiles={awaitingFiles}
+          setAwaitingFiles={setAwaitingFiles}
+          loaded={loaded}
+          setLoaded={setLoaded}
+          loadingFile={loadingFile}
+          fileErrors={fileErrors}
+          setLoadingFile={setLoadingFile}
+          create={fileAddCustomization.create}
+          setGLoader={setGLoader}
+          showChoiceFolders={false}
+          menuItem={menuItem}
+        />
+      ) : null}
+      {mouseParams !== null ? (
+        <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFolderLibrary)}</div>
+        </ContextMenu>
+      ) : null}
     </div>
   );
 }
@@ -70,11 +162,19 @@ export default Library;
 Library.propTypes = {
   listCollapsed: PropTypes.bool,
   menuItem: PropTypes.string,
+  setMenuItem: PropTypes.func,
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   fileSelect: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
+  setAwaitingFiles: PropTypes.func,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.arrayOf(awaitingFilesProps)]),
+  loaded: PropTypes.arrayOf(loadedFilesProps),
+  setLoaded: PropTypes.func,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps)]),
+  fileErrors: PropTypes.arrayOf(PropTypes.string),
+  setLoadingFile: PropTypes.func
 };

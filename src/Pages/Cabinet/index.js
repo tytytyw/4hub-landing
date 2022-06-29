@@ -78,6 +78,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [awaitingFiles, setAwaitingFiles] = useState([]);
   const [loadingFile, setLoadingFile] = useState([]);
   const [loaded, setLoaded] = useState([]);
+
   const onInputFiles = (e) => {
     //TODO - mkortelov - create switch-case function to define correct dir path
     const findDir = () => {
@@ -108,11 +109,10 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
         id_project: project?.id ?? ""
       }
     }));
-    setAwaitingFiles([...awaitingFiles].concat(...files));
+    setAwaitingFiles([...awaitingFiles].concat(files));
     inputRef.current.value = "";
   };
   const fileSelect = () => inputRef.current.click();
-
   const handleDragOver = (e) => e.preventDefault();
 
   const nullifyAddingSeveralFiles = () =>
@@ -129,7 +129,6 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
     }));
     setAwaitingFiles([...awaitingFiles, ...arr]);
   };
-
   return (
     <div className={classNames(styles.mainWrap)} onDragOver={handleDragOver}>
       <SideMenu data={id_company ? businessMenu : menu} collapsed={collapsed} setCollapsed={setCollapsed} />
@@ -257,6 +256,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
             render={() => (
               <Library
                 menuItem={menuItem}
+                setMenuItem={setMenuItem}
                 filesPage={filesPage}
                 setFilesPage={setFilesPage}
                 fileSelect={fileSelect}
@@ -264,6 +264,13 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
                 setFileAddCustomization={setFileAddCustomization}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                setAwaitingFiles={setAwaitingFiles}
+                awaitingFiles={awaitingFiles}
+                loaded={loaded}
+                setLoaded={setLoaded}
+                loadingFile={loadingFile}
+                fileErrors={fileErrors}
+                setLoadingFile={setLoadingFile}
               />
             )}
           />

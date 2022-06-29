@@ -79,10 +79,18 @@ export const replaceFile = async (uid, info, file) => {
   data.append("myfile", blob);
   data.append("fid", info.fid);
   data.append("dir", info.gdir);
-  api
-    .post(`/ajax/file_replace.php`, data)
-    .then((res) => console.log(res))
-    .catch((e) => console.log(e));
+  api.post(`/ajax/file_replace.php`, data).catch((e) => console.log(e));
+};
+
+export const replaceChatMessage = (message, uid, file) => {
+  const newFIle = file.preview.replace("image/png", "image/octet-stream");
+  const blob = new Blob([newFIle], { type: "image/png" });
+  let data = new FormData();
+  data.append("uid", uid);
+  data.append("attachment", blob);
+  data.append("id_message", message.id);
+  data.append("text", ""); //TODO - mkortelov - check for text message
+  api.post(`/ajax/chat_message_edit.php`, data).catch((e) => console.log(e));
 };
 
 export const useSendFile = async () => {
@@ -216,10 +224,10 @@ export function dataURLintoBlobImage(dataURL) {
 }
 
 export const checkResponseStatus = (status) => {
-  if (typeof status === "number") {
+  if (typeof status === "number" && status === 1) {
     return status === 1;
   }
-  if (typeof status === "boolean") {
+  if (typeof status === "boolean" && status) {
     return status;
   }
   throw Error(`status ${status} with type ${typeof status} is not ok`);
@@ -239,3 +247,41 @@ export function capitalizeFirstLetter(string) {
 export function getLocation() {
   return window.location.pathname.split("/").filter((it) => it.length > 0);
 }
+
+export function getDepartment() {
+  return getLocation()[0] === "library" ? "/_LIBRARY_/" : "/";
+}
+
+export const getIsIncludePath = (filePath, currentPath) => {
+  const filePathArray = filePath.split("/");
+  const currentPathArray = currentPath.split("/");
+  const result = filePathArray.filter((el) => currentPathArray.includes(el)).join("/");
+  return result === currentPath;
+};
+
+export const getFormatDate = (date) => {
+  const newDate = date.split(" ").join("T");
+  const formatDate = new Date(newDate).toLocaleString("ru", { year: "numeric", month: "2-digit", day: "2-digit" });
+  return formatDate;
+};
+
+export const getFormatTime = (date) => {
+  const newDate = date.split(" ").join("T");
+  const formatTime = new Date(newDate).toLocaleString("ru", { hour: "2-digit", minute: "2-digit" });
+  return formatTime;
+};
+
+export const getMaskDate = (date) => {
+  const tempValue = date.replace(/\D/gim, "");
+  return tempValue.replace(
+    ...({
+      2: [/(\d{2})/g, "$1"],
+      3: [/(\d{2})/g, "$1."],
+      4: [/(\d{2})(\d{0,2})/g, "$1.$2"],
+      5: [/(\d{2})(\d{2})/g, "$1.$2."],
+      6: [/(\d{2})(\d{2})(\d{0,4})/g, "$1.$2.$3"],
+      7: [/(\d{2})(\d{2})(\d{1,4})/g, "$1.$2.$3"],
+      8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"]
+    }[tempValue.length] || [])
+  );
+};

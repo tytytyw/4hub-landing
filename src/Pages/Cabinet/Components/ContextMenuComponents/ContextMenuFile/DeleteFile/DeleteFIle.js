@@ -52,12 +52,13 @@ function DeleteFile() {
 
   const deleteFileFromCart = () => {
     if (contextMenuModals?.filePick?.show) {
-      contextMenuModals.filePick.files.forEach((fid, i, arr) => {
-        fileDeleteFromCart(fid, dispatch, uid, i === arr.length - 1 ? showMessage : "", __("Файлы удалены из системы"));
+      contextMenuModals.filePick.files.forEach((fid) => {
+        fileDeleteFromCart(fid, dispatch, uid, __("Файлы удалены из системы"), __);
       });
     } else {
-      fileDeleteFromCart(contextMenuModals?.items[0].fid, dispatch, uid, showMessage, __("Файл удалён из системы"));
+      fileDeleteFromCart(contextMenuModals?.items[0].fid, dispatch, uid, __("Файл удалён из системы"), __);
     }
+    close();
   };
 
   const textPopup = () => {

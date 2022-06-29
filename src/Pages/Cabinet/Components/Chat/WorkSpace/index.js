@@ -52,6 +52,7 @@ const WorkSpace = ({
 
   // webSockets
   const onConnectOpen = () => {
+    console.log(`Socket connection for user ${uid} opened`);
     socket.send(JSON.stringify({ action: "uid", uid }));
   };
 

@@ -31,11 +31,12 @@ $color-ico-grey: #D0CDCD
 .light-long
   display: flex
   align-items: center
-  justify-content: space-around !important
+  justify-content: space-between !important
+  gap: 10px
   cursor: pointer
   box-shadow: 0 2px 4px $color-shadow
   font-size: 12px
-  padding: 0 10px
+  padding: 0 12px 0 10px
 .icon
   cursor: pointer
   svg
@@ -43,3 +44,6 @@ $color-ico-grey: #D0CDCD
     transition: all .2s ease
     &:hover
       fill: $color-primary
+.active
+  background: $color-blue-light
+  border-color: $color-blue-smooth

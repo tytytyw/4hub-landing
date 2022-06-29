@@ -29,7 +29,6 @@ import {
   GET_PROJECTS,
   SEARCH,
   SET_CALENDAR_DATE,
-  SET_CALENDAR_EVENTS,
   SORT_FILES,
   LOAD_FILES,
   SET_FILTER_COLOR,
@@ -70,11 +69,12 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  GROUP_FILES_JOURNAL
+  GROUP_FILES_JOURNAL,
+  FILES_USER_SHARED
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { getLocation } from "../../generalComponents/generalHelpers";
+import { checkResponseStatus, getDepartment, getLocation } from "../../generalComponents/generalHelpers";
 
 const CancelToken = axios.CancelToken;
 
@@ -191,7 +191,6 @@ export const onsetInitialChosenFile = (file) => {
 export const onChooseFiles =
   (path, search, page, set, setLoad, loadedFilesType, allFiles, pathname) => async (dispatch, getState) => {
     const filters = getState().Cabinet.fileCriterion.filters;
-
     const emoji = filters.emoji ? `&filter_emo=${filters.emoji}` : "";
     const sign = filters.figure ? `&filter_fig=${filters.figure}` : "";
     const color = filters.color.color ? `&filter_color=${filters.color.color}` : "";
@@ -199,13 +198,12 @@ export const onChooseFiles =
     const sortReverse = filters.reverse && filters.reverse[filters.sorting] ? `&sort_reverse=1` : "";
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname?.startsWith("/downloaded-files") ? "&is_uploaded=1" : "";
-
     window.cancellationTokens = { cancelChooseFiles };
     const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid}&dir=${
       allFiles ? "" : path
     }${searched}&page=${page}&per_page=${30}&sort=${
       getState().Cabinet.fileCriterion.sorting
-    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}&dep=${getDepartment()}`;
     await api
       .get(url, {
         cancelToken: cancelChooseFiles.token
@@ -336,6 +334,13 @@ export const clearFileList = () => {
       path: "global/all",
       filesNext: null
     }
+  };
+};
+
+export const clearFolders = () => {
+  return {
+    type: "GET_FOLDERS",
+    payload: { global: null, other: null }
   };
 };
 
@@ -714,44 +719,6 @@ export const setCalendarDate = (date) => {
   };
 };
 
-export const setCalendarEvents = () => {
-  return {
-    type: SET_CALENDAR_EVENTS,
-    payload: [
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-29 09:00"),
-        type: 1
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-25 12:00"),
-        type: 2
-      },
-      {
-        name: "Сдать задачу за 2020 год",
-        term: "С 12 августа По 16 августа 2020",
-        tag: "Отчет",
-        sender: "Недельская Алина Квиталина",
-        avatar: "a1",
-        ctime: "14:45",
-        date: new Date("2021-07-26 22:00"),
-        type: 3
-      }
-    ]
-  };
-};
-
 export const onSearch = (value) => {
   return {
     type: SEARCH,
@@ -775,6 +742,30 @@ export const onGetSharedFiles = (type) => async (dispatch, getState) => {
     onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." });
     console.log(e);
   }
+};
+
+export const onGetFilesUserShared = (endpoint, fid, message) => async (dispatch, getState) => {
+  api
+    .get(`${endpoint}`, {
+      params: {
+        uid: getState().user.uid,
+        fid
+      }
+    })
+    .then((response) => {
+      if (checkResponseStatus(response.data.ok)) {
+        dispatch({
+          type: FILES_USER_SHARED,
+          payload: response.data.access
+        });
+      } else {
+        onSetModals(MODALS.ERROR, { open: true, message });
+      }
+    })
+    .catch((e) => {
+      onSetModals(MODALS.ERROR, { open: true, message });
+      console.log(e);
+    });
 };
 
 export const onSortFile = (sorting) => {
@@ -1237,7 +1228,6 @@ export const onLoadFiles =
       dep: `/_${getLocation()[0].toUpperCase()}_/`,
       group: getState().Cabinet.fileCriterion.group
     };
-
     api
       .get(`/ajax/${endpoint}.php`, {
         params,

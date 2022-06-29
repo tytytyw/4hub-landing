@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 import styles from "./TableTaskItem.module.sass";
-import { eventTypesColor } from "../helper";
 import PopoverTaskItem from "./PopoverTaskItem";
 import PropTypes from "prop-types";
-import { eventShowProps } from "types/CalendarPage";
+import { eventProps } from "types/CalendarPage";
 
 const TableTaskItem = ({ task, date }) => {
   const [visible, setVisible] = useState(false);
-  const color = eventTypesColor?.[task?.type];
+  const color = task.id_color.color;
 
   const checkReverse = () => {
     const hour = date.getHours();
@@ -17,7 +16,7 @@ const TableTaskItem = ({ task, date }) => {
 
   const checkReverseSide = () => {
     const dayIndex = date.getDay();
-    return dayIndex >= 6 || dayIndex === 0;
+    return dayIndex > 3;
   };
 
   return (
@@ -36,6 +35,7 @@ const TableTaskItem = ({ task, date }) => {
 export default TableTaskItem;
 
 TableTaskItem.propTypes = {
-  task: eventShowProps,
-  date: PropTypes.instanceOf(Date)
+  task: eventProps,
+  date: PropTypes.instanceOf(Date),
+  setViewType: PropTypes.func
 };

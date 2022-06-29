@@ -29,23 +29,6 @@ export const months = [
   { id: 11, text: "Декабрь" }
 ];
 
-export const eventTypesColor = {
-  1: "#25AB27",
-  2: "#E4791C",
-  3: "#A11CE4"
-};
-
-export const hexToRgb = (hex) => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      }
-    : null;
-};
-
 export const days = [
   { id: 1, day: "Пн" },
   { id: 2, day: "Вт" },
@@ -57,7 +40,16 @@ export const days = [
 ];
 
 export const hours = [
-  { text: "9:00", value: 9 },
+  { text: "00:00", value: 0 },
+  { text: "01:00", value: 1 },
+  { text: "02:00", value: 2 },
+  { text: "03:00", value: 3 },
+  { text: "04:00", value: 4 },
+  { text: "05:00", value: 5 },
+  { text: "06:00", value: 6 },
+  { text: "07:00", value: 7 },
+  { text: "08:00", value: 8 },
+  { text: "09:00", value: 9 },
   { text: "10:00", value: 10 },
   { text: "11:00", value: 11 },
   { text: "12:00", value: 12 },

@@ -8,18 +8,39 @@ import { useLocales } from "react-localized";
 function SubmitButtons({ type, closeModal, onSubmit }) {
   const { __ } = useLocales();
 
+  const textButton = () => {
+    switch (type) {
+      case LIBRARY_MODALS.RENAME_SECTION:
+      case TASK_MODALS.EDIT_SECTION:
+      case TASK_MODALS.EDIT_NOTE:
+      case TASK_MODALS.EDIT_TASK:
+        return __("Сохранить");
+
+      case TASK_MODALS.DELETE_TASK:
+        return __("Удалить");
+
+      default:
+        return __("Добавить");
+    }
+  };
+
   const renderSubmitButtons = () => {
     if (
       [
         //Tasks
         TASK_MODALS.ADD_NOTE,
+        TASK_MODALS.EDIT_NOTE,
         TASK_MODALS.ADD_TASK,
         TASK_MODALS.ADD_MEETING,
         TASK_MODALS.ADD_CALL,
-        TASK_MODALS.ADD_LETTERб,
+        TASK_MODALS.ADD_LETTER,
         TASK_MODALS.ADD_SECTION,
+        TASK_MODALS.EDIT_SECTION,
+        TASK_MODALS.DELETE_TASK,
+        TASK_MODALS.EDIT_TASK,
         //Library
-        LIBRARY_MODALS.ADD_SECTION
+        LIBRARY_MODALS.ADD_SECTION,
+        LIBRARY_MODALS.RENAME_SECTION
       ].includes(type)
     ) {
       return renderSubmitCancel();
@@ -29,7 +50,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
   const renderSubmitCancel = () => (
     <div className={styles.submitCancelWrap}>
       <TextButton text={__("Отмена")} type="cancel" callback={closeModal} />
-      <TextButton text={__("Добавить")} type="ok" callback={onSubmit} />
+      <TextButton text={textButton()} type="ok" callback={onSubmit} />
     </div>
   );
 
@@ -45,7 +66,7 @@ SubmitButtons.defaultProps = {
 };
 
 SubmitButtons.propTypes = {
-  type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
+  type: PropTypes.oneOf(Object.values({ ...TASK_MODALS, ...LIBRARY_MODALS })).isRequired,
   closeModal: PropTypes.func,
   onSubmit: PropTypes.func
 };

@@ -21,18 +21,17 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
-import { usePeriods } from "../../../../../generalComponents/collections";
+import { usePeriods, useStandardLibraries } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
-
 import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { LIBRARY, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 import JournalFileLine from "../JournalFileLine/JournalFileLine";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
+import { imageSrc, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -70,6 +69,8 @@ const ItemsList = ({
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
   const { theme } = useSelector((s) => s.user.userInfo);
+  const STANDARD_LIBRARIES = useStandardLibraries();
+
   const folderSelect = (folder) => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
@@ -87,7 +88,6 @@ const ItemsList = ({
     const f = { ...item };
     f.is_dir ? dispatch(onSetNextFilesToPrevious(f.path, true)) : dispatch(onSetNextFilesToPrevious(f.gdir, false));
   };
-
   // Types of Files view
   const renderFiles = (Type, files, params) => {
     if (!files) return null;
@@ -149,16 +149,25 @@ const ItemsList = ({
     });
   };
   const addIconButton = () => (
-    <div
-      onClick={fileSelect}
-      className={`
+    <div className={styles.addButtonBlock}>
+      <div
+        onClick={fileSelect}
+        className={`
                     ${styles.addFileButtonInput}
                     ${size === "medium" ? styles.mediumSize : null}
                     ${size === "small" ? styles.smallSize : null}
                 `}
-    >
-      <AddIcon className={styles.addIcon} />
-      <span>{__("Перетащите файл или нажмите загрузить")}</span>
+      >
+        <AddIcon className={styles.addIcon} />
+        <span>{__("Перетащите файл или нажмите загрузить")}</span>
+      </div>
+      <img
+        src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
+        alt="addFile"
+        className={
+          size === "big" ? styles.textAddIcon : size === "medium" ? styles.textAddIconMedium : styles.textAddIconSmall
+        }
+      />
     </div>
   );
 
@@ -214,7 +223,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {
-      dispatch(onChooseFiles(folderList?.path, "", 1, "", successLoad, ""));
+      dispatch(onChooseFiles(STANDARD_LIBRARIES.EDUCATION.path, "", 1, onSuccessLoading, successLoad, ""));
       setFilesPage(1);
     }
   }, [dateFilter]); //eslint-disable-line
@@ -258,7 +267,7 @@ const ItemsList = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
+        (pathname.startsWith("/files") || pathname.startsWith("/archive") || pathname.startsWith("/library"))
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
@@ -273,9 +282,7 @@ const ItemsList = ({
           );
         if (pathname.startsWith("/library")) {
           setLoadingFiles(true);
-          dispatch(
-            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", LIBRARY.API_GET_FILES, pathname)
-          );
+          dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", null, pathname));
         }
       }
     }
@@ -284,7 +291,13 @@ const ItemsList = ({
   const [scrollRef] = useScrollElementOnScreen(options, load);
   return (
     <>
-      {workElementsView === VIEW_TYPE.BARS && Array.isArray(fileList?.files) ? (
+      {fileList?.files && Array.isArray(fileList?.files) && fileList?.files.length === 0 && addIconButton()}
+      {fileList?.files &&
+        !Array.isArray(fileList?.files) &&
+        Object.values(fileList?.files).flat().length === 0 &&
+        addIconButton()}
+
+      {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
           fileSelect={fileSelect}
           filePick={filePick}

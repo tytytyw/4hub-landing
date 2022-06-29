@@ -60,7 +60,7 @@ const Profile = ({ theme }) => {
       >
         <img
           className={styles.profileImg}
-          src={user?.icon?.[0] ? imageSrc + user?.icon?.[0] : imageSrc + "/assets/PrivateCabinet/profile-noPhoto.svg"}
+          src={user?.icon?.[0] ? imageSrc + user?.icon?.[0] : imageSrc + "assets/PrivateCabinet/profile-noPhoto.svg"}
           alt="pie-chart"
         />
         <span>{user?.name ? user.name : "User"}</span>

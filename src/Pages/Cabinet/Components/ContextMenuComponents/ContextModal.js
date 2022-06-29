@@ -8,8 +8,9 @@ import MoveToArchive from "./ContextMenuFile/MoveToArchive/MoveToArchive";
 import DownloadFile from "./ContextMenuFile/DownloadFile/DownloadFile";
 import PrintFile from "./ContextMenuFile/PrintFile/PrintFile";
 import DeleteFile from "./ContextMenuFile/DeleteFile/DeleteFIle";
-import { CONTEXT_MENU_FILE } from "../../../../generalComponents/globalVariables";
+import { CONTEXT_MENU_FILE, CONTEXT_MENU_FOLDER } from "../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
+import DeleteFolder from "./ContextMenuFolder/DeleteFolder/DeleteFolder";
 
 function ContextModal({ saveCustomizeSeveralFiles }) {
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
@@ -25,6 +26,7 @@ function ContextModal({ saveCustomizeSeveralFiles }) {
       {contextMenuModals.type === CONTEXT_MENU_FILE.DOWNLOAD_FILE ? <DownloadFile /> : null}
       {contextMenuModals.type === CONTEXT_MENU_FILE.PRINT_FILE ? <PrintFile /> : null}
       {contextMenuModals.type === CONTEXT_MENU_FILE.DELETE_FILE ? <DeleteFile /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FOLDER.DELETE_FOLDER ? <DeleteFolder /> : null}
     </>
   );
 }

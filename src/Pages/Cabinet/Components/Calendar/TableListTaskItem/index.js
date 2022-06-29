@@ -1,28 +1,47 @@
 import React, { useState } from "react";
 
 import styles from "./TableListTaskItem.module.sass";
-import { eventTypesColor } from "../helper";
 import classNames from "classnames";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { imageSrc, MODALS, TASK_MODALS } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
-import { eventShowProps } from "../../../../../types/CalendarPage";
+import { eventProps } from "../../../../../types/CalendarPage";
+import { currentEvent, useEvents } from "generalComponents/CalendarHelper";
+import { onSetModals } from "Store/actions/CabinetActions";
+import { useDispatch } from "react-redux";
 
 const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(false);
-  const color = eventTypesColor?.[task?.type];
+  const events = useEvents();
+  const color = task.id_color.color;
+  const dispatch = useDispatch();
 
+  const openTask = (task) => {
+    dispatch(
+      onSetModals(MODALS.TASKS, {
+        type: TASK_MODALS.OPEN_TASK,
+        choosenTask: task,
+        params: {
+          width: 620
+        }
+      })
+    );
+  };
   return (
     <div className={styles.wrapper}>
       <div onClick={() => setCollapse(!collapse)} className={styles.headBlock}>
         <div className={styles.icons}>
           <span
             style={{
-              background: `${color}`
+              background: color
             }}
             className={styles.circle}
           />
-          <img className={styles.suitCase} src={imageSrc + "./assets/PrivateCabinet/suitcase.svg"} alt="Suitcase" />
+          <img
+            className={styles.suitCase}
+            src={`${imageSrc}assets/PrivateCabinet/events/${currentEvent(events, task).icon}.svg`}
+            alt="Suitcase"
+          />
         </div>
 
         <div className={styles.infoBlock}>
@@ -33,26 +52,34 @@ const TableListTaskItem = ({ task }) => {
 
           <div className={styles.infoItem}>
             <p className={styles.option}>{__("Срок")}</p>
-            <p className={styles.value}>{task?.term}</p>
+            <p className={styles.value}>{task?.date_start}</p>
           </div>
 
           <div className={styles.infoItem}>
             <p className={styles.option}>{__("Тег")}</p>
-            <p className={styles.value}>{task?.tag}</p>
+            <p className={styles.value}>{task?.tags?.chosen}</p>
           </div>
 
           <div className={classNames(styles.infoItem, styles.infoItemSender)}>
             <img className={styles.avatarImg} src={imageSrc + "./assets/PrivateCabinet/avatars/a1.svg"} alt="Avatar" />
             <div>
               <p className={styles.option}>{__("Отправитель")}</p>
-              <p className={styles.value}>{task?.sender}</p>
+              <p className={styles.value}>{task?.emails}</p>
             </div>
           </div>
         </div>
 
         <div className={styles.rightIcons}>
-          <img className={styles.icon} src={imageSrc + "./assets/PrivateCabinet/smiles/cool.svg"} alt="Notification" />
-          <img className={styles.icon} src={imageSrc + "./assets/PrivateCabinet/notification.svg"} alt="Notification" />
+          <img
+            className={styles.icon}
+            src={`${imageSrc}assets/PrivateCabinet/smiles/${task?.id_emo}.svg`}
+            alt="Notification"
+          />
+          <img
+            className={styles.icon}
+            src={`${imageSrc}assets/PrivateCabinet/signs/${task?.id_fig}.svg`}
+            alt="Notification"
+          />
         </div>
 
         <div className={styles.arrowWrap}>
@@ -69,15 +96,18 @@ const TableListTaskItem = ({ task }) => {
         <div className={styles.descWrap}>
           <div className={styles.descBlock}>
             <p className={styles.descTitle}>{__("Описание задачи")}</p>
-            <p className={styles.descText}>
-              {__(
-                "Текст большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
-              )}
-            </p>
+            <p className={styles.descText}>{task?.prim}</p>
           </div>
 
           <div className={styles.actionBlock}>
-            <button className={styles.actionBtn}>{__("Перейти к задаче")}</button>
+            <button
+              className={styles.actionBtn}
+              onClick={() => {
+                openTask(task);
+              }}
+            >
+              {__("Перейти к задаче")}
+            </button>
           </div>
         </div>
       )}
@@ -88,5 +118,5 @@ const TableListTaskItem = ({ task }) => {
 export default TableListTaskItem;
 
 TableListTaskItem.propTypes = {
-  task: eventShowProps
+  task: eventProps
 };

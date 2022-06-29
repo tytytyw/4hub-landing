@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styles from "./BoardServicePanel.module.sass";
 import PropTypes from "prop-types";
 import {
-  BOARDS,
   imageSrc,
   MODALS,
   TASK_MODALS,
-  TASKS_SCHEMA
+  TASKS_SCHEMA,
+  TASK_TYPES
 } from "../../../../../../../generalComponents/globalVariables";
 import { useTaskBoardTitle } from "../../../../../../../generalComponents/collections";
 import { ReactComponent as FrameIcon } from "assets/PrivateCabinet/tasks/frame.svg";
@@ -21,7 +21,7 @@ import TabsPicker from "../../../../../../../generalComponents/TabsPicker/TabsPi
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 
-function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
+function BoardServicePanel({ type, isLastElement, setSchema, schema, isTask }) {
   const TITLE = useTaskBoardTitle();
   const dispatch = useDispatch();
   const [tabSelect, setTabSelect] = useState(2);
@@ -45,23 +45,23 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
   );
 
   const onAdd = () => {
-    if (type === BOARDS.MEETINGS_BOARD) {
+    if (type === TASK_TYPES.MEETINGS) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_MEETING,
-          params: { width: 420, date: "", time: "", name: "" }
+          params: { width: 420, date_start: "", name: "" }
         })
       );
     }
-    if (type === BOARDS.CALLS_BOARD) {
+    if (type === TASK_TYPES.CALLS) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_CALL,
-          params: { width: 420, date: "", time: "", name: "" }
+          params: { width: 420, date_start: "", name: "" }
         })
       );
     }
-    if (type === BOARDS.MAIL_BOARD) {
+    if (type === TASK_TYPES.MAILS) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_LETTER,
@@ -73,22 +73,22 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
 
   const onExpand = () => {
     switch (type) {
-      case BOARDS.MEETINGS_BOARD:
+      case TASK_TYPES.MEETINGS:
         schema === TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD
           ? setSchema(TASKS_SCHEMA.GRID_BAR)
           : setSchema(TASKS_SCHEMA.EXPANDED_MEETINGS_BOARD);
         break;
-      case BOARDS.CALLS_BOARD:
+      case TASK_TYPES.CALLS:
         schema === TASKS_SCHEMA.EXPANDED_CALLS_BOARD
           ? setSchema(TASKS_SCHEMA.GRID_BAR)
           : setSchema(TASKS_SCHEMA.EXPANDED_CALLS_BOARD);
         break;
-      case BOARDS.MAIL_BOARD:
+      case TASK_TYPES.MAILS:
         schema === TASKS_SCHEMA.EXPANDED_MAIL_BOARD
           ? setSchema(TASKS_SCHEMA.GRID_BAR)
           : setSchema(TASKS_SCHEMA.EXPANDED_MAIL_BOARD);
         break;
-      case BOARDS.TASKS_BOARD:
+      case TASK_TYPES.TASK:
         schema === TASKS_SCHEMA.EXPANDED_TASKS_BOARD
           ? setSchema(TASKS_SCHEMA.GRID_BAR)
           : setSchema(TASKS_SCHEMA.EXPANDED_TASKS_BOARD);
@@ -106,7 +106,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema }) {
         {!isLastElement ? (
           <div className={styles.addIconWrap}>
             <AddIcon className={classNames(styles.addIcon)} onClick={onAdd} />
-            {renderAddImage()}
+            {!isTask && renderAddImage()}
           </div>
         ) : null}
         {isLastElement ? <TabsPicker ELEMENTS={ELEMENTS} selected={tabSelect} onClick={setTabSelect} /> : null}
@@ -125,8 +125,9 @@ BoardServicePanel.defaultProps = {
 };
 
 BoardServicePanel.propTypes = {
-  type: PropTypes.oneOf(Object.values(BOARDS)).isRequired,
+  type: PropTypes.oneOf(Object.values(TASK_TYPES)).isRequired,
   isLastElement: PropTypes.bool,
   setSchema: PropTypes.func.isRequired,
-  schema: PropTypes.oneOf(Object.values(TASKS_SCHEMA))
+  schema: PropTypes.oneOf(Object.values(TASKS_SCHEMA)),
+  isTask: PropTypes.bool
 };

@@ -26,7 +26,6 @@ import {
   GET_PROJECT_FOLDER,
   GET_PROJECTS,
   SET_CALENDAR_DATE,
-  SET_CALENDAR_EVENTS,
   SEARCH,
   CHOOSE_SHARED_FILES,
   CHOOSE_ARCHIVE_FILES,
@@ -73,7 +72,9 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  GROUP_FILES_JOURNAL
+  GROUP_FILES_JOURNAL,
+  FILES_USER_SHARED,
+  GET_JOURNAL_FOLDERS
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -140,13 +141,15 @@ const INITIAL_STATE = {
 
   // SHARED FILES
   sharedFiles: { sharedMe: null, sharedI: null },
-
+  filesUserShared: {},
   // ARCHIVE
   arhiveFileList: null,
 
-  //CALENDAR PAGE
+  //JOURNAL
+  journalFolders: [],
+
+  //CALENDAR
   calendarDate: new Date(),
-  calendarEvents: [],
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -204,7 +207,7 @@ const INITIAL_STATE = {
     share: { open: false, fids: [], fid: undefined, action_type: "", file: {} },
     previewWithComments: { open: false, files: [], chosenFile: null },
     printScreen: { open: false, result: "" },
-    previewFile: { open: false, file: null },
+    previewFile: { open: false, file: null, message: null },
     topMessage: { open: false, type: "message", message: "" }, //type = message(default) || error
     fileAccessRights: { open: false, file: {} },
     contextMenuModals: {
@@ -219,7 +222,8 @@ const INITIAL_STATE = {
     }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     taskModals: { type: MODALS.NO_MODAL, params: null },
     libraryModals: { type: MODALS.NO_MODAL, params: null },
-    mailModals: { type: MODALS.NO_MODAL, params: null }
+    mailModals: { type: MODALS.NO_MODAL, params: null },
+    calendarModals: { type: MODALS.NO_MODAL, params: null }
   },
   //LIBRARY
   library: {
@@ -313,7 +317,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         for (let key in files) {
           files[key].forEach((file, i) => {
             if (file.fid === action.payload.fid) {
-              delete files[key][i];
+              files[key].splice(i, 1);
             }
           });
         }
@@ -654,18 +658,25 @@ export default function startPage(state = INITIAL_STATE, action) {
       };
     }
 
+    case FILES_USER_SHARED: {
+      return {
+        ...state,
+        filesUserShared: { ...state.filesUserShared, [action.payload[0].fid]: [...action.payload] }
+      };
+    }
+
     //ARCHIVE
     case CHOOSE_ARCHIVE_FILES: {
       return { ...state, fileList: { ...action.payload } };
     }
 
-    //CALENDAR PAGE
+    //JOURNAL
+    case GET_JOURNAL_FOLDERS:
+      return { ...state, journalFolders: action.payload };
+
+    //CALENDAR && TASK PAGE
     case SET_CALENDAR_DATE:
       return { ...state, calendarDate: action.payload };
-
-    //CALENDAR PAGE
-    case SET_CALENDAR_EVENTS:
-      return { ...state, calendarEvents: action.payload };
 
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:
@@ -697,6 +708,9 @@ export default function startPage(state = INITIAL_STATE, action) {
 
     //GLOBAL MODAL
     case SET_MODALS: {
+      if (action.payload.key.open) {
+        return state;
+      }
       return {
         ...state,
         modals: { ...state.modals, [action.payload.key]: action.payload.value }
