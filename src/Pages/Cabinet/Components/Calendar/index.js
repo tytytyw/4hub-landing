@@ -94,7 +94,7 @@ const CalendarPage = () => {
 
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>
-                {dayTasks?.length} {__("задач")}
+                {tasks?.length} {__("задач")}
               </button>
             </div>
             <div className={styles.headerBtnWrap}>

@@ -74,7 +74,8 @@ import {
   SET_FOLDER_PATH,
   GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
-  GET_JOURNAL_FOLDERS
+  GET_JOURNAL_FOLDERS,
+  SET_MESSAGES_TO_READ
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -492,6 +493,26 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case SET_CHAT_THEME: {
       return { ...state, chat: { ...state.chat, theme: action.payload } };
+    }
+    case SET_MESSAGES_TO_READ: {
+      let messages = { ...state.chat.messages };
+      for (let [key, msgArr] of Object.entries(messages)) {
+        msgArr.forEach((msg, i) => {
+          if (action.payload.find((el) => el === msg.id)) {
+            messages[key][i] = {
+              ...msg,
+              is_read: "1"
+            };
+          }
+        });
+      }
+      return {
+        ...state,
+        chat: {
+          ...state.chat,
+          messages
+        }
+      };
     }
 
     // SORT FILES

@@ -50,7 +50,7 @@ const InfoPanel = ({ setAction }) => {
       name: DOCS,
       title: __("Документы"),
       subOptions: [],
-      count: -1
+      count: Object.values(files?.application?.files || {}).reduce((acc, it) => acc + it.length, 0) ?? 0
     },
     {
       name: AUDIO,
@@ -65,7 +65,7 @@ const InfoPanel = ({ setAction }) => {
       name: LINKS,
       title: __("Ссылки"),
       subOptions: [],
-      count: -1
+      count: files?.links?.length ?? 0
     }
   ];
 

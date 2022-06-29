@@ -70,7 +70,8 @@ import {
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
   GROUP_FILES_JOURNAL,
-  FILES_USER_SHARED
+  FILES_USER_SHARED,
+  SET_MESSAGES_TO_READ
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -1031,7 +1032,7 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (dis
           if (page === 1)
             dispatch({
               type: GET_CHAT_FILES,
-              payload: response.data?.attachments ?? null
+              payload: { ...response.data?.attachments, links: response.data?.links }
             });
         }
       }
@@ -1121,6 +1122,13 @@ export const saveChatTheme = (themeName) => async (dispatch, getState) => {
         }
       })
     );
+};
+
+export const onReadMessages = (msg) => {
+  return {
+    type: SET_MESSAGES_TO_READ,
+    payload: msg
+  };
 };
 
 // COMPANY

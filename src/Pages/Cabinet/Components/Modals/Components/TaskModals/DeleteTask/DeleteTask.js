@@ -6,14 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 
 import { onDeleteTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
+import { TASK_MODALS } from "generalComponents/globalVariables";
 
 function DeleteTask({ closeModal, type }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
   const { taskChoosen } = useSelector((s) => s.Cabinet.modals.taskModals);
 
-  const deleteTask = async () => {
-    dispatch(onDeleteTask(taskChoosen.id, __("Задача успешно удалена"), __("Ошибка при удалении задачи")));
+  const deleteTask = () => {
+    dispatch(onDeleteTask(taskChoosen.id, messages[TASK_MODALS.DELETE_TASK]));
   };
 
   return (

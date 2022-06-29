@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
-import { editMeetingParams } from "../../../../../../../types/Tasks";
+import { taskTypes } from "../../../../../../../types/Tasks";
 import styles from "./EditCall.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
@@ -12,12 +12,17 @@ import { useDispatch } from "react-redux";
 import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
+import Calendar from "Pages/StartPage/Components/Calendar";
+import PopUp from "generalComponents/PopUp";
 
 function EditCall({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [showCalendar, setShowCalendar] = useState(false);
+  const messages = useTaskMessages();
 
   const onChangeName = (name) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
@@ -26,6 +31,9 @@ function EditCall({ type, params, closeModal }) {
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
+  };
+  const setDateValue = (date_start) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
@@ -37,15 +45,7 @@ function EditCall({ type, params, closeModal }) {
     if (target.value.length > 2) return;
     setMm(getMaskDate(target.value));
   };
-  const messagesAdd = {
-    error: __("Не удалось создать звонок"),
-    success: __("Новый звонок создан")
-  };
 
-  const messagesEdit = {
-    error: __("Не удалось изменить звонок"),
-    success: __("Звонок изменина")
-  };
   const onSubmit = () => {
     const payload = {
       dateStart: params.date_start,
@@ -55,23 +55,16 @@ function EditCall({ type, params, closeModal }) {
       idTask: params.id
     };
     type === TASK_MODALS.ADD_CALL
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.CALLS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.CALLS][type]));
   };
   return (
     <div className={styles.editMeetingWrap}>
-      <InputField
-        model="text"
-        value={params.name}
-        set={onChangeName}
-        placeholder={__("Имя задачи")}
-        editableClass={"fixedHeight"}
-      />
-      <div className={styles.title_wrap}>
-        <h5 className={styles.title}>
-          <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
-        </h5>
-      </div>
+      <h5 className={styles.title}>{__("Название звонка")}</h5>
+      <InputField model="text" value={params.name} set={onChangeName} editableClass={"fixedHeight"} />
+      <h5 className={styles.title}>
+        <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
+      </h5>
       <div className={styles.dateWrap}>
         <span className={styles.dateName}> {__("Дата")} </span>
         <input
@@ -86,11 +79,16 @@ function EditCall({ type, params, closeModal }) {
           <span className={styles.dots}>:</span>
           <input className={styles.time_count} type="text" placeholder={__("ММ")} value={mm} onChange={onChangeMin} />
         </div>
-        <span className={styles.open_calendar} onClick={() => {}}>
+        <span className={styles.open_calendar} onClick={() => setShowCalendar(true)}>
           {__("Календарь")}
         </span>
       </div>
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
+      {showCalendar && (
+        <PopUp set={setShowCalendar} zIndex={102}>
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+        </PopUp>
+      )}
     </div>
   );
 }
@@ -103,6 +101,6 @@ EditCall.defaultProps = {
 
 EditCall.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: editMeetingParams.isRequired,
+  params: taskTypes,
   closeModal: PropTypes.func
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./EditLetter.module.sass";
-import { MODALS, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
-import { editLetterParams } from "../../../../../../../types/Tasks";
+import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { taskTypes } from "../../../../../../../types/Tasks";
 import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
@@ -10,28 +10,44 @@ import InputField from "../../../../../../../generalComponents/InputField";
 import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as ContactBookIcon } from "assets/PrivateCabinet/contact-book.svg";
+import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditLetter({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
 
-  const onChangeText = (text) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, text } }));
+  const onChangeText = (prim) => {
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, prim } }));
   };
 
-  const onChangeTopic = (topic) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, topic } }));
+  const onChangeTopic = (name) => {
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
   };
 
-  const onChangeReceiver = (receiver) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, receiver } }));
+  const onChangeReceiver = (emails) => {
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, emails } }));
+  };
+
+  const onSubmit = () => {
+    const payload = {
+      name: params.name,
+      idTask: params.id,
+      text: params.prim,
+      emails: params.emails,
+      eventType: TASK_TYPES.MAILS
+    };
+    type === TASK_MODALS.ADD_LETTER
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MAILS][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.MAILS][type]));
   };
 
   return (
     <div className={styles.editLetterWrap}>
       <InputField
         model="text"
-        value={params.topic}
+        value={params.name}
         set={onChangeTopic}
         placeholder={__("Тема письма")}
         editableClass={"fixedHeight"}
@@ -39,16 +55,16 @@ function EditLetter({ type, params, closeModal }) {
       <div className={styles.margin} />
       <InputField
         model="text"
-        value={params.receiver}
+        value={params.emails}
         set={onChangeReceiver}
         placeholder={__("Получатель")}
         editableClass={"fixedHeight"}
         icon={<ContactBookIcon className={styles.contactIcon} />}
       />
       <div className={styles.margin} />
-      <TextArea text={params.text} onChange={onChangeText} placeholder={__("Текст письма")} />
+      <TextArea text={params.prim} onChange={onChangeText} placeholder={__("Текст письма")} />
       <div className={styles.margin} />
-      <SubmitButtons type={type} closeModal={closeModal} />
+      <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
     </div>
   );
 }
@@ -61,6 +77,6 @@ EditLetter.defaultProps = {
 
 EditLetter.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: editLetterParams.isRequired,
+  params: taskTypes,
   closeModal: PropTypes.func
 };
