@@ -1,12 +1,17 @@
 import React from "react";
 import styles from "./WorkSpace.module.sass";
-import { hexToRgb, hours, eventTypesColor } from "../helper";
+import { hours } from "../helper";
 import TableListTaskItem from "../TableListTaskItem";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { eventShowProps } from "../../../../../types/CalendarPage";
+import { eventProps } from "../../../../../types/CalendarPage";
+import { opacityColor } from "generalComponents/CalendarHelper";
 
-const WorkSpaceList = ({ events }) => {
+const WorkSpaceList = ({ tasks }) => {
+  const dayTasks = tasks.map((item) => {
+    return { ...item, date: new Date(item.date_start) };
+  });
+
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const checkDateEvent = (event) => {
     if (!event) return false;
@@ -19,13 +24,13 @@ const WorkSpaceList = ({ events }) => {
   };
 
   const getTask = (hour) => {
-    const event = events?.find((item) => {
+    const task = dayTasks?.find((item) => {
       const itemHour = item?.date.getHours();
       return itemHour === hour;
     });
 
-    if (checkDateEvent(event)) {
-      return event;
+    if (checkDateEvent(task)) {
+      return task;
     }
 
     return false;
@@ -43,14 +48,12 @@ const WorkSpaceList = ({ events }) => {
       <div className={styles.list}>
         {hours?.map((hour, index) => {
           const event = getTask(hour.value);
-          const color = eventTypesColor?.[event?.type];
-          const rgba = hexToRgb(color);
           return event ? (
             <div
               key={index}
               className={styles.listItemActive}
               style={{
-                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+                background: opacityColor(event.id_color.color)
               }}
             >
               <div className={styles.hour}>{hour.text}</div>
@@ -71,5 +74,5 @@ const WorkSpaceList = ({ events }) => {
 export default WorkSpaceList;
 
 WorkSpaceList.propTypes = {
-  events: PropTypes.arrayOf(eventShowProps)
+  tasks: PropTypes.arrayOf(eventProps)
 };

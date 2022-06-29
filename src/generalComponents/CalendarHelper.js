@@ -263,3 +263,5 @@ export const getStartTime = (item) => {
   const date = item.split(" ");
   return date[1].slice(0, -3);
 };
+
+export const currentEvent = (events, task) => events.find((item) => (item.id === Number(task.id_type) ? item : ""));

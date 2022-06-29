@@ -74,7 +74,7 @@ import {
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
   FILES_USER_SHARED,
-  GET_TASK
+  SET_MESSAGES_TO_READ
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -147,9 +147,8 @@ const INITIAL_STATE = {
   //JOURNAL
   journalFolders: [],
 
-  //CALENDAR && MY TASK
+  //CALENDAR
   calendarDate: new Date(),
-  myTasks: [],
 
   // GUEST MODE
   guestSharedFiles: [],
@@ -493,6 +492,26 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_CHAT_THEME: {
       return { ...state, chat: { ...state.chat, theme: action.payload } };
     }
+    case SET_MESSAGES_TO_READ: {
+      let messages = { ...state.chat.messages };
+      for (let [key, msgArr] of Object.entries(messages)) {
+        msgArr.forEach((msg, i) => {
+          if (action.payload.find((el) => el === msg.id)) {
+            messages[key][i] = {
+              ...msg,
+              is_read: "1"
+            };
+          }
+        });
+      }
+      return {
+        ...state,
+        chat: {
+          ...state.chat,
+          messages
+        }
+      };
+    }
 
     //SORT FILES
     case SORT_FILES: {
@@ -671,9 +690,6 @@ export default function startPage(state = INITIAL_STATE, action) {
     //CALENDAR && TASK PAGE
     case SET_CALENDAR_DATE:
       return { ...state, calendarDate: action.payload };
-
-    case GET_TASK:
-      return { ...state, myTasks: [...action.payload] };
 
     //GUEST MODE
     case CHOOSE_GUEST_SHARED_FILES:

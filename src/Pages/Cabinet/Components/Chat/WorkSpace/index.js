@@ -9,7 +9,7 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
-import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
+import { addNewChatMessage, onReadMessages } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import SelectFile from "../SelectFile";
@@ -71,13 +71,16 @@ const WorkSpace = ({
     // PrivateMessage - direct message; PublicMessage- message from group
     if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
       const newMsg = {
+        attachment: data.attachment,
+        day: data.api?.day ?? "today", //TODO - mkortelov - need to modify socket for BE
+        deadline: data.api?.deadline ?? "0", //TODO - mkortelov -  need to modify socket for BE
         id: data.api?.id_message,
         id_user: data.api?.id_user,
         id_user_to: data.api?.id_user_to,
+        is_del: data.api?.is_del ?? "0", //TODO - mkortelov -  need to modify socket for BE
+        is_read: data.api?.is_read ?? "0", //TODO - mkortelov -  need to modify socket for BE
         text: data.text,
-        ut: data.api?.ut_message,
-        isNewMessage: true,
-        attachment: data.attachment
+        ut: data.api?.ut_message
       };
 
       if (isForGroups) {
@@ -118,6 +121,9 @@ const WorkSpace = ({
       (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
     ) {
       dispatch(onDeleteChatMessage({ id: data.id_message, day: data.day }));
+    }
+    if (data.action === "chat_message_update") {
+      dispatch(onReadMessages(data.id_messages));
     }
   };
 
@@ -217,6 +223,15 @@ const WorkSpace = ({
     );
   };
 
+  const setIsReadMessage = (params) => {
+    socket.send(
+      JSON.stringify({
+        ...params,
+        uid
+      })
+    );
+  };
+
   const renderCreateCameraMedia = useCallback(
     () => (
       <CreateCameraMedia
@@ -300,6 +315,7 @@ const WorkSpace = ({
             showSettings={showSettings}
             attachedFiles={attachedFiles}
             setAttachedFiles={setAttachedFiles}
+            setIsReadMessage={setIsReadMessage}
           />
         ) : (
           ""
