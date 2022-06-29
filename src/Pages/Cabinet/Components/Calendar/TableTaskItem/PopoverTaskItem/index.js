@@ -6,13 +6,12 @@ import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../generalComponen
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../../types/CalendarPage";
-import { currentEvent, opacityColor, useEvents } from "generalComponents/CalendarHelper";
+import { opacityColor } from "generalComponents/CalendarHelper";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
-  const events = useEvents();
   const dispatch = useDispatch();
 
   const openTask = (task) => {
@@ -46,10 +45,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
         <div className={styles.flexBlock}>
           <div className={styles.leftBlock}>
             <div className={styles.topIcons}>
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/events/${currentEvent(events, task).icon}.svg`}
-                alt={currentEvent(events, task).name}
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/events/${task.id_type}.svg`} alt={task.name} />
               <span
                 style={{
                   background: task.id_color.color

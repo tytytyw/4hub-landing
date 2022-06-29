@@ -5,14 +5,12 @@ import classNames from "classnames";
 import { imageSrc, MODALS, TASK_MODALS } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { eventProps } from "../../../../../types/CalendarPage";
-import { currentEvent, useEvents } from "generalComponents/CalendarHelper";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 
 const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(false);
-  const events = useEvents();
   const color = task.id_color.color;
   const dispatch = useDispatch();
 
@@ -39,7 +37,7 @@ const TableListTaskItem = ({ task }) => {
           />
           <img
             className={styles.suitCase}
-            src={`${imageSrc}assets/PrivateCabinet/events/${currentEvent(events, task).icon}.svg`}
+            src={`${imageSrc}assets/PrivateCabinet/events/${task.id_type}.svg`}
             alt="Suitcase"
           />
         </div>
