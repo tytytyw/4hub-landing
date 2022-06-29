@@ -4,20 +4,18 @@ import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
 import ActionApproval from "generalComponents/ActionApproval";
 import styles from "../../../../MyFolders/WorkSpace/WorkSpace.module.sass";
-import { imageSrc } from "generalComponents/globalVariables";
+import { imageSrc, TASK_MODALS } from "generalComponents/globalVariables";
 import { onDeleteDepartment } from "Store/actions/TasksActions";
 import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
+import { useTaskMessages } from "generalComponents/collections";
 
 const DeleteSection = ({ closeModal, icon }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
 
   const deleteDepartment = () => {
-    const messages = {
-      success: __("Раздел удален"),
-      error: __("Что-то пошло не так")
-    };
-    dispatch(onDeleteDepartment(messages));
+    dispatch(onDeleteDepartment(messages[TASK_MODALS.DELETE_SECTION]));
   };
 
   return (

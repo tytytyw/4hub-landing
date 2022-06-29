@@ -88,7 +88,7 @@ export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
 
   try {
     dispatch(onSetModals(MODALS.LOADER, true));
-    const { data } = await api.post(`/ajax/task1_dep_del.php?uid=${uid}&id_dep=${params.id}`);
+    const { data } = await api.post(`/ajax/task_dep_del.php?uid=${uid}&id_dep=${params.id}`);
     checkResponseStatus(data.ok);
     dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: data.id_dep });
     dispatch(

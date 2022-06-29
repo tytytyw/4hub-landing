@@ -745,6 +745,10 @@ export function useTaskMessages() {
 
     [TASK_MODALS.ADD_SECTION]: { success: __("Раздел добавлен"), error: __("Раздел добавить не удалось") },
     [TASK_MODALS.EDIT_SECTION]: { success: __("Раздел изменен"), error: __("Раздел изменить не удалось") },
+    [TASK_MODALS.DELETE_SECTION]: {
+      success: __("Раздел удален"),
+      error: __("Что-то пошло не так")
+    },
 
     [TASK_TYPES.NOTES]: {
       [TASK_MODALS.ADD_NOTE]: { success: __("Заметка добавлена"), error: __("Заметку добавить не удалось") },
