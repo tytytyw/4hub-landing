@@ -21,7 +21,15 @@ function TaskBoard({ classNameWrap, type, schema, setSchema, setMouseParams }) {
   const tasks = useSelector((s) => s.Tasks.myTasks);
   const INITIAL_TIMETABLE_DATE = new Date("1971-01-01 " + MIDNIGHT);
 
-  const getTasks = () => tasks.filter((item) => item.id_type === type);
+  const getTasks = () =>
+    tasks.filter((item) => {
+      if (type === TASK_TYPES.MEETINGS) {
+        return item.id_type === TASK_TYPES.OFFLINE_MEETING || item.id_type === TASK_TYPES.ONLINE_MEETING;
+      } else {
+        return item.id_type === type;
+      }
+    });
+
   return (
     <div className={classNames(styles.taskBoardWrap, classes[classNameWrap], `border-${theme}`)}>
       <BoardServicePanel
@@ -38,9 +46,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema, setMouseParams }) {
           setMouseParams={setMouseParams}
         />
       )}
-      {type === TASK_TYPES.MAILS && (
-        <MailTasks tasks={["Write a letter to my friend right after the meeting", "Second mail"]} />
-      )}
+      {type === TASK_TYPES.MAILS && <MailTasks tasks={getTasks(type)} />}
       {type === TASK_TYPES.TASK && <MyTasks />}
     </div>
   );
