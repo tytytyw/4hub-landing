@@ -13,14 +13,17 @@ import { useContextMenuTasks } from "generalComponents/collections";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { contextMenuTask, imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
 import { onSetModals } from "Store/actions/CabinetActions";
+import { useLocales } from "react-localized";
 
 function Tasks() {
+  const { __ } = useLocales();
+
   const [mouseParams, setMouseParams] = useState(null);
   const contextMenu = useContextMenuTasks();
   const chosenTask = useSelector((s) => s.Tasks.chosenTask);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(onGetAllTasks());
+    dispatch(onGetAllTasks(__("Ошибка при получении задач")));
   }, []); //eslint-disable-line
 
   const callbacks = {

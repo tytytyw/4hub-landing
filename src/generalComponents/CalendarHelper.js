@@ -247,7 +247,7 @@ export const useEvents = () => {
     { id: TASK_TYPES.TASK, name: __("Задача"), icon: "task" },
     { id: TASK_TYPES.BIRTHDAY, name: __("День рождение"), icon: "birthday" },
     { id: TASK_TYPES.ONLINE_MEETING, name: __("Встреча online"), icon: "online-meeting" },
-    { id: TASK_TYPES.OFFLINE_MEETIGN, name: __("Встреча offline"), icon: "offline-meeting" },
+    { id: TASK_TYPES.OFFLINE_MEETING, name: __("Встреча offline"), icon: "offline-meeting" },
     { id: TASK_TYPES.REMINDER, name: __("Напоминание"), icon: "reminder" },
     { id: TASK_TYPES.OTHER, name: __("Другое"), icon: "other" }
   ];

@@ -21,9 +21,6 @@ import PropTypes from "prop-types";
 import { actionProps } from "../../../../../types/Action";
 import { socketProps } from "../../../../../types/Socket";
 import { fileProps } from "types/File";
-import { useLocales } from "react-localized";
-import { onSetModals } from "../../../../../Store/actions/CabinetActions";
-import { MODALS } from "../../../../../generalComponents/globalVariables";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -43,7 +40,8 @@ const ChatBoard = ({
   editMessage,
   showSettings,
   attachedFiles,
-  setAttachedFiles
+  setAttachedFiles,
+  setIsReadMessage
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -68,20 +66,12 @@ const ChatBoard = ({
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const messages = useSelector((state) => state.Cabinet.chat.messages);
-  const { __ } = useLocales();
 
   const renderMessages = (day) => {
     const messagesOfDay = [...messages[day]].reverse();
     return messagesOfDay.map((msg) => {
       if (!msg.id_user || !msg.id || !msg.id_user) {
-        //TODO - deleted (|| !msg.id_user_to) - need to check
-        dispatch(
-          onSetModals(MODALS.TOP_MESSAGE, {
-            open: true,
-            type: MODALS.ERROR,
-            message: __("Ошибка загрузки сообщения")
-          })
-        );
+        //TODO - mkortelov - setMessage Error correctly
         return null;
       }
       return (
@@ -91,6 +81,7 @@ const ChatBoard = ({
           key={`id:${msg.id} ut:${msg.ut}`}
           currentDate={currentDate}
           setMouseParams={setMouseParams}
+          setIsReadMessage={setIsReadMessage}
         />
       );
     });
@@ -388,5 +379,6 @@ ChatBoard.propTypes = {
   editMessage: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
   attachedFiles: PropTypes.arrayOf(fileProps),
-  setAttachedFiles: PropTypes.func
+  setAttachedFiles: PropTypes.func,
+  setIsReadMessage: PropTypes.func
 };

@@ -266,9 +266,11 @@ export const getFormatDate = (date) => {
 };
 
 export const getFormatTime = (date) => {
-  const newDate = date.split(" ").join("T");
-  const formatTime = new Date(newDate).toLocaleString("ru", { hour: "2-digit", minute: "2-digit" });
-  return formatTime;
+  if (date) {
+    const newDate = date.split(" ").join("T");
+    const formatTime = new Date(newDate).toLocaleString("ru", { hour: "2-digit", minute: "2-digit" });
+    return formatTime;
+  }
 };
 
 export const getMaskDate = (date) => {
