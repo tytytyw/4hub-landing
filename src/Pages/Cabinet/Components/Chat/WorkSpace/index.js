@@ -9,7 +9,7 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
-import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
+import { addNewChatMessage, onReadMessages } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import SelectFile from "../SelectFile";
@@ -121,6 +121,9 @@ const WorkSpace = ({
       (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
     ) {
       dispatch(onDeleteChatMessage({ id: data.id_message, day: data.day }));
+    }
+    if (data.action === "chat_message_update") {
+      dispatch(onReadMessages(data.id_messages));
     }
   };
 
