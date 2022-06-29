@@ -15,7 +15,7 @@ const TasksGroup = ({ event, tasks, setMouseParams, setChosenFile }) => {
   const eventsClass = isShowSubevents ? styles.tasksGroupOpen : "";
   const tasksGroup = [];
 
-  tasks.map((item) => (event.id === Number(item.id_type) ? tasksGroup.push(item) : ""));
+  tasks.map((item) => (event.id === item.id_type ? tasksGroup.push(item) : ""));
 
   return (
     <>
@@ -44,7 +44,7 @@ export default TasksGroup;
 
 TasksGroup.propTypes = {
   event: PropTypes.exact({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string,
     icon: PropTypes.string
   }),
