@@ -124,18 +124,18 @@ export const onAddNewTask = (payload, messages) => async (dispatch, getState) =>
     const params = {
       uid: getState().user.uid,
       name: payload.name,
-      id_type: payload.eventType,
-      id_dep: payload.idDep,
-      prim: payload.text,
-      date_start: payload.dateStart,
-      date_end: payload.dateEnd,
-      time_start: payload.timeStart,
-      color: payload.color,
-      emoji: payload.emoji,
-      symbol: payload.figure,
-      id_act: payload.idAct,
+      id_type: payload.id_type,
+      id_dep: payload.id_dep,
+      prim: payload.prim,
+      date_start: payload.date_start,
+      date_end: payload.date_end,
+      time_start: payload.time_start,
+      color: payload.id_color,
+      emoji: payload.id_emo,
+      symbol: payload.id_fig,
+      id_act: payload.id_act,
       emails: payload.emails,
-      tag: payload.tagOption
+      tag: payload.tags
     };
     const { data } = await api.get(`/ajax/task_add.php`, { params });
     checkResponseStatus(data.ok);
@@ -216,21 +216,21 @@ export const onEditTask = (payload, messages) => async (dispatch, getState) => {
     dispatch(onSetModals(MODALS.LOADER, true));
 
     const params = {
-      name: payload.name,
-      id_task: payload.idTask,
-      id_type: payload.eventType,
-      id_dep: payload.idDep,
-      prim: payload.text,
-      date_start: payload.dateStart,
-      date_end: payload.dateEnd,
-      time_start: payload.timeStart,
       uid: getState().user.uid,
-      color: payload.color,
-      emoji: payload.emoji,
-      symbol: payload.figure,
-      id_act: payload.idAct,
+      name: payload.name,
+      id_type: payload.id_type,
+      id_dep: payload.id_dep,
+      prim: payload.prim,
+      date_start: payload.date_start,
+      date_end: payload.date_end,
+      time_start: payload.time_start,
+      color: payload.id_color,
+      emoji: payload.id_emo,
+      symbol: payload.id_fig,
+      id_act: payload.id_act,
       emails: payload.emails,
-      tag: payload.tagOption
+      tag: payload.tags,
+      id_task: payload.id
     };
     const { data } = await api.get(`ajax/task_edit.php`, { params });
     checkResponseStatus(data.ok);

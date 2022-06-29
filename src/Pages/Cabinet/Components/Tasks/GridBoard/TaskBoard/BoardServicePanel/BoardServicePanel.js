@@ -57,7 +57,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, isTask }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_CALL,
-          params: { width: 420, date_start: "", name: "" }
+          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.CALLS }
         })
       );
     }
@@ -65,7 +65,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, isTask }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_LETTER,
-          params: { width: 420, name: "", emails: "", prim: "" }
+          params: { width: 420, name: "", emails: "", prim: "", id_type: TASK_TYPES.MAILS }
         })
       );
     }
