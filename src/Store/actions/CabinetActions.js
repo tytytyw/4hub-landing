@@ -1082,7 +1082,7 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (dis
           if (page === 1)
             dispatch({
               type: GET_CHAT_FILES,
-              payload: response.data?.attachments ?? null
+              payload: { ...response.data?.attachments, links: response.data?.links }
             });
         }
       }
