@@ -10,10 +10,12 @@ import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { onCreateTaskDepartment, onEditTaskDepartment } from "Store/actions/TasksActions";
 import SelectCustomIcon from "generalComponents/SelectCustomIcon/SelectCustomIcon";
+import { useTaskMessages } from "generalComponents/collections";
 
 function EditSection({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
 
   const onChangeTitle = (title) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, title } }));
@@ -24,7 +26,9 @@ function EditSection({ type, params, closeModal }) {
   };
 
   const handleSubmit = () => {
-    TASK_MODALS.ADD_SECTION === type ? dispatch(onCreateTaskDepartment()) : dispatch(onEditTaskDepartment());
+    TASK_MODALS.ADD_SECTION === type
+      ? dispatch(onCreateTaskDepartment(messages[type]))
+      : dispatch(onEditTaskDepartment(messages[type]));
   };
 
   return (

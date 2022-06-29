@@ -11,10 +11,13 @@ import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import TagPicker from "../../../../../../../generalComponents/TagPicker/TagPicker";
 import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { useTaskMessages } from "generalComponents/collections";
 
 function AddNote({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
+  const messages = useTaskMessages();
+
   const onChangeColor = (id_color) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, id_color } }));
   };
@@ -27,15 +30,6 @@ function AddNote({ type, params, closeModal }) {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, prim } }));
   };
 
-  const messagesAdd = {
-    error: __("Не удалось создать заметку"),
-    success: __("Новая заметка создана")
-  };
-  const messagesEdit = {
-    error: __("Не удалось изменить заметку"),
-    success: __("Заметка изменена")
-  };
-
   const onSubmit = () => {
     const payload = {
       text: params.prim,
@@ -46,8 +40,8 @@ function AddNote({ type, params, closeModal }) {
       name: "note"
     };
     type === TASK_MODALS.ADD_NOTE
-      ? dispatch(onAddNewTask(payload, messagesAdd))
-      : dispatch(onEditTask(payload, messagesEdit));
+      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.NOTES][type]))
+      : dispatch(onEditTask(payload, messages[TASK_TYPES.NOTES][type]));
   };
 
   return (

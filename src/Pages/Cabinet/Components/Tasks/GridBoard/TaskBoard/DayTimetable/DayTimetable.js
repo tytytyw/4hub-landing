@@ -15,14 +15,13 @@ function DayTimetable({ timePeriod, tasks, setMouseParams }) {
   const renderTask = (hour) => {
     const h = hour.split(":")[0];
     const timeTask = tasks.filter((item) => {
-      const dateTask = new Date(item.date_start).getHours().toString();
+      const dateTask = `0${new Date(item.date_start).getHours().toString()}`.slice(-2);
       return dateTask === h;
     });
     return timeTask;
   };
 
   const chosenTask = (task) => dispatch(onSelectTask(task));
-
   const renderTimetableLine = () =>
     timePeriod.map((hours, i) => (
       <div key={i}>
