@@ -708,6 +708,14 @@ export function useTaskBoardTitle() {
   };
 }
 
+export function useTypesMeeting() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Встреча online"), id: TASK_TYPES.ONLINE_MEETING },
+    { name: __("Встреча offline"), id: TASK_TYPES.OFFLINE_MEETING }
+  ];
+}
+
 export function useStandartTasksDepartment() {
   const { __ } = useLocales();
   return {

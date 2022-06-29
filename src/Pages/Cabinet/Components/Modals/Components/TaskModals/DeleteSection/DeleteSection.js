@@ -14,7 +14,8 @@ const DeleteSection = ({ closeModal, icon }) => {
 
   const deleteDepartment = () => {
     const messages = {
-      success: __("Раздел удален")
+      success: __("Раздел удален"),
+      error: __("Что-то пошло не так")
     };
     dispatch(onDeleteDepartment(messages));
   };

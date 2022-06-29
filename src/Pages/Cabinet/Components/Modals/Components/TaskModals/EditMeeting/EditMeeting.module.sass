@@ -1,25 +1,19 @@
 @import "src/theme/theme"
 .editMeetingWrap
-  display: flex
-  flex-direction: column
-  width: 95%
-  align-items: center
-  .title_wrap
-    display: flex
-    align-items: center
-    width: 95%
-    .title
-      display: flex
-      align-items: center
-      font-size: 11px
-      margin: 12px 0 19px 0
-      .calendarIcon
-        margin: 0 12px 0 0
+  width: 100%
+  padding: 0 25px
+  .title
+    color: $color-text-grey
+    font-family: "SF Pro Regular", sans-serif
+    font-size: 12px
+    margin: 9px 0
+    .calendarIcon
+      margin-right: 12px
   .dateWrap
     display: flex
     align-items: center
     justify-content: space-between
-    width: 95%
+    margin-bottom: 44px
     .dateName
       font-size: 12px
       font-family: "SF Pro Regular", sans-serif
@@ -50,3 +44,6 @@
       font-family: "SF Pro Regular", sans-serif
       color: $color-blue-smooth
       height: max-content
+  .typeItem
+    padding: 10px
+    cursor: pointer

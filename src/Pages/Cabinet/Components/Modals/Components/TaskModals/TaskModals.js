@@ -26,7 +26,8 @@ function TaskModals() {
       case TASK_TYPES.NOTES:
         return <AddNote type={type} params={params} closeModal={closeModal} />;
 
-      case TASK_TYPES.MEETINGS:
+      case TASK_TYPES.OFFLINE_MEETING:
+      case TASK_TYPES.ONLINE_MEETING:
         return <EditMeeting type={type} params={params} closeModal={closeModal} />;
 
       case TASK_TYPES.CALLS:

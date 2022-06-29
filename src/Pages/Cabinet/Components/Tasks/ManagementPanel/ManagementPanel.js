@@ -40,7 +40,7 @@ function ManagementPanel() {
     } else {
       setCurrentDep(JSON.parse(dep));
     }
-    dispatch(onFetchTaskDepartment());
+    dispatch(onFetchTaskDepartment(__("Ошибка при получении разделов")));
   }, []); //eslint-disable-line
 
   useEffect(() => {

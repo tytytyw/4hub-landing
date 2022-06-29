@@ -49,7 +49,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, isTask }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_MEETING,
-          params: { width: 420, date_start: "", name: "" }
+          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.ONLINE_MEETING }
         })
       );
     }

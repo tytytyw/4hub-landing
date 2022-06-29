@@ -1,18 +1,22 @@
 import api from "api";
 import { checkResponseStatus } from "generalComponents/generalHelpers";
-import { MODALS, TOP_MESSAGE_TYPE } from "generalComponents/globalVariables";
+import { MODALS } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
-export const onFetchTaskDepartment = () => async (dispatch, getState) => {
+export const onFetchTaskDepartment = (messages) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   try {
     const res = await api.get(`/ajax/task_dep_list.php?uid=${uid}`);
     checkResponseStatus(res.data.ok);
     dispatch({ type: TasksTypes.GET_TASK_DEPARTMENT, payload: res.data.tasks });
   } catch (error) {
-    // TODO -mk- fixed error message
-    dispatch(onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." }));
+    dispatch(
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages
+      })
+    );
     console.log(error);
   }
 };
@@ -34,8 +38,12 @@ export const onCreateTaskDepartment = (messages) => async (dispatch, getState) =
       })
     );
   } catch (error) {
-    // TODO -mk- fixed error message
-    dispatch(onSetModals("topMessage", { open: true, type: "error", message: "Додавить раздел не удалось" }));
+    dispatch(
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages.error
+      })
+    );
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
@@ -61,9 +69,11 @@ export const onEditTaskDepartment = (messages) => async (dispatch, getState) => 
       })
     );
   } catch (error) {
-    // TODO -mk- fixed error message
     dispatch(
-      onSetModals("topMessage", { open: true, type: "error", message: '__("Новый раздел создать не удалось")' })
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages.error
+      })
     );
     console.log(error);
   } finally {
@@ -78,7 +88,7 @@ export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
 
   try {
     dispatch(onSetModals(MODALS.LOADER, true));
-    const { data } = await api.post(`/ajax/task_dep_del.php?uid=${uid}&id_dep=${params.id}`);
+    const { data } = await api.post(`/ajax/task1_dep_del.php?uid=${uid}&id_dep=${params.id}`);
     checkResponseStatus(data.ok);
     dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: data.id_dep });
     dispatch(
@@ -88,9 +98,11 @@ export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
       })
     );
   } catch (error) {
-    // TODO -mk- fixed error message
     dispatch(
-      onSetModals("topMessage", { open: true, type: "error", message: '__("Новый раздел создать не удалось")' })
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages.error
+      })
     );
     console.log(error);
   } finally {
@@ -135,7 +147,12 @@ export const onAddNewTask = (payload, messages) => async (dispatch, getState) =>
     );
     dispatch({ type: TasksTypes.ADD_TASK, payload: data.task });
   } catch (error) {
-    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message: messages.error }));
+    dispatch(
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages.error
+      })
+    );
     console.log(error);
   } finally {
     dispatch(onSetModals(MODALS.LOADER, false));
@@ -143,7 +160,7 @@ export const onAddNewTask = (payload, messages) => async (dispatch, getState) =>
   }
 };
 
-export const onGetAllTasks = () => async (dispatch, getState) => {
+export const onGetAllTasks = (messages) => async (dispatch, getState) => {
   try {
     const response = await api.get(`ajax/task_get.php`, {
       params: {
@@ -156,7 +173,12 @@ export const onGetAllTasks = () => async (dispatch, getState) => {
       payload: response.data.tasks ?? []
     });
   } catch (error) {
-    dispatch(onSetModals(MODALS.ERROR, { open: true, message: "error" }));
+    dispatch(
+      onSetModals(MODALS.ERROR, {
+        open: true,
+        message: messages
+      })
+    );
     console.log(error);
   }
 };

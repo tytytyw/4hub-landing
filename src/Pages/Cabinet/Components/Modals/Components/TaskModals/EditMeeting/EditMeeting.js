@@ -14,15 +14,18 @@ import InputField from "generalComponents/InputField";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
 import Calendar from "Pages/StartPage/Components/Calendar";
-import { useTaskMessages } from "generalComponents/collections";
+import { useTaskMessages, useTypesMeeting } from "generalComponents/collections";
+import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 
 function EditMeeting({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
+  const typesMeeting = useTypesMeeting();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
+
   const onChangeName = (name) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
   };
@@ -50,7 +53,7 @@ function EditMeeting({ type, params, closeModal }) {
     const payload = {
       dateStart: params.date_start.split(" ")[0],
       timeStart: `${hh}:${mm}`,
-      eventType: TASK_TYPES.MEETINGS,
+      eventType: params.id_type,
       name: params.name,
       idTask: params.id
     };
@@ -59,20 +62,40 @@ function EditMeeting({ type, params, closeModal }) {
       : dispatch(onEditTask(payload, messages[TASK_TYPES.MEETINGS][type]));
   };
 
+  const getEventName = () => typesMeeting.find((el) => el.id === params.id_type).name;
+
+  const onChangeEventType = (id_type) => dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, id_type } }));
+
   return (
     <div className={styles.editMeetingWrap}>
+      <h5 className={styles.title}>{__("Название встречи")}</h5>
       <InputField
         model="text"
         value={params.name}
         set={onChangeName}
-        placeholder={__("Имя задачи")}
         editableClass={"fixedHeight"}
+        className={styles.www}
       />
-      <div className={styles.title_wrap}>
-        <h5 className={styles.title}>
-          <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время встречи")}
-        </h5>
-      </div>
+      <h5 className={styles.title}>{__("Тип встречи")}</h5>
+      <SelectChosen value={getEventName()}>
+        <ul className={styles.eventsList}>
+          {typesMeeting.map((type) => (
+            <li
+              key={type.id}
+              onClick={() => {
+                onChangeEventType(type.id);
+              }}
+              className={styles.typeItem}
+            >
+              {type.name}
+            </li>
+          ))}
+        </ul>
+      </SelectChosen>
+
+      <h5 className={styles.title}>
+        <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время встречи")}
+      </h5>
       <div className={styles.dateWrap}>
         <span className={styles.dateName}> {__("Дата")} </span>
         <input

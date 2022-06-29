@@ -22,7 +22,6 @@ function DayTimetable({ timePeriod, tasks, setMouseParams }) {
   };
 
   const chosenTask = (task) => dispatch(onSelectTask(task));
-
   const renderTimetableLine = () =>
     timePeriod.map((hours, i) => (
       <div key={i}>

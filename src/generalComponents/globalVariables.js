@@ -121,8 +121,8 @@ export const CALENDAR_MODALS = {
 export const TASK_TYPES = {
   TASK: "task",
   BIRTHDAY: 2,
-  ONLINE_MEETING: 3,
-  OFFLINE_MEETIGN: 4,
+  ONLINE_MEETING: "onlineMeetings",
+  OFFLINE_MEETING: "offlineMeetings",
   REMINDER: 5,
   OTHER: 6,
   NOTES: "notes",

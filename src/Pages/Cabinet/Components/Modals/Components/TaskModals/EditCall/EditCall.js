@@ -13,12 +13,15 @@ import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { useTaskMessages } from "generalComponents/collections";
+import Calendar from "Pages/StartPage/Components/Calendar";
+import PopUp from "generalComponents/PopUp";
 
 function EditCall({ type, params, closeModal }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [showCalendar, setShowCalendar] = useState(false);
   const messages = useTaskMessages();
 
   const onChangeName = (name) => {
@@ -28,6 +31,9 @@ function EditCall({ type, params, closeModal }) {
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
+    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
+  };
+  const setDateValue = (date_start) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
@@ -54,18 +60,11 @@ function EditCall({ type, params, closeModal }) {
   };
   return (
     <div className={styles.editMeetingWrap}>
-      <InputField
-        model="text"
-        value={params.name}
-        set={onChangeName}
-        placeholder={__("Имя задачи")}
-        editableClass={"fixedHeight"}
-      />
-      <div className={styles.title_wrap}>
-        <h5 className={styles.title}>
-          <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
-        </h5>
-      </div>
+      <h5 className={styles.title}>{__("Название звонка")}</h5>
+      <InputField model="text" value={params.name} set={onChangeName} editableClass={"fixedHeight"} />
+      <h5 className={styles.title}>
+        <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
+      </h5>
       <div className={styles.dateWrap}>
         <span className={styles.dateName}> {__("Дата")} </span>
         <input
@@ -80,11 +79,16 @@ function EditCall({ type, params, closeModal }) {
           <span className={styles.dots}>:</span>
           <input className={styles.time_count} type="text" placeholder={__("ММ")} value={mm} onChange={onChangeMin} />
         </div>
-        <span className={styles.open_calendar} onClick={() => {}}>
+        <span className={styles.open_calendar} onClick={() => setShowCalendar(true)}>
           {__("Календарь")}
         </span>
       </div>
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
+      {showCalendar && (
+        <PopUp set={setShowCalendar} zIndex={102}>
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+        </PopUp>
+      )}
     </div>
   );
 }
