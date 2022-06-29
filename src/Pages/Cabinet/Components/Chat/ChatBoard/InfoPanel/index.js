@@ -29,12 +29,24 @@ const InfoPanel = ({ setAction }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const files = useSelector((state) => state.Cabinet.chat.files);
 
+  const countFiles = () => {
+    if (!files) return {};
+    return Object.entries(files).reduce((acc, [key, value]) => {
+      acc[key] = value.col
+        ? value.col
+        : Array.isArray(value)
+        ? value.length
+        : Object.values(value?.files).flat().length;
+      return acc;
+    }, {});
+  };
+
   const options = [
     {
       name: FILES,
       title: __("Файлы"),
       subOptions: [],
-      count: files ? Object.values(files).reduce((prev, current) => prev + current?.col ?? 0, 0) : 0
+      count: Object.values(countFiles()).reduce((acc, it) => acc + it, 0)
     },
     {
       name: MEDIA,
@@ -44,13 +56,13 @@ const InfoPanel = ({ setAction }) => {
         { title: __("Видео"), name: VIDEO },
         { title: __("Gif"), name: GIF }
       ],
-      count: files?.image?.col || 0 + files?.video?.col || 0 + files?.video?.gif || 0
+      count: countFiles().image || 0 + countFiles().video || 0 + files?.video?.gif || 0
     },
     {
       name: DOCS,
       title: __("Документы"),
       subOptions: [],
-      count: Object.values(files?.application?.files || {}).reduce((acc, it) => acc + it.length, 0) ?? 0
+      count: countFiles().application ?? 0
     },
     {
       name: AUDIO,
@@ -59,13 +71,13 @@ const InfoPanel = ({ setAction }) => {
         { title: __("Аудио смс"), name: VOICE_MESSAGES },
         { title: __("Музыка"), name: MUSIC }
       ],
-      count: files?.audio?.col || 0
+      count: countFiles().audio ?? 0
     },
     {
       name: LINKS,
       title: __("Ссылки"),
       subOptions: [],
-      count: files?.links?.length ?? 0
+      count: countFiles().links ?? 0
     }
   ];
 

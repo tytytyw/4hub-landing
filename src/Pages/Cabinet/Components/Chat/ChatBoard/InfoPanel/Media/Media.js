@@ -25,7 +25,8 @@ const Media = ({ setActiveOption, activeOption }) => {
   const files = useSelector((state) => state.Cabinet.chat.files);
 
   const renderImages = () => {
-    const images = files?.image?.files ?? [];
+    const images = files?.image?.files ?? {};
+    console.log(Object.values(images));
     return images.map((img, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
