@@ -578,11 +578,6 @@ const ServePanel = ({
           {tempFilter()} {tempChoose()} {tempAdd()}
         </div>
       </div>
-      <div className={styles.groupEnd}>
-        <div className={styles.iconButtons}>
-          {tempArchive()} {tempShare()} {tempDelete()}
-        </div>
-      </div>
     </>
   );
   return (

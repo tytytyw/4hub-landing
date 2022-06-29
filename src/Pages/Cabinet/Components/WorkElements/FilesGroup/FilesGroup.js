@@ -10,7 +10,7 @@ import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { filePickProps, fileProps, fileSharedProps, journalFileProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { folderProps } from "../../../../../types/Folder";
 import { mouseParamsProps } from "../../../../../types/MouseParams";
@@ -44,6 +44,7 @@ function FilesGroup({
     }));
     setGroupInfo((state) => ({ ...state, title, amount: fileList?.length }));
   };
+
   return (
     <>
       {workElementsView === "preview" ? (
@@ -128,7 +129,7 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.arrayOf(PropTypes.oneOfType([fileProps, fileSharedProps])),
+  fileList: PropTypes.arrayOf(PropTypes.oneOfType([fileProps, fileSharedProps, journalFileProps])),
   filePick: filePickProps,
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,
