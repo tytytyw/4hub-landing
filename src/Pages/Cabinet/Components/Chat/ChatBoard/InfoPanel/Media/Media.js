@@ -26,7 +26,6 @@ const Media = ({ setActiveOption, activeOption }) => {
 
   const renderImages = () => {
     const images = files?.image?.files ?? {};
-    console.log(Object.values(images));
     return images.map((img, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
@@ -39,10 +38,17 @@ const Media = ({ setActiveOption, activeOption }) => {
   const renderFiles = () => {
     const filesList = files
       ? Object.values(files).reduce(
-          (prev, current) =>
-            Array.isArray(current.files)
-              ? [...prev, ...current.files.filter((f) => f.kind !== { AUDIO_MESSAGE } && f.kind !== { VIDEO_MESSAGE })]
-              : prev,
+          (acc, it) =>
+            Array.isArray(it)
+              ? acc
+              : [
+                  ...acc,
+                  ...Object.values(it.files)
+                    .flat()
+                    .filter((f) => {
+                      return f.kind !== { AUDIO_MESSAGE } && f.kind !== { VIDEO_MESSAGE };
+                    })
+                ],
           []
         )
       : [];
