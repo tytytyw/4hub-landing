@@ -130,7 +130,10 @@ export const TASK_TYPES = {
   CALLS: "calls",
   MAILS: "mails"
 };
-
+export const URGENCY_TYPES = {
+  URGENT: "urgent",
+  PLANNED: "planned"
+};
 export const BOARDS = {
   [TASK_TYPES.MEETINGS]: TASK_TYPES.MEETINGS,
   [TASK_TYPES.CALLS]: TASK_TYPES.CALLS,

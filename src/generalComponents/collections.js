@@ -5,7 +5,8 @@ import {
   LIBRARY_MODALS,
   MAIL_MODALS,
   TASK_MODALS,
-  TASK_TYPES
+  TASK_TYPES,
+  URGENCY_TYPES
 } from "./globalVariables";
 // global folders
 export function useFolders() {
@@ -713,6 +714,14 @@ export function useTypesMeeting() {
   return [
     { name: __("Встреча online"), id: TASK_TYPES.ONLINE_MEETING },
     { name: __("Встреча offline"), id: TASK_TYPES.OFFLINE_MEETING }
+  ];
+}
+
+export function useUrgencyTask() {
+  const { __ } = useLocales();
+  return [
+    { name: __("Срочные задачи"), id: URGENCY_TYPES.URGENT },
+    { name: __("Плановые адачи"), id: URGENCY_TYPES.PLANNED }
   ];
 }
 

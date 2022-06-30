@@ -48,14 +48,11 @@ function EditMeeting({ type, params, closeModal }) {
     if (target.value.length > 2) return;
     setMm(getMaskDate(target.value));
   };
-
   const onSubmit = () => {
     const payload = {
-      dateStart: params.date_start.split(" ")[0],
-      timeStart: `${hh}:${mm}`,
-      eventType: params.id_type,
-      name: params.name,
-      idTask: params.id
+      ...params,
+      date_start: params.date_start.split(" ")[0],
+      time_start: `${hh}:${mm}`
     };
     type === TASK_MODALS.ADD_MEETING
       ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MEETINGS][type]))
