@@ -16,7 +16,10 @@ import {
   PHOTO,
   FILES,
   VOICE_MESSAGES,
-  MUSIC
+  MUSIC,
+  MEDIA,
+  VIDEO,
+  projectSrc
 } from "../../../../../../../generalComponents/globalVariables";
 
 const Media = ({ setActiveOption, activeOption }) => {
@@ -24,12 +27,32 @@ const Media = ({ setActiveOption, activeOption }) => {
   const [activeSubOption, setActiveSubOption] = useState(activeOption?.subOptions[0]);
   const files = useSelector((state) => state.Cabinet.chat.files);
 
-  const renderImages = () => {
-    const images = files?.image?.files ?? {};
+  const renderMediaGroups = () => {
+    const items = files[activeSubOption?.name]?.files ?? {};
+    return Object.entries(items).map(([key, value]) => (
+      <div key={key} className={styles.groupByDate}>
+        <h5 className={styles.dateTitle}>{key}</h5>
+        {activeSubOption?.name === PHOTO ? <div className={styles.picturesWrap}>{renderImages(value)}</div> : null}
+        {activeSubOption?.name === VIDEO ? <div className={styles.picturesWrap}>{renderVideos(value)}</div> : null}
+      </div>
+    ));
+  };
+
+  const renderImages = (images) => {
     return images.map((img, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
           <img src={img.link} alt="pic"></img>
+        </div>
+      );
+    });
+  };
+
+  const renderVideos = (videos) => {
+    return videos.map((video, i) => {
+      return (
+        <div className={styles.miniPictureWrap} key={i}>
+          <img src={projectSrc + video.preview_small} alt="pic"></img>
         </div>
       );
     });
@@ -88,12 +111,9 @@ const Media = ({ setActiveOption, activeOption }) => {
       ) : (
         ""
       )}
-      {activeSubOption?.name === PHOTO ? (
+      {activeOption?.name === MEDIA ? (
         <div className={styles.content}>
-          <div className={styles.groupByDate}>
-            <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
-            <div className={styles.picturesWrap}>{renderImages()}</div>
-          </div>
+          <div className={styles.picturesWrap}>{renderMediaGroups()}</div>
         </div>
       ) : null}
 
