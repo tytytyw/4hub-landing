@@ -46,7 +46,10 @@ const InfoPanel = ({ setAction }) => {
       name: FILES,
       title: __("Файлы"),
       subOptions: [],
-      count: Object.values(countFiles()).reduce((acc, it) => acc + it, 0)
+      count: Object.entries(countFiles())
+        .filter(([key]) => key !== LINKS)
+        .map(([_, value]) => value)
+        .reduce((acc, it) => acc + it, 0)
     },
     {
       name: MEDIA,
