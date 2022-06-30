@@ -48,11 +48,9 @@ function EditCall({ type, params, closeModal }) {
 
   const onSubmit = () => {
     const payload = {
-      dateStart: params.date_start,
-      timeStart: `${hh}:${mm}`,
-      eventType: TASK_TYPES.CALLS,
-      name: params.name,
-      idTask: params.id
+      ...params,
+      date_start: params.date_start.split(" ")[0],
+      time_start: `${hh}:${mm}`
     };
     type === TASK_MODALS.ADD_CALL
       ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.CALLS][type]))

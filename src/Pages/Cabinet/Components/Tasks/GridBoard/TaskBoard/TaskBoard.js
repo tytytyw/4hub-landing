@@ -47,7 +47,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema, setMouseParams }) {
         />
       )}
       {type === TASK_TYPES.MAILS && <MailTasks tasks={getTasks(type)} />}
-      {type === TASK_TYPES.TASK && <MyTasks />}
+      {type === TASK_TYPES.TASK && <MyTasks tasks={getTasks(type)} />}
     </div>
   );
 }
