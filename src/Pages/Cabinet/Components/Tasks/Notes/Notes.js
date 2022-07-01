@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import Note from "./Note/Note";
 import PropTypes from "prop-types";
+import { getStorageItem } from "generalComponents/StorageHelper";
 
 function Notes({ setMouseParams }) {
   const { __ } = useLocales();
@@ -20,7 +21,15 @@ function Notes({ setMouseParams }) {
     dispatch(
       onSetModals(MODALS.TASKS, {
         type: TASK_MODALS.ADD_NOTE,
-        params: { width: 420, tags: "", id_color: "", prim: "" }
+        params: {
+          width: 420,
+          tags: " ",
+          id_color: "",
+          prim: "",
+          name: "note",
+          id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id,
+          id_type: TASK_TYPES.NOTES
+        }
       })
     );
 

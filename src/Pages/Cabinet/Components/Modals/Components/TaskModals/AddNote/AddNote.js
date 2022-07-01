@@ -31,17 +31,9 @@ function AddNote({ type, params, closeModal }) {
   };
 
   const onSubmit = () => {
-    const payload = {
-      text: params.prim,
-      color: params.id_color,
-      tagOption: params.tags,
-      eventType: TASK_TYPES.NOTES,
-      idTask: params.id,
-      name: "note"
-    };
     type === TASK_MODALS.ADD_NOTE
-      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.NOTES][type]))
-      : dispatch(onEditTask(payload, messages[TASK_TYPES.NOTES][type]));
+      ? dispatch(onAddNewTask(params, messages[TASK_TYPES.NOTES][type]))
+      : dispatch(onEditTask(params, messages[TASK_TYPES.NOTES][type]));
   };
 
   return (

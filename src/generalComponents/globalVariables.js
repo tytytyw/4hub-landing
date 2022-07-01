@@ -134,6 +134,14 @@ export const URGENCY_TYPES = {
   URGENT: "urgent",
   PLANNED: "planned"
 };
+
+export const STATUS_TYPES = {
+  DONE: "done",
+  IN_PROGRESS: "inProgress",
+  CLARIFICATION: "clarification",
+  NOT_DONE: "notDone",
+  DEFAULT: "default"
+};
 export const BOARDS = {
   [TASK_TYPES.MEETINGS]: TASK_TYPES.MEETINGS,
   [TASK_TYPES.CALLS]: TASK_TYPES.CALLS,
@@ -175,7 +183,7 @@ export const TASK_MODALS = {
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
   DELETE_TASK: "DeleteTask",
-  ADD_COOMENT_TASK: "AddCommentTask",
+  ADD_COMMENT_TASK: "AddCommentTask",
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
@@ -190,7 +198,11 @@ export const contextMenuFolder = {
 
 export const contextMenuTask = {
   CUSTOMIZE: "customize",
-  DELETE: "delete"
+  DELETE: "delete",
+  ADD_COMMENT: "addComment",
+  ADD_REMINDER: "reminder",
+  RESCHEDULE_ONE: "rescheduleOne",
+  RESCHEDULE_ALL: "rescheduleAll"
 };
 
 // MAIL

@@ -34,6 +34,9 @@ function TaskModals() {
       case TASK_TYPES.CALLS:
         return <EditCall type={type} params={params} closeModal={closeModal} />;
 
+      case TASK_TYPES.TASK:
+        return <EditTask type={type} params={params} closeModal={closeModal} />;
+
       default:
         break;
     }
@@ -63,7 +66,7 @@ function TaskModals() {
           <EditSection type={type} params={params} closeModal={closeModal} />
         )}
         {type === TASK_MODALS.DELETE_SECTION && <DeleteSection closeModal={closeModal} icon={params.icon} />}
-        {type === TASK_MODALS.DELETE_TASK && <DeleteTask type={type} closeModal={closeModal} />}
+        {type === TASK_MODALS.DELETE_TASK && <DeleteTask type={type} closeModal={closeModal} params={params} />}
         {type === TASK_MODALS.OPEN_TASK && (
           <OpenTask type={type} params={params} closeModal={closeModal} task={choosenTask} />
         )}
