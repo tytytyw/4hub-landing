@@ -4,12 +4,21 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ReactComponent as AddIcon } from "../../../../../../../../assets/PrivateCabinet/plus-3.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { imageSrc, MODALS, TASK_MODALS } from "../../../../../../../../generalComponents/globalVariables";
+import {
+  imageSrc,
+  MODALS,
+  TASK_MODALS,
+  TASK_TYPES,
+  URGENCY_TYPES
+} from "../../../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../../../Store/actions/CabinetActions";
+import { getStorageItem } from "generalComponents/StorageHelper";
+import { useUrgencyTask } from "generalComponents/collections";
 
 function TaskTabs({ taskTabs, chosen }) {
   const dispatch = useDispatch();
   const { theme } = useSelector((s) => s.user.userInfo);
+  const urgency = useUrgencyTask();
 
   const renderTaskTabs = () =>
     taskTabs.map((tab, i) => (
@@ -29,16 +38,17 @@ function TaskTabs({ taskTabs, chosen }) {
         type: TASK_MODALS.ADD_TASK,
         params: {
           width: 769,
-          tag: "",
-          color: "",
-          sign: "",
-          emoji: "",
-          category: "",
-          urgency: "",
-          startDate: "",
-          endDate: "",
-          taskName: "",
-          text: ""
+          tags: "",
+          id_color: "",
+          id_emo: "",
+          id_fig: "",
+          date_start: "",
+          date_end: "",
+          name: "",
+          prim: "",
+          id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id,
+          id_type: TASK_TYPES.TASK,
+          id_act: urgency.find((item) => item.id === URGENCY_TYPES.PLANNED)?.id
         }
       })
     );
@@ -54,7 +64,7 @@ function TaskTabs({ taskTabs, chosen }) {
         />
         <img
           className={styles.inscription}
-          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/tasks-board.png`}
+          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/tasks.png`}
           alt="inscription"
         />
       </div>

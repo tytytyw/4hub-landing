@@ -31,16 +31,9 @@ function EditLetter({ type, params, closeModal }) {
   };
 
   const onSubmit = () => {
-    const payload = {
-      name: params.name,
-      idTask: params.id,
-      text: params.prim,
-      emails: params.emails,
-      eventType: TASK_TYPES.MAILS
-    };
     type === TASK_MODALS.ADD_LETTER
-      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MAILS][type]))
-      : dispatch(onEditTask(payload, messages[TASK_TYPES.MAILS][type]));
+      ? dispatch(onAddNewTask(params, messages[TASK_TYPES.MAILS][type]))
+      : dispatch(onEditTask(params, messages[TASK_TYPES.MAILS][type]));
   };
 
   return (
