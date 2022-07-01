@@ -743,12 +743,12 @@ export function useStandartTasksDepartment() {
 export function useContextMenuTasks() {
   const { __ } = useLocales();
   return [
-    { name: __("Редактировать встречу"), img: "edit", type: contextMenuTask.CUSTOMIZE },
-    { name: __("Заметка"), img: "garbage", type: contextMenuTask.DELETE }
+    { name: __("Редактировать "), img: "edit", type: contextMenuTask.CUSTOMIZE },
+    { name: __("Удалить "), img: "garbage", type: contextMenuTask.DELETE }
     //  TODO -mk- Context menu meeting
+    // { name: __("Заметка"), img: "garbage", type: contextMenuTask.DELETE }
     // { name: __("Перенести встречу"), img: "garbage", type: contextMenuTask.DELETE },
     // { name: __("Перенести все встречи"), img: "garbage", type: contextMenuTask.DELETE },
-    // { name: __("Удалить встречу"), img: "garbage", type: contextMenuTask.DELETE }
   ];
 }
 export function useContextMenuTask() {
