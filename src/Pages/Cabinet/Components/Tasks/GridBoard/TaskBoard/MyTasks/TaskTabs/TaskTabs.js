@@ -13,12 +13,10 @@ import {
 } from "../../../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../../../Store/actions/CabinetActions";
 import { getStorageItem } from "generalComponents/StorageHelper";
-import { useUrgencyTask } from "generalComponents/collections";
 
-function TaskTabs({ taskTabs, chosen }) {
+function TaskTabs({ taskTabs, chosen, isTasks }) {
   const dispatch = useDispatch();
   const { theme } = useSelector((s) => s.user.userInfo);
-  const urgency = useUrgencyTask();
 
   const renderTaskTabs = () =>
     taskTabs.map((tab, i) => (
@@ -38,7 +36,7 @@ function TaskTabs({ taskTabs, chosen }) {
         type: TASK_MODALS.ADD_TASK,
         params: {
           width: 769,
-          tags: "",
+          tags: " ",
           id_color: "",
           id_emo: "",
           id_fig: "",
@@ -48,7 +46,7 @@ function TaskTabs({ taskTabs, chosen }) {
           prim: "",
           id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id,
           id_type: TASK_TYPES.TASK,
-          id_act: urgency.find((item) => item.id === URGENCY_TYPES.PLANNED)?.id
+          id_act: URGENCY_TYPES.PLANNED
         }
       })
     );
@@ -57,16 +55,20 @@ function TaskTabs({ taskTabs, chosen }) {
     <div className={styles.taskTabWrap}>
       <div className={styles.addIconWrap}>
         <AddIcon className={classNames(styles.addIcon)} onClick={addTask} />
-        <img
-          className={styles.emptyImg}
-          src={`${imageSrc}assets/PrivateCabinet/create_arrow_reverse.svg`}
-          alt="Create Arrow"
-        />
-        <img
-          className={styles.inscription}
-          src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/tasks.png`}
-          alt="inscription"
-        />
+        {!isTasks && (
+          <>
+            <img
+              className={styles.emptyImg}
+              src={`${imageSrc}assets/PrivateCabinet/create_arrow_reverse.svg`}
+              alt="Create Arrow"
+            />
+            <img
+              className={styles.inscription}
+              src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/tasks.png`}
+              alt="inscription"
+            />
+          </>
+        )}
       </div>
       {renderTaskTabs()}
     </div>
@@ -82,5 +84,6 @@ TaskTabs.defaultProps = {
 
 TaskTabs.propTypes = {
   taskTabs: PropTypes.arrayOf(PropTypes.string), //TODO wait for BE
-  chosen: PropTypes.bool
+  chosen: PropTypes.bool,
+  isTasks: PropTypes.bool
 };

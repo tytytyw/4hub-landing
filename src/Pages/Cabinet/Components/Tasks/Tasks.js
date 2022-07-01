@@ -31,8 +31,7 @@ function Tasks() {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.DELETE_TASK,
-          taskChoosen: chosenTask,
-          params: { width: 420, name: chosenTask.name }
+          params: { width: 420, ...chosenTask }
         })
       );
     },

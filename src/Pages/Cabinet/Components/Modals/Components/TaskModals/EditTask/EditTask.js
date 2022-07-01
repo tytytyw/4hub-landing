@@ -24,14 +24,10 @@ function EditTask({ type, params, closeModal }) {
   const dispatch = useDispatch();
   const messages = useTaskMessages();
 
-  const userstDepartment = useSelector((s) => s.Tasks.dep);
+  const usersDepartment = useSelector((s) => s.Tasks.dep);
   const standartDepartment = useStandartTasksDepartment();
   const urgency = useUrgencyTask();
-  const [departments] = useState([
-    { ...standartDepartment.WORK_TASK },
-    { ...standartDepartment.HOME_TASK },
-    ...userstDepartment
-  ]);
+  const [departments] = useState([standartDepartment.WORK_TASK, standartDepartment.HOME_TASK, ...usersDepartment]);
 
   const onChangeField = (name, value) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, [name]: value } }));
