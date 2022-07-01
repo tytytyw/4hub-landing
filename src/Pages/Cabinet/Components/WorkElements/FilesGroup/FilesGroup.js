@@ -106,10 +106,10 @@ function FilesGroup({
                   {renderFiles(FileBar, fileList)}
                 </WorkBars>
               )}
-              {workElementsView === "lines" && (
-                <div className={styles.collapseContentJournal}>
-                  {pathname.startsWith("/journal") ? renderJournalFileLine(fileList) : renderFiles(FileLine, fileList)}
-                </div>
+              {workElementsView === "lines" && pathname.startsWith("/journal") ? (
+                <div className={styles.collapseContentJournal}>{renderJournalFileLine(fileList)}</div>
+              ) : (
+                <div className={styles.collapseContent}>{renderFiles(FileLine, fileList)}</div>
               )}
               {workElementsView === "workLinesPreview" ? (
                 pathname.includes("files") || pathname === "/archive" || pathname === "/cart" ? (

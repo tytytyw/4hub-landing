@@ -164,9 +164,11 @@ export const loadedFileProps = PropTypes.exact({
 });
 
 export const journalFileProps = PropTypes.exact({
+  adate: PropTypes.bool,
   color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   ctime: PropTypes.string,
   date: PropTypes.number,
+  date_archive: PropTypes.string,
   deadline: PropTypes.number,
   deny_edit: PropTypes.string,
   edit_url: PropTypes.string,
@@ -176,17 +178,22 @@ export const journalFileProps = PropTypes.exact({
   fid: PropTypes.string,
   fig: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   file: PropTypes.string,
+  file_link: PropTypes.string,
   fname: PropTypes.string,
-  id_color: PropTypes.string,
-  id_emo: PropTypes.string,
-  id_fig: PropTypes.string,
+  gdir: PropTypes.string,
+  is_archive: PropTypes.string,
+  is_del: PropTypes.string,
+  is_dir: PropTypes.number,
+  is_pass: PropTypes.number,
   is_preview: PropTypes.number,
   mime_type: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   mtime: PropTypes.string,
+  nameindb: PropTypes.string,
+  otime: PropTypes.string,
   name: PropTypes.string,
   preview: PropTypes.string,
-  qqq: PropTypes.string,
   size: PropTypes.number,
   size_now: PropTypes.string,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  tag2: PropTypes.string
 });
