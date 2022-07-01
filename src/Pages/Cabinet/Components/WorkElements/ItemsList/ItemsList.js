@@ -29,8 +29,9 @@ import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
+import JournalFileLine from "../JournalFileLine/JournalFileLine";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { imageSrc, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -118,6 +119,35 @@ const ItemsList = ({
     });
   };
 
+  const renderJournalFileLine = (files, params) => {
+    if (!files) return null;
+    return files.map((file, i) => {
+      return (
+        <JournalFileLine
+          key={i}
+          file={file}
+          setChosenFile={setChosenFile}
+          chosen={
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
+          }
+          setMouseParams={setMouseParams}
+          setAction={setAction}
+          setFilePreview={setFilePreview}
+          filePreview={filePreview}
+          filePick={filePick}
+          setFilePick={setFilePick}
+          callbackArrMain={callbackArrMain}
+          folderSelect={folderSelect}
+          setGLoader={setGLoader}
+          params={params}
+          chooseItemNext={chooseItemNext}
+          openFolderMenu={openFolderMenu}
+          successLoad={successLoad}
+          sharedFilesInfo={sharedFilesInfo}
+        />
+      );
+    });
+  };
   const addIconButton = () => (
     <div className={styles.addButtonBlock}>
       <div
@@ -169,6 +199,7 @@ const ItemsList = ({
           chosenFolder={chosenFolder}
           gLoader={gLoader}
           renderFiles={renderFiles}
+          renderJournalFileLine={renderJournalFileLine}
           //WorkLinesPreview
           params={params}
           //WorkBarsPreview
@@ -283,7 +314,9 @@ const ItemsList = ({
         </WorkBars>
       ) : null}
 
-      {!Array.isArray(fileList?.files) && workElementsView !== "workLinesPreview" && workElementsView !== "preview" ? (
+      {!Array.isArray(fileList?.files) &&
+      workElementsView !== VIEW_TYPE.LINES_PREVIEW &&
+      workElementsView !== VIEW_TYPE.BARS_PREVIEW ? (
         <div
           className={classnames(
             renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
@@ -317,7 +350,7 @@ const ItemsList = ({
         </div>
       ) : null}
 
-      {workElementsView === "lines" && Array.isArray(fileList?.files) ? (
+      {workElementsView === VIEW_TYPE.LINES && Array.isArray(fileList?.files) ? (
         <WorkLines
           filePick={filePick}
           filesPage={filesPage}
@@ -332,7 +365,7 @@ const ItemsList = ({
         </WorkLines>
       ) : null}
 
-      {workElementsView === "preview" ? (
+      {workElementsView === VIEW_TYPE.BARS_PREVIEW ? (
         <WorkBarsPreview
           file={chosenFile}
           filePick={filePick}
@@ -354,7 +387,7 @@ const ItemsList = ({
         </WorkBarsPreview>
       ) : null}
 
-      {workElementsView === "workLinesPreview" ? (
+      {workElementsView === VIEW_TYPE.LINES_PREVIEW ? (
         <WorkLinesPreview
           file={chosenFile}
           filePick={filePick}

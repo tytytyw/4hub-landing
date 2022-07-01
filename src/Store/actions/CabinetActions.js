@@ -27,7 +27,6 @@ import {
   SET_WORKELEMENTSVIEW,
   GET_PROJECT_FOLDER,
   GET_PROJECTS,
-  GET_JOURNAL_FOLDERS,
   SEARCH,
   SET_CALENDAR_DATE,
   SORT_FILES,
@@ -70,6 +69,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
+  GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
   SET_MESSAGES_TO_READ
 } from "../types";
@@ -691,63 +691,6 @@ export const onChooseProject = (project) => {
 };
 
 // JOURNAL
-
-export const onGetJournalFolders = () => ({
-  type: GET_JOURNAL_FOLDERS,
-  payload: [
-    {
-      id: 1,
-      icon: "my-files",
-      name: "Весь список"
-    },
-    {
-      id: 2,
-      icon: "shared-files",
-      name: "Расшаренные файлы"
-    },
-    {
-      id: 3,
-      icon: "downloaded-files",
-      name: "Загруженные файлы"
-    },
-    {
-      id: 4,
-      icon: "downloaded-link",
-      name: "Загруженные ссылки"
-    },
-    {
-      id: 5,
-      icon: "my-folders",
-      name: "Мои папки"
-    },
-    {
-      id: 6,
-      icon: "my-files",
-      name: "Мои файлы"
-    },
-    {
-      id: 7,
-      icon: "programs",
-      name: "Программы"
-    },
-    {
-      id: 8,
-      icon: "project",
-      name: "Совместный проект"
-    },
-    {
-      id: 9,
-      icon: "archive",
-      name: "Архив"
-    },
-    {
-      id: 9,
-      icon: "trash-cart",
-      name: "Корзина"
-    }
-  ]
-});
-
 export const onSetFileSize = (size) => {
   return {
     type: SET_SIZE,
@@ -758,6 +701,13 @@ export const onSetFileSize = (size) => {
 export const onSetWorkElementsView = (view) => {
   return {
     type: SET_WORKELEMENTSVIEW,
+    payload: view
+  };
+};
+
+export const onSetGroupFiles = (view) => {
+  return {
+    type: GROUP_FILES_JOURNAL,
     payload: view
   };
 };
@@ -1283,7 +1233,8 @@ export const onLoadFiles =
       sort_reverse: 1,
       dir: getState().Cabinet.fileList.path,
       page,
-      dep: `/_${getLocation()[0].toUpperCase()}_/`
+      dep: `/_${getLocation()[0].toUpperCase()}_/`,
+      group: getState().Cabinet.fileCriterion.group
     };
     api
       .get(`/ajax/${endpoint}.php`, {

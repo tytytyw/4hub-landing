@@ -25,7 +25,6 @@ import {
   SET_WORKELEMENTSVIEW,
   GET_PROJECT_FOLDER,
   GET_PROJECTS,
-  GET_JOURNAL_FOLDERS,
   SET_CALENDAR_DATE,
   SEARCH,
   CHOOSE_SHARED_FILES,
@@ -73,7 +72,9 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
+  GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
+  GET_JOURNAL_FOLDERS,
   SET_MESSAGES_TO_READ
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
@@ -103,7 +104,8 @@ const INITIAL_STATE = {
       color: "",
       emoji: "",
       figure: ""
-    }
+    },
+    group: ""
   },
 
   //SEARCH
@@ -513,7 +515,13 @@ export default function startPage(state = INITIAL_STATE, action) {
       };
     }
 
-    //SORT FILES
+    // SORT FILES
+    case GROUP_FILES_JOURNAL: {
+      return {
+        ...state,
+        fileCriterion: { ...state.fileCriterion, group: action.payload }
+      };
+    }
     case SORT_FILES: {
       return {
         ...state,

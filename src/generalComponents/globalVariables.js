@@ -246,3 +246,9 @@ export const LIBRARY_OWN_ICONS = [
 export const CART = {
   API_GET_FILES: "trash_list"
 };
+
+// JOURNAL
+
+export const JOURNAL = {
+  API_GET_FILES: "history_get"
+};
