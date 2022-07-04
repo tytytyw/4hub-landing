@@ -742,24 +742,31 @@ export function useStandartTasksDepartment() {
 
 export function useContextMenuTasks() {
   const { __ } = useLocales();
-  return [
-    { name: __("Редактировать "), img: "edit", type: contextMenuTask.CUSTOMIZE },
-    { name: __("Удалить "), img: "garbage", type: contextMenuTask.DELETE }
-    //  TODO -mk- Context menu meeting
-    // { name: __("Заметка"), img: "garbage", type: contextMenuTask.DELETE }
-    // { name: __("Перенести встречу"), img: "garbage", type: contextMenuTask.DELETE },
-    // { name: __("Перенести все встречи"), img: "garbage", type: contextMenuTask.DELETE },
-  ];
+  return {
+    [TASK_TYPES.MEETINGS]: [
+      { name: __("Перенести встречу"), img: "clock", type: contextMenuTask.RESCHEDULE_ONE },
+      { name: __("Перенести все встречи"), img: "clock", type: contextMenuTask.RESCHEDULE_ALL },
+      { name: __("Редактировать встречу"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Заметка"), img: "note", type: contextMenuTask.ADD_COMMENT },
+      { name: __("Удалить "), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.CALLS]: [
+      { name: __("Редактировать звонок"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Удалить звонок "), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.TASK]: [
+      { name: __("Редактировать задачу"), img: "editing", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Комментарий"), img: "chat", type: contextMenuTask.ADD_COMMENT },
+      { name: __("Напоминание"), img: "clock", type: contextMenuTask.ADD_REMINDER },
+      { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.NOTES]: [
+      { name: __("Редактировать заметку"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Удалить заметку "), img: "garbage", type: contextMenuTask.DELETE }
+    ]
+  };
 }
-export function useContextMenuTask() {
-  const { __ } = useLocales();
-  return [
-    { name: __("Редактировать задачу"), img: "edit", type: contextMenuTask.CUSTOMIZE },
-    { name: __("Комментарий"), img: "chat", type: contextMenuTask.ADD_COMMENT },
-    { name: __("Напоминание"), img: "clock", type: contextMenuTask.ADD_REMINDER },
-    { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
-  ];
-}
+
 export function useMenuTasksStatus() {
   const { __ } = useLocales();
   return {

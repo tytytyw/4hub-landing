@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./Note.module.sass";
 import { getFormatDate } from "generalComponents/generalHelpers";
 import { imageSrc } from "generalComponents/globalVariables";
@@ -8,6 +7,8 @@ import classNames from "classnames";
 import { onSelectTask } from "Store/actions/TasksActions";
 import { taskTypes } from "types/Tasks";
 import Corner from "../Corner/Corner";
+import {} from "generalComponents/collections";
+import PropTypes from "prop-types";
 
 const Note = ({ note, setMouseParams }) => {
   const { theme } = useSelector((s) => s.user.userInfo);

@@ -5,15 +5,20 @@ import { taskTypes } from "types/Tasks";
 import { ReactComponent as ChatSvg } from "assets/PrivateCabinet/minitoolbar/messages.svg";
 import { ReactComponent as EditSvg } from "assets/PrivateCabinet/tasks/editing.svg";
 import { ReactComponent as GarbageSVG } from "assets/PrivateCabinet/garbage.svg";
-import { ReactComponent as ClockSVG } from "assets/PrivateCabinet/tasks/clock.svg";
-
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
-import { useContextMenuTask, useMenuTasksStatus, useTaskMessages } from "generalComponents/collections";
+import { useContextMenuTasks, useMenuTasksStatus, useTaskMessages } from "generalComponents/collections";
 import { useDispatch } from "react-redux";
 import { onEditTask } from "Store/actions/TasksActions";
-import { contextMenuTask, MODALS, TASK_MODALS, URGENCY_TYPES } from "generalComponents/globalVariables";
+import {
+  contextMenuTask,
+  imageSrc,
+  MODALS,
+  TASK_MODALS,
+  TASK_TYPES,
+  URGENCY_TYPES
+} from "generalComponents/globalVariables";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 
@@ -22,7 +27,7 @@ const TaskItem = ({ task, number }) => {
   const dispatch = useDispatch();
   const [mouseParams, setMouseParams] = useState(null);
   const statusMenu = useMenuTasksStatus();
-  const taskContextMenu = useContextMenuTask();
+  const taskContextMenu = useContextMenuTasks();
   const closeContextMenu = () => setMouseParams(null);
   const messages = useTaskMessages();
 
@@ -65,21 +70,6 @@ const TaskItem = ({ task, number }) => {
     }
   };
 
-  const getIcon = (img) => {
-    switch (img) {
-      case "chat":
-        return <ChatSvg />;
-      case "edit":
-        return <EditSvg />;
-      case "garbage":
-        return <GarbageSVG className={styles.garbage} />;
-      case "clock":
-        return <ClockSVG className={styles.garbage} />;
-      default:
-        break;
-    }
-  };
-
   return (
     <div
       className={styles.taskWrap}
@@ -119,7 +109,7 @@ const TaskItem = ({ task, number }) => {
           setMouseParams({
             x: e.clientX,
             y: e.clientY,
-            width: 156,
+            width: 200,
             height: 22,
             type: "menu"
           })
@@ -141,14 +131,14 @@ const TaskItem = ({ task, number }) => {
             ))}
 
           {mouseParams.type === "menu" &&
-            taskContextMenu.map((item) => (
+            taskContextMenu[TASK_TYPES.TASK].map((item) => (
               <div className={styles.itemMenu} key={item.type}>
-                {getIcon(item.img)}
                 <ContextMenuItem
                   width={mouseParams.width}
                   height={mouseParams.height}
                   text={item.name}
                   callback={callbacks[item.type]}
+                  imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuTasks/${item.img}.svg`}
                 />
               </div>
             ))}

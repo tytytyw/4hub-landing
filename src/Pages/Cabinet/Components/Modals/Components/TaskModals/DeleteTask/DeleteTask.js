@@ -7,7 +7,7 @@ import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 
 import { onDeleteTask } from "Store/actions/TasksActions";
 import { useTaskMessages } from "generalComponents/collections";
-import { TASK_MODALS } from "generalComponents/globalVariables";
+import { TASK_MODALS, TASK_TYPES } from "generalComponents/globalVariables";
 import { taskTypes } from "types/Tasks";
 
 function DeleteTask({ params, closeModal, type }) {
@@ -18,10 +18,13 @@ function DeleteTask({ params, closeModal, type }) {
   const deleteTask = () => {
     dispatch(onDeleteTask(params.id, messages[TASK_MODALS.DELETE_TASK]));
   };
-
   return (
     <>
-      <div className={styles.deleteTaskText}>{__(`Вы действительно хотите удалить задачу "${params.name}"?`)}</div>
+      <div className={styles.deleteTaskText}>
+        {params.id_type === TASK_TYPES.NOTES
+          ? __(`Вы действительно хотите удалить выбранную заметку?`)
+          : __(`Вы действительно хотите удалить задачу "${params.name}"?`)}
+      </div>
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={deleteTask} />
     </>
   );
