@@ -180,6 +180,7 @@ export const TASK_MODALS = {
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
   EDIT_MEETING: "EditMeeting",
+  RESCHEDULE_ONE: "RescheduleOne",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
   DELETE_TASK: "DeleteTask",
@@ -202,7 +203,8 @@ export const contextMenuTask = {
   ADD_COMMENT: "addComment",
   ADD_REMINDER: "reminder",
   RESCHEDULE_ONE: "rescheduleOne",
-  RESCHEDULE_ALL: "rescheduleAll"
+  RESCHEDULE_ALL: "rescheduleAll",
+  ADD_MEETING_NOTE: "addMeetingNote"
 };
 
 // MAIL

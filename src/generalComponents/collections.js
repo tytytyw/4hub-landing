@@ -747,7 +747,7 @@ export function useContextMenuTasks() {
       { name: __("Перенести встречу"), img: "clock", type: contextMenuTask.RESCHEDULE_ONE },
       { name: __("Перенести все встречи"), img: "clock", type: contextMenuTask.RESCHEDULE_ALL },
       { name: __("Редактировать встречу"), img: "edit", type: contextMenuTask.CUSTOMIZE },
-      { name: __("Заметка"), img: "note", type: contextMenuTask.ADD_COMMENT },
+      { name: __("Заметка"), img: "note", type: contextMenuTask.ADD_MEETING_NOTE },
       { name: __("Удалить "), img: "garbage", type: contextMenuTask.DELETE }
     ],
     [TASK_TYPES.CALLS]: [
@@ -805,7 +805,14 @@ export function useTaskMessages() {
         success: __("Встреча добавлена"),
         error: __("Что-то пошло не так, попробуйте еще раз")
       },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Встреча изменена"), error: __("Что-то пошло не так, попробуйте еще раз") }
+      [TASK_MODALS.EDIT_TASK]: {
+        success: __("Встреча изменена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      },
+      [TASK_MODALS.ADD_NOTE_TO_MEETING]: {
+        success: __("Заметка добавлена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      }
     },
     [TASK_TYPES.CALLS]: {
       [TASK_MODALS.ADD_CALL]: { success: __("Звонок добавлен"), error: __("Что-то пошло не так, попробуйте еще раз") },
@@ -865,6 +872,7 @@ export function useTaskModalTitles() {
     [TASK_MODALS.EDIT_NOTE]: __("Редактировать заметку"),
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
+    [TASK_MODALS.RESCHEDULE_ONE]: __("Перенести встречу"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),

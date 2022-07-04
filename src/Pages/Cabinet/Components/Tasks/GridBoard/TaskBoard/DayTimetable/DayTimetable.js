@@ -3,15 +3,13 @@ import styles from "./DayTimetable.module.sass";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import ThreeDots from "../../../../../../../generalComponents/ThreeDots/ThreeDots";
 import { taskTypes } from "types/Tasks";
-import { getFormatTime } from "generalComponents/generalHelpers";
-import { onSelectTask } from "Store/actions/TasksActions";
 import { contextMenuTask, imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { useContextMenuTasks } from "generalComponents/collections";
 import { onSetModals } from "Store/actions/CabinetActions";
+import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
 
 function DayTimetable({ timePeriod, tasks, type }) {
   const dispatch = useDispatch();
@@ -37,10 +35,24 @@ function DayTimetable({ timePeriod, tasks, type }) {
           params: { width: 420, ...chosenTask }
         })
       );
+    },
+    [contextMenuTask.ADD_MEETING_NOTE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.ADD_NOTE_TO_MEETING,
+          params: { width: 420, ...chosenTask }
+        })
+      );
+    },
+    [contextMenuTask.RESCHEDULE_ONE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.RESCHEDULE_ONE,
+          params: { width: 420, ...chosenTask }
+        })
+      );
     }
   };
-
-  const selectTask = (task) => dispatch(onSelectTask(task));
 
   const renderTask = (hour) => {
     const h = hour.split(":")[0];
@@ -56,13 +68,7 @@ function DayTimetable({ timePeriod, tasks, type }) {
       <div key={i}>
         {tasks.length > 0 ? (
           renderTask(hours).length > 0 ? (
-            renderTask(hours).map((el) => (
-              <div key={el.id} className={classNames(styles.dayLine, styles.fill)} onClick={() => selectTask(el)}>
-                <span className={styles.time}>{getFormatTime(el.date_start)}</span>
-                <span className={styles.name}> {el.name}</span>
-                <ThreeDots onClick={(e) => setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 })} />
-              </div>
-            ))
+            renderTask(hours).map((el) => <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} />)
           ) : (
             <div className={classNames(styles.dayLine)}>{hours}</div>
           )

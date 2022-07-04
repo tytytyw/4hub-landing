@@ -66,13 +66,7 @@ function EditMeeting({ type, params, closeModal }) {
   return (
     <div className={styles.editMeetingWrap}>
       <h5 className={styles.title}>{__("Название встречи")}</h5>
-      <InputField
-        model="text"
-        value={params.name}
-        set={onChangeName}
-        editableClass={"fixedHeight"}
-        className={styles.www}
-      />
+      <InputField model="text" value={params.name} set={onChangeName} editableClass={"fixedHeight"} />
       <h5 className={styles.title}>{__("Тип встречи")}</h5>
       <SelectChosen value={getEventName()}>
         <ul className={styles.eventsList}>
