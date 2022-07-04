@@ -16,7 +16,7 @@ import { useTaskMessages } from "generalComponents/collections";
 import Calendar from "Pages/StartPage/Components/Calendar";
 import PopUp from "generalComponents/PopUp";
 
-function EditCall({ type, params, closeModal }) {
+function EditCall({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
@@ -24,16 +24,9 @@ function EditCall({ type, params, closeModal }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const messages = useTaskMessages();
 
-  const onChangeName = (name) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
-  };
-
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
-  };
-  const setDateValue = (date_start) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
@@ -59,7 +52,12 @@ function EditCall({ type, params, closeModal }) {
   return (
     <div className={styles.editMeetingWrap}>
       <h5 className={styles.title}>{__("Название звонка")}</h5>
-      <InputField model="text" value={params.name} set={onChangeName} editableClass={"fixedHeight"} />
+      <InputField
+        model="text"
+        value={params.name}
+        set={(value) => onChangeField("name", value)}
+        editableClass={"fixedHeight"}
+      />
       <h5 className={styles.title}>
         <CalendarIcon className={styles.calendarIcon} /> {__("Укажите дату и время звонка")}
       </h5>
@@ -84,7 +82,7 @@ function EditCall({ type, params, closeModal }) {
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={(value) => onChangeField("date_start", value)} />
         </PopUp>
       )}
     </div>
@@ -100,5 +98,6 @@ EditCall.defaultProps = {
 EditCall.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
   params: taskTypes,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  onChangeField: PropTypes.func
 };

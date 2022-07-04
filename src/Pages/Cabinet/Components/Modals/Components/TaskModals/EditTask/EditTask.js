@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./EditTask.module.sass";
-import { imageSrc, MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { imageSrc, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
-import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import InputField from "../../../../../../../generalComponents/InputField";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import TagPicker from "../../../../../../../generalComponents/TagPicker/TagPicker";
@@ -19,19 +18,14 @@ import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
 import { ReactComponent as Home } from "assets/PrivateCabinet/tasks/home.svg";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 
-function EditTask({ type, params, closeModal }) {
+function EditTask({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
-
-  const usersDepartment = useSelector((s) => s.Tasks.dep);
-  const standartDepartment = useStandartTasksDepartment();
   const urgency = useUrgencyTask();
+  const standartDepartment = useStandartTasksDepartment();
+  const usersDepartment = useSelector((s) => s.Tasks.dep);
   const [departments] = useState([standartDepartment.WORK_TASK, standartDepartment.HOME_TASK, ...usersDepartment]);
-
-  const onChangeField = (name, value) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, [name]: value } }));
-  };
 
   const geSelctName = (array, id) => array.find((item) => item.id === id)?.name;
 
@@ -59,7 +53,6 @@ function EditTask({ type, params, closeModal }) {
       ? dispatch(onAddNewTask(params, messages[TASK_TYPES.TASK][type]))
       : dispatch(onEditTask(params, messages[TASK_TYPES.TASK][type]));
   };
-
   return (
     <div className={styles.editTaskWrap}>
       <div className={styles.columnsWrap}>
@@ -143,5 +136,6 @@ EditTask.defaultProps = {
 EditTask.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
   params: taskTypes,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  onChangeField: PropTypes.func
 };

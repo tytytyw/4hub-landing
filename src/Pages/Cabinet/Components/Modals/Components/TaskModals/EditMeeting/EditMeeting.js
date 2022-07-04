@@ -17,7 +17,7 @@ import Calendar from "Pages/StartPage/Components/Calendar";
 import { useTaskMessages, useTypesMeeting } from "generalComponents/collections";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 
-function EditMeeting({ type, params, closeModal }) {
+function EditMeeting({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
@@ -26,17 +26,9 @@ function EditMeeting({ type, params, closeModal }) {
   const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const onChangeName = (name) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
-  };
-
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
-  };
-
-  const setDateValue = (date_start) => {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
@@ -44,10 +36,12 @@ function EditMeeting({ type, params, closeModal }) {
     if (target.value.length > 2) return;
     setHh(getMaskDate(target.value));
   };
+
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
     setMm(getMaskDate(target.value));
   };
+
   const onSubmit = () => {
     const payload = {
       ...params,
@@ -61,12 +55,15 @@ function EditMeeting({ type, params, closeModal }) {
 
   const getEventName = () => typesMeeting.find((el) => el.id === params.id_type).name;
 
-  const onChangeEventType = (id_type) => dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, id_type } }));
-
   return (
     <div className={styles.editMeetingWrap}>
       <h5 className={styles.title}>{__("Название встречи")}</h5>
-      <InputField model="text" value={params.name} set={onChangeName} editableClass={"fixedHeight"} />
+      <InputField
+        model="text"
+        value={params.name}
+        set={(value) => onChangeField("name", value)}
+        editableClass={"fixedHeight"}
+      />
       <h5 className={styles.title}>{__("Тип встречи")}</h5>
       <SelectChosen value={getEventName()}>
         <ul className={styles.eventsList}>
@@ -74,7 +71,7 @@ function EditMeeting({ type, params, closeModal }) {
             <li
               key={type.id}
               onClick={() => {
-                onChangeEventType(type.id);
+                onChangeField("id_type", type.id);
               }}
               className={styles.typeItem}
             >
@@ -108,7 +105,7 @@ function EditMeeting({ type, params, closeModal }) {
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={(value) => onChangeField("date_start", value)} />
         </PopUp>
       )}
     </div>
@@ -124,5 +121,6 @@ EditMeeting.defaultProps = {
 EditMeeting.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
   params: taskTypes,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  onChangeField: PropTypes.func
 };
