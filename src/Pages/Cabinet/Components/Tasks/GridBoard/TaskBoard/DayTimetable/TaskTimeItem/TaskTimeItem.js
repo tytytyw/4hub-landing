@@ -16,7 +16,6 @@ const TaskTimeItem = ({ task, setMouseParams }) => {
   const dispatch = useDispatch();
 
   const selectTask = (task) => dispatch(onSelectTask(task));
-  //   const toggleNote = () => setShowNote((state) => !state);
 
   return (
     <div className={classNames(styles.dayLine, styles.fill)} onClick={() => selectTask(task)}>
@@ -27,7 +26,7 @@ const TaskTimeItem = ({ task, setMouseParams }) => {
           <NoteIcon className={styles.icon} onClick={(e) => setShowNote({ x: e.clientX, y: e.clientY, width: 200 })} />
           {showNote && (
             <ContextMenu params={showNote} setParams={setShowNote} tooltip={true}>
-              <ContextMenuItem width={showNote.width} height={showNote.height} text={task.prim} />
+              <ContextMenuItem width={showNote.width} text={task.prim} />
             </ContextMenu>
           )}
         </div>

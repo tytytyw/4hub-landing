@@ -130,18 +130,21 @@ const TaskItem = ({ task, number }) => {
               </div>
             ))}
 
-          {mouseParams.type === "menu" &&
-            taskContextMenu[TASK_TYPES.TASK].map((item) => (
-              <div className={styles.itemMenu} key={item.type}>
-                <ContextMenuItem
-                  width={mouseParams.width}
-                  height={mouseParams.height}
-                  text={item.name}
-                  callback={callbacks[item.type]}
-                  imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuTasks/${item.img}.svg`}
-                />
-              </div>
-            ))}
+          {mouseParams.type === "menu" && (
+            <div className={styles.mainMenuItems}>
+              {taskContextMenu[TASK_TYPES.TASK].map((item) => (
+                <div className={styles.itemMenu} key={item.type}>
+                  <ContextMenuItem
+                    width={mouseParams.width}
+                    height={mouseParams.height}
+                    text={item.name}
+                    callback={callbacks[item.type]}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuTasks/${item.img}.svg`}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </ContextMenu>
       )}
     </div>
