@@ -93,7 +93,9 @@ function TaskModals() {
         {type === TASK_MODALS.RESCHEDULE_ONE && (
           <RescheduleOne type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
         )}
-        {type === TASK_MODALS.RESCHEDULE_ALL && <RescheduleAll type={type} closeModal={closeModal} params={params} />}
+        {type === TASK_MODALS.RESCHEDULE_ALL && (
+          <RescheduleAll type={type} closeModal={closeModal} params={params.chosenTasks} />
+        )}
       </form>
     </PopUp>
   );

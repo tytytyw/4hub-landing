@@ -9,7 +9,7 @@ import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6
 import { useDispatch } from "react-redux";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
+import { getMaskDate } from "generalComponents/generalHelpers";
 import InputField from "generalComponents/InputField";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
@@ -22,8 +22,8 @@ function EditMeeting({ type, params, closeModal, onChangeField }) {
   const dispatch = useDispatch();
   const messages = useTaskMessages();
   const typesMeeting = useTypesMeeting();
-  const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
-  const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [hh, setHh] = useState(params.time_start ? params.time_start.split(":")[0] : "");
+  const [mm, setMm] = useState(params.time_start ? params.time_start.split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
 
   const onChangeDate = ({ target }) => {

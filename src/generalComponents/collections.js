@@ -792,6 +792,14 @@ export function useTaskMessages() {
       success: __("Раздел удален"),
       error: __("Что-то пошло не так")
     },
+    [TASK_MODALS.RESCHEDULE_ONE]: {
+      success: __("Встреча перенесена"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
+    [TASK_MODALS.RESCHEDULE_ALL]: {
+      success: __("Встречи перенесены"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
 
     [TASK_TYPES.NOTES]: {
       [TASK_MODALS.ADD_NOTE]: {

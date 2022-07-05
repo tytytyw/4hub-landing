@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { MODALS, TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { MODALS, TaskFields, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
 import styles from "./RescheduleOne.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6.svg";
 import { useDispatch } from "react-redux";
-import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
+import { onEditTask } from "Store/actions/TasksActions";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
+import { getMaskDate } from "generalComponents/generalHelpers";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
 import Calendar from "Pages/StartPage/Components/Calendar";
@@ -22,10 +22,9 @@ function RescheduleOne({ type, params, closeModal, onChangeField }) {
   const dispatch = useDispatch();
   const messages = useTaskMessages();
   const typesMeeting = useTypesMeeting();
-  const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
-  const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [hh, setHh] = useState(params.time_start ? params.time_start.split(":")[0] : "");
+  const [mm, setMm] = useState(params.time_start ? params.time_start.split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
-
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
     const date_start = getMaskDate(target.value);
@@ -50,9 +49,7 @@ function RescheduleOne({ type, params, closeModal, onChangeField }) {
       date_start: params.date_start.split(" ")[0],
       time_start: `${hh}:${mm}`
     };
-    type === TASK_MODALS.ADD_MEETING
-      ? dispatch(onAddNewTask(payload, messages[TASK_TYPES.MEETINGS][type]))
-      : dispatch(onEditTask(payload, messages[TASK_TYPES.MEETINGS][type]));
+    dispatch(onEditTask(payload, messages[type]));
   };
   const getEventName = () => typesMeeting.find((el) => el.id === params.id_type).name;
 
@@ -77,7 +74,6 @@ function RescheduleOne({ type, params, closeModal, onChangeField }) {
         </span>
       </div>
       <div className={styles.dateName}> {__("Время встречи")} </div>
-
       <div className={styles.timeWrap}>
         <InputField
           model="text"
@@ -125,7 +121,7 @@ RescheduleOne.defaultProps = {
 
 RescheduleOne.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
-  params: taskTypes,
   closeModal: PropTypes.func,
+  params: taskTypes,
   onChangeField: PropTypes.func
 };

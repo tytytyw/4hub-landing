@@ -10,7 +10,7 @@ import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { useContextMenuTasks } from "generalComponents/collections";
 import { onSetModals } from "Store/actions/CabinetActions";
 import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
-import { getFormatDate } from "generalComponents/generalHelpers";
+import { getFormatDate, getFormatTime } from "generalComponents/generalHelpers";
 
 function DayTimetable({ timePeriod, tasks, type }) {
   const dispatch = useDispatch();
@@ -33,7 +33,12 @@ function DayTimetable({ timePeriod, tasks, type }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.EDIT_TASK,
-          params: { width: 420, ...chosenTask }
+          params: {
+            width: 420,
+            ...chosenTask,
+            date_start: getFormatDate(chosenTask.date_start),
+            time_start: getFormatTime(chosenTask.date_start)
+          }
         })
       );
     },
@@ -49,7 +54,12 @@ function DayTimetable({ timePeriod, tasks, type }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.RESCHEDULE_ONE,
-          params: { width: 420, ...chosenTask, date_start: getFormatDate(chosenTask.date_start) }
+          params: {
+            width: 420,
+            ...chosenTask,
+            date_start: getFormatDate(chosenTask.date_start),
+            time_start: getFormatTime(chosenTask.date_start)
+          }
         })
       );
     },
