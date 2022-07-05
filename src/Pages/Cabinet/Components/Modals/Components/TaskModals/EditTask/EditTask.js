@@ -123,13 +123,13 @@ function EditTask({ type, params, closeModal, onChangeField }) {
         <Signs
           sign={params.id_fig}
           title={__("Добавить знак")}
-          setSign={(value) => onChangeField(TaskFields.ID_FIG, value)}
+          setSign={(value) => onChangeField(TaskFields.ID_FIGURE, value)}
         />
       </div>
       <div className={styles.bottomWrap}>
         <Emoji
           emoji={params.id_emo}
-          setEmoji={(value) => onChangeField(TaskFields.ID_EM0, value)}
+          setEmoji={(value) => onChangeField(TaskFields.ID_EMOTION, value)}
           emojiEditableClass={"rowEmoji"}
           editableClass={"addTask"}
         />
