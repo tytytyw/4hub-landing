@@ -9,7 +9,7 @@ import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6
 import { useDispatch } from "react-redux";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { getFormatDate, getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
+import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
 import Calendar from "Pages/StartPage/Components/Calendar";
@@ -67,7 +67,7 @@ function RescheduleOne({ type, params, closeModal, onChangeField }) {
           <input
             className={styles.date}
             type="text"
-            value={getFormatDate(params?.date_start)}
+            value={params?.date_start}
             placeholder={__("_ _._ _._ _ _ _")}
             onChange={onChangeDate}
           />

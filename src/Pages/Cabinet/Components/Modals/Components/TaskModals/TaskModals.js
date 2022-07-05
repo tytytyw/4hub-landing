@@ -16,6 +16,7 @@ import DeleteTask from "./DeleteTask/DeleteTask";
 import OpenTask from "./OpenTask/OpenTask";
 import MeetingNote from "./MeetingNote/MeetingNote";
 import RescheduleOne from "./RescheduleOne/RescheduleOne";
+import RescheduleAll from "./RescheduleAll/RescheduleAll";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -92,6 +93,7 @@ function TaskModals() {
         {type === TASK_MODALS.RESCHEDULE_ONE && (
           <RescheduleOne type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
         )}
+        {type === TASK_MODALS.RESCHEDULE_ALL && <RescheduleAll type={type} closeModal={closeModal} params={params} />}
       </form>
     </PopUp>
   );

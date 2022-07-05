@@ -873,6 +873,7 @@ export function useTaskModalTitles() {
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
     [TASK_MODALS.RESCHEDULE_ONE]: __("Перенести встречу"),
+    [TASK_MODALS.RESCHEDULE_ALL]: __("Перенести все встречи"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),

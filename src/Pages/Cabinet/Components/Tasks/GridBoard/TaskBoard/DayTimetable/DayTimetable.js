@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { taskTypes } from "types/Tasks";
-import { contextMenuTask, imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
+import { contextMenuTask, imageSrc, MODALS, TASK_MODALS, TASK_TYPES } from "generalComponents/globalVariables";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { useContextMenuTasks } from "generalComponents/collections";
 import { onSetModals } from "Store/actions/CabinetActions";
 import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
+import { getFormatDate } from "generalComponents/generalHelpers";
 
 function DayTimetable({ timePeriod, tasks, type }) {
   const dispatch = useDispatch();
@@ -48,7 +49,20 @@ function DayTimetable({ timePeriod, tasks, type }) {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.RESCHEDULE_ONE,
-          params: { width: 420, ...chosenTask }
+          params: { width: 420, ...chosenTask, date_start: getFormatDate(chosenTask.date_start) }
+        })
+      );
+    },
+    [contextMenuTask.RESCHEDULE_ALL]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.RESCHEDULE_ALL,
+          params: {
+            width: 420,
+            chosenTasks: tasks.filter(
+              (el) => el.id_type === TASK_TYPES.OFFLINE_MEETING || el.id_type === TASK_TYPES.ONLINE_MEETING
+            )
+          }
         })
       );
     }
