@@ -4,6 +4,7 @@ import {
   contextMenuTask,
   LIBRARY_MODALS,
   MAIL_MODALS,
+  STATUS_TYPES,
   TASK_MODALS,
   TASK_TYPES,
   URGENCY_TYPES
@@ -741,43 +742,96 @@ export function useStandartTasksDepartment() {
 
 export function useContextMenuTasks() {
   const { __ } = useLocales();
-  return [
-    { name: __("Редактировать"), img: "edit", type: contextMenuTask.CUSTOMIZE },
-    { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
-  ];
+  return {
+    [TASK_TYPES.MEETINGS]: [
+      { name: __("Перенести встречу"), img: "clock", type: contextMenuTask.RESCHEDULE_ONE },
+      { name: __("Перенести все встречи"), img: "clock", type: contextMenuTask.RESCHEDULE_ALL },
+      { name: __("Редактировать встречу"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Заметка"), img: "note", type: contextMenuTask.ADD_MEETING_NOTE },
+      { name: __("Удалить "), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.CALLS]: [
+      { name: __("Редактировать звонок"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Удалить звонок "), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.TASK]: [
+      { name: __("Редактировать задачу"), img: "editing", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Комментарий"), img: "chat", type: contextMenuTask.ADD_COMMENT },
+      { name: __("Напоминание"), img: "clock", type: contextMenuTask.ADD_REMINDER },
+      { name: __("Удалить задачу"), img: "garbage", type: contextMenuTask.DELETE }
+    ],
+    [TASK_TYPES.NOTES]: [
+      { name: __("Редактировать заметку"), img: "edit", type: contextMenuTask.CUSTOMIZE },
+      { name: __("Удалить заметку "), img: "garbage", type: contextMenuTask.DELETE }
+    ]
+  };
+}
+
+export function useMenuTasksStatus() {
+  const { __ } = useLocales();
+  return {
+    [STATUS_TYPES.DONE]: { name: __("Готово"), color: "#41D87D" },
+    [STATUS_TYPES.IN_PROGRESS]: { name: __("В работе"), color: "#D4AA3D" },
+    [STATUS_TYPES.CLARIFICATION]: { name: __("Требует уточнения"), color: "#9A6CAE" },
+    [STATUS_TYPES.NOT_DONE]: { name: __("Не выполненно"), color: "#EB4545" },
+    [STATUS_TYPES.DEFAULT]: { name: __("Без статуса"), color: "#CFCFCF" }
+  };
 }
 
 export function useTaskMessages() {
   const { __ } = useLocales();
   return {
-    [TASK_MODALS.DELETE_TASK]: { success: __("Задача успешно удалена"), error: __("Ошибка при удалении задачи") },
+    [TASK_MODALS.DELETE_TASK]: {
+      success: __("Задача успешно удалена"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
 
-    [TASK_MODALS.ADD_SECTION]: { success: __("Раздел добавлен"), error: __("Раздел добавить не удалось") },
-    [TASK_MODALS.EDIT_SECTION]: { success: __("Раздел изменен"), error: __("Раздел изменить не удалось") },
+    [TASK_MODALS.ADD_SECTION]: { success: __("Раздел добавлен"), error: __("Что-то пошло не так, попробуйте еще раз") },
+    [TASK_MODALS.EDIT_SECTION]: { success: __("Раздел изменен"), error: __("Что-то пошло не так, попробуйте еще раз") },
     [TASK_MODALS.DELETE_SECTION]: {
       success: __("Раздел удален"),
       error: __("Что-то пошло не так")
     },
 
     [TASK_TYPES.NOTES]: {
-      [TASK_MODALS.ADD_NOTE]: { success: __("Заметка добавлена"), error: __("Заметку добавить не удалось") },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Заметка изменена"), error: __("Не удалось изменить заметку") }
+      [TASK_MODALS.ADD_NOTE]: {
+        success: __("Заметка добавлена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Заметка изменена"), error: __("Что-то пошло не так, попробуйте еще раз") }
     },
     [TASK_TYPES.MEETINGS]: {
-      [TASK_MODALS.ADD_MEETING]: { success: __("Встреча добавлена"), error: __("Встречу создать не удалось") },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Встреча изменена"), error: __("Встречу изменить не удалось") }
+      [TASK_MODALS.ADD_MEETING]: {
+        success: __("Встреча добавлена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      },
+      [TASK_MODALS.EDIT_TASK]: {
+        success: __("Встреча изменена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      },
+      [TASK_MODALS.ADD_NOTE_TO_MEETING]: {
+        success: __("Заметка добавлена"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      }
     },
     [TASK_TYPES.CALLS]: {
-      [TASK_MODALS.ADD_CALL]: { success: __("Звонок добавлен"), error: __("Звонок добавить не удалось") },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Звонок изменен"), error: __("Звонок изменить не удалось") }
+      [TASK_MODALS.ADD_CALL]: { success: __("Звонок добавлен"), error: __("Что-то пошло не так, попробуйте еще раз") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Звонок изменен"), error: __("Что-то пошло не так, попробуйте еще раз") }
     },
     [TASK_TYPES.MAILS]: {
-      [TASK_MODALS.ADD_LETTER]: { success: __("Письмо добавлено"), error: __("Письмо добавить не удалось") },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Письмо изменено"), error: __("Письмо изменить не удалось") }
+      [TASK_MODALS.ADD_LETTER]: {
+        success: __("Письмо добавлено"),
+        error: __("Что-то пошло не так, попробуйте еще раз")
+      },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Письмо изменено"), error: __("Что-то пошло не так, попробуйте еще раз") }
     },
     [TASK_TYPES.TASK]: {
-      [TASK_MODALS.ADD_TASK]: { success: __("Задача добавлена"), error: __("Задачу добавить не удалось") },
-      [TASK_MODALS.EDIT_TASK]: { success: __("Задача изменена"), error: __("Задачу изменить не удалось") }
+      [TASK_MODALS.ADD_TASK]: { success: __("Задача добавлена"), error: __("Что-то пошло не так, попробуйте еще раз") },
+      [TASK_MODALS.EDIT_TASK]: { success: __("Задача изменена"), error: __("Что-то пошло не так, попробуйте еще раз") }
+    },
+    STATUS: {
+      success: "Статус изменен",
+      error: __("Что-то пошло не так, попробуйте еще раз")
     }
   };
 }
@@ -818,10 +872,11 @@ export function useTaskModalTitles() {
     [TASK_MODALS.EDIT_NOTE]: __("Редактировать заметку"),
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
+    [TASK_MODALS.RESCHEDULE_ONE]: __("Перенести встречу"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
-    [TASK_MODALS.ADD_COOMENT_TASK]: __("Комментарий к задаче"),
+    [TASK_MODALS.ADD_COMMENT_TASK]: __("Комментарий к задаче"),
     [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
     [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
     [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),

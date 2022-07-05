@@ -1,0 +1,74 @@
+@import src/theme/theme
+
+.taskWrap
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 10px
+    border-top: 1px solid $color-border-dark
+    padding: 12px 0 12px 10px
+    color: $color-text-grey
+    font-family: "SF Pro Text", sans-serif
+    font-size: 13.5px
+    line-height: 16px
+    .number
+        background: $color-blue-light
+        border-radius: 50%
+        width: 24px
+        line-height: 24px
+        font-size: 12px
+        text-align: center
+    .name
+        flex: 1
+
+    .iconBox
+        padding: 4px 12px 2px
+        background: $color-white
+        border-radius: 3px
+        box-shadow: 0px 2px 4px $color-shadow
+        cursor: pointer
+        &:not(:hover) .chatsvg path
+            fill: $color-grey
+        &:not(:hover) .editsvg path
+            fill: $color-grey
+
+    .statusBox
+        padding: 4px 19px 4px 9px
+        background: $color-white
+        width: 90px
+        position: relative
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        border-radius: 3px
+        &::after
+            content: ""
+            position: absolute
+            right: 10px
+            top: 7px
+            border: solid $color-border-dark
+            border-width: 0 2px 2px 0
+            padding: 3px
+            transform: rotate(45deg)
+    .itemMenu
+        display: flex
+        align-items: center
+        position: relative
+        padding: 2px 0
+
+        .circle
+            width: 12px
+            height: 12px
+            border-radius: 50%
+            margin-left: 5px
+
+    .itemMenu > div
+        padding: 5px 0
+        border-bottom: 1px solid $color-border-dark
+        &:last-child
+            border: none
+.garbage
+    width: 14px
+    height: 14px
+.mainMenuItems
+    padding: 10px 0

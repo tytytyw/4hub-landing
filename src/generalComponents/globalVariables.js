@@ -134,6 +134,14 @@ export const URGENCY_TYPES = {
   URGENT: "urgent",
   PLANNED: "planned"
 };
+
+export const STATUS_TYPES = {
+  DONE: "done",
+  IN_PROGRESS: "inProgress",
+  CLARIFICATION: "clarification",
+  NOT_DONE: "notDone",
+  DEFAULT: "default"
+};
 export const BOARDS = {
   [TASK_TYPES.MEETINGS]: TASK_TYPES.MEETINGS,
   [TASK_TYPES.CALLS]: TASK_TYPES.CALLS,
@@ -172,10 +180,11 @@ export const TASK_MODALS = {
   ADD_TASK: "AddTask",
   ADD_MEETING: "AddMeeting",
   EDIT_MEETING: "EditMeeting",
+  RESCHEDULE_ONE: "RescheduleOne",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
   DELETE_TASK: "DeleteTask",
-  ADD_COOMENT_TASK: "AddCommentTask",
+  ADD_COMMENT_TASK: "AddCommentTask",
   ADD_REMINDER: "AddReminder",
   EDIT_TASK: "EditTask",
   ADD_NOTE_TO_MEETING: "AddNoteToMeeting",
@@ -190,7 +199,28 @@ export const contextMenuFolder = {
 
 export const contextMenuTask = {
   CUSTOMIZE: "customize",
-  DELETE: "delete"
+  DELETE: "delete",
+  ADD_COMMENT: "addComment",
+  ADD_REMINDER: "reminder",
+  RESCHEDULE_ONE: "rescheduleOne",
+  RESCHEDULE_ALL: "rescheduleAll",
+  ADD_MEETING_NOTE: "addMeetingNote"
+};
+
+export const TaskFields = {
+  NAME: "name",
+  DATE_START: "date_start",
+  DATE_END: "date_end",
+  EMAILS: "emails",
+  TAGS: "tags",
+  TEXT: "prim",
+  ID_EMOTION: "id_emo",
+  ID_FIGURE: "id_fig",
+  ID_COLOR: "id_color",
+  ID_TYPE: "id_type",
+  ID_DEP: "id_dep",
+  ID_ACT: "id_act",
+  ID_STATUS: "id_status"
 };
 
 // MAIL

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="edit">
+    <path d="M0 8.78381L8.74844 0L11.5699 2.83277L2.82143 11.6166L0 8.78381Z" transform="translate(1.4488959 1.9447508)" id="Path" fill="#4086F1" stroke="none" />
+    <path d="M0 3.13049L3.11797 2.26339L0.863633 0L0 3.13049Z" transform="translate(0.02144407 11.864014)" id="Path" fill="#4086F1" stroke="none" />
+    <path d="M2.7538 0.439719C2.16844 -0.146573 1.22079 -0.146573 0.635437 0.439719L0 1.07771L2.82143 3.91047L3.45687 3.27249C4.04105 2.68478 4.04105 1.73332 3.45687 1.14562L2.7538 0.439719Z" transform="translate(11.045052 0.016155332)" id="Path" fill="#4086F1" stroke="none" />
+  </g>
+</svg>
