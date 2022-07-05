@@ -12,6 +12,10 @@ import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
 import Calendar from "Pages/StartPage/Components/Calendar";
+import { getMaskDate } from "generalComponents/generalHelpers";
+import InputField from "generalComponents/InputField";
+import { useTypesMeeting } from "generalComponents/collections";
+import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 // import { useTaskMessages, useTypesMeeting } from "generalComponents/collections";
 // import InputField from "generalComponents/InputField";
 // import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
@@ -20,28 +24,36 @@ function RescheduleAll({ type, params, closeModal }) {
   const { __ } = useLocales();
   // const dispatch = useDispatch();
   // const messages = useTaskMessages();
-  // const typesMeeting = useTypesMeeting();
+  const typesMeeting = useTypesMeeting();
   // const [hh, setHh] = useState(
   //   params.chosenTasks.reduce((acc, item) => {
   //     acc.push({ hh: item.date_start.split(" ")[1].split(":")[0] });
   //     return acc;
   //   }, [])
   // );
-  const [tasks, setTasks] = useState(
-    params.chosenTasks.map((item) => ({
-      ...item,
-      time_start: item.date_start.split(" ")[1].slice(0, 5).split(":")
-    }))
-  );
+
   // const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [date, setDate] = useState("");
+  const [tasks, setTasks] = useState(
+    params.chosenTasks.reduce((acc, item) => {
+      acc[item.id] = item;
+      time_start: item.date_start.split(" ")[1].slice(0, 5).split(":");
+    }, {})
+  );
   const [showCalendar, setShowCalendar] = useState(false);
-  console.log(params);
+  console.log(tasks, setTasks);
 
   const onChangeDate = ({ target }) => {
-    console.log(target.value);
-    const aaa = tasks.map((item) => ({ ...item, date_start: target.value }));
-    setTasks(aaa);
+    if (target.value.length > 10) return;
+    setDate(getMaskDate(target.value));
   };
+
+  const setDateValue = (value) => setDate(getMaskDate(value));
+
+  const onChangeName = (value, id) => {
+    console.log(value, id);
+  };
+
   return (
     <div className={styles.editMeetingWrap}>
       <h5 className={styles.title}>
@@ -53,7 +65,7 @@ function RescheduleAll({ type, params, closeModal }) {
           <input
             className={styles.date}
             type="text"
-            value={params?.date_start}
+            value={date}
             placeholder={__("_ _._ _._ _ _ _")}
             onChange={onChangeDate}
           />
@@ -63,10 +75,47 @@ function RescheduleAll({ type, params, closeModal }) {
         </span>
       </div>
 
+      {tasks.map((item) => (
+        <div className={styles.timeWrap} key={item.id}>
+          <InputField
+            model="text"
+            value={item.name}
+            set={(value) => onChangeName(value, item.id)}
+            editableClass={"fixedHeight"}
+          />
+          <SelectChosen value={"getEventName"}>
+            <ul className={styles.eventsList}>
+              {typesMeeting.map((type) => (
+                <li
+                  key={type.id}
+                  onClick={() => {
+                    console.log("first");
+                  }}
+                  className={styles.typeItem}
+                >
+                  {type.name}
+                </li>
+              ))}
+            </ul>
+          </SelectChosen>
+          {/* <div className={classNames(styles.inputs_wrap_time)}>
+            <input
+              className={styles.time_count}
+              type="text"
+              placeholder={__("ЧЧ")}
+              value={hh}
+              onChange={onChangeHour}
+            />
+            <span className={styles.dots}>:</span>
+            <input className={styles.time_count} type="text" placeholder={__("ММ")} value={mm} onChange={onChangeMin} />
+          </div> */}
+        </div>
+      ))}
+
       <SubmitButtons type={type} closeModal={closeModal} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
     </div>
