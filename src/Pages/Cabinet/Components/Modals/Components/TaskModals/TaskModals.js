@@ -15,7 +15,8 @@ import DeleteSection from "./DeleteSection/DeleteSection";
 import DeleteTask from "./DeleteTask/DeleteTask";
 import OpenTask from "./OpenTask/OpenTask";
 import MeetingNote from "./MeetingNote/MeetingNote";
-import RescheduleOne from "./RescheduleOne/RescheduleOne";
+import RescheduleOne from "./RescheduleMeeting/RescheduleOne";
+import RescheduleAll from "./RescheduleMeeting/RescheduleAll";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -89,7 +90,12 @@ function TaskModals() {
         {type === TASK_MODALS.ADD_NOTE_TO_MEETING && (
           <MeetingNote type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
         )}
-        {type === TASK_MODALS.RESCHEDULE_ONE && <RescheduleOne type={type} closeModal={closeModal} params={params} />}
+        {type === TASK_MODALS.RESCHEDULE_ONE && (
+          <RescheduleOne type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
+        )}
+        {type === TASK_MODALS.RESCHEDULE_ALL && (
+          <RescheduleAll type={type} closeModal={closeModal} params={params.chosenTasks} />
+        )}
       </form>
     </PopUp>
   );

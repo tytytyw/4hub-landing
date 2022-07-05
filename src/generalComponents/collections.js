@@ -713,8 +713,8 @@ export function useTaskBoardTitle() {
 export function useTypesMeeting() {
   const { __ } = useLocales();
   return [
-    { name: __("Встреча online"), id: TASK_TYPES.ONLINE_MEETING },
-    { name: __("Встреча offline"), id: TASK_TYPES.OFFLINE_MEETING }
+    { name: __("Онлайн"), id: TASK_TYPES.ONLINE_MEETING },
+    { name: __("Офлайн"), id: TASK_TYPES.OFFLINE_MEETING }
   ];
 }
 
@@ -791,6 +791,14 @@ export function useTaskMessages() {
     [TASK_MODALS.DELETE_SECTION]: {
       success: __("Раздел удален"),
       error: __("Что-то пошло не так")
+    },
+    [TASK_MODALS.RESCHEDULE_ONE]: {
+      success: __("Встреча перенесена"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
+    [TASK_MODALS.RESCHEDULE_ALL]: {
+      success: __("Встречи перенесены"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
     },
 
     [TASK_TYPES.NOTES]: {
@@ -873,6 +881,7 @@ export function useTaskModalTitles() {
     [TASK_MODALS.ADD_TASK]: __("Добавление задачи"),
     [TASK_MODALS.ADD_MEETING]: __("Создать встречу"),
     [TASK_MODALS.RESCHEDULE_ONE]: __("Перенести встречу"),
+    [TASK_MODALS.RESCHEDULE_ALL]: __("Перенести все встречи"),
     [TASK_MODALS.ADD_CALL]: __("Создать звонок"),
     [TASK_MODALS.ADD_LETTER]: __("Создать письмо"),
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
