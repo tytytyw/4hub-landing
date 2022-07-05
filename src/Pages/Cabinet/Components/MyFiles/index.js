@@ -166,7 +166,7 @@ const MyFiles = ({
         entry.isIntersecting &&
         !loadingFiles &&
         filesPage !== 0 &&
-        (pathname.includes("files") || pathname === "/archive")
+        (pathname.includes("files") || pathname.startsWith("/archive") || pathname.startsWith("/journal"))
       ) {
         setLoadingFiles(true);
         dispatch(onChooseFiles("", search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname));

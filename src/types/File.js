@@ -97,6 +97,7 @@ export const fileSharedProps = PropTypes.exact({
   is_archive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   is_del: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   is_dir: PropTypes.number,
+  is_del: PropTypes.string,
   is_download: PropTypes.string,
   is_pass: PropTypes.number,
   is_preview: PropTypes.number,
@@ -149,7 +150,7 @@ export const loadedFileProps = PropTypes.exact({
     size_now: PropTypes.string
   }),
   options: PropTypes.exact({
-    color: PropTypes.string,
+    color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     destination: PropTypes.string,
     filePath: PropTypes.string,
     dir: PropTypes.string,
@@ -160,4 +161,39 @@ export const loadedFileProps = PropTypes.exact({
     symbol: PropTypes.string,
     tag: PropTypes.string
   })
+});
+
+export const journalFileProps = PropTypes.exact({
+  adate: PropTypes.bool,
+  color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  ctime: PropTypes.string,
+  date: PropTypes.number,
+  date_archive: PropTypes.string,
+  deadline: PropTypes.number,
+  deny_edit: PropTypes.string,
+  edit_url: PropTypes.string,
+  edit_url2: PropTypes.string,
+  emo: PropTypes.string,
+  ext: PropTypes.string,
+  fid: PropTypes.string,
+  fig: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  file: PropTypes.string,
+  file_link: PropTypes.string,
+  fname: PropTypes.string,
+  gdir: PropTypes.string,
+  is_archive: PropTypes.string,
+  is_del: PropTypes.string,
+  is_dir: PropTypes.number,
+  is_pass: PropTypes.number,
+  is_preview: PropTypes.number,
+  mime_type: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  mtime: PropTypes.string,
+  nameindb: PropTypes.string,
+  otime: PropTypes.string,
+  name: PropTypes.string,
+  preview: PropTypes.string,
+  size: PropTypes.number,
+  size_now: PropTypes.string,
+  tag: PropTypes.string,
+  tag2: PropTypes.string
 });

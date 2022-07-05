@@ -1,6 +1,8 @@
+@import "theme/theme"
+
 .workSpace
   display: flex
-  border-top: 1px solid #CFCFCF
+  border-top: 1px solid $color-border-grey
 
 .workSpacePreviewLine
   max-height: 700px
@@ -23,12 +25,13 @@
   top: 0
   background: linear-gradient(white 0%, white 100%)
   z-index: 4
+  border-bottom: 1px solid $color-border-grey
+
   .buttonsWrap
     display: flex
     align-items: center
     justify-content: space-between
 .fileWrap
-    border-bottom: 1px solid #CFCFCF
     width: 100%
     max-width: 100%
     box-sizing: border-box
@@ -41,7 +44,7 @@
   column-gap: 25px
   box-sizing: border-box
   position: relative
-  border-right: 1px solid #CFCFCF
+  border-right: 1px solid $color-border-grey
   padding: 0 25px 0 0
   &:last-child
     border-right: none
@@ -78,7 +81,7 @@
     font-family: "SF Pro Regular", sans-serif
     font-size: 14px
     line-height: 17px
-    color: #606060
+    color: $color-text-grey-medium
     min-width: 150px
 .dateNameShort
   font-size: 12px
@@ -88,7 +91,7 @@
   .playButton.revert
     transform: rotate(90deg)
     path
-      fill: #4086F1
+      fill: $color-blue-smooth
   .playButton
     transform: rotate(-90deg)
 
@@ -102,19 +105,21 @@
     width: 121px
     height: 32px
     border: none
-    background: rgba(64, 134, 241, 0.1)
+    background: $color-blue-opacity
     border-radius: 16px
     padding: 0 10px
     font-family: inherit
-    color: #666666
+    color: $color-text-grey-medium
     font-size: 12px
     line-height: 16px
-    box-shadow: 0 2px 4px #dedede
+    box-shadow: 0 2px 4px $color-shadow
     transition: background-color 0.2s ease-in-out
 .collapseBtnShort
   width: 101px
 .collapseContent
-  padding: 0 20px
+  padding: 20px
+.collapseContentJournal
+  padding: 0
 .collapseContentShort
   display: flex
   flex-direction: column
@@ -134,10 +139,10 @@
   position: relative
 
 .fileDate
-  border-top: 1px solid #CFCFCF
+  border-top: 1px solid $color-border-grey
   padding: 18px 20px 14px 20px
   p
     margin: 0
     font-size: 14px
     line-height: 19px
-    color: #606060
+    color: $color-text-grey-medium
