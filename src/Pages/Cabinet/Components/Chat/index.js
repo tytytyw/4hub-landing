@@ -35,6 +35,7 @@ import { clearAllChatMessages } from "./chatService";
 
 const Chat = ({ setMenuItem }) => {
   const { __ } = useLocales();
+  const [socket, setSocket] = useState(null);
   const contextMenuChat = useContextMenuChat();
   const [boardOption, setBoardOption] = useState("contacts");
   const [search, setSearch] = useState("");
@@ -124,16 +125,14 @@ const Chat = ({ setMenuItem }) => {
         name: __("Очистить историю у всех"),
         type: "clearAllMessages",
         callback: () => {
-          clearAllChatMessages(uid, selectedContact, 1)
-            .catch((e) => {
-              console.log(e);
-              dispatch(MODALS.ERROR, { open: true, message: __("Ошибка удаления всех сообщений") });
+          socket.send(
+            JSON.stringify({
+              action: "chat_message_del_all",
+              uid,
+              id_user_to: selectedContact.id_real_user,
+              is_all: 1
             })
-            .finally(() => {
-              const newContact = selectedContact;
-              dispatch(onSetSelectedContact(null));
-              dispatch(onSetSelectedContact(newContact));
-            });
+          );
         }
       },
       { name: __("Заблокировать"), type: "blockUser" },
@@ -510,6 +509,8 @@ const Chat = ({ setMenuItem }) => {
         setFile={setFile}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
+        socket={socket}
+        setSocket={setSocket}
       />
       {action.type === "addContact" ? (
         <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessPopup={setShowSuccessPopup} />
