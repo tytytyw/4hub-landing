@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MODALS, TaskFields, TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
-import styles from "./RescheduleOne.module.sass";
+import styles from "./RescheduleMeeting.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";

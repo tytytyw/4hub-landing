@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { TASK_MODALS } from "../../../../../../../generalComponents/globalVariables";
-import styles from "./RescheduleAll.module.sass";
+import styles from "./RescheduleMeeting.module.sass";
 import { useLocales } from "react-localized";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6.svg";
@@ -90,7 +90,7 @@ function RescheduleAll({ type, params, closeModal }) {
       </div>
       <div className={styles.dateName}> {__("Время встречи")} </div>
       {Object.entries(tasks).map(([id, item]) => (
-        <div className={styles.timeWrap} key={id}>
+        <div className={styles.timeWrap_all} key={id}>
           <InputField
             model="text"
             value={item.name}

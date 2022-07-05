@@ -15,8 +15,8 @@ import DeleteSection from "./DeleteSection/DeleteSection";
 import DeleteTask from "./DeleteTask/DeleteTask";
 import OpenTask from "./OpenTask/OpenTask";
 import MeetingNote from "./MeetingNote/MeetingNote";
-import RescheduleOne from "./RescheduleOne/RescheduleOne";
-import RescheduleAll from "./RescheduleAll/RescheduleAll";
+import RescheduleOne from "./RescheduleMeeting/RescheduleOne";
+import RescheduleAll from "./RescheduleMeeting/RescheduleAll";
 
 function TaskModals() {
   const dispatch = useDispatch();
