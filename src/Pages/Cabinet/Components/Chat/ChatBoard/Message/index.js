@@ -35,31 +35,6 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
         id_messages: [message.id],
         is_read: 1
       });
-      // await api
-      //   .post(
-      //     "/ajax/chat_message_update.php",
-      //     {},
-      //     {
-      //       params: {
-      //         uid,
-      //         id_messages: [message.id],
-      //         is_read: 1
-      //       }
-      //     }
-      //   )
-      //   .then((res) => {
-      //     checkResponseStatus(res.data.ok);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     dispatch(
-      //       onSetModals(MODALS.TOP_MESSAGE, {
-      //         open: true,
-      //         type: TOP_MESSAGE_TYPE.ERROR,
-      //         message: __(`Сообщение ${message.id} не прочитано`)
-      //       })
-      //     );
-      //   });
     }
   };
   const [containerRef] = useScrollElementOnScreen(
@@ -99,7 +74,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
           <img
             key={file.fid + i}
             className={styles.imagePreview}
-            src={file.preview}
+            src={file.link}
             alt={file.name}
             style={{
               height: calcImageSize(attachmentsWrapperRef?.current, message.attachment.length).height,
