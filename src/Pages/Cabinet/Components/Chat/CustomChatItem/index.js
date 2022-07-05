@@ -29,7 +29,7 @@ const CustomChatItem = ({
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const onChatItemClick = (e, isMenu) => {
     if (disableActions) return null;
-    if (isMenu)
+    if (isMenu) {
       setMouseParams({
         x: e.clientX,
         y: e.clientY,
@@ -37,6 +37,8 @@ const CustomChatItem = ({
         height: 25,
         contextMenuList
       });
+      return;
+    }
 
     if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
       setCollapseMembersList((state) => !state);
