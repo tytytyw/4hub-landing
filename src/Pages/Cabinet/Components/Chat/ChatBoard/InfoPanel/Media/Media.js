@@ -20,7 +20,9 @@ import {
   MEDIA,
   VIDEO,
   projectSrc,
-  DOCS
+  DOCS,
+  LINKS,
+  AUDIO
 } from "../../../../../../../generalComponents/globalVariables";
 import { checkFilePath } from "../../../chatService";
 
@@ -121,6 +123,15 @@ const Media = ({ setActiveOption, activeOption }) => {
       />
     ));
 
+  const renderLinks = () => {
+    const links = files[activeOption?.name];
+    return links.map((it, i) => (
+      <a href={it.link} target="_blank" key={i} className={styles.link} rel="noreferrer">
+        {it.link}
+      </a>
+    ));
+  };
+
   return (
     <div className={styles.wrapper}>
       <Header setActiveOption={setActiveOption} title={activeOption?.title} />
@@ -129,7 +140,7 @@ const Media = ({ setActiveOption, activeOption }) => {
       ) : (
         ""
       )}
-      {activeOption?.name === MEDIA || DOCS ? (
+      {activeOption?.name === MEDIA || activeOption?.name === DOCS || activeOption?.name === AUDIO ? (
         <div className={styles.content}>
           <div className={styles.picturesWrap}>{renderGroups()}</div>
         </div>
@@ -143,7 +154,11 @@ const Media = ({ setActiveOption, activeOption }) => {
           </div>
         </div>
       ) : null}
-      {/* {TODO: add group by date} */}
+      {activeOption?.name === LINKS ? (
+        <div className={styles.content}>
+          <div className={styles.linkWrap}>{renderLinks()}</div>
+        </div>
+      ) : null}
     </div>
   );
 };
