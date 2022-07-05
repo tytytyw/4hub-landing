@@ -23,7 +23,7 @@ function MeetingNote({ type, params, closeModal, onChangeField }) {
     <div className={styles.addNoteWrap}>
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
+        onChange={(value) => onChangeField(TaskFields.TEXT, value)}
         placeholder={__("Текст заметки")}
       />
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />

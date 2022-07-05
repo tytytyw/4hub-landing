@@ -34,7 +34,7 @@ function AddNote({ type, params, closeModal, onChangeField }) {
       />
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
+        onChange={(value) => onChangeField(TaskFields.TEXT, value)}
         placeholder={__("Текст заметки")}
       />
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />

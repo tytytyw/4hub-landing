@@ -44,7 +44,7 @@ function EditLetter({ type, params, closeModal, onChangeField }) {
       <div className={styles.margin} />
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
+        onChange={(value) => onChangeField(TaskFields.TEXT, value)}
         placeholder={__("Текст письма")}
       />
       <div className={styles.margin} />
