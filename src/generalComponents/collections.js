@@ -713,8 +713,8 @@ export function useTaskBoardTitle() {
 export function useTypesMeeting() {
   const { __ } = useLocales();
   return [
-    { name: __("Встреча online"), id: TASK_TYPES.ONLINE_MEETING },
-    { name: __("Встреча offline"), id: TASK_TYPES.OFFLINE_MEETING }
+    { name: __("Онлайн"), id: TASK_TYPES.ONLINE_MEETING },
+    { name: __("Офлайн"), id: TASK_TYPES.OFFLINE_MEETING }
   ];
 }
 

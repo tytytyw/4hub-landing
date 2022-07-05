@@ -89,7 +89,9 @@ function TaskModals() {
         {type === TASK_MODALS.ADD_NOTE_TO_MEETING && (
           <MeetingNote type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
         )}
-        {type === TASK_MODALS.RESCHEDULE_ONE && <RescheduleOne type={type} closeModal={closeModal} params={params} />}
+        {type === TASK_MODALS.RESCHEDULE_ONE && (
+          <RescheduleOne type={type} closeModal={closeModal} params={params} onChangeField={onChangeField} />
+        )}
       </form>
     </PopUp>
   );
