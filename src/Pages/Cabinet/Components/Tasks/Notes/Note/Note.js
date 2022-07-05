@@ -7,7 +7,6 @@ import classNames from "classnames";
 import { onSelectTask } from "Store/actions/TasksActions";
 import { taskTypes } from "types/Tasks";
 import Corner from "../Corner/Corner";
-import {} from "generalComponents/collections";
 import PropTypes from "prop-types";
 
 const Note = ({ note, setMouseParams }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./AddNote.module.sass";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
-import { TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import { useDispatch } from "react-redux";
@@ -25,16 +25,16 @@ function AddNote({ type, params, closeModal, onChangeField }) {
 
   return (
     <div className={styles.addNoteWrap}>
-      <TagPicker tag={params.tags} onSelectTag={(value) => onChangeField("tags", value)} />
+      <TagPicker tag={params.tags} onSelectTag={(value) => onChangeField(TaskFields.TAGS, value)} />
       <div className={styles.margin} />
       <Colors
         title={__("Выберите цвет Заметки")}
         color={params.id_color}
-        setColor={(value) => onChangeField("id_color", value)}
+        setColor={(value) => onChangeField(TaskFields.ID_COLOR, value)}
       />
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField("prim", value)}
+        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
         placeholder={__("Текст заметки")}
       />
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />

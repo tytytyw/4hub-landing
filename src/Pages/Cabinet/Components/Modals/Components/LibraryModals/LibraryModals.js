@@ -18,7 +18,7 @@ function TaskModals() {
       <form
         className={styles.taskModalsWrap}
         style={{
-          width: params?.width ?? 420
+          width: params.width ?? 420
         }}
       >
         <header className={styles.header}>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./MeetingNote.module.sass";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
-import { TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ function MeetingNote({ type, params, closeModal, onChangeField }) {
     <div className={styles.addNoteWrap}>
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField("prim", value)}
+        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
         placeholder={__("Текст заметки")}
       />
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />

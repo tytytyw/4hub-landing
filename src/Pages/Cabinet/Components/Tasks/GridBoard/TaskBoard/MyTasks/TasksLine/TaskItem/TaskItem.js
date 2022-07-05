@@ -21,6 +21,7 @@ import {
 } from "generalComponents/globalVariables";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import { getFormatDate } from "generalComponents/generalHelpers";
 
 const TaskItem = ({ task, number }) => {
   const { __ } = useLocales();
@@ -48,7 +49,12 @@ const TaskItem = ({ task, number }) => {
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.EDIT_TASK,
-          params: { width: 769, ...task }
+          params: {
+            width: 769,
+            ...task,
+            date_start: task.date_start ? getFormatDate(task.date_start) : "",
+            date_end: task.date_end ? getFormatDate(task.date_end) : ""
+          }
         })
       );
     },

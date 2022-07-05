@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { MODALS, TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import styles from "./EditMeeting.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
@@ -61,7 +61,7 @@ function EditMeeting({ type, params, closeModal, onChangeField }) {
       <InputField
         model="text"
         value={params.name}
-        set={(value) => onChangeField("name", value)}
+        set={(value) => onChangeField(TaskFields.NAME, value)}
         editableClass={"fixedHeight"}
       />
       <h5 className={styles.title}>{__("Тип встречи")}</h5>
@@ -71,7 +71,7 @@ function EditMeeting({ type, params, closeModal, onChangeField }) {
             <li
               key={type.id}
               onClick={() => {
-                onChangeField("id_type", type.id);
+                onChangeField(TaskFields.ID_TYPE, type.id);
               }}
               className={styles.typeItem}
             >
@@ -105,7 +105,10 @@ function EditMeeting({ type, params, closeModal, onChangeField }) {
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={(value) => onChangeField("date_start", value)} />
+          <Calendar
+            setShowCalendar={setShowCalendar}
+            setDateValue={(value) => onChangeField(TaskFields.DATE_START, value)}
+          />
         </PopUp>
       )}
     </div>

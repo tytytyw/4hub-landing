@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { MODALS, TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import styles from "./EditCall.module.sass";
 import { useLocales } from "react-localized";
@@ -55,7 +55,7 @@ function EditCall({ type, params, closeModal, onChangeField }) {
       <InputField
         model="text"
         value={params.name}
-        set={(value) => onChangeField("name", value)}
+        set={(value) => onChangeField(TaskFields.NAME, value)}
         editableClass={"fixedHeight"}
       />
       <h5 className={styles.title}>
@@ -82,7 +82,10 @@ function EditCall({ type, params, closeModal, onChangeField }) {
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={(value) => onChangeField("date_start", value)} />
+          <Calendar
+            setShowCalendar={setShowCalendar}
+            setDateValue={(value) => onChangeField(TaskFields.DATE_START, value)}
+          />
         </PopUp>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./EditLetter.module.sass";
-import { TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ function EditLetter({ type, params, closeModal, onChangeField }) {
       <InputField
         model="text"
         value={params.name}
-        set={(value) => onChangeField("name", value)}
+        set={(value) => onChangeField(TaskFields.NAME, value)}
         placeholder={__("Тема письма")}
         editableClass={"fixedHeight"}
       />
@@ -36,7 +36,7 @@ function EditLetter({ type, params, closeModal, onChangeField }) {
       <InputField
         model="text"
         value={params.emails}
-        set={(value) => onChangeField("emails", value)}
+        set={(value) => onChangeField(TaskFields.EMAILS, value)}
         placeholder={__("Получатель")}
         editableClass={"fixedHeight"}
         icon={<ContactBookIcon className={styles.contactIcon} />}
@@ -44,7 +44,7 @@ function EditLetter({ type, params, closeModal, onChangeField }) {
       <div className={styles.margin} />
       <TextArea
         text={params.prim}
-        onChange={(value) => onChangeField("prim", value)}
+        onChange={(value) => onChangeField(TaskFields.PRIM, value)}
         placeholder={__("Текст письма")}
       />
       <div className={styles.margin} />

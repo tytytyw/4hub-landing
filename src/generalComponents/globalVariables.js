@@ -207,6 +207,22 @@ export const contextMenuTask = {
   ADD_MEETING_NOTE: "addMeetingNote"
 };
 
+export const TaskFields = {
+  NAME: "name",
+  DATE_START: "date_start",
+  DATE_END: "date_end",
+  EMAILS: "emails",
+  TAGS: "tags",
+  PRIM: "prim",
+  ID_EM0: "id_emo",
+  ID_FIG: "id_fig",
+  ID_COLOR: "id_color",
+  ID_TYPE: "id_type",
+  ID_DEP: "id_dep",
+  ID_ACT: "id_act",
+  ID_STATUS: "id_status"
+};
+
 // MAIL
 
 export const MAIL_MODALS = {
