@@ -800,6 +800,10 @@ export function useTaskMessages() {
       success: __("Встречи перенесены"),
       error: __("Что-то пошло не так, попробуйте еще раз")
     },
+    [TASK_MODALS.ADD_COMMENT_TASK]: {
+      success: __("Комментарий добавлен"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
 
     [TASK_TYPES.NOTES]: {
       [TASK_MODALS.ADD_NOTE]: {

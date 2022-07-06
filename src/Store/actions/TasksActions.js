@@ -254,3 +254,29 @@ export const onEditTask = (payload, messages) => async (dispatch, getState) => {
     dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
   }
 };
+
+export const onAddTaskComment = (payload, messages, isClose) => async (dispatch, getState) => {
+  try {
+    const params = {
+      uid: getState().user.uid,
+      text: payload.text,
+      id_task: payload.id_task
+    };
+    const { data } = await api.get(`ajax/task_com_add.php`, { params });
+    checkResponseStatus(data.ok);
+    dispatch({ type: TasksTypes.ADD_TASK_COMMENT, payload: { text: payload.text, id: payload.id_task } });
+    isClose &&
+      dispatch(
+        onSetModals(MODALS.SUCCESS, {
+          open: true,
+          message: messages.success
+        })
+      );
+  } catch (e) {
+    dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+    dispatch(onSetModals(MODALS.ERROR, { open: true, message: messages.error }));
+    console.log(e);
+  } finally {
+    isClose && dispatch(onSetModals(MODALS.TASKS, { type: MODALS.NO_MODAL, params: null }));
+  }
+};
