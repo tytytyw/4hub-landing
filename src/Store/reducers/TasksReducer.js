@@ -43,6 +43,12 @@ export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
     case TasksTypes.SELECT_TASK:
       return { ...state, chosenTask: payload };
 
+    case TasksTypes.ADD_TASK_COMMENT: {
+      const newTasks = [...state.myTasks];
+      newTasks.forEach((item) => (item.id === payload.id ? item.comments.push(payload.text) : null));
+      return { ...state, myTasks: newTasks };
+    }
+
     default:
       return state;
   }
