@@ -134,7 +134,8 @@ VoiceMessagePlayer.propTypes = {
     if (Array.isArray(props[propName])) {
       if (props[propName].length !== 50) {
         return new Error(`invalid prop ${props[propName]} array lenght must be equal to 50. In ${componentName}`);
-      } else if (props[propName].some((item) => item > 100 || item < 0)) {
+      } else if (props[propName].some((item) => item > 200 || item < 0)) {
+        //TODO - mkortelov - test max should be 100
         return new Error(`incorrect value of an array ${props[propName]} expected value from 0 to 100`);
       }
     }

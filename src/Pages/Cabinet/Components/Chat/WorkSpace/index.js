@@ -9,7 +9,7 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
-import { addNewChatMessage, onReadMessages } from "../../../../../Store/actions/CabinetActions";
+import { addNewChatMessage, onReadMessages, onSetSelectedContact } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import SelectFile from "../SelectFile";
@@ -32,9 +32,10 @@ const WorkSpace = ({
   file,
   setFile,
   showSettings,
-  setShowSettings
+  setShowSettings,
+  socket,
+  setSocket
 }) => {
-  const [socket, setSocket] = useState(null);
   const [socketReconnect, setSocketReconnect] = useState(true);
   const uid = useSelector((state) => state.user.uid);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -124,6 +125,9 @@ const WorkSpace = ({
     }
     if (data.action === "chat_message_update") {
       dispatch(onReadMessages(data.id_messages));
+    }
+    if (data.action === "chat_message_del_all") {
+      dispatch(onSetSelectedContact(selectedContact));
     }
   };
 
@@ -381,5 +385,8 @@ WorkSpace.propTypes = {
   file: fileChatProps,
   setFile: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
-  setShowSettings: PropTypes.func.isRequired
+  setShowSettings: PropTypes.func.isRequired,
+  //eslint-disable-next-line
+  socket: PropTypes.object.isRequired,
+  setSocket: PropTypes.func.isRequired
 };

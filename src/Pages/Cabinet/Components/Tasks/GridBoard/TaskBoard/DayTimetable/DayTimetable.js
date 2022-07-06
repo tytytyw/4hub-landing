@@ -1,16 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./DayTimetable.module.sass";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import ThreeDots from "../../../../../../../generalComponents/ThreeDots/ThreeDots";
 import { taskTypes } from "types/Tasks";
-import { getFormatTime } from "generalComponents/generalHelpers";
-import { onSelectTask } from "Store/actions/TasksActions";
+import { contextMenuTask, imageSrc, MODALS, TASK_MODALS, TASK_TYPES } from "generalComponents/globalVariables";
+import ContextMenu from "generalComponents/ContextMenu";
+import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
+import { useContextMenuTasks } from "generalComponents/collections";
+import { onSetModals } from "Store/actions/CabinetActions";
+import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
+import { getFormatDate, getFormatTime } from "generalComponents/generalHelpers";
 
-function DayTimetable({ timePeriod, tasks, setMouseParams }) {
-  const { theme } = useSelector((s) => s.user.userInfo);
+function DayTimetable({ timePeriod, tasks, type }) {
   const dispatch = useDispatch();
+  const { theme } = useSelector((s) => s.user.userInfo);
+  const chosenTask = useSelector((s) => s.Tasks.chosenTask);
+  const contextMenu = useContextMenuTasks();
+  const [mouseParams, setMouseParams] = useState(null);
+
+  const callbacks = {
+    [contextMenuTask.DELETE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.DELETE_TASK,
+          params: { width: 420, ...chosenTask }
+        })
+      );
+    },
+
+    [contextMenuTask.CUSTOMIZE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.EDIT_TASK,
+          params: {
+            width: 420,
+            ...chosenTask,
+            date_start: getFormatDate(chosenTask.date_start),
+            time_start: getFormatTime(chosenTask.date_start)
+          }
+        })
+      );
+    },
+    [contextMenuTask.ADD_MEETING_NOTE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.ADD_NOTE_TO_MEETING,
+          params: { width: 420, ...chosenTask }
+        })
+      );
+    },
+    [contextMenuTask.RESCHEDULE_ONE]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.RESCHEDULE_ONE,
+          params: {
+            width: 420,
+            ...chosenTask,
+            date_start: getFormatDate(chosenTask.date_start),
+            time_start: getFormatTime(chosenTask.date_start)
+          }
+        })
+      );
+    },
+    [contextMenuTask.RESCHEDULE_ALL]: () => {
+      dispatch(
+        onSetModals(MODALS.TASKS, {
+          type: TASK_MODALS.RESCHEDULE_ALL,
+          params: {
+            width: 420,
+            chosenTasks: tasks.filter(
+              (el) => el.id_type === TASK_TYPES.OFFLINE_MEETING || el.id_type === TASK_TYPES.ONLINE_MEETING
+            )
+          }
+        })
+      );
+    }
+  };
 
   const renderTask = (hour) => {
     const h = hour.split(":")[0];
@@ -21,31 +87,41 @@ function DayTimetable({ timePeriod, tasks, setMouseParams }) {
     return timeTask;
   };
 
-  const chosenTask = (task) => dispatch(onSelectTask(task));
   const renderTimetableLine = () =>
     timePeriod.map((hours, i) => (
       <div key={i}>
         {tasks.length > 0 ? (
           renderTask(hours).length > 0 ? (
-            renderTask(hours).map((el) => (
-              <div key={el.id} className={classNames(styles.dayLine, styles.fill)} onClick={() => chosenTask(el)}>
-                <span className={styles.time}>{getFormatTime(el.date_start)}</span>
-                <span className={styles.name}> {el.name}</span>
-                <ThreeDots onClick={(e) => setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 })} />
-              </div>
-            ))
+            renderTask(hours).map((el) => <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} />)
           ) : (
             <div className={classNames(styles.dayLine)}>{hours}</div>
           )
         ) : (
           <div className={classNames(styles.dayLine)}>{hours}</div>
         )}
-        <div></div>
       </div>
     ));
 
   return (
-    <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>{renderTimetableLine()}</div>
+    <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>
+      {renderTimetableLine()}
+      {mouseParams !== null && (
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>
+            {contextMenu[type].map((item, i) => (
+              <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                callback={callbacks[item.type]}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuTasks/${item.img}.svg`}
+              />
+            ))}
+          </div>
+        </ContextMenu>
+      )}
+    </div>
   );
 }
 
@@ -58,5 +134,5 @@ DayTimetable.defaultProps = {
 DayTimetable.propTypes = {
   timePeriod: PropTypes.arrayOf(PropTypes.string), //list of hours per day
   tasks: PropTypes.arrayOf(taskTypes),
-  setMouseParams: PropTypes.func
+  type: PropTypes.string
 };

@@ -9,7 +9,10 @@ export const onFetchTaskDepartment = (messages) => async (dispatch, getState) =>
   try {
     const res = await api.get(`/ajax/task_dep_list.php?uid=${uid}`);
     checkResponseStatus(res.data.ok);
-    dispatch({ type: TasksTypes.GET_TASK_DEPARTMENT, payload: res.data.tasks });
+    dispatch({
+      type: TasksTypes.GET_TASK_DEPARTMENT,
+      payload: res.data.tasks ?? []
+    });
   } catch (error) {
     dispatch(
       onSetModals(MODALS.ERROR, {
@@ -90,6 +93,7 @@ export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
     dispatch(onSetModals(MODALS.LOADER, true));
     const { data } = await api.post(`/ajax/task_dep_del.php?uid=${uid}&id_dep=${params.id}`);
     checkResponseStatus(data.ok);
+
     dispatch({ type: TasksTypes.DELETE_TASK_DEPARTMENT, payload: data.id_dep });
     dispatch(
       onSetModals(MODALS.SUCCESS, {
@@ -230,7 +234,8 @@ export const onEditTask = (payload, messages) => async (dispatch, getState) => {
       id_act: payload.id_act,
       emails: payload.emails,
       tag: payload.tags,
-      id_task: payload.id
+      id_task: payload.id,
+      id_status: payload.id_status
     };
     const { data } = await api.get(`ajax/task_edit.php`, { params });
     checkResponseStatus(data.ok);

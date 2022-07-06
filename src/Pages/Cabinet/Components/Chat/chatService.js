@@ -1,5 +1,6 @@
 import api from "../../../../api";
 import { checkResponseStatus } from "../../../../generalComponents/generalHelpers";
+import { PHOTO, VIDEO } from "../../../../generalComponents/globalVariables";
 
 export async function clearAllChatMessages(uid, contact, all) {
   return api
@@ -11,4 +12,11 @@ export async function clearAllChatMessages(uid, contact, all) {
       }
     })
     .then((res) => checkResponseStatus(res.data.ok));
+}
+
+export function checkFilePath(option, subOption) {
+  if (subOption?.name === PHOTO || subOption?.name === VIDEO) {
+    return subOption?.name;
+  }
+  return option?.name;
 }

@@ -60,5 +60,7 @@ export const taskTypes = PropTypes.exact({
   id_type: PropTypes.string,
   id_dep: PropTypes.string,
   id_act: PropTypes.string,
+  id_status: PropTypes.string,
+  time_start: PropTypes.string,
   width: PropTypes.number
 });

@@ -19,21 +19,28 @@ import {
   MUSIC,
   MEDIA,
   VIDEO,
-  projectSrc
+  projectSrc,
+  DOCS,
+  LINKS,
+  AUDIO
 } from "../../../../../../../generalComponents/globalVariables";
+import { checkFilePath } from "../../../chatService";
 
 const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
   const [activeSubOption, setActiveSubOption] = useState(activeOption?.subOptions[0]);
   const files = useSelector((state) => state.Cabinet.chat.files);
 
-  const renderMediaGroups = () => {
-    const items = files[activeSubOption?.name]?.files ?? {};
+  const renderGroups = () => {
+    const items = files[checkFilePath(activeOption, activeSubOption)]?.files ?? {};
     return Object.entries(items).map(([key, value]) => (
       <div key={key} className={styles.groupByDate}>
         <h5 className={styles.dateTitle}>{key}</h5>
         {activeSubOption?.name === PHOTO ? <div className={styles.picturesWrap}>{renderImages(value)}</div> : null}
         {activeSubOption?.name === VIDEO ? <div className={styles.picturesWrap}>{renderVideos(value)}</div> : null}
+        {activeOption?.name === DOCS ? renderDocuments(value) : null}
+        {activeSubOption?.name === MUSIC ? renderMusicFiles(value) : null}
+        {activeSubOption?.name === VOICE_MESSAGES ? renderVoiceMessages(value) : null}
       </div>
     ));
   };
@@ -58,6 +65,12 @@ const Media = ({ setActiveOption, activeOption }) => {
     });
   };
 
+  const renderDocuments = (documents) => {
+    return documents.map((document, i) => {
+      return <FileMessage key={i} file={document} size={SIZE_SMALL} />;
+    });
+  };
+
   const renderFiles = () => {
     const filesList = files
       ? Object.values(files).reduce(
@@ -75,21 +88,28 @@ const Media = ({ setActiveOption, activeOption }) => {
           []
         )
       : [];
-    return filesList.map((file, i) => <FileMessage key={i} file={file} size={SIZE_SMALL} />);
+    return filesList.map((file, i) =>
+      file.type.startsWith("image") ? (
+        <div className={styles.miniPictureWrap} key={i}>
+          <img src={file.link} alt="pic"></img>
+        </div>
+      ) : (
+        <FileMessage key={i} file={file} size={SIZE_SMALL} />
+      )
+    );
   };
 
-  const renderVoiceMessages = () => {
-    const audio = files?.audio?.files.filter((item) => item.kind === AUDIO_MESSAGE) ?? [];
-
-    return audio.map((info) => {
-      return <AudioMessage key={info.id} messageInfo={info} />;
+  const renderVoiceMessages = (voice) => {
+    return voice.map((it) => {
+      return it.kind === AUDIO_MESSAGE ? <AudioMessage key={it.id} messageInfo={it} /> : null;
     });
   };
 
-  const renderMusicFiles = () => {
-    const audio = files?.audio?.files.filter((item) => item.kind !== AUDIO_MESSAGE) ?? [];
-    return audio.map((info) => {
-      return <AudioPlayer key={info.id} name={info.name} src={info.link} />;
+  const renderMusicFiles = (audio) => {
+    return audio.map((it) => {
+      return it.kind !== AUDIO_MESSAGE && activeSubOption?.name === VOICE_MESSAGES ? (
+        <AudioPlayer key={it.id} name={it.name} src={it.link} />
+      ) : null;
     });
   };
 
@@ -103,6 +123,15 @@ const Media = ({ setActiveOption, activeOption }) => {
       />
     ));
 
+  const renderLinks = () => {
+    const links = files[activeOption?.name];
+    return links.map((it, i) => (
+      <a href={it.link} target="_blank" key={i} className={styles.link} rel="noreferrer">
+        {it.link}
+      </a>
+    ));
+  };
+
   return (
     <div className={styles.wrapper}>
       <Header setActiveOption={setActiveOption} title={activeOption?.title} />
@@ -111,9 +140,9 @@ const Media = ({ setActiveOption, activeOption }) => {
       ) : (
         ""
       )}
-      {activeOption?.name === MEDIA ? (
+      {activeOption?.name === MEDIA || activeOption?.name === DOCS || activeOption?.name === AUDIO ? (
         <div className={styles.content}>
-          <div className={styles.picturesWrap}>{renderMediaGroups()}</div>
+          <div className={styles.picturesWrap}>{renderGroups()}</div>
         </div>
       ) : null}
 
@@ -125,9 +154,11 @@ const Media = ({ setActiveOption, activeOption }) => {
           </div>
         </div>
       ) : null}
-      {/* {TODO: add group by date} */}
-      {activeSubOption?.name === VOICE_MESSAGES ? renderVoiceMessages() : ""}
-      {activeSubOption?.name === MUSIC ? renderMusicFiles() : ""}
+      {activeOption?.name === LINKS ? (
+        <div className={styles.content}>
+          <div className={styles.linkWrap}>{renderLinks()}</div>
+        </div>
+      ) : null}
     </div>
   );
 };

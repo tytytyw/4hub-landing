@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { MODALS, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
+import { MODALS, TaskFields, TASK_MODALS, TASK_TYPES } from "../../../../../../../generalComponents/globalVariables";
 import styles from "./EditMeeting.module.sass";
 import { useLocales } from "react-localized";
 import classNames from "classnames";
@@ -9,7 +9,7 @@ import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-6
 import { useDispatch } from "react-redux";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { getFormatTime, getMaskDate } from "generalComponents/generalHelpers";
+import { getMaskDate } from "generalComponents/generalHelpers";
 import InputField from "generalComponents/InputField";
 import { taskTypes } from "types/Tasks";
 import PopUp from "generalComponents/PopUp";
@@ -17,18 +17,14 @@ import Calendar from "Pages/StartPage/Components/Calendar";
 import { useTaskMessages, useTypesMeeting } from "generalComponents/collections";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
 
-function EditMeeting({ type, params, closeModal }) {
+function EditMeeting({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
   const typesMeeting = useTypesMeeting();
-  const [hh, setHh] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[0] : "");
-  const [mm, setMm] = useState(params.date_start ? getFormatTime(params.date_start).split(":")[1] : "");
+  const [hh, setHh] = useState(params.time_start ? params.time_start.split(":")[0] : "");
+  const [mm, setMm] = useState(params.time_start ? params.time_start.split(":")[1] : "");
   const [showCalendar, setShowCalendar] = useState(false);
-
-  const onChangeName = (name) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, name } }));
-  };
 
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
@@ -36,18 +32,16 @@ function EditMeeting({ type, params, closeModal }) {
     dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
   };
 
-  const setDateValue = (date_start) => {
-    dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, date_start } }));
-  };
-
   const onChangeHour = ({ target }) => {
     if (target.value.length > 2) return;
     setHh(getMaskDate(target.value));
   };
+
   const onChangeMin = ({ target }) => {
     if (target.value.length > 2) return;
     setMm(getMaskDate(target.value));
   };
+
   const onSubmit = () => {
     const payload = {
       ...params,
@@ -61,17 +55,14 @@ function EditMeeting({ type, params, closeModal }) {
 
   const getEventName = () => typesMeeting.find((el) => el.id === params.id_type).name;
 
-  const onChangeEventType = (id_type) => dispatch(onSetModals(MODALS.TASKS, { type, params: { ...params, id_type } }));
-
   return (
     <div className={styles.editMeetingWrap}>
       <h5 className={styles.title}>{__("Название встречи")}</h5>
       <InputField
         model="text"
         value={params.name}
-        set={onChangeName}
+        set={(value) => onChangeField(TaskFields.NAME, value)}
         editableClass={"fixedHeight"}
-        className={styles.www}
       />
       <h5 className={styles.title}>{__("Тип встречи")}</h5>
       <SelectChosen value={getEventName()}>
@@ -80,7 +71,7 @@ function EditMeeting({ type, params, closeModal }) {
             <li
               key={type.id}
               onClick={() => {
-                onChangeEventType(type.id);
+                onChangeField(TaskFields.ID_TYPE, type.id);
               }}
               className={styles.typeItem}
             >
@@ -114,7 +105,10 @@ function EditMeeting({ type, params, closeModal }) {
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+          <Calendar
+            setShowCalendar={setShowCalendar}
+            setDateValue={(value) => onChangeField(TaskFields.DATE_START, value)}
+          />
         </PopUp>
       )}
     </div>
@@ -130,5 +124,6 @@ EditMeeting.defaultProps = {
 EditMeeting.propTypes = {
   type: PropTypes.oneOf(Object.values(TASK_MODALS)).isRequired,
   params: taskTypes,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  onChangeField: PropTypes.func
 };

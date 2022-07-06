@@ -116,7 +116,9 @@ export const messageProps = PropTypes.exact({
   is_del: PropTypes.string,
   is_read: PropTypes.string,
   text: PropTypes.string,
-  ut: PropTypes.string
+  ut: PropTypes.string,
+  is_hide: PropTypes.string,
+  is_hide_to: PropTypes.string
 });
 
 export const contactProps = {
