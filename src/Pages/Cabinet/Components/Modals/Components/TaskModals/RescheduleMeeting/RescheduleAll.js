@@ -67,6 +67,7 @@ function RescheduleAll({ type, params, closeModal }) {
       dispatch(onEditTask(payload, messages[type]));
     });
   };
+
   const renderMeetingTime = () => {
     return Object.entries(tasks).map(([id, item]) => (
       <div className={styles.timeWrap_all} key={id}>
