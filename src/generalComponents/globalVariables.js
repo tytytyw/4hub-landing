@@ -250,5 +250,5 @@ export const CART = {
 // JOURNAL
 
 export const JOURNAL = {
-  API_GET_FILES: "history_get"
+  API_GET_JOURNAL_FILES: "history_get"
 };

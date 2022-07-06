@@ -10,7 +10,13 @@ import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps, fileSharedProps, journalFileProps } from "../../../../../types/File";
+import {
+  filePickProps,
+  fileProps,
+  fileSharedProps,
+  journalFileProps,
+  journalShareFileProps
+} from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { folderProps } from "../../../../../types/Folder";
 import { mouseParamsProps } from "../../../../../types/MouseParams";
@@ -106,11 +112,13 @@ function FilesGroup({
                   {renderFiles(FileBar, fileList)}
                 </WorkBars>
               )}
-              {workElementsView === "lines" && pathname.startsWith("/journal") ? (
-                <div className={styles.collapseContentJournal}>{renderJournalFileLine(fileList)}</div>
-              ) : (
-                <div className={styles.collapseContent}>{renderFiles(FileLine, fileList)}</div>
-              )}
+              {workElementsView === "lines" ? (
+                pathname.startsWith("/journal") ? (
+                  <div className={styles.collapseContentJournal}>{renderJournalFileLine(fileList)}</div>
+                ) : (
+                  <div className={styles.collapseContent}>{renderFiles(FileLine, fileList)}</div>
+                )
+              ) : null}
               {workElementsView === "workLinesPreview" ? (
                 pathname.includes("files") || pathname === "/archive" || pathname === "/cart" ? (
                   <div className={styles.collapseContentFileItem}>{renderFileItem(FileItem, fileList)}</div>
@@ -129,7 +137,9 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.arrayOf(PropTypes.oneOfType([fileProps, fileSharedProps, journalFileProps])),
+  fileList: PropTypes.arrayOf(
+    PropTypes.oneOfType([fileProps, fileSharedProps, journalFileProps, journalShareFileProps])
+  ),
   filePick: filePickProps,
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,

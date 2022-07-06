@@ -287,3 +287,12 @@ export const getMaskDate = (date) => {
     }[tempValue.length] || [])
   );
 };
+
+export const changePreviewTime = async (uid, fid) => {
+  return api
+    .post(`/ajax/history_file_update.php?uid=${uid}&fid=${fid}`)
+    .then((res) => {
+      return !!res.data.ok;
+    })
+    .catch(() => false);
+};

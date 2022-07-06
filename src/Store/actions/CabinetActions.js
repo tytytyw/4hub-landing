@@ -1234,7 +1234,8 @@ export const onLoadFiles =
       dir: getState().Cabinet.fileList.path,
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`,
-      group: getState().Cabinet.fileCriterion.group
+      group: getState().Cabinet.fileCriterion.group,
+      sort: "byDateChanged"
     };
     api
       .get(`/ajax/${endpoint}.php`, {

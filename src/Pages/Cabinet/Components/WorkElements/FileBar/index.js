@@ -8,6 +8,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/File";
+import { changePreviewTime } from "generalComponents/generalHelpers";
 
 const FileBar = ({
   file,
@@ -21,6 +22,7 @@ const FileBar = ({
   openFolderMenu
 }) => {
   const size = useSelector((state) => state.Cabinet.size);
+  const uid = useSelector((state) => state.user.uid);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
 
@@ -43,6 +45,7 @@ const FileBar = ({
       setChosenFile(null);
     } else {
       dispatch(onSetModals("previewFile", { ...previewFile, open: true, file }));
+      changePreviewTime(uid, file.fid);
     }
   };
 

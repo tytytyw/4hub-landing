@@ -51,7 +51,7 @@ function FileAccessEdit({ user, showUserAccessStatus, changeUserAccessRightsInUs
             [styles.radioChosen]: showUserAccessStatus(user) === ACCESS_RIGHTS.DOWNLOAD
           })}
         />
-        <div>Скачивание</div>
+        <div>{__("Скачивание")}</div>
       </div>
       <div
         className={`${styles.reviewOption} ${styles.reviewOptionLast}`}
