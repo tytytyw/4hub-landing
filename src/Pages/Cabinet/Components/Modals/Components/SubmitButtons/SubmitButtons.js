@@ -15,6 +15,7 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
       case TASK_MODALS.EDIT_NOTE:
       case TASK_MODALS.EDIT_TASK:
       case TASK_MODALS.RESCHEDULE_ONE:
+      case TASK_MODALS.RESCHEDULE_ALL:
         return __("Сохранить");
 
       case TASK_MODALS.DELETE_TASK:
@@ -41,6 +42,8 @@ function SubmitButtons({ type, closeModal, onSubmit }) {
         TASK_MODALS.EDIT_TASK,
         TASK_MODALS.ADD_NOTE_TO_MEETING,
         TASK_MODALS.RESCHEDULE_ONE,
+        TASK_MODALS.RESCHEDULE_ALL,
+
         //Library
         LIBRARY_MODALS.ADD_SECTION,
         LIBRARY_MODALS.RENAME_SECTION

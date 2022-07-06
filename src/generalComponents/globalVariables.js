@@ -181,6 +181,7 @@ export const TASK_MODALS = {
   ADD_MEETING: "AddMeeting",
   EDIT_MEETING: "EditMeeting",
   RESCHEDULE_ONE: "RescheduleOne",
+  RESCHEDULE_ALL: "RescheduleAll",
   ADD_CALL: "AddCall",
   ADD_LETTER: "AddLetter",
   DELETE_TASK: "DeleteTask",
