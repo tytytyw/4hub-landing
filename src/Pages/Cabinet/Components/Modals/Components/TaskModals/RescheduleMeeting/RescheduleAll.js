@@ -67,6 +67,44 @@ function RescheduleAll({ type, params, closeModal }) {
       dispatch(onEditTask(payload, messages[type]));
     });
   };
+  const renderMeetingTime = () => {
+    return Object.entries(tasks).map(([id, item]) => (
+      <div className={styles.timeWrap_all} key={id}>
+        <InputField
+          model="text"
+          value={item.name}
+          set={(value) => onChangeName(value, id)}
+          editableClass={"fixedHeight"}
+        />
+        <SelectChosen value={getEventName(item.id_type)}>
+          <ul className={styles.eventsList}>
+            {typesMeeting.map((type) => (
+              <li key={type.id} className={styles.typeItem} onClick={() => onChangeTypeMeeting(type.id, id)}>
+                {type.name}
+              </li>
+            ))}
+          </ul>
+        </SelectChosen>
+        <div className={styles.inputs_wrap_time}>
+          <input
+            className={styles.time_count}
+            type="text"
+            placeholder={__("ЧЧ")}
+            value={item.time_start[0]}
+            onChange={(e) => onChangeHour(e, id)}
+          />
+          <span className={styles.dots}>:</span>
+          <input
+            className={styles.time_count}
+            type="text"
+            placeholder={__("ММ")}
+            value={item.time_start[1]}
+            onChange={(e) => onChangeMinutes(e, id)}
+          />
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <div className={styles.editMeetingWrap}>
@@ -89,43 +127,7 @@ function RescheduleAll({ type, params, closeModal }) {
         </span>
       </div>
       <div className={styles.dateName}> {__("Время встречи")} </div>
-      {Object.entries(tasks).map(([id, item]) => (
-        <div className={styles.timeWrap_all} key={id}>
-          <InputField
-            model="text"
-            value={item.name}
-            set={(value) => onChangeName(value, id)}
-            editableClass={"fixedHeight"}
-          />
-          <SelectChosen value={getEventName(item.id_type)}>
-            <ul className={styles.eventsList}>
-              {typesMeeting.map((type) => (
-                <li key={type.id} className={styles.typeItem} onClick={() => onChangeTypeMeeting(type.id, id)}>
-                  {type.name}
-                </li>
-              ))}
-            </ul>
-          </SelectChosen>
-          <div className={styles.inputs_wrap_time}>
-            <input
-              className={styles.time_count}
-              type="text"
-              placeholder={__("ЧЧ")}
-              value={item.time_start[0]}
-              onChange={(e) => onChangeHour(e, id)}
-            />
-            <span className={styles.dots}>:</span>
-            <input
-              className={styles.time_count}
-              type="text"
-              placeholder={__("ММ")}
-              value={item.time_start[1]}
-              onChange={(e) => onChangeMinutes(e, id)}
-            />
-          </div>
-        </div>
-      ))}
-
+      {renderMeetingTime()}
       <SubmitButtons type={type} closeModal={closeModal} onSubmit={onSubmit} />
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
