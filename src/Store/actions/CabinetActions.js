@@ -1235,7 +1235,7 @@ export const onLoadFiles =
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`,
       group: getState().Cabinet.fileCriterion.group,
-      sort: "byDateChanged"
+      sort: "byDateChanged" //TODO - VZ - Добавить в стейт
     };
     api
       .get(`/ajax/${endpoint}.php`, {
