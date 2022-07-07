@@ -49,6 +49,36 @@ function TaskModals() {
         break;
     }
   };
+
+  const getEditTitle = () => {
+    switch (params.id_type) {
+      case TASK_TYPES.OFFLINE_MEETING:
+      case TASK_TYPES.ONLINE_MEETING:
+        return TITLES[TASK_TYPES.MEETINGS];
+
+      case TASK_TYPES.CALLS:
+        return TITLES[TASK_TYPES.CALLS];
+
+      case TASK_TYPES.NOTES:
+        return TITLES[TASK_TYPES.NOTES];
+
+      case TASK_TYPES.TASK:
+        return TITLES[TASK_TYPES.TASK];
+
+      default:
+        break;
+    }
+  };
+
+  const getTitle = () => {
+    switch (type) {
+      case TASK_MODALS.EDIT_TASK:
+        return getEditTitle();
+
+      default:
+        return TITLES[type];
+    }
+  };
   return (
     <PopUp set={closeModal}>
       <form
@@ -61,7 +91,7 @@ function TaskModals() {
           <button className={styles.button} onClick={closeModal}>
             <span className={styles.cross} />
           </button>
-          <span className={styles.title}>{TITLES[type]}</span>
+          <span className={styles.title}>{getTitle()}</span>
         </header>
 
         {type === TASK_MODALS.EDIT_TASK && getEditTask()}
