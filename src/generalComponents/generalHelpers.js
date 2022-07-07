@@ -1,9 +1,10 @@
 import html2canvas from "html2canvas";
-import { imageSrc } from "./globalVariables";
+import { imageSrc, MODALS, TOP_MESSAGE_TYPE } from "./globalVariables";
 import api from "../api";
 import axios from "axios";
 import { setCookie } from "./StorageHelper";
 import { useLocales } from "react-localized";
+import { onSetModals } from "Store/actions/CabinetActions";
 const CancelToken = axios.CancelToken;
 
 //set image to requested size with maxWidth && maxHeight params
@@ -288,11 +289,16 @@ export const getMaskDate = (date) => {
   );
 };
 
-export const changePreviewTime = async (uid, fid) => {
+export const changePreviewTime = async (uid, fid, dispatch) => {
   return api
     .post(`/ajax/history_file_update.php?uid=${uid}&fid=${fid}`)
     .then((response) => {
       checkResponseStatus(response.data.ok);
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      dispatch(
+        onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message: "Error change mtime" })
+      );
+      console.log(e);
+    });
 };

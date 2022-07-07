@@ -45,7 +45,7 @@ const FileBar = ({
       setChosenFile(null);
     } else {
       dispatch(onSetModals("previewFile", { ...previewFile, open: true, file }));
-      changePreviewTime(uid, file.fid);
+      changePreviewTime(uid, file.fid, dispatch);
     }
   };
 

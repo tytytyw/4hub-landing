@@ -54,7 +54,7 @@ const FileLine = ({
     if (file?.is_dir) {
       folderSelect(file);
     } else {
-      changePreviewTime(uid, file.fid);
+      changePreviewTime(uid, file.fid, dispatch);
       dispatch(onSetModals(MODALS.FILE_PREVIEW, { ...previewFile, open: true, file }));
     }
   };
