@@ -23,6 +23,7 @@ const AddComments = ({ type, params, closeModal }) => {
   const task = useSelector((s) => s.Tasks.myTasks).find((task) => task.id === params.id);
 
   const handleSubmit = (isClose) => {
+    if (comment.length === 0) return;
     const payload = {
       id_task: params.id,
       text: comment
@@ -32,9 +33,9 @@ const AddComments = ({ type, params, closeModal }) => {
   };
 
   const renderComments = (comments) => {
-    return comments.map((el, i) => (
-      <p key={i} className={styles.comment}>
-        {el}
+    return comments.map((item) => (
+      <p key={item.id} className={styles.comment}>
+        {item.text}
       </p>
     ));
   };

@@ -264,7 +264,7 @@ export const onAddTaskComment = (payload, messages, isClose) => async (dispatch,
     };
     const { data } = await api.get(`ajax/task_com_add.php`, { params });
     checkResponseStatus(data.ok);
-    dispatch({ type: TasksTypes.ADD_TASK_COMMENT, payload: { text: payload.text, id: payload.id_task } });
+    dispatch({ type: TasksTypes.ADD_TASK_COMMENT, payload: data.comment });
     isClose &&
       dispatch(
         onSetModals(MODALS.SUCCESS, {
