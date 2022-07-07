@@ -50,7 +50,7 @@ function TaskModals() {
     }
   };
 
-  const getEditTitle = () => {
+  const getTitleEditTask = () => {
     switch (params.id_type) {
       case TASK_TYPES.OFFLINE_MEETING:
       case TASK_TYPES.ONLINE_MEETING:
@@ -73,7 +73,7 @@ function TaskModals() {
   const getTitle = () => {
     switch (type) {
       case TASK_MODALS.EDIT_TASK:
-        return getEditTitle();
+        return getTitleEditTask();
 
       default:
         return TITLES[type];
