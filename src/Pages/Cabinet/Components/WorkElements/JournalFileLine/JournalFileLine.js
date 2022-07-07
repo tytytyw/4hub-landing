@@ -9,13 +9,11 @@ import { onSetModals } from "Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { PropTypes } from "prop-types";
 import { diffDays } from "@fullcalendar/react";
-import { useHistory } from "react-router";
 import ShareUserIcon from "generalComponents/ShareUserIcon/ShareUserIcon";
 import { parseCalendarDateToDate } from "generalComponents/CalendarHelper";
 
 function JournalFileLine({ file }) {
   const { __ } = useLocales();
-  const history = useHistory();
   const dispatch = useDispatch();
   const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
 
@@ -40,10 +38,6 @@ function JournalFileLine({ file }) {
 
   const accessRights = () =>
     file.is_download === "1" ? __("Скачивание") : file.is_write === "1" ? __("Редактирование") : __("Просмотр");
-
-  const openShareFile = () => {
-    setTimeout(() => history.push("/shared-files"), 50);
-  };
 
   return (
     <div
@@ -75,7 +69,7 @@ function JournalFileLine({ file }) {
         </div>
       ) : null}
       {
-        // TODO - VZ - сделать переадресацию
+        // TODO - VZ - change redirect
         file.user_name ? (
           <div>
             <OpenInFolderButton file={file} isHover={isHover} pathUrl={"/shared-files"} />

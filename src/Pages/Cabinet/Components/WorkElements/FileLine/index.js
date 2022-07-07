@@ -14,6 +14,7 @@ import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { callbackArrMain } from "types/CallbackArrMain";
+import { changePreviewTime } from "generalComponents/generalHelpers";
 
 const FileLine = ({
   file,
@@ -30,6 +31,7 @@ const FileLine = ({
   sharedFilesInfo
 }) => {
   const size = useSelector((state) => state.Cabinet.size);
+  const uid = useSelector((state) => state.user.uid);
   const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -52,6 +54,7 @@ const FileLine = ({
     if (file?.is_dir) {
       folderSelect(file);
     } else {
+      changePreviewTime(uid, file.fid);
       dispatch(onSetModals(MODALS.FILE_PREVIEW, { ...previewFile, open: true, file }));
     }
   };

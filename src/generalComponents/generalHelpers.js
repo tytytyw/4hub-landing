@@ -291,8 +291,8 @@ export const getMaskDate = (date) => {
 export const changePreviewTime = async (uid, fid) => {
   return api
     .post(`/ajax/history_file_update.php?uid=${uid}&fid=${fid}`)
-    .then((res) => {
-      return !!res.data.ok;
+    .then((response) => {
+      checkResponseStatus(response.data.ok);
     })
-    .catch(() => false);
+    .catch((e) => console.log(e));
 };
