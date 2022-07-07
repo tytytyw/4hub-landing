@@ -706,7 +706,7 @@ export function useTaskBoardTitle() {
     [TASK_TYPES.MEETINGS]: __("Встречи"),
     [TASK_TYPES.CALLS]: __("Звонки"),
     [TASK_TYPES.MAILS]: __("Письма"),
-    [TASK_TYPES.TASK]: __("Мои задачи")
+    [TASK_TYPES.TASK]: __("Создать новую задачу")
   };
 }
 

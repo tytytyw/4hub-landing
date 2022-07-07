@@ -1,19 +1,19 @@
-import { TASK_TYPES } from "generalComponents/globalVariables";
 import React from "react";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import styles from "./MyTasks.module.sass";
 import TasksLine from "./TasksLine/TasksLine";
-import TaskTabs from "./TaskTabs/TaskTabs";
+import { taskTypes } from "types/Tasks";
 
-function MyTasks() {
-  const tasks = useSelector((s) => s.Tasks.myTasks).filter((task) => task.id_type === TASK_TYPES.TASK);
-
+function MyTasks({ tasks }) {
   return (
     <div className={styles.myTasksWrap}>
-      <TaskTabs taskTabs={["Design Tasks", "Office"]} isTasks={tasks.length > 0} />
       <TasksLine tasks={tasks} />
     </div>
   );
 }
 
 export default MyTasks;
+
+MyTasks.propTypes = {
+  tasks: PropTypes.arrayOf(taskTypes)
+};
