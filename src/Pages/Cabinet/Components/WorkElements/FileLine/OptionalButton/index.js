@@ -45,7 +45,7 @@ const OptionalButton = ({ file, successLoad }) => {
       );
   };
 
-  const renderInSharedFiles = () => <OpenInFolderButton file={file} />;
+  const renderInSharedFiles = () => <OpenInFolderButton file={file} pathUrl={"/folder"} />;
 
   const renderInArchive = () => (
     <div className={styles.button} onClick={unArchiveFile}>

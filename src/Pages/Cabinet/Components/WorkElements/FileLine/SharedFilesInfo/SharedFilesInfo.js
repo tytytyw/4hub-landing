@@ -3,13 +3,13 @@ import styles from "./SharedFilesInfo.module.sass";
 import { MODALS, SHARED_ACCESS_RIGHTS, SHARED_FILES } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
-import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { diffDays } from "@fullcalendar/react";
 import { useDispatch, useSelector } from "react-redux";
 import { onGetFilesUserShared, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 import { fileSharedProps } from "../../../../../../types/File";
+import ShareUserIcon from "generalComponents/ShareUserIcon/ShareUserIcon";
 
 //eslint-disable-next-line
 const CONTEXT = {
@@ -75,18 +75,10 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
               left: `${i * 10}px`
             }}
           >
-            {renderUser(user)}
+            <ShareUserIcon userIcon={user.user_icon} name={user.user_name} />
           </div>
         ))
       : null;
-
-  const renderUser = (file) => {
-    return file?.user_icon?.length >= 1 ? (
-      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
-    ) : (
-      <UserIcon title={file.user_name} />
-    );
-  };
 
   const openFileAccessRightsModal = () => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
@@ -109,7 +101,11 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
         )}
       </div>
       <div className={styles.iconWrap}>
-        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? renderUsers() : renderUser(sharedUsers)}
+        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? (
+          renderUsers()
+        ) : (
+          <ShareUserIcon userIcon={file.user_icon} name={file.user_name} />
+        )}
       </div>
       <div className={styles.endTime}>
         {__(`Срок пользования: ${compareDates(new Date(sharedUsers[0]?.deadline))}`)}
