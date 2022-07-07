@@ -17,6 +17,7 @@ import OpenTask from "./OpenTask/OpenTask";
 import MeetingNote from "./MeetingNote/MeetingNote";
 import RescheduleOne from "./RescheduleMeeting/RescheduleOne";
 import RescheduleAll from "./RescheduleMeeting/RescheduleAll";
+import AddComments from "./AddComments/AddComments";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -96,6 +97,7 @@ function TaskModals() {
         {type === TASK_MODALS.RESCHEDULE_ALL && (
           <RescheduleAll type={type} closeModal={closeModal} params={params.chosenTasks} />
         )}
+        {type === TASK_MODALS.ADD_COMMENT_TASK && <AddComments type={type} closeModal={closeModal} params={params} />}
       </form>
     </PopUp>
   );
