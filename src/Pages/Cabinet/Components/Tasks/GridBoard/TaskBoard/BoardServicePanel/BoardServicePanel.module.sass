@@ -3,12 +3,13 @@
 .boardServicePanelWrap
   display: flex
   align-items: center
-  justify-content: space-between
+  gap: 10px
   height: 45px
   width: 100%
   border: 1px solid $color-border-grey
   padding: 0 10px
   .boardTitle
+    flex: 1
     color: $color-text-grey
     font-size: 13px
     font-family: "SF Pro Regular", sans-serif
@@ -17,45 +18,52 @@
     align-items: center
     justify-content: space-around
     width: max-content
-    .addIconWrap
-      position: relative
-      width: 18px
-      height: 18px
-      .addIcon
-        width: 18px
-        height: 18px
-        cursor: pointer
-      .meetings_emptyImg
-        position: absolute
-        top: 19px
-        transform: rotateZ(5deg)
-        left: -108px
-      .meetings_inscription
-        position: absolute
-        right: 60px
-        top: 97px
-      .calls_emptyImg
-        position: absolute
-        right: -35px
-        transform: rotateZ(336deg)
-        top: 40px
-        width: 100px
-      .calls_inscription
-        position: absolute
-        right: 0
-        top: 140px
-      .mails_emptyImg
-        position: absolute
-        right: -35px
-        transform: rotateZ(336deg)
-        top: 40px
-        width: 100px
-      .mails_inscription
-        position: absolute
-        right: 0
-        top: 140px
     .frameIcon
       margin: 0 10px 0 0
       cursor: pointer
-    .threeDots
-      margin: 0 0 0 10px
+.addIconWrap
+  position: relative
+  width: 18px
+  height: 18px
+  .addIcon
+    width: 18px
+    height: 18px
+    cursor: pointer
+  .meetings_emptyImg
+    position: absolute
+    top: 19px
+    transform: rotateZ(5deg)
+    left: -108px
+  .meetings_inscription
+    position: absolute
+    right: 60px
+    top: 97px
+  .calls_emptyImg
+    position: absolute
+    right: -35px
+    transform: rotateZ(336deg)
+    top: 40px
+    width: 100px
+  .calls_inscription
+    position: absolute
+    right: 0
+    top: 140px
+  .mails_emptyImg
+    position: absolute
+    right: -35px
+    transform: rotateZ(336deg)
+    top: 40px
+    width: 100px
+  .mails_inscription
+    position: absolute
+    right: 0
+    top: 140px
+  .task_emptyImg
+    position: absolute
+    right: -100px
+    transform: scaleX(-1)
+    top: 19px
+  .task_inscription
+    position: absolute
+    right: -216px
+    top: 120px
