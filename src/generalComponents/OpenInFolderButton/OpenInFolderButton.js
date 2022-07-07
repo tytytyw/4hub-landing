@@ -17,7 +17,7 @@ function OpenInFolderButton({ file, isHover, pathUrl }) {
   const goToFolder = () => {
     const path = file.gdir;
     dispatch(onsetInitialChosenFile(file));
-    // TODO - VZ - cahgne func
+    // TODO - VZ - change func
     dispatch(onChooseFiles(path, "", 1, "", ""));
     dispatch(onSetPath(path));
     setTimeout(() => history.push(pathUrl), 50);
