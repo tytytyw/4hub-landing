@@ -37,7 +37,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         isLastElement={classNameWrap === STYLED_CLASSES[schema][STYLED_CLASSES[schema].length - 1]}
         setSchema={setSchema}
         schema={schema}
-        haveTasks={getTasks().length > 0}
+        taskExists={getTasks().length > 0}
       />
       {(type === TASK_TYPES.MEETINGS || type === TASK_TYPES.CALLS) && (
         <DayTimetable
