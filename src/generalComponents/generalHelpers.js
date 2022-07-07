@@ -297,7 +297,11 @@ export const changePreviewTime = async (uid, fid, dispatch) => {
     })
     .catch((e) => {
       dispatch(
-        onSetModals(MODALS.TOP_MESSAGE, { open: true, type: TOP_MESSAGE_TYPE.ERROR, message: "Error change mtime" })
+        onSetModals(MODALS.TOP_MESSAGE, {
+          open: true,
+          type: TOP_MESSAGE_TYPE.ERROR,
+          message: "Error change modify time (mtime)"
+        })
       );
       console.log(e);
     });
