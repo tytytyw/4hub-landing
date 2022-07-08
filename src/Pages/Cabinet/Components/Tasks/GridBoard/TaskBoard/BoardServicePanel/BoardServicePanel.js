@@ -49,7 +49,13 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_MEETING,
-          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.ONLINE_MEETING }
+          params: {
+            width: 420,
+            date_start: "",
+            name: "",
+            id_type: TASK_TYPES.ONLINE_MEETING,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }
@@ -57,7 +63,13 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_CALL,
-          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.CALLS }
+          params: {
+            width: 420,
+            date_start: "",
+            name: "",
+            id_type: TASK_TYPES.CALLS,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }
@@ -65,7 +77,14 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_LETTER,
-          params: { width: 420, name: "", emails: "", prim: "", id_type: TASK_TYPES.MAILS }
+          params: {
+            width: 420,
+            name: "",
+            emails: "",
+            prim: "",
+            id_type: TASK_TYPES.MAILS,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }

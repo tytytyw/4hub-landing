@@ -18,7 +18,9 @@ import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
 
 function TaskBoard({ classNameWrap, type, schema, setSchema }) {
   const { theme } = useSelector((s) => s.user.userInfo);
-  const tasks = useSelector((s) => s.Tasks.myTasks);
+  const currentDep = useSelector((s) => s.Tasks.currentDep);
+  // console.log("currentDep", currentDep.id);
+  const tasks = useSelector((s) => s.Tasks.myTasks).filter((item) => item.id_dep === currentDep.id);
   const INITIAL_TIMETABLE_DATE = new Date("1971-01-01 " + MIDNIGHT);
 
   const getTasks = () =>

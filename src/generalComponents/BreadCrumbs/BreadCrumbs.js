@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./BreadCrumbs.module.sass";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-function BreadCrumbs({ path, onClick }) {
+function BreadCrumbs({ onClick }) {
+  const currentDep = useSelector((s) => s.Tasks.currentDep);
+  const [path, setPath] = useState({ dep: "" });
+
+  useEffect(() => {
+    setPath((state) => ({ ...state, dep: currentDep }));
+  }, [currentDep]);
+
   const renderPath = () => {
-    return path.map((el, i) => (
-      <div className={styles.pathEl} key={i}>
-        {i !== 0 ? <span className={styles.arrowNext}>&gt;</span> : null}
+    return Object.entries(path).map(([key, value]) => (
+      <div className={styles.pathEl} key={key}>
+        {key !== "dep" && <span className={styles.arrowNext}>&gt;</span>}
         <div className={styles.pathEl} onClick={onClick}>
-          {el}
+          {value?.name}
         </div>
       </div>
     ));
@@ -20,6 +28,5 @@ function BreadCrumbs({ path, onClick }) {
 export default BreadCrumbs;
 
 BreadCrumbs.propTypes = {
-  path: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func
 };

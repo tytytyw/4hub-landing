@@ -6,6 +6,7 @@ import {
   contextMenuFolder,
   imageSrc,
   MODALS,
+  taskDepartmentKey,
   TASK_MODALS
 } from "../../../../../generalComponents/globalVariables";
 import Button from "../../../../../generalComponents/CustomableButton/CustomableButton";
@@ -16,7 +17,7 @@ import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
-import { onFetchTaskDepartment } from "Store/actions/TasksActions";
+import { onChoosDep, onFetchTaskDepartment } from "Store/actions/TasksActions";
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 import { useContextMenuFolderLibrary, useStandartTasksDepartment } from "generalComponents/collections";
 import ContextMenu from "generalComponents/ContextMenu";
@@ -29,22 +30,22 @@ function ManagementPanel() {
   const standartDepartment = useStandartTasksDepartment();
   const contextMenuFolderLibrary = useContextMenuFolderLibrary();
   const department = useSelector((state) => state.Tasks.dep);
-  const [currentDep, setCurrentDep] = useState(null);
+  const currentDep = useSelector((state) => state.Tasks.currentDep);
   const [mouseParams, setMouseParams] = useState(null);
 
   useEffect(() => {
-    const dep = getStorageItem("taskDepartment");
-    if (!dep) {
-      setStorageItem("taskDepartment", JSON.stringify(standartDepartment.WORK_TASK));
-      setCurrentDep(standartDepartment.WORK_TASK);
+    const dep = getStorageItem(taskDepartmentKey);
+    if (dep) {
+      dispatch(onChoosDep(JSON.parse(dep)));
     } else {
-      setCurrentDep(JSON.parse(dep));
+      setStorageItem(taskDepartmentKey, JSON.stringify(standartDepartment.WORK_TASK));
+      dispatch(onChoosDep(standartDepartment.WORK_TASK));
     }
     dispatch(onFetchTaskDepartment(__("Ошибка при получении разделов")));
   }, []); //eslint-disable-line
 
   useEffect(() => {
-    setStorageItem("taskDepartment", JSON.stringify(currentDep));
+    setStorageItem(taskDepartmentKey, JSON.stringify(currentDep));
   }, [currentDep]);
 
   const callbacks = {
@@ -66,7 +67,9 @@ function ManagementPanel() {
 
   const closeContextMenu = () => setMouseParams(null);
 
-  const onSelectDep = (dep) => setCurrentDep(dep);
+  const onSelectDep = (dep) => {
+    dispatch(onChoosDep(dep));
+  };
 
   const onAddSection = () =>
     dispatch(onSetModals(MODALS.TASKS, { type: TASK_MODALS.ADD_SECTION, params: { width: 420, title: "" } }));

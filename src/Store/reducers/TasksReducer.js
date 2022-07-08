@@ -2,12 +2,17 @@ import { TasksTypes } from "Store/types";
 
 const INITIAL_STATE = {
   dep: [],
+  currentDep: null,
   myTasks: [],
-  chosenTask: null
+  chosenTask: null,
+  breadcrumbsPath: { dep: "", year: "", month: "", week: "", day: "" }
 };
 
 export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
+    case TasksTypes.CHOOSE_DEPARTMENT:
+      return { ...state, currentDep: payload };
+
     case TasksTypes.GET_TASK_DEPARTMENT:
       return { ...state, dep: payload };
 

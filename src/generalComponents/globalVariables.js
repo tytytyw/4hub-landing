@@ -224,6 +224,8 @@ export const TaskFields = {
   ID_STATUS: "id_status"
 };
 
+export const taskDepartmentKey = "taskDepartment";
+
 // MAIL
 
 export const MAIL_MODALS = {

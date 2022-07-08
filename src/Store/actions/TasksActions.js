@@ -4,6 +4,8 @@ import { MODALS } from "generalComponents/globalVariables";
 import { TasksTypes } from "Store/types";
 import { onSetModals } from "./CabinetActions";
 
+export const onChoosDep = (dep) => ({ type: TasksTypes.CHOOSE_DEPARTMENT, payload: dep });
+
 export const onFetchTaskDepartment = (messages) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   try {
@@ -40,6 +42,7 @@ export const onCreateTaskDepartment = (messages) => async (dispatch, getState) =
         message: messages.success
       })
     );
+    dispatch(onChoosDep({ name: data.name, id: data.id, icon: data.icon }));
   } catch (error) {
     dispatch(
       onSetModals(MODALS.ERROR, {
@@ -85,7 +88,7 @@ export const onEditTaskDepartment = (messages) => async (dispatch, getState) => 
   }
 };
 
-export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
+export const onDeleteDepartment = (messages, department) => async (dispatch, getState) => {
   const uid = getState().user.uid;
   const params = getState().Cabinet.modals.taskModals.params;
 
@@ -101,6 +104,7 @@ export const onDeleteDepartment = (messages) => async (dispatch, getState) => {
         message: messages.success
       })
     );
+    dispatch(onChoosDep(department));
   } catch (error) {
     dispatch(
       onSetModals(MODALS.ERROR, {
