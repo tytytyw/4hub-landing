@@ -706,7 +706,7 @@ export function useTaskBoardTitle() {
     [TASK_TYPES.MEETINGS]: __("Встречи"),
     [TASK_TYPES.CALLS]: __("Звонки"),
     [TASK_TYPES.MAILS]: __("Письма"),
-    [TASK_TYPES.TASK]: __("Мои задачи")
+    [TASK_TYPES.TASK]: __("Создать новую задачу")
   };
 }
 
@@ -800,6 +800,10 @@ export function useTaskMessages() {
       success: __("Встречи перенесены"),
       error: __("Что-то пошло не так, попробуйте еще раз")
     },
+    [TASK_MODALS.ADD_COMMENT_TASK]: {
+      success: __("Комментарий добавлен"),
+      error: __("Что-то пошло не так, попробуйте еще раз")
+    },
 
     [TASK_TYPES.NOTES]: {
       [TASK_MODALS.ADD_NOTE]: {
@@ -887,10 +891,13 @@ export function useTaskModalTitles() {
     [TASK_MODALS.DELETE_TASK]: __("Удаление задачи"),
     [TASK_MODALS.ADD_COMMENT_TASK]: __("Комментарий к задаче"),
     [TASK_MODALS.ADD_REMINDER]: __("Создать напоминание"),
-    [TASK_MODALS.EDIT_TASK]: __("Редактировать задачу"),
     [TASK_MODALS.ADD_NOTE_TO_MEETING]: __("Добавить заметку к встрече"),
     [TASK_MODALS.ADD_PASSWORD]: __("Добавить пароль"),
-    [TASK_MODALS.OPEN_TASK]: __("Задача")
+    [TASK_MODALS.OPEN_TASK]: __("Задача"),
+    [TASK_TYPES.TASK]: __("Редактировать задачу"),
+    [TASK_TYPES.MEETINGS]: __("Редактировать встречу"),
+    [TASK_TYPES.CALLS]: __("Редактировать звонок"),
+    [TASK_TYPES.NOTES]: __("Редактировать заметку")
   };
 }
 

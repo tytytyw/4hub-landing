@@ -43,6 +43,14 @@ export const editSectionParams = PropTypes.exact({
   id: PropTypes.string
 });
 
+export const taskCommentTypes = PropTypes.exact({
+  id: PropTypes.string,
+  id_task: PropTypes.string,
+  id_user: PropTypes.string,
+  date: PropTypes.string,
+  text: PropTypes.string
+});
+
 export const taskTypes = PropTypes.exact({
   id: PropTypes.string,
   name: PropTypes.string,
@@ -62,5 +70,6 @@ export const taskTypes = PropTypes.exact({
   id_act: PropTypes.string,
   id_status: PropTypes.string,
   time_start: PropTypes.string,
+  comments: PropTypes.arrayOf(taskCommentTypes),
   width: PropTypes.number
 });

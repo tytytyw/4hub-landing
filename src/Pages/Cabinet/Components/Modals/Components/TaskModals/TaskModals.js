@@ -17,6 +17,7 @@ import OpenTask from "./OpenTask/OpenTask";
 import MeetingNote from "./MeetingNote/MeetingNote";
 import RescheduleOne from "./RescheduleMeeting/RescheduleOne";
 import RescheduleAll from "./RescheduleMeeting/RescheduleAll";
+import AddComments from "./AddComments/AddComments";
 
 function TaskModals() {
   const dispatch = useDispatch();
@@ -48,6 +49,36 @@ function TaskModals() {
         break;
     }
   };
+
+  const getTitleEditTask = () => {
+    switch (params.id_type) {
+      case TASK_TYPES.OFFLINE_MEETING:
+      case TASK_TYPES.ONLINE_MEETING:
+        return TITLES[TASK_TYPES.MEETINGS];
+
+      case TASK_TYPES.CALLS:
+        return TITLES[TASK_TYPES.CALLS];
+
+      case TASK_TYPES.NOTES:
+        return TITLES[TASK_TYPES.NOTES];
+
+      case TASK_TYPES.TASK:
+        return TITLES[TASK_TYPES.TASK];
+
+      default:
+        break;
+    }
+  };
+
+  const getTitle = () => {
+    switch (type) {
+      case TASK_MODALS.EDIT_TASK:
+        return getTitleEditTask();
+
+      default:
+        return TITLES[type];
+    }
+  };
   return (
     <PopUp set={closeModal}>
       <form
@@ -60,7 +91,7 @@ function TaskModals() {
           <button className={styles.button} onClick={closeModal}>
             <span className={styles.cross} />
           </button>
-          <span className={styles.title}>{TITLES[type]}</span>
+          <span className={styles.title}>{getTitle()}</span>
         </header>
 
         {type === TASK_MODALS.EDIT_TASK && getEditTask()}
@@ -96,6 +127,7 @@ function TaskModals() {
         {type === TASK_MODALS.RESCHEDULE_ALL && (
           <RescheduleAll type={type} closeModal={closeModal} params={params.chosenTasks} />
         )}
+        {type === TASK_MODALS.ADD_COMMENT_TASK && <AddComments type={type} closeModal={closeModal} params={params} />}
       </form>
     </PopUp>
   );
