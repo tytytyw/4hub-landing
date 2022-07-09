@@ -19,14 +19,11 @@ import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
 import FullCalendarTable from "./FullCalendar";
 import WorkSpaceList from "./WorkSpaceList";
-// import { onGetAllTasks } from "Store/actions/TasksActions";
 import { onGetAllTasksCalendar } from "Store/actions/CalendarActions";
-// import { formatDateStandard } from "generalComponents/CalendarHelper";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  // const allTasks = useSelector((state) => state.Tasks.myTasks);
   const dayTasks = useSelector((state) => state.Calendar.dayTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -36,180 +33,8 @@ const CalendarPage = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    // dispatch(onGetAllTasks());
     dispatch(onGetAllTasksCalendar());
   }, []); // eslint-disable-line
-  const allTasks = [
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-09 09:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(0, 128, 0)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "0907",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    },
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-09 06:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(0, 0, 128)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "Name",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    },
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-07 07:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(0, 128, 0)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "0907",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    },
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-07 04:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(0, 128, 128)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "Name",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    },
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-08 02:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(128, 0, 0)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "0907",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    },
-    {
-      comments: [],
-      date_end: null,
-      date_start: "2022-07-06 06:00:01",
-      emails: null,
-      id: "224",
-      id_act: null,
-      id_color: { color: "rgb(0, 0, 128)" },
-      id_dep: null,
-      id_emo: "confused",
-      id_fig: "price-tag",
-      id_status: null,
-      id_type: "task",
-      id_user: "163",
-      is_del: "0",
-      name: "Name",
-      prim: null,
-      tags: {},
-      ut: "2022-07-09 09:54:01"
-    }
-  ];
-  useEffect(() => {
-    setTasks([
-      {
-        comments: [],
-        date_end: null,
-        date_start: "2022-07-09 09:00:01",
-        emails: null,
-        id: "224",
-        id_act: null,
-        id_color: { color: "rgb(0, 128, 0)" },
-        id_dep: null,
-        id_emo: "confused",
-        id_fig: "price-tag",
-        id_status: null,
-        id_type: "task",
-        id_user: "163",
-        is_del: "0",
-        name: "0907",
-        prim: null,
-        tags: null,
-        ut: "2022-07-09 09:54:01"
-      },
-      {
-        comments: [],
-        date_end: null,
-        date_start: "2022-07-09 06:00:01",
-        emails: null,
-        id: "224",
-        id_act: null,
-        id_color: { color: "rgb(0, 0, 128)" },
-        id_dep: null,
-        id_emo: "confused",
-        id_fig: "price-tag",
-        id_status: null,
-        id_type: "task",
-        id_user: "163",
-        is_del: "0",
-        name: "Name",
-        prim: null,
-        tags: null,
-        ut: "2022-07-09 09:54:01"
-      }
-    ]);
-    // for (let key in dayTasks) {
-    //   if (formatDateStandard(calendarDate).includes(key)) {
-    // setTasks(dayTasks[key]);
-    // }
-    // }
-  }, [dayTasks, calendarDate]);
 
   const getStrDate = () => {
     return __(
