@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { eventProps } from "types/CalendarPage";
 
 const TableTaskItem = ({ task, date }) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const color = task.id_color.color;
 
   const checkReverse = () => {
@@ -21,8 +21,8 @@ const TableTaskItem = ({ task, date }) => {
 
   return (
     <div
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
+      // onMouseEnter={() => setVisible(true)}
+      // onMouseLeave={() => setVisible(false)}
       style={{ background: color }}
       className={styles.wrapper}
     >
