@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 import styles from "./FullCalendar.module.sass";
@@ -56,7 +57,8 @@ const FullCalendarTable = ({ tasks, setViewType }) => {
         initialDate={calendarDate}
         ref={calendarRef}
         events={weekTasks}
-        plugins={[timeGridPlugin, interactionPlugin]}
+        plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
         allDaySlot={false}
         headerToolbar={{
           left: null,

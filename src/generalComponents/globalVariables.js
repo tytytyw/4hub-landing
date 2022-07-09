@@ -120,11 +120,11 @@ export const CALENDAR_MODALS = {
 // MY TASKS
 export const TASK_TYPES = {
   TASK: "task",
-  BIRTHDAY: 2,
+  BIRTHDAY: "birthady",
   ONLINE_MEETING: "onlineMeetings",
   OFFLINE_MEETING: "offlineMeetings",
-  REMINDER: 5,
-  OTHER: 6,
+  REMINDER: "reminder",
+  OTHER: "other",
   NOTES: "notes",
   MEETINGS: "meetings",
   CALLS: "calls",
