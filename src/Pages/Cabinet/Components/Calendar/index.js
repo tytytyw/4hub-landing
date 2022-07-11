@@ -17,20 +17,18 @@ import classnames from "classnames";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
-import FullCalendarTable from "./FullCalendar";
 import WorkSpaceList from "./WorkSpaceList";
 import { onGetAllTasksCalendar } from "Store/actions/CalendarActions";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const dayTasks = useSelector((state) => state.Calendar.dayTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
   const [chosenFile, setChosenFile] = useState(null);
   const [viewType, setViewType] = useState("week");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]); // eslint-disable-line
 
   useEffect(() => {
     dispatch(onGetAllTasksCalendar());
@@ -103,8 +101,6 @@ const CalendarPage = () => {
           </div>
           <div className={classnames(styles.wrapperTable, `scrollbar-${theme}`)}>
             {viewType === "day" && <WorkSpaceList tasks={tasks} />}
-            {viewType === "week" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} view={viewType} />}
-            {viewType === "month" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} view={viewType} />}
             {viewType === "year" && "year"}
           </div>
         </div>
