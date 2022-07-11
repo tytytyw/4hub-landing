@@ -19,14 +19,11 @@ import ContextMenuTask from "../ContextMenuComponents/ContextMenuTask";
 import ListCalendar from "./ListCalendar";
 import FullCalendarTable from "./FullCalendar";
 import WorkSpaceList from "./WorkSpaceList";
-import { onGetAllTasks } from "Store/actions/TasksActions";
 import { onGetAllTasksCalendar } from "Store/actions/CalendarActions";
-import { formatDateStandard } from "generalComponents/CalendarHelper";
 
 const CalendarPage = () => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const allTasks = useSelector((state) => state.Tasks.myTasks);
   const dayTasks = useSelector((state) => state.Calendar.dayTasks);
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const { theme } = useSelector((state) => state.user.userInfo);
@@ -36,21 +33,14 @@ const CalendarPage = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    dispatch(onGetAllTasks());
     dispatch(onGetAllTasksCalendar());
   }, []); // eslint-disable-line
 
-  useEffect(() => {
-    for (let key in dayTasks) {
-      if (formatDateStandard(calendarDate).includes(key)) {
-        setTasks(dayTasks[key]);
-      }
-    }
-  }, [dayTasks, calendarDate]);
-
   const getStrDate = () => {
     return __(
-      `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
+      <div className={styles.date}>
+        {calendarDate?.getDate()} {monthNameType?.[calendarDate.getMonth()]} {calendarDate.getFullYear()} г
+      </div>
     );
   };
 
@@ -87,26 +77,36 @@ const CalendarPage = () => {
           <ListCalendar />
           <SidebarTasks tasks={tasks} setMouseParams={setMouseParams} setChosenFile={setChosenFile} />
         </div>
-        <div className={classnames(styles.wrapper, `scrollbar-${theme}`)}>
+        <div className={styles.wrapper}>
           <DateBlock />
           <div className={styles.headerBlock}>
-            <p className={styles.date}>{getStrDate()}</p>
-
+            {getStrDate()}
             <div className={styles.headerBtnWrap}>
               <button className={styles.headerBtn}>
                 {tasks?.length} {__("задач")}
               </button>
-            </div>
-            <div className={styles.headerBtnWrap}>
-              <button className={styles.headerBtn}>{__("1 новая задача")}</button>
-              <span className={styles.badge}>3</span>
-            </div>
-            <div className={styles.headerBtnWrap}>
-              <button className={styles.headerBtn}>{__("1 напоминание")}</button>
+              <div className={styles.viewTypeWrapper}>
+                <div className={styles.headerBtn} onClick={() => setViewType("day")}>
+                  day
+                </div>
+                <div className={styles.headerBtn} onClick={() => setViewType("week")}>
+                  week
+                </div>
+                <div className={styles.headerBtn} onClick={() => setViewType("month")}>
+                  month
+                </div>
+                <div className={styles.headerBtn} onClick={() => setViewType("year")}>
+                  year
+                </div>
+              </div>
             </div>
           </div>
-          {viewType === "week" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} />}
-          {viewType === "day" && <WorkSpaceList tasks={tasks} />}
+          <div className={classnames(styles.wrapperTable, `scrollbar-${theme}`)}>
+            {viewType === "day" && <WorkSpaceList tasks={tasks} />}
+            {viewType === "week" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} view={viewType} />}
+            {viewType === "month" && <FullCalendarTable tasks={allTasks} setViewType={setViewType} view={viewType} />}
+            {viewType === "year" && "year"}
+          </div>
         </div>
       </div>
       {mouseParams !== null && (
