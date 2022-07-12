@@ -141,3 +141,6 @@ export const TasksTypes = {
   SELECT_TASK: "SELECT_TASK",
   ADD_TASK_COMMENT: "ADD_TASK_COMMENT"
 };
+
+export const DATE_FILTER = "DATE_FILTER";
+export const SORT_TYPE = "SORT_TYPE";

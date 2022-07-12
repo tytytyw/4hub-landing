@@ -75,7 +75,9 @@ import {
   GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
   GET_JOURNAL_FOLDERS,
-  SET_MESSAGES_TO_READ
+  SET_MESSAGES_TO_READ,
+  DATE_FILTER,
+  SORT_TYPE
 } from "../types";
 import { MODALS } from "../../generalComponents/globalVariables";
 
@@ -105,6 +107,12 @@ const INITIAL_STATE = {
       emoji: "",
       figure: ""
     },
+    dateFilter: {
+      year: "",
+      day: "",
+      month: ""
+    },
+    sort: "",
     group: ""
   },
 
@@ -744,6 +752,23 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case NULLIFY_MAILS: {
       return { ...state, mailList: action.payload };
+    }
+
+    case DATE_FILTER: {
+      return {
+        ...state,
+        fileCriterion: { ...state.fileCriterion, dateFilter: { ...state.dateFilter, ...action.payload } }
+      };
+    }
+
+    case SORT_TYPE: {
+      return {
+        ...state,
+        fileCriterion: {
+          ...state.fileCriterion,
+          sort: action.payload
+        }
+      };
     }
   }
 }
