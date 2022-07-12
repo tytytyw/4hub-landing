@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ServePanel.module.sass";
 import classNames from "classnames";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { CHAT_CALLROOM, imageSrc } from "../../../../../generalComponents/globalVariables";
 import { ReactComponent as AddContactIcon } from "../../../../../assets/PrivateCabinet/addContact.svg";
 import { ReactComponent as PhoneIcon } from "../../../../../assets/PrivateCabinet/phone-5.svg";
 import { ReactComponent as VideoIcon } from "../../../../../assets/PrivateCabinet/film.svg";
@@ -10,7 +10,7 @@ import { ReactComponent as CameraIcon } from "../../../../../assets/PrivateCabin
 import { ReactComponent as InfoIcon } from "../../../../../assets/PrivateCabinet/info-2.svg";
 import { ReactComponent as CopyLinkIcon } from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import { ReactComponent as PictureIcon } from "../../../../../assets/PrivateCabinet/picture-2.svg";
-import { onSetPaint, onSetModals } from "../../../../../Store/actions/CabinetActions";
+import { onSetPaint, onSetModals, setCallRoom } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { selectedContactProps } from "types/Chat";
@@ -21,6 +21,9 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) =>
   const dispatch = useDispatch();
   const paint = useSelector((state) => state.Cabinet.paint);
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
+
+  const startVoiceCall = () => dispatch(setCallRoom({ state: CHAT_CALLROOM.OUTGOING_CALL }));
+
   return (
     <div
       className={classNames({
@@ -69,7 +72,7 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) =>
               <AddContactIcon title="" className={styles.addContactIcon} />
             </div>
           ) : null}
-          <div className={styles.iconView}>
+          <div className={styles.iconView} onClick={startVoiceCall}>
             <PhoneIcon />
           </div>
           <div className={styles.iconView}>

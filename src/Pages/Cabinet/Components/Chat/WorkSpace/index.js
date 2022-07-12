@@ -387,6 +387,6 @@ WorkSpace.propTypes = {
   showSettings: PropTypes.bool,
   setShowSettings: PropTypes.func.isRequired,
   //eslint-disable-next-line
-  socket: PropTypes.object.isRequired,
+  socket: PropTypes.object,
   setSocket: PropTypes.func.isRequired
 };

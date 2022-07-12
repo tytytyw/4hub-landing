@@ -94,6 +94,11 @@ export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 export const CHECKBOX = "checkBox";
 export const CONTEXT_MENU = "contextMenu";
+export const CHAT_CALLROOM = {
+  NO_CALL: "NO_CALL",
+  OUTGOING_CALL: "OUTGOING_CALL",
+  INCOMING_CALL: "INCOMING_CALL"
+};
 
 //Customable button
 export const BUTTON_TYPES = {
