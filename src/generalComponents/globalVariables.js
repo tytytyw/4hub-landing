@@ -237,6 +237,11 @@ export const LIBRARY = {
   API_GET_FOLDERS: "get_folders"
 };
 
+// FOLDER
+export const FOLDER = {
+  API_GET_FILES: "lsjson"
+};
+
 export const VIEW_TYPE = {
   BARS: "bars",
   LINES: "lines",

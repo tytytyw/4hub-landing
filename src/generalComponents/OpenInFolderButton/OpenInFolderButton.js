@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./OpenInFolderButton.module.sass";
 import { fileProps, journalFileProps, journalShareFileProps } from "types/File";
-import { onChooseFiles, onsetInitialChosenFile, onSetPath } from "Store/actions/CabinetActions";
+import { onLoadFiles, onsetInitialChosenFile, onSetPath } from "Store/actions/CabinetActions";
 import { useHistory } from "react-router";
 import { useLocales } from "react-localized";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-function OpenInFolderButton({ file, isHover, pathUrl }) {
+function OpenInFolderButton({ file, isHover, pathUrl, endpoint }) {
+  //mylog
+  console.log(file);
+  console.log(endpoint);
   const history = useHistory();
   const { __ } = useLocales();
   const dispatch = useDispatch();
@@ -17,9 +20,8 @@ function OpenInFolderButton({ file, isHover, pathUrl }) {
   const goToFolder = () => {
     const path = file.gdir;
     dispatch(onsetInitialChosenFile(file));
-    // TODO - VZ - change func
-    dispatch(onChooseFiles(path, "", 1, "", ""));
     dispatch(onSetPath(path));
+    dispatch(onLoadFiles(endpoint, 1));
     setTimeout(() => history.push(pathUrl), 50);
   };
 
@@ -35,5 +37,6 @@ export default OpenInFolderButton;
 OpenInFolderButton.propTypes = {
   file: PropTypes.oneOfType([fileProps, journalFileProps, journalShareFileProps]),
   isHover: PropTypes.bool,
-  pathUrl: PropTypes.string
+  pathUrl: PropTypes.string,
+  endpoint: PropTypes.string
 };
