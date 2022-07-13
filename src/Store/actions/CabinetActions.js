@@ -73,7 +73,8 @@ import {
   FILES_USER_SHARED,
   SET_MESSAGES_TO_READ,
   DATE_FILTER,
-  SORT_TYPE
+  SORT_TYPE,
+  SET_CHAT_CALLROOM
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -1278,6 +1279,11 @@ export const onLoadFiles =
         deleteCancelToken(endpoint);
       });
   };
+
+export const setCallRoom = (payload) => ({
+  type: SET_CHAT_CALLROOM,
+  payload
+});
 
 // MAIL
 export const getMails = () => {

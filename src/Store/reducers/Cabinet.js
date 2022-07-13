@@ -77,9 +77,12 @@ import {
   GET_JOURNAL_FOLDERS,
   SET_MESSAGES_TO_READ,
   DATE_FILTER,
-  SORT_TYPE
+  SORT_TYPE,
+  SET_CHAT_CALLROOM
 } from "../types";
-import { MODALS } from "../../generalComponents/globalVariables";
+import { CHAT_CALLROOM, MODALS } from "../../generalComponents/globalVariables";
+
+export const initialCallRoomState = () => ({ state: CHAT_CALLROOM.NO_CALL, contact: null });
 
 const INITIAL_STATE = {
   global: null,
@@ -205,7 +208,8 @@ const INITIAL_STATE = {
       inputBgColor: "#F7F7F7",
       inputColor: "#AEAEAE",
       accentColor: ""
-    }
+    },
+    callRoom: initialCallRoomState()
   },
 
   //GLOBAL MODALS
@@ -519,6 +523,15 @@ export default function startPage(state = INITIAL_STATE, action) {
         chat: {
           ...state.chat,
           messages
+        }
+      };
+    }
+    case SET_CHAT_CALLROOM: {
+      return {
+        ...state,
+        chat: {
+          ...state.chat,
+          callRoom: { ...state.chat.callRoom, ...action.payload }
         }
       };
     }
