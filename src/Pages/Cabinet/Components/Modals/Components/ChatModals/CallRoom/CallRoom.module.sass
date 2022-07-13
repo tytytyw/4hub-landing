@@ -1,0 +1,70 @@
+@import "src/theme/theme"
+.callRoom
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: flex-start
+  width: 45vw
+  height: 40vh
+  max-width: 600px
+  max-height: 350px
+  color: $color-white
+
+  .backgroundImage
+    position: absolute
+    width: 100%
+    height: 100%
+    filter: blur(3px)
+    -webkit-filter: blur(3px)
+    background-size: cover
+    z-index: -1
+    background: $color-grey_medium
+
+  .cross
+    position: absolute
+    top: 20px
+    right: 11px
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+
+  .receiver
+    font-family: "SF Pro Medium", sans-serif
+    font-size: 18px
+    margin-top: 50px
+    margin-bottom: 30px
+
+  .avatar
+    width: 80px
+    height: 80px
+    border-radius: 50%
+    border: 1px solid $color-white
+    margin-bottom: 20px
+    background-size: cover
+
+  .stopwatch
+    margin-bottom: 30px
+
+  .buttonsPanel
+    display: flex
+    align-items: center
+    width: 55%
+    justify-content: space-between
+    .camaraIcon
+      path, polygon
+        fill: $color-white
+    .phoneIcon
+      margin-left: 3px
+

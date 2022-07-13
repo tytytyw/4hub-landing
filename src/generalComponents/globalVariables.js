@@ -107,7 +107,9 @@ export const BUTTON_TYPES = {
   LARGE: "large",
   FULL_WIDTH: "fullWidth",
   GREY: "grey",
-  ICON: "icon"
+  ICON: "icon",
+  ROUND_GREY: "round-grey",
+  ROUND_RED: "round-red"
 };
 
 //CALENDAR && TASKS Component

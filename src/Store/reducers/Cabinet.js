@@ -80,6 +80,8 @@ import {
 } from "../types";
 import { CHAT_CALLROOM, MODALS } from "../../generalComponents/globalVariables";
 
+export const initialCallRoomState = () => ({ state: CHAT_CALLROOM.NO_CALL, contact: null });
+
 const INITIAL_STATE = {
   global: null,
   other: null,
@@ -199,7 +201,7 @@ const INITIAL_STATE = {
       inputColor: "#AEAEAE",
       accentColor: ""
     },
-    callRoom: { state: CHAT_CALLROOM.NO_CALL }
+    callRoom: initialCallRoomState()
   },
 
   //GLOBAL MODALS

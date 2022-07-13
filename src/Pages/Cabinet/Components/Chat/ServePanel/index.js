@@ -22,7 +22,7 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) =>
   const paint = useSelector((state) => state.Cabinet.paint);
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
 
-  const startVoiceCall = () => dispatch(setCallRoom({ state: CHAT_CALLROOM.OUTGOING_CALL }));
+  const startVoiceCall = () => dispatch(setCallRoom({ state: CHAT_CALLROOM.OUTGOING_CALL, contact: selectedContact }));
 
   return (
     <div
