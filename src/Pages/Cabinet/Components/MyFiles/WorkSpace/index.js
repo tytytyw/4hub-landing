@@ -14,6 +14,7 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../../generalComponents/Hooks";
 import {
   onAddRecentFiles,
+  onChangeSortFile,
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
@@ -83,8 +84,13 @@ const WorkSpace = ({
     if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
     if (pathname.startsWith("/journal")) {
       dispatch(onSetGroupFiles("mtime"));
+      dispatch(onChangeSortFile(JOURNAL.SORT_DATE_CHANGE));
       dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
       dispatch(onSetWorkElementsView(VIEW_TYPE.LINES));
+
+      return () => {
+        dispatch(onChangeSortFile(""));
+      };
     }
 
     setFilesPage(2);

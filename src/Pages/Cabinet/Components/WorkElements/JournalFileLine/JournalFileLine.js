@@ -4,7 +4,7 @@ import { journalFileProps, journalShareFileProps } from "../../../../../types/Fi
 import File from "generalComponents/Files";
 import { useLocales } from "react-localized";
 import OpenInFolderButton from "generalComponents/OpenInFolderButton/OpenInFolderButton";
-import { MODALS } from "generalComponents/globalVariables";
+import { FOLDER, MODALS, SHARED_FILES } from "generalComponents/globalVariables";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { PropTypes } from "prop-types";
@@ -71,11 +71,14 @@ function JournalFileLine({ file }) {
       {
         // TODO - VZ - change redirect
         file.user_name ? (
-          <div>
-            <OpenInFolderButton file={file} isHover={isHover} pathUrl={"/shared-files"} />
-          </div>
+          <OpenInFolderButton
+            file={file}
+            isHover={isHover}
+            pathUrl={"/shared-files"}
+            endpoint={SHARED_FILES.FILES_SHARED_TO_USER}
+          />
         ) : (
-          <OpenInFolderButton file={file} isHover={isHover} pathUrl={"/folder"} />
+          <OpenInFolderButton file={file} isHover={isHover} pathUrl={"/folders"} endpoint={FOLDER.API_GET_FILES} />
         )
       }
     </div>
