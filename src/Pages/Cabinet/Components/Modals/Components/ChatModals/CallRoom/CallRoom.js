@@ -24,7 +24,7 @@ function CallRoom() {
   const closeCallRoom = () => dispatch(setCallRoom(initialCallRoomState()));
   return (
     <PopUp set={closeCallRoom}>
-      <divv className={styles.callRoom}>
+      <div className={styles.callRoom}>
         <div className={styles.backgroundImage} style={{ backgroundImage: `url(${contact?.icon[0]})` }} />
         <span className={styles.cross} onClick={closeCallRoom} />
         <div className={styles.receiver}>
@@ -55,7 +55,7 @@ function CallRoom() {
           </Button>
         </div>
         <video ref={(instance) => provideMediaRef("LOCAL_CLIENT", instance)} autoPlay playsInline muted={true} />
-      </divv>
+      </div>
     </PopUp>
   );
 }

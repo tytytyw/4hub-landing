@@ -103,6 +103,16 @@ export const CHAT_CALLROOM = {
   VOICE_CALL: "VOICE_CALL",
   VIDEO_CALL: "VIDEO_CALL"
 };
+export const CHAT_CALLROOM_ACTIONS = {
+  JOIN: "",
+  LEAVE: "",
+  ADD_PEER: "",
+  REMOVE_PEER: "",
+  RELAY_SDP: "",
+  RELAY_ICE: "",
+  ICE_CANDIDIATE: "",
+  SESSION_DESCRIPTION: ""
+};
 
 //Customable button
 export const BUTTON_TYPES = {
