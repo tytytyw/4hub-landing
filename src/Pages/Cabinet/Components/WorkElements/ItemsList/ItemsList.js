@@ -220,11 +220,11 @@ const ItemsList = ({
   }, [fileList?.path]);
 
   useEffect(() => {
-    if (pathname === "/archive") {
+    if (pathname.startsWith("/archive")) {
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-    if (pathname === "/journal") {
+    if (pathname.startsWith("/journal")) {
       dispatch(onChangeDateFilter(dateFilter));
       dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
       setFilesPage(1);

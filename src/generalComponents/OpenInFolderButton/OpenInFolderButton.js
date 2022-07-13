@@ -9,9 +9,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 function OpenInFolderButton({ file, isHover, pathUrl, endpoint }) {
-  //mylog
-  console.log(file);
-  console.log(endpoint);
   const history = useHistory();
   const { __ } = useLocales();
   const dispatch = useDispatch();
