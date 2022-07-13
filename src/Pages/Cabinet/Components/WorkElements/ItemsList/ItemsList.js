@@ -13,9 +13,11 @@ import WorkLinesPreview from "../WorkLinesPreview";
 import FileLineShort from "../FileLineShort";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  onChangeDateFilter,
   onChooseFiles,
   onChooseFolder,
   onGetArchiveFiles,
+  onLoadFiles,
   onSetNextFilesToPrevious,
   onSetPath
 } from "../../../../../Store/actions/CabinetActions";
@@ -31,7 +33,7 @@ import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
 import JournalFileLine from "../JournalFileLine/JournalFileLine";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
-import { imageSrc, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
+import { imageSrc, JOURNAL, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 
 const ItemsList = ({
   setGLoader,
@@ -218,8 +220,13 @@ const ItemsList = ({
   }, [fileList?.path]);
 
   useEffect(() => {
-    if (pathname === "/archive") {
+    if (pathname.startsWith("/archive")) {
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
+      setFilesPage(1);
+    }
+    if (pathname.startsWith("/journal")) {
+      dispatch(onChangeDateFilter(dateFilter));
+      dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
       setFilesPage(1);
     }
     if (pathname.startsWith("/library")) {

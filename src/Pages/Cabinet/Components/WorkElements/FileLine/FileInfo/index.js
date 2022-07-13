@@ -15,7 +15,6 @@ const FileInfo = ({ file }) => {
     pathname.startsWith("/archive") || pathname.startsWith("/downloaded-files")
       ? { maxWidth: `calc( 100% - 620px )` }
       : {};
-
   return (
     <div className={styles.fileAbout} style={shortWidth}>
       <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}>

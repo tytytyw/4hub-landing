@@ -244,6 +244,11 @@ export const LIBRARY = {
   API_GET_FOLDERS: "get_folders"
 };
 
+// FOLDER
+export const FOLDER = {
+  API_GET_FILES: "lsjson"
+};
+
 export const VIEW_TYPE = {
   BARS: "bars",
   LINES: "lines",
@@ -288,5 +293,6 @@ export const CART = {
 // JOURNAL
 
 export const JOURNAL = {
-  API_GET_JOURNAL_FILES: "history_get"
+  API_GET_JOURNAL_FILES: "history_get",
+  SORT_DATE_CHANGE: "byDateChanged"
 };
