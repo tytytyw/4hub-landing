@@ -12,16 +12,19 @@ import { ReactComponent as VideoIcon } from "assets/PrivateCabinet/film.svg";
 import { ReactComponent as HangUpIcon } from "assets/PrivateCabinet/chat/hangUp.svg";
 import { ReactComponent as PhoneIcon } from "assets/PrivateCabinet/chat/phone.svg";
 import { ReactComponent as RadioIcon } from "assets/PrivateCabinet/radio-3.svg";
+import { useWebRTC } from "../../../../../../../generalComponents/Hooks";
 
 function CallRoom() {
   const { __ } = useLocales();
-  const { contact } = useSelector((s) => s.Cabinet.chat.callRoom);
+  const { contact, socket } = useSelector((s) => s.Cabinet.chat.callRoom);
   const dispatch = useDispatch();
+  const { clients, provideMediaRef } = useWebRTC(socket);
+  console.log(clients);
 
   const closeCallRoom = () => dispatch(setCallRoom(initialCallRoomState()));
   return (
     <PopUp set={closeCallRoom}>
-      <div className={styles.callRoom}>
+      <divv className={styles.callRoom}>
         <div className={styles.backgroundImage} style={{ backgroundImage: `url(${contact?.icon[0]})` }} />
         <span className={styles.cross} onClick={closeCallRoom} />
         <div className={styles.receiver}>
@@ -51,7 +54,8 @@ function CallRoom() {
             <HangUpIcon />
           </Button>
         </div>
-      </div>
+        <video ref={(instance) => provideMediaRef("LOCAL_CLIENT", instance)} autoPlay playsInline muted={true} />
+      </divv>
     </PopUp>
   );
 }

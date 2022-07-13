@@ -69,7 +69,8 @@ export const TYPES = {
   STRING: "string",
   BOOLEAN: "boolean",
   NULL: "null",
-  UNDEFINED: "undefined"
+  UNDEFINED: "undefined",
+  FUNCTION: "function"
 };
 
 export const MIDNIGHT = "00:00:00";
@@ -94,10 +95,13 @@ export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 export const CHECKBOX = "checkBox";
 export const CONTEXT_MENU = "contextMenu";
+export const LOCAL_CLIENT = "LOCAL_CLIENT";
 export const CHAT_CALLROOM = {
   NO_CALL: "NO_CALL",
   OUTGOING_CALL: "OUTGOING_CALL",
-  INCOMING_CALL: "INCOMING_CALL"
+  INCOMING_CALL: "INCOMING_CALL",
+  VOICE_CALL: "VOICE_CALL",
+  VIDEO_CALL: "VIDEO_CALL"
 };
 
 //Customable button

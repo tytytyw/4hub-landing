@@ -80,7 +80,7 @@ import {
 } from "../types";
 import { CHAT_CALLROOM, MODALS } from "../../generalComponents/globalVariables";
 
-export const initialCallRoomState = () => ({ state: CHAT_CALLROOM.NO_CALL, contact: null });
+export const initialCallRoomState = () => ({ state: CHAT_CALLROOM.NO_CALL, contact: null, socket: null });
 
 const INITIAL_STATE = {
   global: null,
