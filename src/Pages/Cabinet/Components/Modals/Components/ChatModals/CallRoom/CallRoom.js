@@ -16,23 +16,25 @@ import { useWebRTC } from "../../../../../../../generalComponents/Hooks";
 
 function CallRoom() {
   const { __ } = useLocales();
-  const { contact, socket } = useSelector((s) => s.Cabinet.chat.callRoom);
+  const { contacts, socket } = useSelector((s) => s.Cabinet.chat.callRoom);
   const dispatch = useDispatch();
-  const { clients, provideMediaRef } = useWebRTC(socket);
+  const { clients, provideMediaRef } = useWebRTC(socket, {
+    contacts: contacts
+  });
   console.log(clients);
 
   const closeCallRoom = () => dispatch(setCallRoom(initialCallRoomState()));
   return (
     <PopUp set={closeCallRoom}>
       <div className={styles.callRoom}>
-        <div className={styles.backgroundImage} style={{ backgroundImage: `url(${contact?.icon[0]})` }} />
+        <div className={styles.backgroundImage} style={{ backgroundImage: `url(${contacts[0]?.icon[0]})` }} />
         <span className={styles.cross} onClick={closeCallRoom} />
         <div className={styles.receiver}>
-          {__("Вызов")} {contact.name} {contact.sname}
+          {__("Вызов")} {contacts.length === 1 ? `${contacts.name} ${contacts.sname}` : ""}
         </div>
         <img
           className={styles.avatar}
-          src={contact?.icon[0] ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`}
+          src={contacts[0]?.icon[0] ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`}
           alt="img"
         />
         <div className={styles.stopwatch}>00:00:00</div>

@@ -24,7 +24,13 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType, sock
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
 
   const startVoiceCall = () =>
-    dispatch(setCallRoom({ state: CHAT_CALLROOM.OUTGOING_CALL, contact: selectedContact, socket }));
+    dispatch(
+      setCallRoom({
+        state: CHAT_CALLROOM.OUTGOING_CALL,
+        contacts: selectedContact.id_group ? selectedContact.users : [selectedContact],
+        socket
+      })
+    );
 
   return (
     <div
