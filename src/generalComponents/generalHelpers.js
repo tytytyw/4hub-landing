@@ -260,15 +260,13 @@ export const getIsIncludePath = (filePath, currentPath) => {
 };
 
 export const getFormatDate = (date) => {
-  const newDate = date.split(" ").join("T");
-  const formatDate = new Date(newDate).toLocaleString("ru", { year: "numeric", month: "2-digit", day: "2-digit" });
+  const formatDate = new Date(date).toLocaleString("ru", { year: "numeric", month: "2-digit", day: "2-digit" });
   return formatDate;
 };
 
 export const getFormatTime = (date) => {
   if (date) {
-    const newDate = date.split(" ").join("T");
-    const formatTime = new Date(newDate).toLocaleString("ru", { hour: "2-digit", minute: "2-digit" });
+    const formatTime = new Date(date).toLocaleString("ru", { hour: "2-digit", minute: "2-digit" });
     return formatTime;
   }
 };

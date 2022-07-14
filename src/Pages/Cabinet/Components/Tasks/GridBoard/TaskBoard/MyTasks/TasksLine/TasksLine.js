@@ -16,11 +16,19 @@ const TasksLine = ({ tasks }) => {
   const filtersType = useSelector((s) => s.Tasks.filters.type);
 
   const onSelectToday = () => {
-    dispatch({ type: TasksTypes.SELECT_FILTER, payload: { type: TaskFilters.TODAY, date: new Date() } });
+    dispatch({
+      type: TasksTypes.SELECT_FILTER,
+      payload: {
+        type: TaskFilters.TODAY,
+        year: new Date().getFullYear(),
+        month: new Date().getMonth(),
+        day: new Date().getDate()
+      }
+    });
   };
 
   const onSelectAll = () => {
-    dispatch({ type: TasksTypes.SELECT_FILTER, payload: { type: "", date: "" } });
+    dispatch({ type: TasksTypes.SELECT_FILTER, payload: { type: "", year: "", month: "", day: "" } });
   };
 
   return (

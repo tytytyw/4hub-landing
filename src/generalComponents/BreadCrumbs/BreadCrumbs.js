@@ -5,9 +5,13 @@ import { TaskFilters } from "generalComponents/globalVariables";
 import { useDayWeekName, useTaskFiltersMenu } from "generalComponents/collections";
 import { endOfWeek, format, startOfWeek } from "date-fns";
 import { TasksTypes } from "Store/types";
+import { useMonths } from "generalComponents/CalendarHelper";
+import classNames from "classnames";
 
 function BreadCrumbs() {
   const dispatch = useDispatch();
+  const months = useMonths();
+
   const currentDep = useSelector((s) => s.Tasks.currentDep);
   const filters = useSelector((s) => s.Tasks.filters);
   const filtersMenu = useTaskFiltersMenu();
@@ -16,10 +20,8 @@ function BreadCrumbs() {
 
   useEffect(() => {
     setPath((state) => ({ ...state, type: filtersMenu[filters.type] }));
-
     const year = filters.year;
-    // TODO -mk- fix localization in toLocaleString ;
-    const month = new Date(filters.year, filters.month).toLocaleString("ru", { month: "long" });
+    const month = months().find((item) => item.id === filters.month)?.name;
     if (filters.type === TaskFilters.BY_DAY || filters.type === TaskFilters.TODAY) {
       const day = `${dayName[new Date(filters.year, filters.month, filters.day).getDay()]}, ${format(
         new Date(filters.year, filters.month, filters.day),
@@ -28,10 +30,10 @@ function BreadCrumbs() {
       setPath((state) => ({ ...state, year, month, day }));
     }
     if (filters.type === TaskFilters.BY_MONTH) {
-      setPath((state) => ({ ...state, year, month, day: "" }));
+      return setPath((state) => ({ ...state, year, month, day: "" }));
     }
     if (filters.type === TaskFilters.BY_YEAR) {
-      setPath((state) => ({ ...state, year, month: "", day: "" }));
+      return setPath((state) => ({ ...state, year, month: "", day: "" }));
     }
     if (filters.type === TaskFilters.BY_WEEK) {
       const startWeek = startOfWeek(new Date(filters.year, filters.month, filters.day), {
@@ -43,17 +45,23 @@ function BreadCrumbs() {
       const day = `${dayName[startWeek.getDay()]}, ${format(startWeek, "dd.MM.yyyy")} - ${
         dayName[endWeek.getDay()]
       }, ${format(endWeek, "dd.MM.yyyy")}`;
-      setPath((state) => ({ ...state, year, month, day }));
+      return setPath((state) => ({ ...state, year, month, day }));
+    }
+    if (!filters.type) {
+      return setPath({ ...filters });
     }
   }, [filters]); //eslint-disable-line
 
   const onPathClick = (type) => {
     if (type === "year")
-      dispatch({ type: TasksTypes.SELECT_FILTER, payload: { type: TaskFilters.BY_YEAR, date: `${path.year}.1` } });
+      dispatch({
+        type: TasksTypes.SELECT_FILTER,
+        payload: { type: TaskFilters.BY_YEAR, year: filters.year, month: "", day: "" }
+      });
     if (type === "month")
       dispatch({
         type: TasksTypes.SELECT_FILTER,
-        payload: { type: TaskFilters.BY_MONTH, date: `${path.year}.${Number(filters.month + 1)}` }
+        payload: { type: TaskFilters.BY_MONTH, year: filters.year, month: filters.month, day: "" }
       });
   };
 
@@ -63,7 +71,10 @@ function BreadCrumbs() {
         {item && (
           <div className={styles.pathEl}>
             <span className={styles.arrowNext}>&gt;</span>
-            <div className={styles.pathEl} onClick={() => onPathClick(key)}>
+            <div
+              className={classNames(styles.pathEl, { [styles.pathNav]: key === "year" || key === "month" })}
+              onClick={() => onPathClick(key)}
+            >
               {item}
             </div>
           </div>

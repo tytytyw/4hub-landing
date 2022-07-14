@@ -42,12 +42,13 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
       const taskDateEnd = el.date_end
         ? getTime(endOfDay(new Date(el.date_end)))
         : getTime(endOfDay(new Date(taskDateStart)));
+
       if (filters.type === TaskFilters.TODAY) {
         return taskDateStart <= today && today < taskDateEnd;
       }
       if (filters.type === TaskFilters.BY_DAY) {
-        const filterDate = getTime(filters.date);
-        return taskDateStart <= filterDate && taskDateEnd > filterDate;
+        const filterDate = getTime(new Date(filters.year, filters.month, filters.day));
+        return taskDateStart <= filterDate && filterDate < taskDateEnd;
       }
       if (filters.type === TaskFilters.BY_WEEK) {
         const weekStart = getTime(
@@ -64,12 +65,12 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         return taskDateEnd > weekStart && weekEnd > taskDateStart;
       }
       if (filters.type === TaskFilters.BY_MONTH) {
-        const monthStart = getTime(new Date(filters.date));
-        const monthEnd = getTime(endOfMonth(new Date(filters.date)));
+        const monthStart = getTime(new Date(filters.year, filters.month));
+        const monthEnd = getTime(endOfMonth(new Date(filters.year, filters.month)));
         return taskDateEnd > monthStart && monthEnd > taskDateStart;
       }
       if (filters.type === TaskFilters.BY_YEAR) {
-        const yearStart = getTime(new Date(filters.date));
+        const yearStart = getTime(new Date(filters.year, 0));
         const yearEnd = getTime(endOfYear(new Date(yearStart)));
         return yearStart <= taskDateEnd && yearEnd > taskDateStart;
       }

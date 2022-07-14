@@ -15,15 +15,13 @@ const CalendarYear = ({ setOpenYearCalendar, year }) => {
   const generateCalendar = useGenerateCalendar();
   const daysOfWeeks = useDaysOfWeeks();
   const [chosenDate, setChosenDate] = useState({ year: year, month: "", day: "" });
-
   const switchYear = (status) => {
     setChosenDate((state) =>
       status === "increase"
-        ? { year: Number(state.year) + 1, month: "", day: "" }
-        : { year: Number(state.year) - 1, month: "", day: "" }
+        ? { year: state.year + 1, month: "", day: "" }
+        : { year: state.year - 1, month: "", day: "" }
     );
   };
-
   const onSelectYear = () => {
     dispatch({
       type: TasksTypes.SELECT_FILTER,
@@ -33,7 +31,7 @@ const CalendarYear = ({ setOpenYearCalendar, year }) => {
   };
 
   const onSelectMonth = (month) => {
-    setChosenDate((state) => ({ ...state, month: (month.id + 1).toString(), day: "" }));
+    setChosenDate((state) => ({ ...state, month: String(month.id + 1), day: "" }));
     dispatch({
       type: TasksTypes.SELECT_FILTER,
       payload: { type: TaskFilters.BY_MONTH, year: chosenDate.year, month: month.id, day: "" }
@@ -46,7 +44,7 @@ const CalendarYear = ({ setOpenYearCalendar, year }) => {
     setChosenDate({ ...date, day });
     dispatch({
       type: TasksTypes.SELECT_FILTER,
-      payload: { type: TaskFilters.BY_DAY, ...date, day }
+      payload: { type: TaskFilters.BY_DAY, year: date.year, month: Number(date.month) - 1, day }
     });
     setOpenYearCalendar(null);
   };
