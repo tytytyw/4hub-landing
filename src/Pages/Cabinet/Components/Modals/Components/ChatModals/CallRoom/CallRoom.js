@@ -5,7 +5,7 @@ import { setCallRoom } from "../../../../../../../Store/actions/CabinetActions";
 import { initialCallRoomState } from "../../../../../../../Store/reducers/Cabinet";
 import styles from "./CallRoom.module.sass";
 import { useLocales } from "react-localized";
-import { BUTTON_TYPES, imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import { BUTTON_TYPES, CHAT_CALLROOM, imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import Button from "../../../../../../../generalComponents/CustomableButton/CustomableButton";
 import { ReactComponent as AddUserIcon } from "assets/PrivateCabinet/chat/addUser.svg";
 import { ReactComponent as VideoIcon } from "assets/PrivateCabinet/film.svg";
@@ -16,47 +16,65 @@ import { useWebRTC } from "../../../../../../../generalComponents/Hooks";
 
 function CallRoom() {
   const { __ } = useLocales();
-  const { contacts, socket } = useSelector((s) => s.Cabinet.chat.callRoom);
+  const { contacts, socket, user_id, state, icon } = useSelector((s) => s.Cabinet.chat.callRoom);
+  const selectedContact = useSelector((s) => s.Cabinet.chat.selectedContact);
   const dispatch = useDispatch();
   const { clients, provideMediaRef } = useWebRTC(socket, {
-    contacts: contacts
+    contacts: contacts,
+    from: user_id,
+    state
   });
+
   console.log(clients);
+  //eslint-disable-next-line
+  const renderCallOngoing = () => (
+    <>
+      <div className={styles.backgroundImage} style={{ backgroundImage: `url(${icon})` }} />
+      <span className={styles.cross} onClick={closeCallRoom} />
+      <div className={styles.receiver}>
+        {__("Вызов")} {contacts.length === 1 ? `${selectedContact.name} ${selectedContact.sname}` : ""}
+      </div>
+      <img className={styles.avatar} src={icon ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`} alt="img" />
+      <div className={styles.stopwatch}>00:00:00</div>
+      <div className={styles.buttonsPanel}>
+        <Button style={BUTTON_TYPES.ROUND_GREY}>
+          <AddUserIcon />
+        </Button>
+        <Button style={BUTTON_TYPES.ROUND_GREY}>
+          <VideoIcon className={styles.camaraIcon} />
+        </Button>
+        <Button style={BUTTON_TYPES.ROUND_GREY}>
+          <RadioIcon />
+        </Button>
+        <Button style={BUTTON_TYPES.ROUND_GREY}>
+          &#62;
+          <PhoneIcon className={styles.phoneIcon} />
+        </Button>
+        <Button style={BUTTON_TYPES.ROUND_RED}>
+          <HangUpIcon />
+        </Button>
+      </div>
+      {state === CHAT_CALLROOM.VIDEO_CALL ? (
+        <video ref={(instance) => provideMediaRef("LOCAL_CLIENT", instance)} autoPlay playsInline muted={true} />
+      ) : null}
+    </>
+  );
+
+  const renderIncomingCall = () => (
+    <>
+      <div className={styles.backgroundImage} style={{ backgroundImage: `url(${icon})` }} />
+      <span className={styles.cross} onClick={closeCallRoom} />
+      <div className={styles.receiver}>
+        {__("Входящий звонок")} {contacts.length === 1 ? `${contacts.name} ${contacts.sname}` : ""}
+      </div>
+    </>
+  );
 
   const closeCallRoom = () => dispatch(setCallRoom(initialCallRoomState()));
   return (
     <PopUp set={closeCallRoom}>
       <div className={styles.callRoom}>
-        <div className={styles.backgroundImage} style={{ backgroundImage: `url(${contacts[0]?.icon[0]})` }} />
-        <span className={styles.cross} onClick={closeCallRoom} />
-        <div className={styles.receiver}>
-          {__("Вызов")} {contacts.length === 1 ? `${contacts.name} ${contacts.sname}` : ""}
-        </div>
-        <img
-          className={styles.avatar}
-          src={contacts[0]?.icon[0] ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`}
-          alt="img"
-        />
-        <div className={styles.stopwatch}>00:00:00</div>
-        <div className={styles.buttonsPanel}>
-          <Button style={BUTTON_TYPES.ROUND_GREY}>
-            <AddUserIcon />
-          </Button>
-          <Button style={BUTTON_TYPES.ROUND_GREY}>
-            <VideoIcon className={styles.camaraIcon} />
-          </Button>
-          <Button style={BUTTON_TYPES.ROUND_GREY}>
-            <RadioIcon />
-          </Button>
-          <Button style={BUTTON_TYPES.ROUND_GREY}>
-            &#62;
-            <PhoneIcon className={styles.phoneIcon} />
-          </Button>
-          <Button style={BUTTON_TYPES.ROUND_RED}>
-            <HangUpIcon />
-          </Button>
-        </div>
-        <video ref={(instance) => provideMediaRef("LOCAL_CLIENT", instance)} autoPlay playsInline muted={true} />
+        {state === CHAT_CALLROOM.INCOMING_CALL ? renderIncomingCall() : renderCallOngoing()}
       </div>
     </PopUp>
   );

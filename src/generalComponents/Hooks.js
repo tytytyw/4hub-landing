@@ -130,26 +130,27 @@ export function useWebRTC(socket, config) {
       });
     }
 
-    const getUsers = (users) => users.map((user) => user.id_user);
-
-    startCall()
-      .then(() => {
-        // initializing call
-        socket.send(
-          JSON.stringify({
-            action: CHAT_CALLROOM_SOCKET_ACTION,
-            users_to: getUsers(config.contacts),
-            data: {
-              method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
-              call_type: CHAT_CALLROOM.VOICE_CALL
-            }
-          })
-        );
-      })
-      .catch((err) => {
-        dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
-        console.log(err);
-      });
+    if (config.state === CHAT_CALLROOM.OUTGOING_CALL) {
+      startCall()
+        .then(() => {
+          // initializing call
+          socket.send(
+            JSON.stringify({
+              action: CHAT_CALLROOM_SOCKET_ACTION,
+              users_to: config.contacts,
+              data: {
+                method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
+                call_type: CHAT_CALLROOM.VOICE_CALL,
+                from: config.from
+              }
+            })
+          );
+        })
+        .catch((err) => {
+          dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
+          console.log(err);
+        });
+    }
 
     return () => {
       localMediaStream.current.getTracks().forEach((track) => track.stop());
