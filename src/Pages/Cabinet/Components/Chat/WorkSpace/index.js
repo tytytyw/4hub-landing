@@ -137,18 +137,18 @@ const WorkSpace = ({
     }
 
     if (data.action === "call_room") {
-      console.log(data);
       switch (data.data.method) {
         case CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT: {
           // TODO - mkortelov - get info from user.userInfo.id_user_chat from STORE - await BE
           // if (data.data.from !== userInfo.id_user_chat) {
-          if (data.data.from !== userId) {
+          if (data.data.from.id_user !== userId) {
             dispatch(
               setCallRoom({
                 state: CHAT_CALLROOM.INCOMING_CALL,
-                contacts: [...data.users_to.filter((it) => it !== userId), data.data.from],
+                contacts: [...data.users_to.filter((it) => it !== userId), data.data.from.id_user],
                 socket,
-                user_id: userId
+                user_id: userId,
+                icon: data.data.from.icon
               })
             );
           }

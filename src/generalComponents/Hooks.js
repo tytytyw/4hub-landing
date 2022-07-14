@@ -8,7 +8,7 @@ import {
   TYPES
 } from "./globalVariables";
 import { useLocales } from "react-localized";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../Store/actions/CabinetActions";
 import freeice from "freeice";
 
@@ -92,6 +92,7 @@ export const useElementResize = () => {
 
 export function useWebRTC(socket, config) {
   const { __ } = useLocales();
+  const icon = useSelector((s) => s.user.userInfo?.icon[0]);
   const dispatch = useDispatch();
   const [clients, updateClients] = useStateWithCallback([]);
 
@@ -141,7 +142,10 @@ export function useWebRTC(socket, config) {
               data: {
                 method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
                 call_type: CHAT_CALLROOM.VOICE_CALL,
-                from: config.from
+                from: {
+                  id_user: config.from,
+                  icon
+                }
               }
             })
           );

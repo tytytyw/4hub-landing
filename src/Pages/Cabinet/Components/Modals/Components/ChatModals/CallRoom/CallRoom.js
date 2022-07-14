@@ -12,7 +12,8 @@ import { ReactComponent as VideoIcon } from "assets/PrivateCabinet/film.svg";
 import { ReactComponent as HangUpIcon } from "assets/PrivateCabinet/chat/hangUp.svg";
 import { ReactComponent as PhoneIcon } from "assets/PrivateCabinet/chat/phone.svg";
 import { ReactComponent as RadioIcon } from "assets/PrivateCabinet/radio-3.svg";
-import { useWebRTC } from "../../../../../../../generalComponents/Hooks";
+import { ReactComponent as PhoneAcceptIcon } from "assets/PrivateCabinet/phone-5.svg";
+import { useWebRTC } from "generalComponents/Hooks";
 
 function CallRoom() {
   const { __ } = useLocales();
@@ -66,6 +67,15 @@ function CallRoom() {
       <span className={styles.cross} onClick={closeCallRoom} />
       <div className={styles.receiver}>
         {__("Входящий звонок")} {contacts.length === 1 ? `${contacts.name} ${contacts.sname}` : ""}
+      </div>
+      <img className={styles.avatar} src={icon ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`} alt="img" />
+      <div className={styles.buttonsPanelIncomingCall}>
+        <Button style={BUTTON_TYPES.ROUND_GREEN}>
+          <PhoneAcceptIcon className={styles.phoneAcceptIcon} />
+        </Button>
+        <Button style={BUTTON_TYPES.ROUND_RED}>
+          <HangUpIcon />
+        </Button>
       </div>
     </>
   );

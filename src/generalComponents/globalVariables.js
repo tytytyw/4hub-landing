@@ -126,7 +126,8 @@ export const BUTTON_TYPES = {
   GREY: "grey",
   ICON: "icon",
   ROUND_GREY: "round-grey",
-  ROUND_RED: "round-red"
+  ROUND_RED: "round-red",
+  ROUND_GREEN: "round-green"
 };
 
 //CALENDAR && TASKS Component
