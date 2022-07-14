@@ -4,20 +4,30 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { taskTypes } from "types/Tasks";
-import { contextMenuTask, imageSrc, MODALS, TASK_MODALS, TASK_TYPES } from "generalComponents/globalVariables";
+import {
+  contextMenuTask,
+  imageSrc,
+  MIDNIGHT,
+  MODALS,
+  TASK_MODALS,
+  TASK_TYPES
+} from "generalComponents/globalVariables";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { useContextMenuTasks } from "generalComponents/collections";
 import { onSetModals } from "Store/actions/CabinetActions";
 import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
 import { getFormatDate, getFormatTime } from "generalComponents/generalHelpers";
+import { createArrayOfHoursPerDay } from "generalComponents/CalendarHelper";
 
-function DayTimetable({ timePeriod, tasks, type }) {
+function DayTimetable({ tasks, type }) {
   const dispatch = useDispatch();
   const { theme } = useSelector((s) => s.user.userInfo);
   const chosenTask = useSelector((s) => s.Tasks.chosenTask);
   const contextMenu = useContextMenuTasks();
   const [mouseParams, setMouseParams] = useState(null);
+
+  const timePeriod = createArrayOfHoursPerDay(new Date("1971-01-01 " + MIDNIGHT), 1);
 
   const callbacks = {
     [contextMenuTask.DELETE]: () => {
@@ -105,7 +115,7 @@ function DayTimetable({ timePeriod, tasks, type }) {
   return (
     <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>
       {renderTimetableLine()}
-      {mouseParams !== null && (
+      {mouseParams && (
         <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <div className={styles.mainMenuItems}>
             {contextMenu[type].map((item, i) => (
@@ -127,12 +137,7 @@ function DayTimetable({ timePeriod, tasks, type }) {
 
 export default DayTimetable;
 
-DayTimetable.defaultProps = {
-  timePeriod: []
-};
-
 DayTimetable.propTypes = {
-  timePeriod: PropTypes.arrayOf(PropTypes.string), //list of hours per day
   tasks: PropTypes.arrayOf(taskTypes),
   type: PropTypes.string
 };

@@ -5,14 +5,12 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import {
   TASK_TYPES,
-  MIDNIGHT,
   TASKS_SCHEMA,
   STYLED_CLASSES,
   TaskFilters
 } from "../../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
 import DayTimetable from "./DayTimetable/DayTimetable";
-import { createArrayOfHoursPerDay } from "../../../../../../generalComponents/CalendarHelper";
 import MailTasks from "./MailTasks/MailTasks";
 import MyTasks from "./MyTasks/MyTasks";
 import BoardServicePanel from "./BoardServicePanel/BoardServicePanel";
@@ -22,7 +20,6 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
   const { theme } = useSelector((s) => s.user.userInfo);
   const currentDep = useSelector((s) => s.Tasks.currentDep);
   const filters = useSelector((s) => s.Tasks.filters);
-  const INITIAL_TIMETABLE_DATE = new Date("1971-01-01 " + MIDNIGHT);
   const tasks = useSelector((s) => s.Tasks.myTasks)
     // filter by Department
     .filter((item) => item.id_dep === currentDep?.id)
@@ -38,7 +35,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
   const getFiltredTask = () => {
     return tasks.filter((el) => {
       const today = getTime(startOfDay(new Date()));
-      const taskDateStart = getTime(new Date(el.date_start));
+      const taskDateStart = getTime(startOfDay(new Date(el.date_start)));
       const taskDateEnd = el.date_end
         ? getTime(endOfDay(new Date(el.date_end)))
         : getTime(endOfDay(new Date(taskDateStart)));
@@ -75,6 +72,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         return yearStart <= taskDateEnd && yearEnd > taskDateStart;
       }
       return today < taskDateEnd;
+      // return el;
     });
   };
 
@@ -88,11 +86,7 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         haveTasks={getFiltredTask().length > 0}
       />
       {(type === TASK_TYPES.MEETINGS || type === TASK_TYPES.CALLS) && (
-        <DayTimetable
-          timePeriod={createArrayOfHoursPerDay(INITIAL_TIMETABLE_DATE, 1)}
-          tasks={getFiltredTask()}
-          type={type}
-        />
+        <DayTimetable tasks={getFiltredTask()} type={type} />
       )}
       {type === TASK_TYPES.MAILS && <MailTasks tasks={tasks} />}
       {type === TASK_TYPES.TASK && <MyTasks tasks={getFiltredTask()} />}
