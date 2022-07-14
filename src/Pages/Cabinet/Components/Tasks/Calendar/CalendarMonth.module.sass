@@ -1,0 +1,181 @@
+@import src/theme/theme
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 504px
+    height: 418px
+    opacity: 0
+.wrap
+  display: flex
+  flex-direction: column
+  width: 504px
+  max-width: 504px
+  max-height: 90vh
+  overflow-y: auto
+  padding: 0 20px 20px
+  animation: showPopup 0.2s
+.header
+  display: flex
+  justify-content: space-between
+  padding: 12px 0
+  border-bottom: 1px solid $color-border-dark
+  .calendarPic
+    width: 88px
+    & > div
+      box-shadow: none
+      border: 1px solid $color-border-dark
+      border-radius: 6px
+      padding-top: 5px
+      padding-bottom: 5px
+
+      & > div > span
+        border-top: 6px solid $color-background-gray
+
+  .yearPicker
+    display: flex
+    gap: 10px
+    justify-content: center
+    flex: 1
+    transform: translateX(-33px)
+    .monthTitle
+      width: 100px
+      border-radius: 6px
+      text-align: center
+      font-size: 11px
+      border: 1px solid $color-border-dark
+      line-height: 30px
+  .yearIncrease, .yearDecrease
+    position: relative
+    width: 30px
+    border: 1px solid $color-border-dark
+    border-radius: 6px
+    cursor: pointer
+  .yearIncrease:hover
+    border: 1px solid $color-secondary
+  .yearIncrease:before
+    content: ''
+    position: absolute
+    top: 10px
+    left: 12px
+    border: 5px solid transparent
+    border-left: 5px solid $color-background-gray
+  .yearIncrease:hover:before
+    border-left: 5px solid $color-secondary
+  .yearDecrease:hover
+    border: 1px solid $color-secondary
+  .yearDecrease:before
+    content: ''
+    position: absolute
+    top: 10px
+    left: 6px
+    border: 5px solid transparent
+    border-right: 5px solid $color-background-gray
+  .yearDecrease:hover:before
+    border-right: 5px solid $color-secondary
+  .close_wrap
+    position: relative
+    width: 20px
+    height: 20px
+    cursor: pointer
+  .close_wrap:hover
+    .close
+      background: $color-secondary
+  .close
+    position: absolute
+    top: 10px
+    width: 16px
+    height: 2px
+    background: $color-grey_dark
+    transform: rotate(45deg)
+  .close:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: inherit
+    transform: rotate(90deg)
+.main
+  padding: 20px 0 16px
+  margin-bottom: 20px
+  border-bottom: 1px solid $color-border-dark
+  .line
+    display: flex
+    gap: 15px
+    margin-bottom: 4px
+    color: $color-text-grey
+    .weekNumberNone, .weekNumber
+      min-width: 60px
+    .weekNumber
+      border: 1px solid $color-border-dark
+      font-size: 12px
+      padding: 5px
+      border-radius: 5px
+      text-align: center
+    .weekDays
+      display: flex
+      flex: 1
+      border-radius: 6px
+      padding: 2px 0
+    .weekDayTitle
+      flex: 0 0 12.28%
+      border: 1px solid $color-border-dark
+      font-size: 12px
+      padding: 6px
+      border-radius: 6px
+      text-align: center
+      margin: 0 1%
+
+    .weekNumber:hover + .weekDays,.weekNumber:hover
+      background: $color-blue-light
+      border-color: $color-blue-light
+
+    .item
+      flex: 0 0 14.28%
+      text-align: center
+      font-size: 12px
+      cursor: pointer
+      .prev, .current, .next
+        width: 26px
+        height: 26px
+        border-radius: 50%
+        margin: 0 auto
+        line-height: 26px
+    .prev, .next
+      color: $color-text-grey-light
+    .today
+      border: 1px solid $color-blue-smooth
+    .item:hover .prev, .item:hover .current, .item:hover .next
+      background: $color-gray-light
+      color: $color-white
+    .chosen
+      background: $color-blue-smooth !important
+      color: $color-white
+
+    .thisWeek
+      border: 1px solid $color-border-dark
+    .chosenWeek
+      background: $color-blue-light
+
+.approve
+  background: $color-blue-smooth
+  color: white
+  font-size: 14px
+  letter-spacing: 0.4px
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 140px
+  height: 39px
+  border-radius: 5px
+  box-sizing: border-box
+  cursor: pointer
+  margin: 0 auto
+  .approve:active
+    background: $color-blue-dark
+    transition: background 0.2s ease

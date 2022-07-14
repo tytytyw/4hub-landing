@@ -82,7 +82,7 @@ export const useGetMonthByIndex = () => {
 export function useDaysOfWeeks() {
   const { __ } = useLocales();
   return {
-    short: [__("Пн"), __("Вт"), __("Ср"), __("Чт"), __("Пн"), __("Сб"), __("Вс")],
+    short: [__("Пн"), __("Вт"), __("Ср"), __("Чт"), __("Пт"), __("Сб"), __("Вс")],
     code: [2, 3, 4, 5, 6, 0, 1]
   };
 }

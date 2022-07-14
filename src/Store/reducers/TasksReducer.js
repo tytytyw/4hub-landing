@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   currentDep: null,
   myTasks: [],
   chosenTask: null,
-  breadcrumbsPath: { dep: "", year: "", month: "", week: "", day: "" }
+  filters: { type: "", year: "", month: "", day: "" }
 };
 
 export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -53,6 +53,9 @@ export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
       newTasks.forEach((item) => (item.id === payload.id_task ? item.comments.push(payload) : null));
       return { ...state, myTasks: newTasks };
     }
+
+    case TasksTypes.SELECT_FILTER:
+      return { ...state, filters: { ...payload } };
 
     default:
       return state;

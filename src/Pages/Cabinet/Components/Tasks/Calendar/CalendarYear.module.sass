@@ -1,0 +1,159 @@
+@import src/theme/theme
+@keyframes showPopup
+    0%
+        width: 10px
+        height: 10px
+        background: white
+        opacity: 0
+    99%
+        width: auto
+        height: 418px
+        opacity: 0
+.wrap
+    display: flex
+    flex-direction: column
+    width: auto
+    max-width: 1212px
+    max-height: 90vh
+    overflow-y: auto
+    padding: 0 20px 20px
+    animation: showPopup 0.2s
+.header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 12px 0
+    border-bottom: 1px solid $color-border-dark
+    position: sticky
+    top: 0
+    background-color: $color-white
+    .approve
+        background: $color-blue-smooth
+        color: white
+        font-size: 14px
+        letter-spacing: 0.4px
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 140px
+        height: 39px
+        border-radius: 5px
+        box-sizing: border-box
+        cursor: pointer
+    .approve:active
+        background: $color-blue-dark
+        transition: background 0.2s ease
+    .yearPicker
+        display: flex
+        align-items: center
+        gap: 10px
+        justify-content: center
+        flex: 1
+
+    .yearIncrease, .yearDecrease
+        position: relative
+        width: 25px
+        height: 25px
+        border: 1px solid grey
+        border-radius: 5px
+        cursor: pointer
+    .yearIncrease:hover
+        border: 1px solid $color-secondary
+    .yearIncrease:before
+        content: ''
+        position: absolute
+        top: 7px
+        left: 10px
+        border: 5px solid transparent
+        border-left: 5px solid $color-grey_dark
+    .yearIncrease:hover:before
+        border-left: 5px solid $color-secondary
+    .yearDecrease:hover
+        border: 1px solid $color-secondary
+    .yearDecrease:before
+        content: ''
+        position: absolute
+        top: 7px
+        left: 4px
+        border: 5px solid transparent
+        border-right: 5px solid $color-grey_dark
+    .yearDecrease:hover:before
+        border-right: 5px solid $color-secondary
+    .close_wrap
+        position: relative
+        width: 20px
+        height: 20px
+        cursor: pointer
+    .close_wrap:hover
+        .close
+            background: $color-secondary
+    .close
+        position: absolute
+        top: 10px
+        width: 16px
+        height: 2px
+        background: $color-grey_dark
+        transform: rotate(45deg)
+    .close:before
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        width: 16px
+        height: 2px
+        background: inherit
+        transform: rotate(90deg)
+.main
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+    .month
+        flex: 1 0 25%
+        padding: 12px
+        border-bottom: 1px solid $color-border-dark
+        border-right: 1px solid $color-border-dark
+        &:nth-child(4n)
+            border-right: none
+    .chosenMonth
+        background: $color-blue-light
+
+    .monthTitle
+        margin: 0 0 10px
+        font-size: 13px
+        cursor: pointer
+    .daysOfWeekWrap
+        display: flex
+        justify-content: space-between
+        margin: 0 0 5px
+
+    .days
+        display: flex
+        flex-wrap: wrap
+        row-gap: 8px
+    .item
+        flex: 0 0 14.28%
+        display: flex
+        justify-content: center
+    .day
+        width: 22px
+        height: 22px
+        margin: 0 auto
+        text-align: center
+        line-height: 20px
+        border-radius: 50%
+        font-size: 12px
+        color: transparent
+    .weekDay
+        color: $color-text-grey
+    .current
+        cursor: pointer
+        color: $color-text-grey
+        &:hover
+            box-shadow: 0 0 1px 1px $color-gray-light
+
+    .today
+        border: 1px solid $color-blue-smooth
+    .chosen
+        border: 1px solid $color-blue-smooth
+        background: $color-blue-smooth
+        color: $color-white

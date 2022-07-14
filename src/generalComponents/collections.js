@@ -5,6 +5,7 @@ import {
   LIBRARY_MODALS,
   MAIL_MODALS,
   STATUS_TYPES,
+  TaskFilters,
   TASK_MODALS,
   TASK_TYPES,
   URGENCY_TYPES
@@ -847,6 +848,30 @@ export function useTaskMessages() {
     }
   };
 }
+
+export const useTaskFiltersMenu = () => {
+  const { __ } = useLocales();
+  return {
+    [TaskFilters.TODAY]: __("Задачи на сегодня"),
+    [TaskFilters.BY_DAY]: __("Задачи на день"),
+    [TaskFilters.BY_WEEK]: __("Задачи на неделю"),
+    [TaskFilters.BY_MONTH]: __("Задачи на месяц"),
+    [TaskFilters.BY_YEAR]: __("Задачи на год")
+  };
+};
+
+export const useDayWeekName = () => {
+  const { __ } = useLocales();
+  return {
+    0: __("Воскресенье"),
+    1: __("Понедельник"),
+    2: __("Вторник"),
+    3: __("Среда"),
+    4: __("Четверг"),
+    5: __("Пятница"),
+    6: __("Суббота")
+  };
+};
 
 export function useStandardLibraries() {
   const { __ } = useLocales();
