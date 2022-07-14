@@ -44,7 +44,7 @@ function Button({ children, style, onClick, isSelected }) {
     switch (style) {
       case BUTTON_TYPES.LIGHT_LONG:
         return renderLightButton();
-      case BUTTON_TYPES.ICON:
+      case BUTTON_TYPES.ICON || BUTTON_TYPES.ROUND_GREY:
         return renderIcon();
       default:
         return renderButton();

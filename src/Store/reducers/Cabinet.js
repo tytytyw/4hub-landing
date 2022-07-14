@@ -75,9 +75,14 @@ import {
   GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
   GET_JOURNAL_FOLDERS,
-  SET_MESSAGES_TO_READ
+  SET_MESSAGES_TO_READ,
+  DATE_FILTER,
+  SORT_TYPE,
+  SET_CHAT_CALLROOM
 } from "../types";
-import { MODALS } from "../../generalComponents/globalVariables";
+import { CHAT_CALLROOM, MODALS } from "../../generalComponents/globalVariables";
+
+export const initialCallRoomState = () => ({ state: CHAT_CALLROOM.NO_CALL, contacts: null, socket: null });
 
 const INITIAL_STATE = {
   global: null,
@@ -105,6 +110,12 @@ const INITIAL_STATE = {
       emoji: "",
       figure: ""
     },
+    dateFilter: {
+      year: "",
+      day: "",
+      month: ""
+    },
+    sort: "",
     group: ""
   },
 
@@ -197,7 +208,8 @@ const INITIAL_STATE = {
       inputBgColor: "#F7F7F7",
       inputColor: "#AEAEAE",
       accentColor: ""
-    }
+    },
+    callRoom: initialCallRoomState()
   },
 
   //GLOBAL MODALS
@@ -514,6 +526,15 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
       };
     }
+    case SET_CHAT_CALLROOM: {
+      return {
+        ...state,
+        chat: {
+          ...state.chat,
+          callRoom: { ...state.chat.callRoom, ...action.payload }
+        }
+      };
+    }
 
     // SORT FILES
     case GROUP_FILES_JOURNAL: {
@@ -744,6 +765,23 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case NULLIFY_MAILS: {
       return { ...state, mailList: action.payload };
+    }
+
+    case DATE_FILTER: {
+      return {
+        ...state,
+        fileCriterion: { ...state.fileCriterion, dateFilter: { ...state.dateFilter, ...action.payload } }
+      };
+    }
+
+    case SORT_TYPE: {
+      return {
+        ...state,
+        fileCriterion: {
+          ...state.fileCriterion,
+          sort: action.payload
+        }
+      };
     }
   }
 }

@@ -1,3 +1,5 @@
+@import "theme/theme"
+
 .contentWrap
   top: 100%
 .reverseWrap
@@ -8,7 +10,7 @@
   right: 0
 .wrapper
   box-sizing: border-box
-  background: #ffffff
+  background: $color-white
   position: absolute
   min-width: 279px
   border-radius: 10px
@@ -16,7 +18,7 @@
   .content
     padding: 0 12px 15px 12px
     border-radius: 10px
-    box-shadow: 0 1px 3px #DEDEDE
+    box-shadow: 0 1px 3px $color-shadow
 
   .flexBlock
     display: flex
@@ -52,7 +54,7 @@
       margin: 9px 0 0 0
       font-size: 10px
       line-height: 16px
-      color: #49494B
+      color: $color-text-grey
 
     .infoBlock
       display: flex
@@ -64,12 +66,12 @@
         margin: 0
         font-size: 10px
         line-height: 16px
-        color: #BABABA
+        color: $color-text-grey
       .value
         margin: 0
         font-size: 12px
         line-height: 16px
-        color: #49494B
+        color: $color-text-grey
 
   .actionBlock
     display: flex
@@ -78,10 +80,7 @@
     .actionBtn
       font-size: 12px
       line-height: 16px
-      color: #ffffff
-      background: #4086F1
+      color: $color-white
+      background: $color-blue-smooth
       border-radius: 3px
       padding: 7px 22px 5px 13px
-
-
-

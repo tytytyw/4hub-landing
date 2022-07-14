@@ -45,16 +45,6 @@ const DateBlock = () => {
               onChange={(value) => onChangeYear(value)}
             />
           </div>
-
-          <div className={styles.daySelect}>
-            <Select
-              placeholder={__("Выбрать день")}
-              className={styles.select}
-              classNameSelect={styles.selectContent}
-              data={getDays()}
-              onChange={(value) => onChangeDay(value)}
-            />
-          </div>
           <div className={styles.monthSelect}>
             <Select
               placeholder={__("Выбрать месяц")}
@@ -62,6 +52,15 @@ const DateBlock = () => {
               classNameSelect={styles.selectContent}
               data={months}
               onChange={(value) => onChangeMonth(value)}
+            />
+          </div>
+          <div className={styles.daySelect}>
+            <Select
+              placeholder={__("Выбрать день")}
+              className={styles.select}
+              classNameSelect={styles.selectContent}
+              data={getDays()}
+              onChange={(value) => onChangeDay(value)}
             />
           </div>
         </div>

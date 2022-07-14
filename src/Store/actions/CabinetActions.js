@@ -71,7 +71,10 @@ import {
   SET_FOLDER_PATH,
   GROUP_FILES_JOURNAL,
   FILES_USER_SHARED,
-  SET_MESSAGES_TO_READ
+  SET_MESSAGES_TO_READ,
+  DATE_FILTER,
+  SORT_TYPE,
+  SET_CHAT_CALLROOM
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { LIBRARY, LOADING_STATE, MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -1234,7 +1237,11 @@ export const onLoadFiles =
       dir: getState().Cabinet.fileList.path,
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`,
-      group: getState().Cabinet.fileCriterion.group
+      group: getState().Cabinet.fileCriterion.group,
+      sort: getState().Cabinet.fileCriterion.sort,
+      y: getState().Cabinet.fileCriterion.dateFilter.year,
+      m: getState().Cabinet.fileCriterion.dateFilter.month,
+      d: getState().Cabinet.fileCriterion.dateFilter.day
     };
     api
       .get(`/ajax/${endpoint}.php`, {
@@ -1272,6 +1279,11 @@ export const onLoadFiles =
         deleteCancelToken(endpoint);
       });
   };
+
+export const setCallRoom = (payload) => ({
+  type: SET_CHAT_CALLROOM,
+  payload
+});
 
 // MAIL
 export const getMails = () => {
@@ -1388,5 +1400,23 @@ export const onSetMailPath = (path) => {
     payload: {
       path
     }
+  };
+};
+
+export const onChangeDateFilter = (dateFilter) => {
+  return {
+    type: DATE_FILTER,
+    payload: {
+      year: dateFilter.y,
+      day: dateFilter.d,
+      month: dateFilter?.m
+    }
+  };
+};
+
+export const onChangeSortFile = (sortType) => {
+  return {
+    type: SORT_TYPE,
+    payload: sortType
   };
 };

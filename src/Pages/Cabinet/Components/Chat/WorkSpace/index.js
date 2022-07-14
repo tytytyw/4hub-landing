@@ -129,6 +129,12 @@ const WorkSpace = ({
     if (data.action === "chat_message_del_all") {
       dispatch(onSetSelectedContact(selectedContact));
     }
+
+    if (data.action === "call_room") {
+      // TODO - mkortelov - Add new actions to users
+      console.log("call_room", data);
+      // dispatch(setCallRoom(selectedContact));
+    }
   };
 
   const onConnectClose = (e) => {
@@ -387,6 +393,6 @@ WorkSpace.propTypes = {
   showSettings: PropTypes.bool,
   setShowSettings: PropTypes.func.isRequired,
   //eslint-disable-next-line
-  socket: PropTypes.object.isRequired,
+  socket: PropTypes.object,
   setSocket: PropTypes.func.isRequired
 };

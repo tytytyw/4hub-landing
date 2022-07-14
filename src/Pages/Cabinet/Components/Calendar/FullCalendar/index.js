@@ -1,20 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 import styles from "./FullCalendar.module.sass";
 
-import "./FullCalendar.css";
+import "./FullCalendar.sass";
 import { days } from "../helper";
 import TableTaskItem from "../TableTaskItem";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { eventProps } from "../../../../../types/CalendarPage";
-import classNames from "classnames";
 import { setCalendarDate } from "Store/actions/CabinetActions";
+import classNames from "classnames";
 
-const FullCalendarTable = ({ tasks, setViewType }) => {
+const FullCalendarTable = ({ tasks, setViewType, view }) => {
   const dispatch = useDispatch();
   const weekTasks = tasks.map((item) => {
     return { ...item, date: new Date(item.date_start) };
@@ -24,6 +25,8 @@ const FullCalendarTable = ({ tasks, setViewType }) => {
   const renderEventContent = (eventInfo) => {
     return <TableTaskItem date={eventInfo?.event.start} task={eventInfo.event?.extendedProps} />;
   };
+
+  const initialView = view === "month" ? "dayGridMonth" : "";
 
   const getThisDay = (date) => {
     setViewType("day");
@@ -51,19 +54,20 @@ const FullCalendarTable = ({ tasks, setViewType }) => {
   }, [calendarDate]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, view)}>
       <FullCalendar
         initialDate={calendarDate}
         ref={calendarRef}
         events={weekTasks}
-        plugins={[timeGridPlugin, interactionPlugin]}
+        plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
+        initialView={initialView}
         allDaySlot={false}
         headerToolbar={{
           left: null,
           center: null,
           right: null
         }}
-        dayHeaderContent={renderHeaderCell}
+        dayHeaderContent={view ? null : renderHeaderCell}
         slotDuration="01:00"
         slotMinTime="00:00"
         slotMaxTime="24:00"
@@ -84,5 +88,6 @@ export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
   tasks: PropTypes.arrayOf(eventProps),
-  setViewType: PropTypes.func
+  setViewType: PropTypes.func,
+  view: PropTypes.string
 };

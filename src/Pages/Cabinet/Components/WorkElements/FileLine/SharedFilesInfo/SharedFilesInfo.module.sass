@@ -1,3 +1,5 @@
+@import "theme/theme"
+
 @mixin review
   width: 141px
   height: 30px
@@ -5,7 +7,7 @@
   justify-content: center
   align-items: center
   box-sizing: border-box
-  background: rgb(230, 237, 248)
+  background: $color-background-blue-light
   font-size: 11px
   border-radius: 20px
   cursor: pointer
@@ -24,13 +26,13 @@
   width: 392px
   height: 139px
   border-radius: 5px
-  box-shadow: 0 0 2px #c4c3c3
+  box-shadow: 0 0 2px $color-shadow
   box-sizing: border-box
   padding: 10px
   font-family: "SF Pro Regular", sans-serif
   font-size: 14px
   z-index: 5
-  background: #FFFFFF
+  background: $color-white
   &:before
     content: ''
     position: absolute
@@ -52,8 +54,8 @@
       width: 16px
       height: 16px
       border-radius: 50%
-      border: 1px solid rgb(64, 134, 241)
-      background: rgb(64, 134, 241)
+      border: 1px solid $color-blue-smooth
+      background: $color-blue-smooth
   .reviewOptionLast
     margin-bottom: 5px
   .descr
@@ -64,7 +66,7 @@
 .review
   @include review
 .chosen
-  background: #FFFFFF
+  background: $color-white
 .reviewOptions
   @include reviewOptions
 .iconWrap
@@ -77,26 +79,12 @@
   font-size: 11px
   cursor: pointer
   position: relative
-  .userIconWrap
-    width: 30px
-    height: 30px
-    background: #e6edf8
-    display: flex
-    justify-content: center
-    align-items: center
-    border-radius: 50%
   .shownUsers
     position: absolute
     z-index: 1
   .hiddenUsers
     display: none
-  .userIcon
-    width: 30px
-    height: 30px
-    max-width: 30px
-    max-height: 30px
-    border-radius: 50%
 .endTime
   font-size: 13px
-  color: #49494B
+  color: $color-text-grey
   font-family: "SF Pro Regular", sans-serif

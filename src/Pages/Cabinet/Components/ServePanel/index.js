@@ -575,7 +575,7 @@ const ServePanel = ({
     <>
       <div className={styles.groupStart}>
         <div className={styles.filterPanel}>
-          {tempFilter()} {tempChoose()} {tempAdd()}
+          {tempFilter()} {tempAdd()}
         </div>
       </div>
     </>

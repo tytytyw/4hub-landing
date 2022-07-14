@@ -1,3 +1,5 @@
+@import "theme/theme"
+
 .wrapper
 
 .searchWrap
@@ -5,13 +7,13 @@
   align-items: center
   justify-content: space-between
   padding: 0 20px
-  border-bottom: 1px solid #DFDFDF
+  border-bottom: 1px solid $color-grey-secondary
   min-height: 50px
 
 .select
   box-shadow: none
   border-radius: 3px
-  border: 1px solid #4086F1
+  border: 1px solid $color-blue-smooth
   .selectContent
     font-size: 10px
     line-height: 14px
@@ -19,18 +21,16 @@
     display: flex
     align-items: center
     padding: 0 10px
-    color: #666666
+    color: $color-text-grey-medium
 
 .selectsWrap
   display: flex
+  gap: 10px
 
 .yearSelect
-  margin-right: 10px
   width: 120px
   height: 32px
-
   .selectContentYear
-    margin-right: 10px
     font-size: 10px
     line-height: 14px
     height: 100%
@@ -38,10 +38,9 @@
     justify-content: center
     align-items: center
     padding: 0 10px
-    color: #666666
+    color: $color-text-grey-medium
 
 .daySelect
-  margin-right: 10px
   width: 120px
 
 .monthSelect
@@ -55,7 +54,7 @@
   .button.active
     background: rgba(64, 134, 241, 0.1)
     transition: background-color 0.2s ease-in-out
-    border: 1px solid #4086F1
+    border: 1px solid $color-blue-smooth
 
   .button
     display: block
@@ -66,19 +65,18 @@
     cursor: pointer
     width: 171px
     height: 34px
-    background: #ffffff
+    background: $color-white
     border-radius: 3px
     padding: 0 10px
     font-family: inherit
     margin: 0 5px
-    color: #666666
+    color: $color-text-grey-medium
     font-size: 12px
-    box-shadow: 0 2px 4px #dedede
+    box-shadow: 0 2px 4px $color-shadow
     transition: background-color 0.2s ease-in-out
     &:hover
       background: rgba(64, 134, 241, 0.1)
       transition: background-color 0.2s ease-in-out
-
 
 .search
   position: relative
@@ -95,11 +93,10 @@
     font-size: 12px
     line-height: 15px
     font-family: inherit
-    color: #AEAEAE
 
     width: 100%
     height: 32px
-    background: #F7F7F7
+    background: $color-background-grey
     border-radius: 20px
     border: none
     padding: 0 25px
@@ -109,7 +106,6 @@
       line-height: 12px
       font-family: inherit
 
-
 .collapseHeader
   display: flex
   align-items: center
@@ -117,7 +113,7 @@
   .dateName
     font-size: 14px
     line-height: 17px
-    color: #606060
+    color: $color-text-grey-medium
 
   .arrowFile
     cursor: pointer
@@ -136,11 +132,11 @@
     width: 121px
     height: 32px
     border: none
-    background: rgba(64, 134, 241, 0.1)
+    background: $color-blue-opacity
     border-radius: 16px
     padding: 0 10px
     font-family: inherit
-    color: #666666
+    color: $color-text-grey-medium
     font-size: 12px
-    box-shadow: 0 2px 4px #dedede
+    box-shadow: 0 2px 4px $color-shadow
     transition: background-color 0.2s ease-in-out

@@ -233,6 +233,7 @@ const ChatBoard = ({
           selectedContact={selectedContact}
           setAction={setAction}
           setRightPanelContentType={setRightPanelContentType}
+          socket={socket}
         />
       ) : (
         ""

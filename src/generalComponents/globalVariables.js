@@ -69,7 +69,8 @@ export const TYPES = {
   STRING: "string",
   BOOLEAN: "boolean",
   NULL: "null",
-  UNDEFINED: "undefined"
+  UNDEFINED: "undefined",
+  FUNCTION: "function"
 };
 
 export const MIDNIGHT = "00:00:00";
@@ -94,6 +95,27 @@ export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 export const CHECKBOX = "checkBox";
 export const CONTEXT_MENU = "contextMenu";
+export const LOCAL_CLIENT = "LOCAL_CLIENT";
+export const CHAT_CALLROOM = {
+  NO_CALL: "NO_CALL",
+  OUTGOING_CALL: "OUTGOING_CALL",
+  INCOMING_CALL: "INCOMING_CALL",
+  VOICE_CALL: "VOICE_CALL",
+  VIDEO_CALL: "VIDEO_CALL"
+};
+
+export const CHAT_CALLROOM_SOCKET_ACTION = "call_room";
+export const CHAT_CALLROOM_ACTIONS = {
+  JOIN: "JOIN",
+  ASK_TO_CONNECT: "ASK_TO_CONNECT",
+  LEAVE: "LEAVE",
+  ADD_PEER: "ADD_PEER",
+  REMOVE_PEER: "REMOVE_PEER",
+  RELAY_SDP: "RELAY_SDP",
+  RELAY_ICE: "RELAY_ICE",
+  ICE_CANDIDIATE: "ICE_CANDIDIATE",
+  SESSION_DESCRIPTION: "SESSION_DESCRIPTION"
+};
 
 //Customable button
 export const BUTTON_TYPES = {
@@ -102,7 +124,9 @@ export const BUTTON_TYPES = {
   LARGE: "large",
   FULL_WIDTH: "fullWidth",
   GREY: "grey",
-  ICON: "icon"
+  ICON: "icon",
+  ROUND_GREY: "round-grey",
+  ROUND_RED: "round-red"
 };
 
 //CALENDAR && TASKS Component
@@ -120,11 +144,11 @@ export const CALENDAR_MODALS = {
 // MY TASKS
 export const TASK_TYPES = {
   TASK: "task",
-  BIRTHDAY: 2,
+  BIRTHDAY: "birthady",
   ONLINE_MEETING: "onlineMeetings",
   OFFLINE_MEETING: "offlineMeetings",
-  REMINDER: 5,
-  OTHER: 6,
+  REMINDER: "reminder",
+  OTHER: "other",
   NOTES: "notes",
   MEETINGS: "meetings",
   CALLS: "calls",
@@ -247,6 +271,11 @@ export const LIBRARY = {
   API_GET_FOLDERS: "get_folders"
 };
 
+// FOLDER
+export const FOLDER = {
+  API_GET_FILES: "lsjson"
+};
+
 export const VIEW_TYPE = {
   BARS: "bars",
   LINES: "lines",
@@ -291,5 +320,6 @@ export const CART = {
 // JOURNAL
 
 export const JOURNAL = {
-  API_GET_FILES: "history_get"
+  API_GET_JOURNAL_FILES: "history_get",
+  SORT_DATE_CHANGE: "byDateChanged"
 };

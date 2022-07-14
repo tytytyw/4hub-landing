@@ -22,7 +22,7 @@ import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import { getStorageItem } from "generalComponents/StorageHelper";
 
-function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }) {
+function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists }) {
   const TITLE = useTaskBoardTitle();
   const dispatch = useDispatch();
   const [tabSelect, setTabSelect] = useState(2);
@@ -143,7 +143,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }
       {type === TASK_TYPES.TASK && (
         <div className={styles.addIconWrap}>
           <AddIcon className={styles.addIcon} onClick={onAdd} />
-          {!haveTasks && renderAddImage()}
+          {!taskExists && renderAddImage()}
         </div>
       )}
       <span className={styles.boardTitle}>{TITLE[type]}</span>
@@ -152,7 +152,7 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, haveTasks }
         {!isLastElement ? (
           <div className={styles.addIconWrap}>
             <AddIcon className={classNames(styles.addIcon)} onClick={onAdd} />
-            {!haveTasks && renderAddImage()}
+            {!taskExists && renderAddImage()}
           </div>
         ) : null}
         {isLastElement ? <TabsPicker ELEMENTS={ELEMENTS} selected={tabSelect} onClick={setTabSelect} /> : null}
@@ -172,5 +172,5 @@ BoardServicePanel.propTypes = {
   isLastElement: PropTypes.bool,
   setSchema: PropTypes.func.isRequired,
   schema: PropTypes.oneOf(Object.values(TASKS_SCHEMA)),
-  haveTasks: PropTypes.bool
+  taskExists: PropTypes.bool
 };

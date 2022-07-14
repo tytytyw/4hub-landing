@@ -20,6 +20,7 @@ import TaskModals from "./Components/TaskModals/TaskModals";
 import LibraryModals from "./Components/LibraryModals/LibraryModals";
 import MailModals from "./Components/MailModals/MailModals";
 import CalendarModals from "./Components/CalendarModals/CalendarModals";
+import ChatModals from "./Components/ChatModals/ChatModals";
 
 function Modals({
   awaitingFiles,
@@ -102,6 +103,7 @@ function Modals({
       {mailModalsType ? <MailModals /> : null}
       {libraryModalsType ? <LibraryModals /> : null}
       {calendarModalsType ? <CalendarModals /> : null}
+      <ChatModals />
     </>
   );
 }
