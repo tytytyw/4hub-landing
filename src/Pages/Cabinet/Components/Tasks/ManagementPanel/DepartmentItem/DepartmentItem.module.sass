@@ -10,34 +10,3 @@
     text-align: center
 .mainMenuItems
     margin: 10px 0
-.filterList
-    position: absolute
-    right: 0
-    top: calc(100% + 10px)
-    width: max-content
-    background: $color-white
-    box-shadow: 0px 1px 10px $color-grey_medium
-    border-radius: 5px
-    z-index: 1
-    margin: 0
-    &::before
-        content: ''
-        position: absolute
-        top: -3px
-        right: 45px
-        width: 6px
-        height: 6px
-        transform: rotate(45deg)
-        background: $color-white
-    & li
-        font-family: 'SF Pro Text', sans-serif
-        font-size: 14px
-        line-height: 16px
-        letter-spacing: -0.0622845px
-        color: $color-text-grey
-        padding: 10px 8px
-        cursor: pointer
-        &:hover
-            background: $color-background-blue-light
-        &:not(:last-child)
-            border-bottom: 1px solid $color-border-dark

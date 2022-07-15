@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { getWeekOfMonth } from "date-fns";
 import { TasksTypes } from "Store/types";
 import { TaskFilters } from "generalComponents/globalVariables";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CalendarMonth = ({ setShowCalendar, setOpenYearCalendar }) => {
   const { __ } = useLocales();
@@ -20,15 +20,23 @@ const CalendarMonth = ({ setShowCalendar, setOpenYearCalendar }) => {
   const [date, setDate] = useState(getDate());
   const today = getDate();
   const [daysInMonth, setDaysInMonth] = useState(generateCalendar(6, date));
+  const isHistory = useSelector((s) => s.Tasks.isHistory);
 
   useEffect(() => setDaysInMonth(generateCalendar(6, date)), [date]); //eslint-disable-line
 
   const getYears = () => {
     const years = [];
-    for (let i = 2022; i <= new Date().getFullYear() + 10; i++) {
-      years.push({ id: i.toString(), text: i.toString() });
+    if (!isHistory) {
+      for (let i = 2022; i <= new Date().getFullYear() + 10; i++) {
+        years.push({ id: i.toString(), text: i.toString() });
+      }
+      return years;
+    } else {
+      for (let i = new Date().getFullYear(); i >= 2021; i--) {
+        years.push({ id: i.toString(), text: i.toString() });
+      }
+      return years;
     }
-    return years;
   };
 
   const switchMonth = (e) => {
@@ -76,6 +84,7 @@ const CalendarMonth = ({ setShowCalendar, setOpenYearCalendar }) => {
     if (day.class === "prev" || day.class === "next") {
       return switchMonth(e);
     }
+    if (isHistory && new Date(date.year, date.month, day.value) >= new Date(today.year, today.month, today.day)) return;
     setDate((state) => ({ ...state, day: day.value }));
   };
 
@@ -184,7 +193,10 @@ const CalendarMonth = ({ setShowCalendar, setOpenYearCalendar }) => {
         <div className={styles.yearPicker}>
           <div className={styles.yearDecrease} onClick={() => switchMonth(32)} />
           <div className={styles.monthTitle}>{months(date.year)[date.month - 1].name}</div>
-          <div className={styles.yearIncrease} onClick={() => switchMonth(0)} />
+          <div
+            className={styles.yearIncrease}
+            onClick={() => (isHistory && date.year === today.year && date.month >= today.month ? null : switchMonth(0))}
+          />
         </div>
         <div className={styles.close_wrap} onClick={() => setShowCalendar(false)}>
           <span className={styles.close} />

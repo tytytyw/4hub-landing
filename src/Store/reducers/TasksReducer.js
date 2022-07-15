@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   currentDep: null,
   myTasks: [],
   chosenTask: null,
-  filters: { type: "", year: "", month: "", day: "" }
+  filters: { type: "", year: "", month: "", day: "" },
+  isHistory: false
 };
 
 export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -56,6 +57,9 @@ export const TasksReducer = (state = INITIAL_STATE, { type, payload }) => {
 
     case TasksTypes.SELECT_FILTER:
       return { ...state, filters: { ...payload } };
+
+    case TasksTypes.IS_HISTORY:
+      return { ...state, isHistory: payload };
 
     default:
       return state;

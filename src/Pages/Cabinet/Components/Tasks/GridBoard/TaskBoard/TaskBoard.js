@@ -72,7 +72,6 @@ function TaskBoard({ classNameWrap, type, schema, setSchema }) {
         return yearStart <= taskDateEnd && yearEnd > taskDateStart;
       }
       return today < taskDateEnd;
-      // return el;
     });
   };
 

@@ -118,6 +118,26 @@ function DayTimetable({ tasks, type }) {
       </div>
     ));
 
+  const renderDaysYear = () => {
+    const taskDays = tasks
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+      .reduce((acc, item) => {
+        const key = new Date(item.date_start.split("T")[0]).getMonth();
+        acc[key] = acc[key] ? [...acc[key], item] : [item];
+        return acc;
+      }, {});
+    return Object.entries(taskDays).map(([key, item]) => (
+      <div key={key}>
+        <div className={styles.subTitle}>{months().find((el) => el.id === +key)?.name}</div>
+        <div>
+          {item.map((el) => (
+            <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} isDate={true} />
+          ))}
+        </div>
+      </div>
+    ));
+  };
+
   const renderDaysMonth = () => {
     const taskDays = tasks
       .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
@@ -141,26 +161,6 @@ function DayTimetable({ tasks, type }) {
     ));
   };
 
-  const renderDaysYear = () => {
-    const taskDays = tasks
-      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
-      .reduce((acc, item) => {
-        const key = new Date(item.date_start.split("T")[0]).getMonth();
-        acc[key] = acc[key] ? [...acc[key], item] : [item];
-        return acc;
-      }, {});
-    return Object.entries(taskDays).map(([key, item]) => (
-      <div key={key}>
-        <div className={styles.subTitle}>{months().find((el) => el.id === +key)?.name}</div>
-        <div>
-          {item.map((el) => (
-            <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} isDate={true} />
-          ))}
-        </div>
-      </div>
-    ));
-  };
-
   const renderDaysWeek = () => {
     return tasks
       .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
@@ -170,8 +170,8 @@ function DayTimetable({ tasks, type }) {
   return (
     <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>
       {filters.type === TaskFilters.BY_YEAR && renderDaysYear()}
-      {filters.type === TaskFilters.BY_WEEK && renderDaysWeek()}
       {filters.type === TaskFilters.BY_MONTH && renderDaysMonth()}
+      {filters.type === TaskFilters.BY_WEEK && renderDaysWeek()}
       {(filters.type === TaskFilters.BY_DAY || filters.type === TaskFilters.TODAY || !filters.type) &&
         renderTimetableLine()}
       {mouseParams && (
