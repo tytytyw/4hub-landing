@@ -114,11 +114,11 @@ export function useWebRTC(socket, config) {
   useEffect(() => {
     async function startCall() {
       localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: {
-          width: 800,
-          height: 600
-        }
+        audio: true
+        // video: {
+        //   width: 800,
+        //   height: 600
+        // }
       });
 
       addNewClient(LOCAL_CLIENT, () => {
@@ -185,8 +185,10 @@ export function useWebRTC(socket, config) {
         if (event.candidate) {
           socket.send(
             JSON.stringify({
-              action: "call_room",
+              action: CHAT_CALLROOM_SOCKET_ACTION,
               data: {
+                method: CHAT_CALLROOM_ACTIONS.RELAY_ICE,
+                callType: config.callType,
                 peerID,
                 iceCandidate: event.candidate
               }
@@ -227,8 +229,9 @@ export function useWebRTC(socket, config) {
 
         socket.send(
           JSON.stringify({
-            action: CHAT_CALLROOM_ACTIONS.RELAY_SDP,
+            action: CHAT_CALLROOM_SOCKET_ACTION,
             data: {
+              type: CHAT_CALLROOM_ACTIONS.RELAY_SDP,
               peerID,
               sessionDescription: offer
             }
@@ -236,7 +239,7 @@ export function useWebRTC(socket, config) {
         );
       }
     },
-    [addNewClient, socket]
+    [addNewClient, socket, config]
   );
 
   return { clients, provideMediaRef, handleNewPeer };

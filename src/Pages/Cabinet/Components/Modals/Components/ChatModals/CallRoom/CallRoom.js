@@ -17,13 +17,14 @@ import { useWebRTC } from "generalComponents/Hooks";
 
 function CallRoom() {
   const { __ } = useLocales();
-  const { contacts, socket, user_id, state, icon } = useSelector((s) => s.Cabinet.chat.callRoom);
+  const { contacts, socket, user_id, state, icon, callType } = useSelector((s) => s.Cabinet.chat.callRoom);
   const selectedContact = useSelector((s) => s.Cabinet.chat.selectedContact);
   const dispatch = useDispatch();
   const { clients, provideMediaRef } = useWebRTC(socket, {
     contacts: contacts,
     from: user_id,
-    state
+    state,
+    callType
   });
 
   console.log(clients);
