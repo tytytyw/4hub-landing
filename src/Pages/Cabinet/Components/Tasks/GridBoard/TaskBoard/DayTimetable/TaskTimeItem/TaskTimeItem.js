@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { taskTypes } from "types/Tasks";
-import { getFormatTime } from "generalComponents/generalHelpers";
+import { getFormatDate, getFormatTime } from "generalComponents/generalHelpers";
 import { onSelectTask } from "Store/actions/TasksActions";
 import { ReactComponent as NoteIcon } from "assets/PrivateCabinet/tasks/note.svg";
 import ThreeDots from "../../../../../../../../generalComponents/ThreeDots/ThreeDots";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 
-const TaskTimeItem = ({ task, setMouseParams }) => {
+const TaskTimeItem = ({ task, setMouseParams, isDate }) => {
   const [showNote, setShowNote] = useState(false);
   const dispatch = useDispatch();
 
@@ -31,6 +31,7 @@ const TaskTimeItem = ({ task, setMouseParams }) => {
           )}
         </div>
       )}
+      {isDate && <span className={styles.time}>{getFormatDate(task.date_start)}</span>}
       <ThreeDots onClick={(e) => setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 })} />
     </div>
   );
@@ -39,5 +40,6 @@ const TaskTimeItem = ({ task, setMouseParams }) => {
 export default TaskTimeItem;
 TaskTimeItem.propTypes = {
   task: taskTypes,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
+  isDate: PropTypes.bool
 };
