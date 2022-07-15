@@ -19,6 +19,7 @@ import { socketProps } from "../../../../../types/Socket";
 const ServePanel = ({ selectedContact, setAction, setRightPanelContentType, socket }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const { userId } = useSelector((state) => state.Cabinet.chat);
   const dispatch = useDispatch();
   const paint = useSelector((state) => state.Cabinet.paint);
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
@@ -27,8 +28,10 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType, sock
     dispatch(
       setCallRoom({
         state: CHAT_CALLROOM.OUTGOING_CALL,
-        contacts: selectedContact.id_group ? selectedContact.users : [selectedContact],
-        socket
+        contacts: selectedContact.id_group ? selectedContact.users.map((it) => it.id_user) : [selectedContact.id_user],
+        socket,
+        user_id: userId,
+        icon: selectedContact.id_group ? null : selectedContact?.icon[0]
       })
     );
 

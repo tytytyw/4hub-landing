@@ -9,7 +9,12 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile/Profile";
-import { addNewChatMessage, onReadMessages, onSetSelectedContact } from "../../../../../Store/actions/CabinetActions";
+import {
+  addNewChatMessage,
+  onReadMessages,
+  onSetSelectedContact,
+  setCallRoom
+} from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import SelectFile from "../SelectFile";
@@ -19,6 +24,7 @@ import { onEditChatMessage, onDeleteChatMessage } from "../../../../../Store/act
 import classNames from "classnames";
 import { actionProps } from "../../../../../types/Action";
 import { fileChatProps } from "types/File";
+import { CHAT_CALLROOM, CHAT_CALLROOM_ACTIONS } from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -37,7 +43,7 @@ const WorkSpace = ({
   setSocket
 }) => {
   const [socketReconnect, setSocketReconnect] = useState(true);
-  const uid = useSelector((state) => state.user.uid);
+  const { uid } = useSelector((state) => state.user);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
   const id_company = useSelector((state) => state.user.id_company);
   const endMessagesRef = useRef();
@@ -131,9 +137,28 @@ const WorkSpace = ({
     }
 
     if (data.action === "call_room") {
-      // TODO - mkortelov - Add new actions to users
-      console.log("call_room", data);
-      // dispatch(setCallRoom(selectedContact));
+      switch (data.data.method) {
+        case CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT: {
+          // TODO - mkortelov - get info from user.userInfo.id_user_chat from STORE - await BE
+          // if (data.data.from !== userInfo.id_user_chat) {
+          if (data.data.from.id_user !== userId) {
+            dispatch(
+              setCallRoom({
+                state: CHAT_CALLROOM.INCOMING_CALL,
+                contacts: [...data.users_to.filter((it) => it !== userId), data.data.from.id_user],
+                socket,
+                user_id: userId,
+                icon: data.data.from.icon
+              })
+            );
+          }
+          break;
+        }
+        default: {
+          console.log("call_room", data.data.method, "not used");
+          break;
+        }
+      }
     }
   };
 

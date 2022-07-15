@@ -8,7 +8,7 @@ import {
   TYPES
 } from "./globalVariables";
 import { useLocales } from "react-localized";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../Store/actions/CabinetActions";
 import freeice from "freeice";
 
@@ -92,6 +92,7 @@ export const useElementResize = () => {
 
 export function useWebRTC(socket, config) {
   const { __ } = useLocales();
+  const icon = useSelector((s) => s.user.userInfo?.icon[0]);
   const dispatch = useDispatch();
   const [clients, updateClients] = useStateWithCallback([]);
 
@@ -113,11 +114,11 @@ export function useWebRTC(socket, config) {
   useEffect(() => {
     async function startCall() {
       localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: {
-          width: 800,
-          height: 600
-        }
+        audio: true
+        // video: {
+        //   width: 800,
+        //   height: 600
+        // }
       });
 
       addNewClient(LOCAL_CLIENT, () => {
@@ -130,26 +131,30 @@ export function useWebRTC(socket, config) {
       });
     }
 
-    const getUsers = (users) => users.map((user) => user.id_user);
-
-    startCall()
-      .then(() => {
-        // initializing call
-        socket.send(
-          JSON.stringify({
-            action: CHAT_CALLROOM_SOCKET_ACTION,
-            users_to: getUsers(config.contacts),
-            data: {
-              method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
-              call_type: CHAT_CALLROOM.VOICE_CALL
-            }
-          })
-        );
-      })
-      .catch((err) => {
-        dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
-        console.log(err);
-      });
+    if (config.state === CHAT_CALLROOM.OUTGOING_CALL) {
+      startCall()
+        .then(() => {
+          // initializing call
+          socket.send(
+            JSON.stringify({
+              action: CHAT_CALLROOM_SOCKET_ACTION,
+              users_to: config.contacts,
+              data: {
+                method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
+                call_type: CHAT_CALLROOM.VOICE_CALL,
+                from: {
+                  id_user: config.from,
+                  icon
+                }
+              }
+            })
+          );
+        })
+        .catch((err) => {
+          dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
+          console.log(err);
+        });
+    }
 
     return () => {
       localMediaStream.current.getTracks().forEach((track) => track.stop());
@@ -180,8 +185,10 @@ export function useWebRTC(socket, config) {
         if (event.candidate) {
           socket.send(
             JSON.stringify({
-              action: "call_room",
+              action: CHAT_CALLROOM_SOCKET_ACTION,
               data: {
+                method: CHAT_CALLROOM_ACTIONS.RELAY_ICE,
+                callType: config.callType,
                 peerID,
                 iceCandidate: event.candidate
               }
@@ -222,8 +229,9 @@ export function useWebRTC(socket, config) {
 
         socket.send(
           JSON.stringify({
-            action: CHAT_CALLROOM_ACTIONS.RELAY_SDP,
+            action: CHAT_CALLROOM_SOCKET_ACTION,
             data: {
+              type: CHAT_CALLROOM_ACTIONS.RELAY_SDP,
               peerID,
               sessionDescription: offer
             }
@@ -231,7 +239,7 @@ export function useWebRTC(socket, config) {
         );
       }
     },
-    [addNewClient, socket]
+    [addNewClient, socket, config]
   );
 
   return { clients, provideMediaRef, handleNewPeer };
