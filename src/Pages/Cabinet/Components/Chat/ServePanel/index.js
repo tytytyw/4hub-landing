@@ -14,15 +14,26 @@ import { onSetPaint, onSetModals, setCallRoom } from "../../../../../Store/actio
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { selectedContactProps } from "types/Chat";
+import { socketProps } from "../../../../../types/Socket";
 
-const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) => {
+const ServePanel = ({ selectedContact, setAction, setRightPanelContentType, socket }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const { userId } = useSelector((state) => state.Cabinet.chat);
   const dispatch = useDispatch();
   const paint = useSelector((state) => state.Cabinet.paint);
   const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
 
-  const startVoiceCall = () => dispatch(setCallRoom({ state: CHAT_CALLROOM.OUTGOING_CALL, contact: selectedContact }));
+  const startVoiceCall = () =>
+    dispatch(
+      setCallRoom({
+        state: CHAT_CALLROOM.OUTGOING_CALL,
+        contacts: selectedContact.id_group ? selectedContact.users.map((it) => it.id_user) : [selectedContact.id_user],
+        socket,
+        user_id: userId,
+        icon: selectedContact.id_group ? null : selectedContact?.icon[0]
+      })
+    );
 
   return (
     <div
@@ -129,7 +140,7 @@ export default ServePanel;
 
 ServePanel.propTypes = {
   selectedContact: PropTypes.exact(selectedContactProps),
-
+  socket: socketProps,
   setAction: PropTypes.func.isRequired,
   setRightPanelContentType: PropTypes.func.isRequired
 };

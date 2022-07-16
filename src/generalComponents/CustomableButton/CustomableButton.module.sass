@@ -1,6 +1,8 @@
 @import "src/theme/theme"
 $color-ico-grey: #D0CDCD
 $color-button-grey: rgb(146, 139, 137)
+$color-green: #48A814
+$color-green-light: #5eb42f
 
 .button
   @include flex-center
@@ -64,6 +66,15 @@ $color-button-grey: rgb(146, 139, 137)
   height: 50px
   &:hover
     background: $color-red
+.round-green
+  cursor: pointer
+  background: $color-green
+  border: none
+  border-radius: 50%
+  width: 50px
+  height: 50px
+  &:hover
+    background: $color-green-light
 .active
   background: $color-blue-light
   border-color: $color-blue-smooth

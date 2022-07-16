@@ -69,7 +69,8 @@ export const TYPES = {
   STRING: "string",
   BOOLEAN: "boolean",
   NULL: "null",
-  UNDEFINED: "undefined"
+  UNDEFINED: "undefined",
+  FUNCTION: "function"
 };
 
 export const MIDNIGHT = "00:00:00";
@@ -94,10 +95,26 @@ export const DELETE_CHAT_GROUP = "deleteChatGroup";
 export const LEAVE_FROM_CHAT_GROUP = "leaveFromChatGroup";
 export const CHECKBOX = "checkBox";
 export const CONTEXT_MENU = "contextMenu";
+export const LOCAL_CLIENT = "LOCAL_CLIENT";
 export const CHAT_CALLROOM = {
   NO_CALL: "NO_CALL",
   OUTGOING_CALL: "OUTGOING_CALL",
-  INCOMING_CALL: "INCOMING_CALL"
+  INCOMING_CALL: "INCOMING_CALL",
+  VOICE_CALL: "VOICE_CALL",
+  VIDEO_CALL: "VIDEO_CALL"
+};
+
+export const CHAT_CALLROOM_SOCKET_ACTION = "call_room";
+export const CHAT_CALLROOM_ACTIONS = {
+  JOIN: "JOIN",
+  ASK_TO_CONNECT: "ASK_TO_CONNECT",
+  LEAVE: "LEAVE",
+  ADD_PEER: "ADD_PEER",
+  REMOVE_PEER: "REMOVE_PEER",
+  RELAY_SDP: "RELAY_SDP",
+  RELAY_ICE: "RELAY_ICE",
+  ICE_CANDIDIATE: "ICE_CANDIDIATE",
+  SESSION_DESCRIPTION: "SESSION_DESCRIPTION"
 };
 
 //Customable button
@@ -109,7 +126,8 @@ export const BUTTON_TYPES = {
   GREY: "grey",
   ICON: "icon",
   ROUND_GREY: "round-grey",
-  ROUND_RED: "round-red"
+  ROUND_RED: "round-red",
+  ROUND_GREEN: "round-green"
 };
 
 //CALENDAR && TASKS Component
