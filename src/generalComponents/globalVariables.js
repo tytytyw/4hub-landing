@@ -296,3 +296,13 @@ export const JOURNAL = {
   API_GET_JOURNAL_FILES: "history_get",
   SORT_DATE_CHANGE: "byDateChanged"
 };
+
+// SORT FILES
+
+export const SORT_FILES = {
+  NAME: "byName",
+  GROUP: "mtime",
+  SIZE: "bySize",
+  TYPE: "byType",
+  TAGS: "byTags"
+};

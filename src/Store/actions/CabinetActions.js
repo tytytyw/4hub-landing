@@ -69,7 +69,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  GROUP_FILES_JOURNAL,
+  SET_SORT_FILE,
   FILES_USER_SHARED,
   SET_MESSAGES_TO_READ,
   DATE_FILTER,
@@ -707,9 +707,9 @@ export const onSetWorkElementsView = (view) => {
   };
 };
 
-export const onSetGroupFiles = (sort) => {
+export const onSetSortFiles = (sort) => {
   return {
-    type: GROUP_FILES_JOURNAL,
+    type: SET_SORT_FILE,
     payload: sort
   };
 };

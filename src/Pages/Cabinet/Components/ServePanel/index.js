@@ -17,7 +17,7 @@ import {
   onGetSafeFileList,
   onSetModals,
   onLoadFiles,
-  onSetGroupFiles
+  onSetSortFiles
 } from "../../../../Store/actions/CabinetActions";
 import {
   CART,
@@ -25,6 +25,7 @@ import {
   JOURNAL,
   LIBRARY,
   LOADING_STATE,
+  SORT_FILES,
   VIEW_TYPE
 } from "../../../../generalComponents/globalVariables";
 import { onSetWorkElementsView } from "../../../../Store/actions/CabinetActions";
@@ -150,20 +151,20 @@ const ServePanel = ({
     };
 
     switch (sort) {
-      case "byName":
-        dispatch(onSetGroupFiles({ ...params, sort, sort_reverse: sortReverseItem.byName ? 1 : 0 }));
+      case SORT_FILES.NAME:
+        dispatch(onSetSortFiles({ ...params, sort, sort_reverse: sortReverseItem.byName ? 1 : 0 }));
         break;
-      case "mtime":
-        dispatch(onSetGroupFiles({ ...params, sort, group: "mtime" }));
+      case SORT_FILES.GROUP:
+        dispatch(onSetSortFiles({ ...params, sort, group: sort }));
         break;
-      case "bySize":
-        dispatch(onSetGroupFiles({ ...params, sort, sort_reverse: sortReverseItem.bySize ? 0 : 1 }));
+      case SORT_FILES.SIZE:
+        dispatch(onSetSortFiles({ ...params, sort, sort_reverse: sortReverseItem.bySize ? 0 : 1 }));
         break;
-      case "byType":
-        dispatch(onSetGroupFiles({ ...params, sort }));
+      case SORT_FILES.TYPE:
+        dispatch(onSetSortFiles({ ...params, sort }));
         break;
-      case "byTags":
-        dispatch(onSetGroupFiles({ ...params, sort }));
+      case SORT_FILES.TAGS:
+        dispatch(onSetSortFiles({ ...params, sort }));
         break;
       default:
         break;
@@ -218,7 +219,7 @@ const ServePanel = ({
             )}
           </div>
           <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
-          {item.ext === "byName" ? (
+          {item.ext === SORT_FILES.NAME ? (
             <div className={styles.switch} onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
               <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
             </div>
@@ -235,7 +236,7 @@ const ServePanel = ({
             {item.ext === fileCriterion.sort && <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />}
           </div>
           <div>{sortReverseItem[item.ext] ? item.reverseName : item.name}</div>
-          {item.ext === "byName" ? (
+          {item.ext === SORT_FILES.NAME ? (
             <div
               className={styles.switch}
               onClick={(e) => {
@@ -247,7 +248,7 @@ const ServePanel = ({
               <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
             </div>
           ) : null}
-          {item.ext === "bySize" ? (
+          {item.ext === SORT_FILES.SIZE ? (
             <div
               className={styles.switch}
               onClick={(e) => {

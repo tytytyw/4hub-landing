@@ -17,7 +17,7 @@ import {
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
-  onSetGroupFiles
+  onSetSortFiles
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -97,7 +97,7 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
       cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
-      dispatch(onSetGroupFiles(""));
+      dispatch(onSetSortFiles(""));
     };
   }, [pathname]); // eslint-disable-line
 

@@ -18,7 +18,7 @@ import {
   onChooseFolder,
   onGetArchiveFiles,
   onLoadFiles,
-  onSetGroupFiles,
+  onSetSortFiles,
   onSetNextFilesToPrevious,
   onSetPath,
   onSetWorkElementsView
@@ -227,7 +227,7 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/journal")) {
-      dispatch(onSetGroupFiles({ sort: "mtime", group: "mtime" }));
+      dispatch(onSetSortFiles({ sort: "mtime", group: "mtime" }));
       dispatch(onSetWorkElementsView(VIEW_TYPE.LINES));
       dispatch(onChangeDateFilter(dateFilter));
       dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));

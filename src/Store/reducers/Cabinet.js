@@ -72,7 +72,7 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  GROUP_FILES_JOURNAL,
+  SET_SORT_FILE,
   FILES_USER_SHARED,
   GET_JOURNAL_FOLDERS,
   SET_MESSAGES_TO_READ,
@@ -537,7 +537,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
 
     // SORT FILES
-    case GROUP_FILES_JOURNAL: {
+    case SET_SORT_FILE: {
       return {
         ...state,
         fileCriterion: { ...state.fileCriterion, ...action.payload }
