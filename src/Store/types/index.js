@@ -144,4 +144,3 @@ export const TasksTypes = {
 };
 
 export const DATE_FILTER = "DATE_FILTER";
-export const SORT_TYPE = "SORT_TYPE";

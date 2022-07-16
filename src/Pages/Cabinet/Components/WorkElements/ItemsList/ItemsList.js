@@ -18,8 +18,10 @@ import {
   onChooseFolder,
   onGetArchiveFiles,
   onLoadFiles,
+  onSetGroupFiles,
   onSetNextFilesToPrevious,
-  onSetPath
+  onSetPath,
+  onSetWorkElementsView
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -225,6 +227,8 @@ const ItemsList = ({
       setFilesPage(1);
     }
     if (pathname.startsWith("/journal")) {
+      dispatch(onSetGroupFiles({ sort: "mtime", group: "mtime" }));
+      dispatch(onSetWorkElementsView(VIEW_TYPE.LINES));
       dispatch(onChangeDateFilter(dateFilter));
       dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
       setFilesPage(1);
@@ -296,12 +300,14 @@ const ItemsList = ({
   };
 
   const [scrollRef] = useScrollElementOnScreen(options, load);
+
   return (
     <>
       {fileList?.files && Array.isArray(fileList?.files) && fileList?.files.length === 0 && addIconButton()}
       {fileList?.files &&
         !Array.isArray(fileList?.files) &&
         Object.values(fileList?.files).flat().length === 0 &&
+        !pathname.startsWith("/journal") &&
         addIconButton()}
 
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
@@ -351,25 +357,29 @@ const ItemsList = ({
                 containerType="bounceDots"
               />
             </div>
-          ) : (
+          ) : pathname.startsWith("/journal") ? null : (
             addIconButton()
           )}
         </div>
       ) : null}
 
       {workElementsView === VIEW_TYPE.LINES && Array.isArray(fileList?.files) ? (
-        <WorkLines
-          filePick={filePick}
-          filesPage={filesPage}
-          setFilesPage={setFilesPage}
-          fileRef={fileRef}
-          chosenFolder={chosenFolder}
-          gLoader={gLoader}
-          load={load}
-          options={options}
-        >
-          {renderFiles(FileLine, fileList?.files)}
-        </WorkLines>
+        pathname.startsWith("/journal") ? (
+          renderFiles(JournalFileLine, fileList?.files)
+        ) : (
+          <WorkLines
+            filePick={filePick}
+            filesPage={filesPage}
+            setFilesPage={setFilesPage}
+            fileRef={fileRef}
+            chosenFolder={chosenFolder}
+            gLoader={gLoader}
+            load={load}
+            options={options}
+          >
+            {renderFiles(FileLine, fileList?.files)}
+          </WorkLines>
+        )
       ) : null}
 
       {workElementsView === VIEW_TYPE.BARS_PREVIEW ? (

@@ -73,7 +73,6 @@ import {
   FILES_USER_SHARED,
   SET_MESSAGES_TO_READ,
   DATE_FILTER,
-  SORT_TYPE,
   SET_CHAT_CALLROOM
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
@@ -708,10 +707,10 @@ export const onSetWorkElementsView = (view) => {
   };
 };
 
-export const onSetGroupFiles = (view) => {
+export const onSetGroupFiles = (sort) => {
   return {
     type: GROUP_FILES_JOURNAL,
-    payload: view
+    payload: sort
   };
 };
 
@@ -1233,7 +1232,7 @@ export const onLoadFiles =
       filter_fig: getState().Cabinet.fileCriterion.filters.figure,
       filter_color: getState().Cabinet.fileCriterion.filters.color.color, //TODO - Need to check path to store
       search: getState().Cabinet.search,
-      sort_reverse: 1,
+      sort_reverse: getState().Cabinet.fileCriterion.sort_reverse,
       dir: getState().Cabinet.fileList.path,
       page,
       dep: `/_${getLocation()[0].toUpperCase()}_/`,
@@ -1411,12 +1410,5 @@ export const onChangeDateFilter = (dateFilter) => {
       day: dateFilter.d,
       month: dateFilter?.m
     }
-  };
-};
-
-export const onChangeSortFile = (sortType) => {
-  return {
-    type: SORT_TYPE,
-    payload: sortType
   };
 };

@@ -16,9 +16,17 @@ import {
   onSetReverseCriterion,
   onGetSafeFileList,
   onSetModals,
-  onLoadFiles
+  onLoadFiles,
+  onSetGroupFiles
 } from "../../../../Store/actions/CabinetActions";
-import { CART, imageSrc, LIBRARY, LOADING_STATE, VIEW_TYPE } from "../../../../generalComponents/globalVariables";
+import {
+  CART,
+  imageSrc,
+  JOURNAL,
+  LIBRARY,
+  LOADING_STATE,
+  VIEW_TYPE
+} from "../../../../generalComponents/globalVariables";
 import { onSetWorkElementsView } from "../../../../Store/actions/CabinetActions";
 import { ReactComponent as BarsIcon } from "../../../../assets/PrivateCabinet/bars.svg";
 import { ReactComponent as LinesIcon } from "../../../../assets/PrivateCabinet/lines.svg";
@@ -31,7 +39,11 @@ import { ReactComponent as DeleteIcon } from "../../../../assets/PrivateCabinet/
 import { ReactComponent as PowerOffIcon } from "../../../../assets/PrivateCabinet/powerOff.svg";
 import { ReactComponent as FileSize } from "../../../../assets/PrivateCabinet/file_size.svg";
 import { ReactComponent as AddFolderIcon } from "../../../../assets/PrivateCabinet/add_folder.svg";
-import { useContextMenuCreateFile, useContextMenuFilters } from "../../../../generalComponents/collections";
+import {
+  useContextMenuCreateFile,
+  useContextMenuFilters,
+  useContextMenuFiltersJournal
+} from "../../../../generalComponents/collections";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Colors from "../../../../generalComponents/Elements/Colors";
@@ -61,6 +73,7 @@ const ServePanel = ({
   const { __ } = useLocales();
   const contextMenuCreateFile = useContextMenuCreateFile();
   const contextMenuFilters = useContextMenuFilters();
+  const contextMenuFiltersJournal = useContextMenuFiltersJournal();
   const [, height] = useWindowSize();
   const [mouseParams, setMouseParams] = useState(null);
   const [typeContext, setTypeContext] = useState("");
@@ -74,6 +87,11 @@ const ServePanel = ({
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
   const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
+  const [sortReverseItem, setSortReverseItem] = useState({
+    byName: false,
+    bySize: false
+  });
+  const [revers, setRevers] = useState(false);
 
   const { pathname } = useLocation();
 
@@ -97,13 +115,13 @@ const ServePanel = ({
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     if (setGLoader) setGLoader(true);
     dispatch(onSortFile(sorting));
-    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
-    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
-    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/folders")) dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
+    if (pathname.startsWith("/archive"))
+      dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "file_list_all", pathname));
-    if (pathname === "/safe") {
+    if (pathname.startsWith("/safe")) {
       dispatch(
         onGetSafeFileList(
           authorizedSafe.code,
@@ -122,6 +140,35 @@ const ServePanel = ({
       dispatch(onLoadFiles(LIBRARY.API_GET_FILES, 1, type));
     }
     if (setFilesPage) setFilesPage(2);
+  };
+
+  const setSort = (sort) => {
+    const params = {
+      sort: "",
+      group: "",
+      sort_reverse: 0
+    };
+
+    switch (sort) {
+      case "byName":
+        dispatch(onSetGroupFiles({ ...params, sort, sort_reverse: sortReverseItem.byName ? 1 : 0 }));
+        break;
+      case "mtime":
+        dispatch(onSetGroupFiles({ ...params, sort, group: "mtime" }));
+        break;
+      case "bySize":
+        dispatch(onSetGroupFiles({ ...params, sort, sort_reverse: sortReverseItem.bySize ? 0 : 1 }));
+        break;
+      case "byType":
+        dispatch(onSetGroupFiles({ ...params, sort }));
+        break;
+      case "byTags":
+        dispatch(onSetGroupFiles({ ...params, sort }));
+        break;
+      default:
+        break;
+    }
+    dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
   };
 
   const createFile = (ext) => {
@@ -166,9 +213,9 @@ const ServePanel = ({
       ) : (
         <div onClick={() => callback(item.ext)} className={styles.contextSortingItem} key={i}>
           <div className={styles.chosen}>
-            {item.ext === fileCriterion.sorting ? (
+            {item.ext === fileCriterion.sorting && (
               <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />
-            ) : null}
+            )}
           </div>
           <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
           {item.ext === "byName" ? (
@@ -180,16 +227,54 @@ const ServePanel = ({
       );
     });
 
+  const renderSortItems = (target, callback) => {
+    return target.map((item, i) => {
+      return (
+        <div onClick={() => callback(item.ext)} className={styles.contextSortingItem} key={i}>
+          <div className={styles.chosen}>
+            {item.ext === fileCriterion.sort && <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />}
+          </div>
+          <div>{sortReverseItem[item.ext] ? item.reverseName : item.name}</div>
+          {item.ext === "byName" ? (
+            <div
+              className={styles.switch}
+              onClick={(e) => {
+                e.stopPropagation();
+                setRevers(!revers);
+                setSortReverseItem({ ...sortReverseItem, [item.ext]: !sortReverseItem[item.ext] });
+              }}
+            >
+              <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
+            </div>
+          ) : null}
+          {item.ext === "bySize" ? (
+            <div
+              className={styles.switch}
+              onClick={(e) => {
+                e.stopPropagation();
+                setRevers(!revers);
+                setSortReverseItem({ ...sortReverseItem, [item.ext]: !sortReverseItem[item.ext] });
+              }}
+            >
+              <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
+            </div>
+          ) : null}
+        </div>
+      );
+    });
+  };
+
   const setFigure = (value) => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterFigure(value));
-    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
-    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/folders")) dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname.startsWith("/archive"))
+      dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/journal")) dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
-    if (pathname === "/safe") {
+    if (pathname.startsWith("/safe")) {
       dispatch(
         onGetSafeFileList(
           authorizedSafe.code,
@@ -212,13 +297,14 @@ const ServePanel = ({
   const setColor = (value) => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterColor(value));
-    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
-    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/folders")) dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname.startsWith("/archive"))
+      dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/journal")) dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
-    if (pathname === "/safe") {
+    if (pathname.startsWith("/safe")) {
       dispatch(
         onGetSafeFileList(
           authorizedSafe.code,
@@ -241,13 +327,14 @@ const ServePanel = ({
   const setEmoji = (value) => {
     const type = view === VIEW_TYPE.LINES_PREVIEW ? LOADING_STATE.LOAD_NEXT_COLUMN : LOADING_STATE.LOADING;
     dispatch(onChangeFilterEmoji(value));
-    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
-    if (pathname === "/cart") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
-    if (pathname === "/journal") dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/folders")) dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname.startsWith("/archive"))
+      dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
+    if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1));
+    if (pathname.startsWith("/journal")) dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
-    if (pathname === "/safe") {
+    if (pathname.startsWith("/safe")) {
       dispatch(
         onGetSafeFileList(
           authorizedSafe.code,
@@ -602,7 +689,12 @@ const ServePanel = ({
           itemRef={typeContext === "createFile" ? createRef : filterRef}
           customClose={typeContext !== "createFile"}
         >
-          {typeContext === "filter" ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
+          {typeContext === "filter" && pathname.startsWith("/journal") ? (
+            <div>{renderSortItems(contextMenuFiltersJournal.main, setSort)}</div>
+          ) : (
+            <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
+          )}
+
           {typeContext === "filter" ? (
             <Colors color={fileCriterion.filters.color} setColor={setColor} title="По цвету" editableClass="minify" />
           ) : null}
