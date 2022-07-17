@@ -244,6 +244,36 @@ export function useContextMenuFilters() {
   };
 }
 
+export function useContextMenuFiltersJournal() {
+  const { __ } = useLocales();
+  return {
+    main: [
+      {
+        name: __(`По имени от А до Я`),
+        reverseName: __("По имени от Я до А"),
+        ext: "byName"
+      },
+      {
+        name: __("По дате изменения"),
+        ext: "mtime"
+      },
+      {
+        name: __("По размеру (С больших)"),
+        reverseName: __("По размеру (С маленьких)"),
+        ext: "bySize"
+      },
+      {
+        name: __("По типу"),
+        ext: "byType"
+      },
+      {
+        name: __("По тэгам"),
+        ext: "byTags"
+      }
+    ],
+    additional: []
+  };
+}
 export function useContextMenuCreateFile() {
   const { __ } = useLocales();
   return {

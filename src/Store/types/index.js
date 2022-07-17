@@ -29,7 +29,7 @@ export const CHOOSE_SHARED_FILES = "CHOOSE_SHARED_FILES";
 export const FILES_USER_SHARED = "FILES_USER_SHARED";
 export const CHOOSE_ARCHIVE_FILES = "CHOOSE_ARCHIVE_FILES";
 export const SORT_FILES = "SORT_FILES";
-export const GROUP_FILES_JOURNAL = "GROUP_FILES";
+export const SET_SORT_FILE = "SET_SORT_FILE";
 export const SET_FILTER_COLOR = "SET_FILTER_COLOR";
 export const SET_FILTER_EMOJI = "SET_FILTER_EMOJI";
 export const SET_FILTER_FIGURE = "SET_FILTER_FIGURE";
@@ -144,4 +144,3 @@ export const TasksTypes = {
 };
 
 export const DATE_FILTER = "DATE_FILTER";
-export const SORT_TYPE = "SORT_TYPE";
