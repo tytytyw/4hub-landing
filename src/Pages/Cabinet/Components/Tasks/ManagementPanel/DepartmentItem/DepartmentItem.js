@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { BUTTON_TYPES, contextMenuFolder, imageSrc, MODALS, TASK_MODALS } from "generalComponents/globalVariables";
 import styles from "./DepartmentItem.module.sass";
 import Button from "generalComponents/CustomableButton/CustomableButton";
-import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
 import ThreeDots from "generalComponents/ThreeDots/ThreeDots";
 import { useDispatch, useSelector } from "react-redux";
 import { onChoosDep } from "Store/actions/TasksActions";
@@ -12,8 +10,9 @@ import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { onSetModals } from "Store/actions/CabinetActions";
 import { useContextMenuFolderLibrary } from "generalComponents/collections";
 import { taskDepartmentTypes } from "types/Tasks";
+import { ReactComponent as BagIcon } from "assets/PrivateCabinet/tasks/bag.svg";
 
-const DepartmentItem = ({ icon, dep, isDefault }) => {
+const DepartmentItem = ({ dep }) => {
   const dispatch = useDispatch();
   const contextMenuFolderLibrary = useContextMenuFolderLibrary();
   const currentDep = useSelector((state) => state.Tasks.currentDep);
@@ -53,15 +52,13 @@ const DepartmentItem = ({ icon, dep, isDefault }) => {
   return (
     <>
       <Button style={BUTTON_TYPES.LIGHT_LONG} onClick={onSelectDep} isSelected={dep.id === currentDep?.id}>
-        {icon ? (
-          icon
-        ) : dep.icon ? (
+        {dep.icon ? (
           <img src={`${imageSrc}assets/PrivateCabinet/library/own/${dep.icon}.svg`} alt={dep.icon} />
         ) : (
-          <Bag />
+          <BagIcon />
         )}
         <span className={styles.text}>{dep.name}</span>
-        {!isDefault && <ThreeDots onClick={onClickDots} />}
+        {dep.is_system === "0" && <ThreeDots onClick={onClickDots} />}
       </Button>
 
       {mouseParams !== null && (
@@ -87,10 +84,5 @@ const DepartmentItem = ({ icon, dep, isDefault }) => {
 export default DepartmentItem;
 
 DepartmentItem.propTypes = {
-  icon: PropTypes.element,
-  dep: taskDepartmentTypes,
-  isDefault: PropTypes.bool
-};
-DepartmentItem.defaultProps = {
-  isDefault: false
+  dep: taskDepartmentTypes
 };

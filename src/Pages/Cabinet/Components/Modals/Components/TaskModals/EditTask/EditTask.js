@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./EditTask.module.sass";
 import {
@@ -10,7 +10,7 @@ import {
 } from "../../../../../../../generalComponents/globalVariables";
 import { taskTypes } from "../../../../../../../types/Tasks";
 import { useLocales } from "react-localized";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import InputField from "../../../../../../../generalComponents/InputField";
 import Colors from "../../../../../../../generalComponents/Elements/Colors";
 import TagPicker from "../../../../../../../generalComponents/TagPicker/TagPicker";
@@ -19,42 +19,20 @@ import Emoji from "../../../../../../../generalComponents/Elements/Emoji";
 import TextArea from "../../../../../../../generalComponents/TextArea/TextArea";
 import SubmitButtons from "../../SubmitButtons/SubmitButtons";
 import SelectChosen from "generalComponents/SelectChosen/SelectChosen";
-import { useStandartTasksDepartment, useTaskMessages, useUrgencyTask } from "generalComponents/collections";
-import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
-import { ReactComponent as Home } from "assets/PrivateCabinet/tasks/home.svg";
+import { useTaskMessages, useUrgencyTask } from "generalComponents/collections";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
+import { useDepartmentsOfTasks } from "Pages/Cabinet/Components/Tasks/hooks/GetDepartment";
 
 function EditTask({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
   const urgency = useUrgencyTask();
-  const standartDepartment = useStandartTasksDepartment();
-  const usersDepartment = useSelector((s) => s.Tasks.dep);
-  const [departments] = useState([standartDepartment.WORK_TASK, standartDepartment.HOME_TASK, ...usersDepartment]);
+  const departments = useDepartmentsOfTasks();
 
   const geSelctName = (array, id) => array.find((item) => item.id === id)?.name;
-
-  const getIcon = (dep) => {
-    switch (dep.id) {
-      case standartDepartment.WORK_TASK.id:
-        return <Bag />;
-
-      case standartDepartment.HOME_TASK.id:
-        return <Home />;
-
-      default:
-        return (
-          <img
-            className={styles.eventIcon}
-            src={`${imageSrc}assets/PrivateCabinet/library/own/${dep.icon}.svg`}
-            alt="Event Icon"
-          />
-        );
-    }
-  };
 
   const onChangeDate = ({ target }) => {
     if (target.value.length > 10) return;
@@ -73,7 +51,11 @@ function EditTask({ type, params, closeModal, onChangeField }) {
           <ul className={styles.eventsList}>
             {departments.map((dep) => (
               <li key={dep.id} onClick={() => onChangeField(TaskFields.ID_DEP, dep.id)} className={styles.eventItem}>
-                {getIcon(dep)}
+                <img
+                  className={styles.eventIcon}
+                  src={`${imageSrc}assets/PrivateCabinet/library/own/${dep.icon}.svg`}
+                  alt="Event Icon"
+                />
 
                 <p className={styles.eventName}>{dep.name}</p>
               </li>

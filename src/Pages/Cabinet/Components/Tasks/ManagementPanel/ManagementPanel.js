@@ -3,38 +3,28 @@ import styles from "./ManagementPanel.module.sass";
 import { useLocales } from "react-localized";
 import { BUTTON_TYPES, MODALS, taskDepartmentKey, TASK_MODALS } from "../../../../../generalComponents/globalVariables";
 import Button from "../../../../../generalComponents/CustomableButton/CustomableButton";
-import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
-import { ReactComponent as Home } from "assets/PrivateCabinet/tasks/home.svg";
 import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/calendar-2.svg";
-
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 import classNames from "classnames";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
-import { onChoosDep, onFetchTaskDepartment } from "Store/actions/TasksActions";
-import { useStandartTasksDepartment } from "generalComponents/collections";
-import { getStorageItem, setStorageItem } from "generalComponents/StorageHelper";
+import { onFetchTaskDepartment } from "Store/actions/TasksActions";
+import { setStorageItem } from "generalComponents/StorageHelper";
 import DepartmentItem from "./DepartmentItem/DepartmentItem";
 import PopUp from "generalComponents/PopUp";
 import CalendarMonth from "../Calendar/CalendarMonth";
 import CalendarYear from "../Calendar/CalendarYear";
+import { useDepartmentsOfTasks } from "../hooks/GetDepartment";
 
 function ManagementPanel() {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const standartDepartment = useStandartTasksDepartment();
-  const department = useSelector((state) => state.Tasks.dep);
+  const department = useDepartmentsOfTasks();
   const currentDep = useSelector((state) => state.Tasks.currentDep);
   const [openMonthCalendar, setOpenMonthCalendar] = useState(false);
   const [openYearCalendar, setOpenYearCalendar] = useState(null);
+
   useEffect(() => {
-    const dep = getStorageItem(taskDepartmentKey);
-    if (dep) {
-      dispatch(onChoosDep(JSON.parse(dep)));
-    } else {
-      setStorageItem(taskDepartmentKey, JSON.stringify(standartDepartment.WORK_TASK));
-      dispatch(onChoosDep(standartDepartment.WORK_TASK));
-    }
     dispatch(onFetchTaskDepartment(__("Ошибка при получении разделов")));
   }, []); //eslint-disable-line
 
@@ -48,9 +38,7 @@ function ManagementPanel() {
   return (
     <div className={styles.panelWrap}>
       <CalendarIcon className={styles.calendarIcon} onClick={() => setOpenMonthCalendar(true)} />
-      <DepartmentItem icon={<Bag />} dep={standartDepartment.WORK_TASK} isDefault={true} />
-      <DepartmentItem icon={<Home />} dep={standartDepartment.HOME_TASK} isDefault={true} />
-      {department?.length > 0 && department.map((dep) => <DepartmentItem key={dep.id} dep={dep} />)}
+      {department?.length > 0 && department.map((dep, i) => <DepartmentItem key={i} dep={dep} />)}
       <Button style={BUTTON_TYPES.LIGHT_LONG} onClick={onAddSection}>
         <AddIcon className={classNames(styles.addIcon)} />
         <span className={styles.text}>{__("Создать раздел")}</span>

@@ -7,16 +7,17 @@ import styles from "../../../../MyFolders/WorkSpace/WorkSpace.module.sass";
 import { imageSrc, TASK_MODALS } from "generalComponents/globalVariables";
 import { onDeleteDepartment } from "Store/actions/TasksActions";
 import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
-import { useStandartTasksDepartment, useTaskMessages } from "generalComponents/collections";
+import { useTaskMessages } from "generalComponents/collections";
+import { useDepartmentsOfTasks } from "Pages/Cabinet/Components/Tasks/hooks/GetDepartment";
 
 const DeleteSection = ({ closeModal, icon }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
-  const department = useStandartTasksDepartment();
+  const departments = useDepartmentsOfTasks();
 
   const deleteDepartment = () => {
-    dispatch(onDeleteDepartment(messages[TASK_MODALS.DELETE_SECTION], department.WORK_TASK));
+    dispatch(onDeleteDepartment(messages[TASK_MODALS.DELETE_SECTION], departments[0]));
   };
 
   return (
