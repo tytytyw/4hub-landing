@@ -23,7 +23,7 @@ import { useTaskMessages, useUrgencyTask } from "generalComponents/collections";
 import { onAddNewTask, onEditTask } from "Store/actions/TasksActions";
 import { getMaskDate } from "generalComponents/generalHelpers";
 import { onSetModals } from "Store/actions/CabinetActions";
-import { useDepartmentsOfTasks } from "Pages/Cabinet/Components/Tasks/hooks/GetDepartment";
+import { useDepartmentsOfTasks } from "generalComponents/Hooks";
 
 function EditTask({ type, params, closeModal, onChangeField }) {
   const { __ } = useLocales();

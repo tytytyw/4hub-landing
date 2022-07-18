@@ -8,7 +8,7 @@ import { imageSrc, TASK_MODALS } from "generalComponents/globalVariables";
 import { onDeleteDepartment } from "Store/actions/TasksActions";
 import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
 import { useTaskMessages } from "generalComponents/collections";
-import { useDepartmentsOfTasks } from "Pages/Cabinet/Components/Tasks/hooks/GetDepartment";
+import { useDepartmentsOfTasks } from "generalComponents/Hooks";
 
 const DeleteSection = ({ closeModal, icon }) => {
   const { __ } = useLocales();

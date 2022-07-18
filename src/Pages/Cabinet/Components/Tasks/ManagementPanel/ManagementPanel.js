@@ -14,7 +14,7 @@ import DepartmentItem from "./DepartmentItem/DepartmentItem";
 import PopUp from "generalComponents/PopUp";
 import CalendarMonth from "../Calendar/CalendarMonth";
 import CalendarYear from "../Calendar/CalendarYear";
-import { useDepartmentsOfTasks } from "../hooks/GetDepartment";
+import { useDepartmentsOfTasks } from "generalComponents/Hooks";
 
 function ManagementPanel() {
   const { __ } = useLocales();

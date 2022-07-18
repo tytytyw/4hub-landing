@@ -5,12 +5,15 @@ import {
   CHAT_CALLROOM_SOCKET_ACTION,
   LOCAL_CLIENT,
   MODALS,
+  taskDepartmentKey,
   TYPES
 } from "./globalVariables";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../Store/actions/CabinetActions";
 import freeice from "freeice";
+import { getStorageItem, setStorageItem } from "./StorageHelper";
+import { onChoosDep } from "Store/actions/TasksActions";
 
 export function useDebounce(callback, delay) {
   const timer = useRef();
@@ -277,4 +280,32 @@ export function useOutsideClick(ref, callback) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [callback, ref]);
+}
+export function useDepartmentsOfTasks() {
+  const { __ } = useLocales();
+  const dispatch = useDispatch();
+  const department = useSelector((s) => s.Tasks.dep);
+
+  useEffect(() => {
+    const dep = getStorageItem(taskDepartmentKey);
+    if (dep !== "null") {
+      dispatch(onChoosDep(JSON.parse(dep)));
+    } else {
+      setStorageItem(taskDepartmentKey, JSON.stringify(department?.[0]));
+      dispatch(onChoosDep(department?.[0]));
+    }
+  }, [department]); //eslint-disable-line
+
+  const work = {
+    ...department.find((item) => item.is_system === "1" && item.name === "worktask"),
+    name: __("Рабочие задачи"),
+    icon: "bag"
+  };
+  const home = {
+    ...department.find((item) => item.is_system === "1" && item.name === "hometask"),
+    name: __("Личные задачи"),
+    icon: "home"
+  };
+  const other = department.filter((item) => item.is_system === "0");
+  return [work, home, ...other];
 }
