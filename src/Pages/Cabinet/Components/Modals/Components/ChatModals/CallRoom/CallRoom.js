@@ -5,7 +5,12 @@ import { setCallRoom } from "../../../../../../../Store/actions/CabinetActions";
 import { initialCallRoomState } from "../../../../../../../Store/reducers/Cabinet";
 import styles from "./CallRoom.module.sass";
 import { useLocales } from "react-localized";
-import { BUTTON_TYPES, CHAT_CALLROOM, imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import {
+  BUTTON_TYPES,
+  CHAT_CALLROOM,
+  imageSrc,
+  LOCAL_CLIENT
+} from "../../../../../../../generalComponents/globalVariables";
 import Button from "../../../../../../../generalComponents/CustomableButton/CustomableButton";
 import { ReactComponent as AddUserIcon } from "assets/PrivateCabinet/chat/addUser.svg";
 import { ReactComponent as VideoIcon } from "assets/PrivateCabinet/film.svg";
@@ -20,12 +25,16 @@ function CallRoom() {
   const { contacts, socket, user_id, state, icon, callType } = useSelector((s) => s.Cabinet.chat.callRoom);
   const selectedContact = useSelector((s) => s.Cabinet.chat.selectedContact);
   const dispatch = useDispatch();
-  const { clients, provideMediaRef } = useWebRTC(socket, {
+  const { clients, provideMediaRef, handleNewPeer } = useWebRTC(socket, {
     contacts: contacts,
     from: user_id,
     state,
     callType
   });
+
+  const acceptCall = () => {
+    handleNewPeer({ peerID: LOCAL_CLIENT, createOffer: true });
+  };
 
   console.log(clients);
   //eslint-disable-next-line
@@ -71,7 +80,7 @@ function CallRoom() {
       </div>
       <img className={styles.avatar} src={icon ?? `${imageSrc}/assets/PrivateCabinet/profile-noPhoto.svg`} alt="img" />
       <div className={styles.buttonsPanelIncomingCall}>
-        <Button style={BUTTON_TYPES.ROUND_GREEN}>
+        <Button style={BUTTON_TYPES.ROUND_GREEN} onClick={acceptCall}>
           <PhoneAcceptIcon className={styles.phoneAcceptIcon} />
         </Button>
         <Button style={BUTTON_TYPES.ROUND_RED}>
@@ -86,6 +95,20 @@ function CallRoom() {
     <PopUp set={closeCallRoom}>
       <div className={styles.callRoom}>
         {state === CHAT_CALLROOM.INCOMING_CALL ? renderIncomingCall() : renderCallOngoing()}
+        {clients.map((clientID) => {
+          return (
+            <div key={clientID} id={clientID}>
+              <video
+                ref={(instance) => {
+                  provideMediaRef(clientID, instance);
+                }}
+                autoPlay
+                playsInline
+                muted={clientID === LOCAL_CLIENT}
+              />
+            </div>
+          );
+        })}
       </div>
     </PopUp>
   );

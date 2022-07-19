@@ -28,7 +28,9 @@ const ServePanel = ({ selectedContact, setAction, setRightPanelContentType, sock
     dispatch(
       setCallRoom({
         state: CHAT_CALLROOM.OUTGOING_CALL,
-        contacts: selectedContact.id_group ? selectedContact.users.map((it) => it.id_user) : [selectedContact.id_user],
+        contacts: selectedContact.id_group
+          ? selectedContact.users.map((it) => it.id_user)
+          : [selectedContact.id_real_user],
         socket,
         user_id: userId,
         icon: selectedContact.id_group ? null : selectedContact?.icon[0]
