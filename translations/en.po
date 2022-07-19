@@ -1,4 +1,4 @@
-#: src/generalComponents/collections.js:224
+#: src/generalComponents/collections.js:226
 #: src/Pages/Cabinet/Components/Archive/index.js:100
 #: src/Pages/Cabinet/Components/Archive/index.js:106
 #: src/Pages/Cabinet/Components/Archive/index.js:51
@@ -13,7 +13,7 @@
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:55
 #: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/styledComponents/Header/index.js:27
 #: src/Pages/Cabinet/Components/Chat/ContactList/index.js:85
-#: src/Pages/Cabinet/Components/Chat/index.js:295
+#: src/Pages/Cabinet/Components/Chat/index.js:294
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:110
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:145
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:162
@@ -24,17 +24,6 @@
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:58
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:74
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:90
-#: src/Pages/Cabinet/Components/Journal/index.js:104
-#: src/Pages/Cabinet/Components/Journal/index.js:110
-#: src/Pages/Cabinet/Components/Journal/index.js:55
-#: src/Pages/Cabinet/Components/Journal/index.js:56
-#: src/Pages/Cabinet/Components/Journal/index.js:61
-#: src/Pages/Cabinet/Components/Journal/index.js:62
-#: src/Pages/Cabinet/Components/Journal/index.js:65
-#: src/Pages/Cabinet/Components/Journal/index.js:69
-#: src/Pages/Cabinet/Components/Journal/index.js:75
-#: src/Pages/Cabinet/Components/Journal/index.js:87
-#: src/Pages/Cabinet/Components/Journal/index.js:98
 #: src/Pages/Cabinet/Components/MyFolders/index.js:196
 #: src/Pages/Cabinet/Components/MyFolders/index.js:202
 #: src/Pages/Cabinet/Components/MyFolders/index.js:211
@@ -66,15 +55,17 @@ msgstr ""
 msgid " Вы действительно хотите переместить в архив выбранные файлы?"
 msgstr " Are you sure you want to move the files to the Archive?"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:154
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:152
 msgid "_ _ : _ _ "
 msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:86
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:106
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:79
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:26
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:63
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:70
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:93
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:122
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:68
 msgid "_ _._ _._ _ _ _"
 msgstr ""
 
@@ -96,43 +87,35 @@ msgstr "#Design of the site"
 msgid "+38"
 msgstr ""
 
-#: src/generalComponents/collections.js:695
+#: src/generalComponents/collections.js:727
 msgid "1 день"
 msgstr ""
 
-#: src/generalComponents/collections.js:697
+#: src/generalComponents/collections.js:729
 msgid "1 месяц"
 msgstr ""
 
-#: src/generalComponents/collections.js:525
-#: src/Pages/Cabinet/Components/Chat/index.js:275
+#: src/generalComponents/collections.js:557
+#: src/Pages/Cabinet/Components/Chat/index.js:274
 msgid "1 мин."
 msgstr "1 min."
 
-#: src/Pages/Cabinet/Components/Calendar/index.js:86
-msgid "1 напоминание"
-msgstr "1 notification"
-
-#: src/generalComponents/collections.js:696
+#: src/generalComponents/collections.js:728
 msgid "1 неделя"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Calendar/index.js:82
-msgid "1 новая задача"
-msgstr "1 new task"
-
-#: src/generalComponents/collections.js:519
-#: src/Pages/Cabinet/Components/Chat/index.js:245
+#: src/generalComponents/collections.js:551
+#: src/Pages/Cabinet/Components/Chat/index.js:244
 msgid "1 час"
 msgstr "1 hour"
 
-#: src/generalComponents/collections.js:523
-#: src/Pages/Cabinet/Components/Chat/index.js:265
+#: src/generalComponents/collections.js:555
+#: src/Pages/Cabinet/Components/Chat/index.js:264
 msgid "10 мин."
 msgstr "10 min."
 
-#: src/generalComponents/collections.js:522
-#: src/Pages/Cabinet/Components/Chat/index.js:260
+#: src/generalComponents/collections.js:554
+#: src/Pages/Cabinet/Components/Chat/index.js:259
 msgid "15 мин."
 msgstr "15 min."
 
@@ -145,27 +128,27 @@ msgstr "15 min."
 msgid "2 000 ГБ места для безопасного хранения файлов"
 msgstr "2 000 GB of secure file storage"
 
-#: src/generalComponents/collections.js:527
-#: src/Pages/Cabinet/Components/Chat/index.js:286
+#: src/generalComponents/collections.js:559
+#: src/Pages/Cabinet/Components/Chat/index.js:285
 msgid "20 сек."
 msgstr "20 sec."
 
-#: src/generalComponents/collections.js:521
-#: src/Pages/Cabinet/Components/Chat/index.js:255
+#: src/generalComponents/collections.js:553
+#: src/Pages/Cabinet/Components/Chat/index.js:254
 msgid "30 мин."
 msgstr "30 min."
 
-#: src/generalComponents/collections.js:526
-#: src/Pages/Cabinet/Components/Chat/index.js:281
+#: src/generalComponents/collections.js:558
+#: src/Pages/Cabinet/Components/Chat/index.js:280
 msgid "30 сек."
 msgstr "30 sec."
 
-#: src/generalComponents/collections.js:628
+#: src/generalComponents/collections.js:660
 msgid "3D-визуализатор"
 msgstr "3D-visualizer"
 
-#: src/generalComponents/collections.js:520
-#: src/Pages/Cabinet/Components/Chat/index.js:250
+#: src/generalComponents/collections.js:552
+#: src/Pages/Cabinet/Components/Chat/index.js:249
 msgid "45 мин."
 msgstr "45 min."
 
@@ -175,8 +158,8 @@ msgstr "45 min."
 msgid "4Hub"
 msgstr "4Hub"
 
-#: src/generalComponents/collections.js:524
-#: src/Pages/Cabinet/Components/Chat/index.js:270
+#: src/generalComponents/collections.js:556
+#: src/Pages/Cabinet/Components/Chat/index.js:269
 msgid "5 мин."
 msgstr "5 min."
 
@@ -193,11 +176,11 @@ msgstr ""
 msgid "a"
 msgstr ""
 
-#: src/generalComponents/collections.js:636
+#: src/generalComponents/collections.js:668
 msgid "Android-разработчик"
 msgstr "Android Developer"
 
-#: src/generalComponents/collections.js:631
+#: src/generalComponents/collections.js:663
 msgid "Backend-разработчик"
 msgstr "Back-End Developer"
 
@@ -224,7 +207,7 @@ msgstr "Contains at least 8 characters."
 msgid "Cтраница в разработке"
 msgstr "Page is under development"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:143
+#: src/Pages/Cabinet/Components/Chat/index.js:142
 msgid "deleteContact"
 msgstr ""
 
@@ -268,7 +251,7 @@ msgstr "Recipient's e-mail"
 msgid "Email:"
 msgstr "E-mail:"
 
-#: src/generalComponents/collections.js:596
+#: src/generalComponents/collections.js:628
 msgid "Event-менеджер"
 msgstr "Event Manager"
 
@@ -277,15 +260,15 @@ msgstr "Event Manager"
 msgid "figma"
 msgstr "Figma"
 
-#: src/generalComponents/collections.js:629
+#: src/generalComponents/collections.js:661
 msgid "Flash-программист"
 msgstr "Flash programmer"
 
-#: src/generalComponents/collections.js:630
+#: src/generalComponents/collections.js:662
 msgid "Frontend-разработчик"
 msgstr "Front-End Developer"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:45
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:60
 msgid "Gif"
 msgstr "Gif"
 
@@ -299,11 +282,11 @@ msgstr "Google Calendar"
 msgid "google drive"
 msgstr "Google Drive"
 
-#: src/generalComponents/collections.js:608
+#: src/generalComponents/collections.js:640
 msgid "HR-директор"
 msgstr "HR Director"
 
-#: src/generalComponents/collections.js:607
+#: src/generalComponents/collections.js:639
 msgid "HR-менеджер"
 msgstr "HR Manager"
 
@@ -362,7 +345,7 @@ msgid ""
 "вэб-дизайне. Lorem Ipsum является стандартной"
 msgstr ""
 
-#: src/generalComponents/collections.js:248
+#: src/generalComponents/collections.js:280
 msgid "ONLYOFFICE"
 msgstr "ONLYOFFICE"
 
@@ -380,11 +363,11 @@ msgid ""
 "которых используется Lorem Ipsum."
 msgstr ""
 
-#: src/generalComponents/collections.js:632
+#: src/generalComponents/collections.js:664
 msgid "PHP-программист"
 msgstr "PHP Developer"
 
-#: src/generalComponents/collections.js:597
+#: src/generalComponents/collections.js:629
 msgid "PR-менеджер"
 msgstr "PR Manager"
 
@@ -392,7 +375,7 @@ msgstr "PR Manager"
 msgid "Premium plus"
 msgstr "Premium Plus"
 
-#: src/generalComponents/collections.js:627
+#: src/generalComponents/collections.js:659
 msgid "Python-разработчик"
 msgstr "Python Developer"
 
@@ -401,7 +384,7 @@ msgstr "Python Developer"
 msgid "Remote WorkSpace"
 msgstr "Remote Workspace"
 
-#: src/generalComponents/collections.js:626
+#: src/generalComponents/collections.js:658
 msgid "SEO-специалист"
 msgstr "SEO Specialist"
 
@@ -409,11 +392,11 @@ msgstr "SEO Specialist"
 msgid "skype"
 msgstr "Skype"
 
-#: src/generalComponents/collections.js:633
+#: src/generalComponents/collections.js:665
 msgid "SMM специалист"
 msgstr "SMM Specialist"
 
-#: src/generalComponents/collections.js:635
+#: src/generalComponents/collections.js:667
 msgid "Team leader"
 msgstr "Team Leader"
 
@@ -422,7 +405,7 @@ msgstr "Team Leader"
 msgid "telegram"
 msgstr "Telegram"
 
-#: src/generalComponents/collections.js:634
+#: src/generalComponents/collections.js:666
 msgid "UX-дизайнер"
 msgstr "UX Designer"
 
@@ -442,7 +425,6 @@ msgstr "YouTube"
 
 #: src/generalComponents/CalendarHelper.js:38
 #: src/Pages/Cabinet/Components/Archive/helper.js:31
-#: src/Pages/Cabinet/Components/Journal/helper.js:31
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:35
 msgid "Август"
 msgstr "August"
@@ -451,7 +433,7 @@ msgstr "August"
 msgid "Августа"
 msgstr "August"
 
-#: src/generalComponents/collections.js:588
+#: src/generalComponents/collections.js:620
 msgid "Адвокат"
 msgstr "Lawyer"
 
@@ -470,7 +452,6 @@ msgstr "English"
 
 #: src/generalComponents/CalendarHelper.js:28
 #: src/Pages/Cabinet/Components/Archive/helper.js:27
-#: src/Pages/Cabinet/Components/Journal/helper.js:27
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:31
 msgid "Апрель"
 msgstr "April"
@@ -479,17 +460,17 @@ msgstr "April"
 msgid "Апреля"
 msgstr "April"
 
-#: src/generalComponents/collections.js:572
+#: src/generalComponents/collections.js:604
 msgid "Арт-директор"
 msgstr "Art Director"
 
-#: src/generalComponents/collections.js:810
+#: src/generalComponents/collections.js:964
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:149
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:63
 msgid "Архив"
 msgstr "Archive"
 
-#: src/generalComponents/collections.js:270
+#: src/generalComponents/collections.js:302
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:102
 #: src/Pages/Cabinet/Components/Project/Project.js:381
 msgid "Архивировать"
@@ -499,15 +480,15 @@ msgstr "Archive"
 msgid "Архивировать выбранные файлы"
 msgstr "Archive selected files"
 
-#: src/generalComponents/collections.js:581
+#: src/generalComponents/collections.js:613
 msgid "Ассистент руководителя"
 msgstr "Director's Assistant"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:57
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:72
 msgid "Аудио"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:59
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:74
 msgid "Аудио смс"
 msgstr ""
 
@@ -539,7 +520,8 @@ msgstr "Balance"
 msgid "Без ограничений"
 msgstr "No limits"
 
-#: src/generalComponents/collections.js:557
+#: src/generalComponents/collections.js:589
+#: src/generalComponents/collections.js:807
 msgid "Без статуса"
 msgstr "Without status"
 
@@ -565,6 +547,8 @@ msgid "Бесконечный"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:60
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:29
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:34
 msgid "Бессрочно"
 msgstr ""
 
@@ -579,15 +563,15 @@ msgstr "Library"
 msgid "Бизнес версия"
 msgstr "Business version"
 
-#: src/generalComponents/collections.js:589
+#: src/generalComponents/collections.js:621
 msgid "Бизнес-аналитик"
 msgstr "Business Analyst"
 
-#: src/generalComponents/collections.js:590
+#: src/generalComponents/collections.js:622
 msgid "Бизнес-консультант"
 msgstr "Business Consultant"
 
-#: src/generalComponents/collections.js:601
+#: src/generalComponents/collections.js:633
 msgid "Бизнес-тренер"
 msgstr "Business Trainer"
 
@@ -604,16 +588,16 @@ msgstr "Blog"
 msgid "Блокировать"
 msgstr "Block"
 
-#: src/generalComponents/collections.js:354
-#: src/generalComponents/collections.js:375
+#: src/generalComponents/collections.js:386
+#: src/generalComponents/collections.js:407
 msgid "Блокировать несколько"
 msgstr "Block multiple"
 
-#: src/generalComponents/collections.js:370
+#: src/generalComponents/collections.js:402
 msgid "Блокировать пользователя"
 msgstr "Block user"
 
-#: src/generalComponents/collections.js:349
+#: src/generalComponents/collections.js:381
 msgid "Блокировать устройство"
 msgstr "Block the device"
 
@@ -631,11 +615,11 @@ msgid "более 50"
 msgstr "over 50"
 
 #: src/Pages/Cabinet/Components/MyFiles/index.js:114
-#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:162
+#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:196
 msgid "Более года назад"
 msgstr "Over a year ago"
 
-#: src/generalComponents/collections.js:653
+#: src/generalComponents/collections.js:685
 msgid "Более недели"
 msgstr "Over a week ago"
 
@@ -643,17 +627,21 @@ msgstr "Over a week ago"
 msgid "Браузер"
 msgstr "Browser"
 
-#: src/generalComponents/collections.js:598
+#: src/generalComponents/collections.js:630
 msgid "Бренд-менеджер"
 msgstr "Brand Manager"
 
-#: src/generalComponents/collections.js:583
+#: src/generalComponents/collections.js:615
 msgid "Бухгалтер"
 msgstr "Accountant"
 
-#: src/generalComponents/collections.js:655
+#: src/generalComponents/collections.js:687
 msgid "В прошлом месяце"
 msgstr "Last month"
+
+#: src/generalComponents/collections.js:804
+msgid "В работе"
+msgstr ""
 
 #: src/generalComponents/chatHelper.js:54
 msgid "в сети"
@@ -686,11 +674,11 @@ msgid ""
 "подтверждение этого изменения"
 msgstr "Confirmation of this change has been sent to your e-mail for safety resons "
 
-#: src/generalComponents/collections.js:656
+#: src/generalComponents/collections.js:688
 msgid "В этом году"
 msgstr "This year"
 
-#: src/generalComponents/collections.js:654
+#: src/generalComponents/collections.js:686
 msgid "В этом месяце"
 msgstr "This month"
 
@@ -849,11 +837,11 @@ msgstr "Enter surname"
 msgid "Ввести все поля самостоятельно закерепив за собой все права администратора"
 msgstr "Enter all data yourself securing all administrator rights"
 
-#: src/generalComponents/collections.js:610
+#: src/generalComponents/collections.js:642
 msgid "Веб-аналитик"
 msgstr "Web Analyst"
 
-#: src/generalComponents/collections.js:611
+#: src/generalComponents/collections.js:643
 msgid "Веб-дизайнер"
 msgstr "Web Designer"
 
@@ -865,7 +853,7 @@ msgstr "Company verification"
 msgid "Верефикация прошла успешно"
 msgstr "Verification was successfull"
 
-#: src/generalComponents/collections.js:612
+#: src/generalComponents/collections.js:644
 msgid "Верстальщик"
 msgstr "Template Designer"
 
@@ -873,9 +861,9 @@ msgstr "Template Designer"
 msgid "Взаимодействие с информацией в сейфе"
 msgstr "Interaction with information in the safe"
 
-#: src/generalComponents/collections.js:27
-#: src/generalComponents/collections.js:745
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:44
+#: src/generalComponents/collections.js:29
+#: src/generalComponents/collections.js:893
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:59
 msgid "Видео"
 msgstr "Video"
 
@@ -927,9 +915,14 @@ msgstr "Password recovery"
 msgid "Временный пароль"
 msgstr "Temporary password"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:150
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:148
 #: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:61
 msgid "Время"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:130
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:76
+msgid "Время встречи"
 msgstr ""
 
 #: src/generalComponents/CalendarHelper.js:85
@@ -980,7 +973,7 @@ msgstr "Everyone who has a link can edit the file"
 msgid "Все у кого есть эта ссылка, смогут просматривать файл"
 msgstr "Everyone who has a link can view the file"
 
-#: src/generalComponents/collections.js:271
+#: src/generalComponents/collections.js:303
 msgid "Все участники"
 msgstr "All participants"
 
@@ -996,8 +989,24 @@ msgstr "Meeting offline"
 msgid "Встреча online"
 msgstr "Meeting online"
 
-#: src/generalComponents/collections.js:704
+#: src/generalComponents/collections.js:847
+msgid "Встреча добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:851
+msgid "Встреча изменена"
+msgstr ""
+
+#: src/generalComponents/collections.js:826
+msgid "Встреча перенесена"
+msgstr ""
+
+#: src/generalComponents/collections.js:736
 msgid "Встречи"
+msgstr ""
+
+#: src/generalComponents/collections.js:830
+msgid "Встречи перенесены"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:206
@@ -1017,8 +1026,12 @@ msgstr "Tue"
 msgid "Вход"
 msgstr "Log in"
 
-#: src/generalComponents/collections.js:802
+#: src/generalComponents/collections.js:956
 msgid "Входящие"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/ChatModals/CallRoom/CallRoom.js:79
+msgid "Входящий звонок"
 msgstr ""
 
 #: src/generalComponents/CalendarHelper.js:206
@@ -1049,6 +1062,10 @@ msgstr ""
 "Are you sure you want to close the download window? All incomplete "
 "downloads will be canceled"
 
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteTask/DeleteTask.js:25
+msgid "Вы действительно хотите удалить выбранную заметку?"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:51
 #: src/Pages/Cabinet/Components/MyFolders/index.js:241
 #: src/Pages/Cabinet/Components/Project/Project.js:166
@@ -1060,7 +1077,7 @@ msgstr "Are you sure you want to delete the selected folder?"
 msgid "Вы действительно хотите удалить выбранные файлы?"
 msgstr "Are you sure you want to delete the selected files?"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:21
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:24
 msgid "Вы действительно хотите удалить выбранный раздел?"
 msgstr ""
 
@@ -1098,7 +1115,7 @@ msgstr ""
 "You can fill in the information later, but you will not be able to fully "
 "use all service futures "
 
-#: src/Pages/Cabinet/Components/Chat/index.js:365
+#: src/Pages/Cabinet/Components/Chat/index.js:364
 msgid "Вы покинули группу"
 msgstr "You left the group"
 
@@ -1126,10 +1143,6 @@ msgstr ""
 "You have successfully added an employee. Now employee  will be displayed in "
 "the general structure of the company"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:73
-msgid "Выберите актуальность задачи"
-msgstr ""
-
 #: src/Pages/Cabinet/Components/WorkElements/WorkBarsPreview/index.js:172
 msgid "Выберите группу"
 msgstr "Select a group"
@@ -1154,7 +1167,7 @@ msgstr "Select a recovery method"
 msgid "Выберите способ приглашения"
 msgstr "Select an invitation method"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:331
+#: src/Pages/Cabinet/Components/Chat/index.js:330
 msgid "Выберите файл"
 msgstr ""
 
@@ -1167,11 +1180,11 @@ msgstr ""
 msgid "Выберите цвет"
 msgstr "Select a colour"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:85
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:119
 msgid "Выберите цвет Задачи"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:48
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:31
 msgid "Выберите цвет Заметки"
 msgstr ""
 
@@ -1192,28 +1205,30 @@ msgstr "Selected files added to the Archive"
 msgid "Выбранные файлы успешно сжато в Zip"
 msgstr "Selected files successfully compressed to ZIP"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:112
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:110
 #: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:176
-#: src/Pages/Cabinet/Components/ServePanel/index.js:269
+#: src/Pages/Cabinet/Components/ServePanel/index.js:361
 #: src/Pages/Guest/ServePanel/index.js:198
 msgid "Выбрать"
 msgstr "Select"
 
 #: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:41
-#: src/Pages/Cabinet/Components/Journal/DateBlock/index.js:20
 msgid "Выбрать год"
 msgstr "Select year"
 
-#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:51
-#: src/Pages/Cabinet/Components/Journal/DateBlock/index.js:29
+#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:59
 msgid "Выбрать день"
 msgstr "Select a day"
 
-#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:60
+#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:50
 msgid "Выбрать месяц"
 msgstr ""
 
-#: src/generalComponents/collections.js:178
+#: src/Pages/Cabinet/Components/Modals/Components/ChatModals/CallRoom/CallRoom.js:46
+msgid "Вызов"
+msgstr ""
+
+#: src/generalComponents/collections.js:180
 msgid "Выход"
 msgstr "Exit"
 
@@ -1225,15 +1240,15 @@ msgstr "Exit"
 msgid "ГБ"
 msgstr "GB"
 
-#: src/generalComponents/collections.js:613
+#: src/generalComponents/collections.js:645
 msgid "Геймдизайнер"
 msgstr "Game Designer"
 
-#: src/generalComponents/collections.js:569
+#: src/generalComponents/collections.js:601
 msgid "Генеральный директор"
 msgstr "CEO"
 
-#: src/generalComponents/collections.js:582
+#: src/generalComponents/collections.js:614
 msgid "Главный бухгалтер"
 msgstr "Chief Accountant"
 
@@ -1245,6 +1260,7 @@ msgstr "Global"
 msgid "Год"
 msgstr "Year"
 
+#: src/generalComponents/collections.js:803
 #: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:207
 #: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:24
 #: src/Pages/Cabinet/Components/Business/SuccessPopup/index.js:24
@@ -1269,7 +1285,7 @@ msgstr "Year"
 msgid "Готово"
 msgstr "Done"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:359
+#: src/Pages/Cabinet/Components/Chat/index.js:358
 msgid "Группа удалена"
 msgstr "The group is deleted"
 
@@ -1308,10 +1324,12 @@ msgstr ""
 "This contact is not available in 4Hub. Send an invitation so that you can "
 "have a chat in the system."
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:138
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:136
 #: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:57
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:21
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:58
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:65
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:88
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:117
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:63
 msgid "Дата"
 msgstr ""
 
@@ -1319,7 +1337,7 @@ msgstr ""
 msgid "Дата архивирования: "
 msgstr "Date of archive:"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:102
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:114
 msgid "Дата завершения задачи"
 msgstr ""
 
@@ -1340,7 +1358,7 @@ msgstr "Date of download:"
 msgid "Дата изменения:"
 msgstr "Date of change:"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:81
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:106
 msgid "Дата начала задачи"
 msgstr ""
 
@@ -1357,7 +1375,6 @@ msgstr "Date of creation:"
 
 #: src/generalComponents/CalendarHelper.js:66
 #: src/Pages/Cabinet/Components/Archive/helper.js:35
-#: src/Pages/Cabinet/Components/Journal/helper.js:35
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:39
 msgid "Декабрь"
 msgstr "December"
@@ -1366,7 +1383,7 @@ msgstr "December"
 msgid "Декабря"
 msgstr "December"
 
-#: src/generalComponents/collections.js:559
+#: src/generalComponents/collections.js:591
 msgid "Декретный отпуск"
 msgstr "Maternity leave"
 
@@ -1386,15 +1403,15 @@ msgstr "Design Moto"
 msgid "Дизайн файлообменика"
 msgstr "File sharing design"
 
-#: src/generalComponents/collections.js:602
+#: src/generalComponents/collections.js:634
 msgid "Директор по персоналу"
 msgstr "HR Director"
 
-#: src/generalComponents/collections.js:574
+#: src/generalComponents/collections.js:606
 msgid "Директор по производству"
 msgstr "Production Director"
 
-#: src/generalComponents/collections.js:575
+#: src/generalComponents/collections.js:607
 msgid "Директор по развитию"
 msgstr "Director of Development"
 
@@ -1444,13 +1461,13 @@ msgstr "Add"
 
 #: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:182
 #: src/Pages/Cabinet/Components/Chat/AddContact/index.js:72
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:110
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:110
 #: src/Pages/Cabinet/Components/Chat/ServePanel/AddUserToGroup/index.js:61
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:257
 #: src/Pages/Cabinet/Components/CreateFile/index.js:366
 #: src/Pages/Cabinet/Components/CreateFolder/index.js:250
 #: src/Pages/Cabinet/Components/Modals/Components/MailModals/SubmitButtons/SubmitButtons.js:32
-#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:22
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:25
 #: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:257
 msgid "Добавить"
 msgstr "Add"
@@ -1465,19 +1482,18 @@ msgstr "Add e-mail"
 msgid "Добавить день рождения:"
 msgstr "Add date of birth:"
 
-#: src/generalComponents/collections.js:775
+#: src/generalComponents/collections.js:924
 msgid "Добавить заметку к встрече"
 msgstr ""
 
 #: src/generalComponents/Elements/Signs.js:12
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:94
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:106
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:125
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:27
 msgid "Добавить знак"
 msgstr "Add sign"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:217
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:204
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:208
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:271
 msgid "Добавить знаки"
@@ -1513,15 +1529,15 @@ msgstr "Add messengers:"
 msgid "Добавить номер телефона:"
 msgstr "Add phone number"
 
-#: src/generalComponents/collections.js:290
-#: src/generalComponents/collections.js:304
+#: src/generalComponents/collections.js:322
+#: src/generalComponents/collections.js:336
 #: src/Pages/Cabinet/Components/MyFolders/index.js:195
 #: src/Pages/Cabinet/Components/MyFolders/index.js:228
 #: src/Pages/Cabinet/Components/Project/Project.js:99
 msgid "Добавить папку"
 msgstr "Add folder"
 
-#: src/generalComponents/collections.js:776
+#: src/generalComponents/collections.js:925
 msgid "Добавить пароль"
 msgstr ""
 
@@ -1537,7 +1553,7 @@ msgstr "Add Company Manager"
 msgid "Добавить сообщение"
 msgstr "Add a message"
 
-#: src/generalComponents/collections.js:547
+#: src/generalComponents/collections.js:579
 #: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:261
 #: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:45
 #: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:69
@@ -1552,7 +1568,6 @@ msgid "Добавить сотрудников"
 msgstr "Add employees"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:226
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:213
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:186
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:249
 msgid "Добавить тег"
@@ -1563,14 +1578,14 @@ msgstr "Add tag"
 msgid "Добавить теги"
 msgstr "Add tags"
 
-#: src/generalComponents/collections.js:266
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:94
+#: src/generalComponents/collections.js:298
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:94
 #: src/Pages/Cabinet/Components/Project/Project.js:93
 msgid "Добавить участника"
 msgstr "Add participant"
 
 #: src/Pages/Cabinet/Components/Chat/ServePanel/AddUserToGroup/index.js:60
-#: src/Pages/Cabinet/Components/Chat/ServePanel/index.js:65
+#: src/Pages/Cabinet/Components/Chat/ServePanel/index.js:81
 msgid "Добавить участников в группу"
 msgstr "Add participants to the group"
 
@@ -1580,13 +1595,11 @@ msgid "Добавить файл"
 msgstr "Add file"
 
 #: src/Pages/Cabinet/Components/Archive/index.js:76
-#: src/Pages/Cabinet/Components/Journal/index.js:80
 #: src/Pages/Cabinet/Components/Project/Project.js:117
 msgid "Добавить файл в архив"
 msgstr "Add file to the archive"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:199
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:186
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:200
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:263
 msgid "Добавить цвет"
@@ -1594,13 +1607,12 @@ msgstr "Add colour"
 
 #: src/generalComponents/Elements/Emoji.js:12
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:208
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:195
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:216
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:279
 msgid "Добавить эмоджи"
 msgstr "Add emoji"
 
-#: src/generalComponents/collections.js:767
+#: src/generalComponents/collections.js:915
 msgid "Добавление задачи"
 msgstr ""
 
@@ -1648,11 +1660,11 @@ msgstr "Add #Tag"
 msgid "Добавьте документ"
 msgstr "Add document"
 
-#: src/generalComponents/collections.js:255
+#: src/generalComponents/collections.js:287
 msgid "Документ Google"
 msgstr "Google Document"
 
-#: src/generalComponents/collections.js:250
+#: src/generalComponents/collections.js:282
 msgid "Документ Word"
 msgstr "Word Document"
 
@@ -1660,10 +1672,10 @@ msgstr "Word Document"
 msgid "документ удален"
 msgstr "Document is deleted"
 
-#: src/generalComponents/collections.js:19
-#: src/generalComponents/collections.js:33
-#: src/generalComponents/collections.js:749
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:51
+#: src/generalComponents/collections.js:21
+#: src/generalComponents/collections.js:35
+#: src/generalComponents/collections.js:897
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:66
 #: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:87
 msgid "Документы"
 msgstr "Documents"
@@ -1733,7 +1745,7 @@ msgid "Доступы"
 msgstr "Access"
 
 #: src/generalComponents/CalendarHelper.js:252
-#: src/generalComponents/collections.js:34
+#: src/generalComponents/collections.js:36
 msgid "Другое"
 msgstr "Other"
 
@@ -1748,11 +1760,11 @@ msgstr "More"
 msgid "Журнал"
 msgstr "Journal"
 
-#: src/generalComponents/collections.js:490
-#: src/generalComponents/collections.js:500
-#: src/generalComponents/collections.js:510
-#: src/Pages/Cabinet/Components/Chat/index.js:139
-#: src/Pages/Cabinet/Components/Chat/index.js:222
+#: src/generalComponents/collections.js:522
+#: src/generalComponents/collections.js:532
+#: src/generalComponents/collections.js:542
+#: src/Pages/Cabinet/Components/Chat/index.js:138
+#: src/Pages/Cabinet/Components/Chat/index.js:221
 msgid "Заблокировать"
 msgstr "Block"
 
@@ -1761,7 +1773,7 @@ msgstr "Block"
 msgid "Забыли пароль?"
 msgstr "Forgot your password?"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditSection/EditSection.js:36
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditSection/EditSection.js:40
 msgid "Заголовок"
 msgstr ""
 
@@ -1785,7 +1797,7 @@ msgid "Загрузите фото контакта"
 msgstr "Upload user's photo"
 
 #: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:102
-#: src/Pages/Cabinet/Components/ServePanel/index.js:286
+#: src/Pages/Cabinet/Components/ServePanel/index.js:378
 #: src/Pages/StartPage/Components/UploadFile.js:114
 msgid "Загрузить"
 msgstr "Upload"
@@ -1804,7 +1816,6 @@ msgid "Загрузка завершена"
 msgstr "Uploading is comlete"
 
 #: src/Pages/Cabinet/Components/Archive/index.js:99
-#: src/Pages/Cabinet/Components/Journal/index.js:103
 #: src/Pages/Guest/index.js:117
 msgid "Загрузка файла"
 msgstr "File upload"
@@ -1822,11 +1833,24 @@ msgstr "Uploading..."
 msgid "Задайте вопрос"
 msgstr "Ask a question"
 
+#: src/Pages/Cabinet/Components/Calendar/index.js:84
+msgid "задач"
+msgstr ""
+
 #: src/generalComponents/CalendarHelper.js:247
+#: src/generalComponents/collections.js:926
 msgid "Задача"
 msgstr "Task"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:59
+#: src/generalComponents/collections.js:871
+msgid "Задача добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:872
+msgid "Задача изменена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:57
 msgid "Задача успешно отредактирована"
 msgstr ""
 
@@ -1834,7 +1858,7 @@ msgstr ""
 msgid "Задача успешно создана"
 msgstr "The task is created successfully "
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteTask/DeleteTask.js:16
+#: src/generalComponents/collections.js:815
 msgid "Задача успешно удалена"
 msgstr ""
 
@@ -1848,6 +1872,19 @@ msgstr "Close"
 #: src/Pages/Cabinet/Components/FileLoader/index.js:485
 msgid "Закрыть загрузки"
 msgstr "Close uploads"
+
+#: src/generalComponents/collections.js:780
+msgid "Заметка"
+msgstr ""
+
+#: src/generalComponents/collections.js:840
+#: src/generalComponents/collections.js:855
+msgid "Заметка добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:843
+msgid "Заметка изменена"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:344
 msgid "Заметки"
@@ -1874,8 +1911,16 @@ msgstr "Fill all data yourself"
 msgid "Запрос успешно отправлен"
 msgstr "Request sent successfully"
 
-#: src/generalComponents/collections.js:705
+#: src/generalComponents/collections.js:737
 msgid "Звонки"
+msgstr ""
+
+#: src/generalComponents/collections.js:860
+msgid "Звонок добавлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:861
+msgid "Звонок изменен"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:57
@@ -1884,7 +1929,6 @@ msgstr "Sound notification"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:213
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:93
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:200
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:26
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:204
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:267
@@ -1897,7 +1941,7 @@ msgstr "Signs"
 msgid "и"
 msgstr "and"
 
-#: src/generalComponents/collections.js:32
+#: src/generalComponents/collections.js:34
 msgid "Игры"
 msgstr "Games"
 
@@ -1909,14 +1953,13 @@ msgstr "ZIP archive creation in progress"
 msgid "из"
 msgstr "from"
 
-#: src/generalComponents/collections.js:818
+#: src/generalComponents/collections.js:972
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/index.js:30
 msgid "Избранное"
 msgstr "Favorites"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:236
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:108
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:223
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:41
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:224
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:287
@@ -1927,7 +1970,7 @@ msgstr "Changed"
 msgid "Изменить тарифный план можно в любой момент"
 msgstr "You can change your plan at any time"
 
-#: src/generalComponents/collections.js:18
+#: src/generalComponents/collections.js:20
 #: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:71
 msgid "Изображения"
 msgstr "Images"
@@ -1941,7 +1984,7 @@ msgstr "or"
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:194
 #: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:66
 #: src/Pages/Cabinet/Components/Chat/AddContact/index.js:81
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:108
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:106
 #: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:132
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:129
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:130
@@ -1949,15 +1992,15 @@ msgstr "or"
 msgid "Имя"
 msgstr "Name"
 
-#: src/Pages/Cabinet/Components/Calendar/ListTaskItem/index.js:43
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:30
-#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:51
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:47
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:65
 #: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:23
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:92
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:87
 msgid "Имя задачи"
 msgstr "Task name"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:65
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:72
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:90
 msgid "Имя категории"
 msgstr ""
 
@@ -2013,17 +2056,17 @@ msgstr "Inversion"
 msgid "Интеграция необходимых сервисов"
 msgstr "Integration of necessary services"
 
-#: src/generalComponents/collections.js:614
+#: src/generalComponents/collections.js:646
 msgid "Интернет-маркетолог"
 msgstr "Internet Marketer"
 
-#: src/generalComponents/collections.js:549
+#: src/generalComponents/collections.js:581
 #: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:31
 #: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:94
 msgid "Информация о сотруднике"
 msgstr "Employee Information"
 
-#: src/generalComponents/collections.js:570
+#: src/generalComponents/collections.js:602
 msgid "Исполнительный директор"
 msgstr "Executive Director"
 
@@ -2035,17 +2078,16 @@ msgstr "Used:"
 msgid "Используют оконечное шифрование"
 msgstr "Use end-to-end encryption"
 
-#: src/generalComponents/collections.js:561
+#: src/generalComponents/collections.js:593
 msgid "Испытательный срок"
 msgstr "Probation"
 
-#: src/generalComponents/collections.js:806
+#: src/generalComponents/collections.js:960
 msgid "Исходящие"
 msgstr ""
 
 #: src/generalComponents/CalendarHelper.js:35
 #: src/Pages/Cabinet/Components/Archive/helper.js:30
-#: src/Pages/Cabinet/Components/Journal/helper.js:30
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:34
 msgid "Июль"
 msgstr "July"
@@ -2056,7 +2098,6 @@ msgstr "July"
 
 #: src/generalComponents/CalendarHelper.js:34
 #: src/Pages/Cabinet/Components/Archive/helper.js:29
-#: src/Pages/Cabinet/Components/Journal/helper.js:29
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:33
 msgid "Июнь"
 msgstr "June"
@@ -2073,15 +2114,17 @@ msgstr "How to protect my data?"
 msgid "Как увеличить обьем хранилища?"
 msgstr "How to increase storage capacity? "
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:47
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:72
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:79
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:102
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:127
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:73
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:119
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:23
 msgid "Календарь"
 msgstr "Calendar"
 
-#: src/generalComponents/collections.js:535
-#: src/Pages/Cabinet/Components/Chat/index.js:319
+#: src/generalComponents/collections.js:567
+#: src/Pages/Cabinet/Components/Chat/index.js:318
 msgid "Камера"
 msgstr "Camera"
 
@@ -2094,7 +2137,7 @@ msgstr "Site map"
 msgid "Квадрат"
 msgstr ""
 
-#: src/generalComponents/collections.js:251
+#: src/generalComponents/collections.js:283
 msgid "Книга Excel"
 msgstr "Excel"
 
@@ -2121,11 +2164,20 @@ msgstr "Team"
 msgid "Комментарии отсутствуют"
 msgstr "No comments"
 
-#: src/generalComponents/collections.js:772
+#: src/generalComponents/collections.js:789
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:59
+msgid "Комментарий"
+msgstr ""
+
+#: src/generalComponents/collections.js:834
+msgid "Комментарий добавлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:922
 msgid "Комментарий к задаче"
 msgstr ""
 
-#: src/generalComponents/collections.js:576
+#: src/generalComponents/collections.js:608
 msgid "Коммерческий директор"
 msgstr "Commercial Director"
 
@@ -2154,7 +2206,7 @@ msgstr "Contact deleted"
 
 #: src/Pages/Cabinet/Components/Business/Company/index.js:53
 #: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:41
-#: src/Pages/Cabinet/Components/Chat/index.js:428
+#: src/Pages/Cabinet/Components/Chat/index.js:427
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:286
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:292
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:306
@@ -2165,7 +2217,7 @@ msgstr "Contact deleted"
 msgid "Контакты"
 msgstr "Contacts"
 
-#: src/generalComponents/collections.js:615
+#: src/generalComponents/collections.js:647
 msgid "Контент-менеджер"
 msgstr "Content Manager"
 
@@ -2187,7 +2239,7 @@ msgstr "Confidentiality"
 msgid "Конфиденциальность и безопасность"
 msgstr "Confidentiality and safety"
 
-#: src/generalComponents/collections.js:616
+#: src/generalComponents/collections.js:648
 msgid "Копирайтер"
 msgstr "Copywriter"
 
@@ -2198,7 +2250,7 @@ msgstr "Copywriter"
 msgid "Копировать ссылку"
 msgstr "Copy link"
 
-#: src/generalComponents/collections.js:830
+#: src/generalComponents/collections.js:984
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:164
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:78
 msgid "Корзина"
@@ -2214,7 +2266,7 @@ msgstr "Buy"
 msgid "Личные данные"
 msgstr "Personal data"
 
-#: src/generalComponents/collections.js:719
+#: src/generalComponents/collections.js:767
 msgid "Личные задачи"
 msgstr ""
 
@@ -2224,7 +2276,6 @@ msgstr "Local"
 
 #: src/generalComponents/CalendarHelper.js:33
 #: src/Pages/Cabinet/Components/Archive/helper.js:28
-#: src/Pages/Cabinet/Components/Journal/helper.js:28
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:32
 msgid "Май"
 msgstr "May"
@@ -2233,17 +2284,16 @@ msgstr "May"
 msgid "Мангуш Ирина Николаевна"
 msgstr ""
 
-#: src/generalComponents/collections.js:573
+#: src/generalComponents/collections.js:605
 msgid "Маркетинговый директор"
 msgstr "Marketing Director"
 
-#: src/generalComponents/collections.js:591
+#: src/generalComponents/collections.js:623
 msgid "Маркетолог"
 msgstr "Marketing Expert"
 
 #: src/generalComponents/CalendarHelper.js:25
 #: src/Pages/Cabinet/Components/Archive/helper.js:26
-#: src/Pages/Cabinet/Components/Journal/helper.js:26
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:30
 msgid "Март"
 msgstr "March"
@@ -2261,23 +2311,23 @@ msgstr "May"
 msgid "МБ"
 msgstr "MB"
 
-#: src/generalComponents/collections.js:592
+#: src/generalComponents/collections.js:624
 msgid "Менеджер по закупкам"
 msgstr "Procurement Manager"
 
-#: src/generalComponents/collections.js:593
+#: src/generalComponents/collections.js:625
 msgid "Менеджер по качеству"
 msgstr "Quality Manager"
 
-#: src/generalComponents/collections.js:603
+#: src/generalComponents/collections.js:635
 msgid "Менеджер по персоналу"
 msgstr "HR"
 
-#: src/generalComponents/collections.js:595
+#: src/generalComponents/collections.js:627
 msgid "Менеджер по продажам"
 msgstr "Sales Manager"
 
-#: src/generalComponents/collections.js:594
+#: src/generalComponents/collections.js:626
 msgid "Менеджер по развитию"
 msgstr "Development Manager"
 
@@ -2298,8 +2348,10 @@ msgid "Миссия компании"
 msgstr "Company's mission"
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:105
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:41
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:69
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:76
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:99
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:101
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:102
 msgid "ММ"
 msgstr ""
 
@@ -2321,7 +2373,6 @@ msgstr "Can edit"
 msgid "Может упорядочивать, добавлять и редактировать файл"
 msgstr "Can arrange, add and edit file"
 
-#: src/generalComponents/collections.js:707
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:114
 #: src/Pages/Cabinet/Components/SideMenu/listHelper.js:28
 msgid "Мои задачи"
@@ -2345,18 +2396,18 @@ msgstr "My files"
 msgid "Мой отдел"
 msgstr "My department"
 
-#: src/generalComponents/collections.js:174
+#: src/generalComponents/collections.js:176
 msgid "Мой профиль"
 msgstr "My profile"
 
-#: src/generalComponents/collections.js:17
-#: src/generalComponents/collections.js:28
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:60
+#: src/generalComponents/collections.js:19
+#: src/generalComponents/collections.js:30
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:75
 #: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:79
 msgid "Музыка"
 msgstr "Music"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:41
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:56
 msgid "Мультимедиа"
 msgstr "Multimedia"
 
@@ -2377,7 +2428,7 @@ msgstr "a password code was sent to the number {codeSentTo} to access the safe"
 msgid "На пользователя в месяц начиная с 3 польз."
 msgstr "Per user monthly starting from 3 users."
 
-#: src/generalComponents/collections.js:652
+#: src/generalComponents/collections.js:684
 msgid "На этой неделе"
 msgstr "This week"
 
@@ -2395,6 +2446,14 @@ msgstr "Back"
 msgid "Назад на главную"
 msgstr "Back to main page"
 
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:60
+msgid "Название встречи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:54
+msgid "Название звонка"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:99
 msgid "Назначить другого человека администратором Компании"
 msgstr "Appoint another person as a Company Administrator"
@@ -2405,6 +2464,7 @@ msgid "Назначить меня администратором Компани
 msgstr "Make me a Company Administrator"
 
 #: src/generalComponents/CalendarHelper.js:251
+#: src/generalComponents/collections.js:790
 msgid "Напоминание"
 msgstr "Reminder"
 
@@ -2413,7 +2473,7 @@ msgid "Настроить доступ"
 msgstr "Set up access"
 
 #: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:185
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:106
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:98
 msgid "Настройка доступа"
 msgstr ""
 
@@ -2421,9 +2481,9 @@ msgstr ""
 msgid "Настройка доступа папки"
 msgstr "Set up folder access"
 
-#: src/generalComponents/collections.js:176
+#: src/generalComponents/collections.js:178
 #: src/Pages/Cabinet/Components/Business/Company/index.js:76
-#: src/Pages/Cabinet/Components/Chat/index.js:452
+#: src/Pages/Cabinet/Components/Chat/index.js:451
 msgid "Настройки"
 msgstr "Settings"
 
@@ -2437,17 +2497,21 @@ msgstr "Access settings"
 msgid "Насыщенность"
 msgstr "Saturation"
 
-#: src/generalComponents/collections.js:604
+#: src/generalComponents/collections.js:636
 msgid "Начальник отдела кадров"
 msgstr "HR Director"
 
-#: src/generalComponents/collections.js:577
+#: src/generalComponents/collections.js:609
 msgid "Начальник отдела продаж"
 msgstr "Head of Sales Department"
 
 #: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:250
 msgid "Начать секретный чат"
 msgstr "Start secret chat"
+
+#: src/generalComponents/collections.js:806
+msgid "Не выполненно"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:103
 msgid "Не задан"
@@ -2474,7 +2538,7 @@ msgstr "Code not received?"
 msgid "Не содержит ваше имя или адрес электронной почты"
 msgstr "Not considered your name or e-mail"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:54
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:53
 msgid "Не удалось добавить задачу"
 msgstr ""
 
@@ -2487,24 +2551,12 @@ msgstr "Failed to load image, please try again"
 msgid "Не удалось загрузить список пользователей"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:48
-msgid "Не удалось изменить встречу"
+#: src/generalComponents/Hooks.js:191
+msgid "Не удалось захватить аудио/видео контент"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:59
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:57
 msgid "Не удалось изменить задачу"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:41
-msgid "Не удалось изменить заметку"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:47
-msgid "Не удалось создать встречу"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:40
-msgid "Не удалось создать заметку"
 msgstr ""
 
 #: src/generalComponents/fileMenuHelper.js:34
@@ -2548,7 +2600,7 @@ msgstr "Incorrect login or password"
 msgid "Недавние"
 msgstr "Recent"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:436
+#: src/Pages/Cabinet/Components/Chat/index.js:435
 msgid "Недавние звонки"
 msgstr "Recent calls"
 
@@ -2623,7 +2675,7 @@ msgstr "New folder"
 msgid "Новое письмо"
 msgstr ""
 
-#: src/generalComponents/collections.js:839
+#: src/generalComponents/collections.js:993
 msgid "Новое сообщение"
 msgstr ""
 
@@ -2638,7 +2690,6 @@ msgstr "Phone number"
 
 #: src/generalComponents/CalendarHelper.js:59
 #: src/Pages/Cabinet/Components/Archive/helper.js:34
-#: src/Pages/Cabinet/Components/Journal/helper.js:34
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:38
 msgid "Ноябрь"
 msgstr "November"
@@ -2661,11 +2712,11 @@ msgstr "About project"
 msgid "Обновите пароль"
 msgstr "Update your password"
 
-#: src/generalComponents/collections.js:737
+#: src/generalComponents/collections.js:885
 msgid "Образование"
 msgstr ""
 
-#: src/generalComponents/collections.js:15
+#: src/generalComponents/collections.js:17
 msgid "Общая папка"
 msgstr "General folder"
 
@@ -2680,7 +2731,6 @@ msgstr "General"
 msgid "Общие сведения"
 msgstr "General information"
 
-#: src/Pages/Cabinet/Components/Journal/WorkElements/FilesGroup/FilesGroup.js:70
 #: src/Pages/Cabinet/Components/WorkElements/WorkBarsPreview/index.js:176
 msgid "объектов"
 msgstr "objects"
@@ -2695,7 +2745,6 @@ msgstr ""
 
 #: src/generalComponents/CalendarHelper.js:52
 #: src/Pages/Cabinet/Components/Archive/helper.js:33
-#: src/Pages/Cabinet/Components/Journal/helper.js:33
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:37
 msgid "Октябрь"
 msgstr "October"
@@ -2704,15 +2753,19 @@ msgstr "October"
 msgid "Октября"
 msgstr "October"
 
-#: src/generalComponents/collections.js:617
+#: src/generalComponents/collections.js:746
+msgid "Онлайн"
+msgstr ""
+
+#: src/generalComponents/collections.js:649
 msgid "Оператор ПК"
 msgstr "PC Operator"
 
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:71
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:96
 msgid "Описание задачи"
 msgstr "Task description"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:180
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:178
 msgid "Опишите задачу"
 msgstr "Describe the task"
 
@@ -2762,22 +2815,26 @@ msgstr "Review added successfully"
 msgid "Отзывы"
 msgstr ""
 
-#: src/generalComponents/collections.js:358
+#: src/generalComponents/collections.js:390
 #: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:99
 msgid "Отключить"
 msgstr "Turn off"
 
-#: src/generalComponents/collections.js:359
+#: src/generalComponents/collections.js:391
 msgid "Отключить несколько"
 msgstr "Turn off multiple"
 
-#: src/generalComponents/collections.js:560
+#: src/generalComponents/collections.js:592
 msgid "Открытая вакансия"
 msgstr "Open vacancy"
 
-#: src/generalComponents/collections.js:416
+#: src/generalComponents/collections.js:448
 msgid "Открыть"
 msgstr "Open"
+
+#: src/generalComponents/OpenInFolderButton/OpenInFolderButton.js:27
+msgid "Открыть в системе 4Hub"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:90
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:110
@@ -2787,11 +2844,7 @@ msgstr "Open"
 msgid "Открыть календарь"
 msgstr "Open calendar"
 
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:64
-msgid "Открыть файл в системе 4Hub"
-msgstr "Open file with 4Hub"
-
-#: src/generalComponents/collections.js:822
+#: src/generalComponents/collections.js:976
 msgid "Отложенные"
 msgstr ""
 
@@ -2833,7 +2886,8 @@ msgstr ""
 #: src/Pages/Cabinet/Components/FileLoader/index.js:469
 #: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:227
 #: src/Pages/Cabinet/Components/Modals/Components/MailModals/SubmitButtons/SubmitButtons.js:31
-#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:51
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:58
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:78
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:116
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:222
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:354
@@ -2850,15 +2904,14 @@ msgstr "Cancel"
 msgid "Отменить"
 msgstr ""
 
-#: src/generalComponents/collections.js:502
-#: src/generalComponents/collections.js:512
-#: src/Pages/Cabinet/Components/Chat/index.js:140
+#: src/generalComponents/collections.js:534
+#: src/generalComponents/collections.js:544
+#: src/Pages/Cabinet/Components/Chat/index.js:139
 msgid "Отметить непрочитанным"
 msgstr "Mark message as unread"
 
-#: src/Pages/Cabinet/Components/Calendar/ListTaskItem/index.js:58
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:47
-#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:66
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:64
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:80
 msgid "Отправитель"
 msgstr "Sender"
 
@@ -2871,6 +2924,7 @@ msgstr "Sender"
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/ShareToMessengers/ShareToMessengers.js:74
 #: src/Pages/Cabinet/Components/Mail/Components/MailBottomMenu/MailBottomMenu.js:21
 #: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:192
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:79
 #: src/Pages/Cabinet/Components/MyProfile/Support/index.js:113
 #: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:152
 #: src/Pages/Cabinet/Components/MyProfile/TellFriends/TellFriend.js:92
@@ -2905,7 +2959,7 @@ msgstr "Sending was successfully"
 msgid "Отправлено"
 msgstr "Sent"
 
-#: src/generalComponents/collections.js:558
+#: src/generalComponents/collections.js:590
 msgid "Отпуск"
 msgstr "Leave"
 
@@ -2923,32 +2977,36 @@ msgstr ""
 msgid "Офис"
 msgstr "Office"
 
-#: src/generalComponents/collections.js:579
+#: src/generalComponents/collections.js:611
 msgid "Офис-менеджер"
 msgstr "Office Manager"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:50
+#: src/generalComponents/collections.js:747
+msgid "Офлайн"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:50
 msgid "Очистить историю"
 msgstr "Clear the history"
 
-#: src/generalComponents/collections.js:489
-#: src/generalComponents/collections.js:499
-#: src/generalComponents/collections.js:509
-#: src/Pages/Cabinet/Components/Chat/index.js:124
-#: src/Pages/Cabinet/Components/Chat/index.js:211
+#: src/generalComponents/collections.js:521
+#: src/generalComponents/collections.js:531
+#: src/generalComponents/collections.js:541
+#: src/Pages/Cabinet/Components/Chat/index.js:125
+#: src/Pages/Cabinet/Components/Chat/index.js:210
 msgid "Очистить историю у всех"
 msgstr ""
 
-#: src/generalComponents/collections.js:488
-#: src/generalComponents/collections.js:498
-#: src/generalComponents/collections.js:508
-#: src/Pages/Cabinet/Components/Chat/index.js:108
-#: src/Pages/Cabinet/Components/Chat/index.js:200
+#: src/generalComponents/collections.js:520
+#: src/generalComponents/collections.js:530
+#: src/generalComponents/collections.js:540
+#: src/Pages/Cabinet/Components/Chat/index.js:109
+#: src/Pages/Cabinet/Components/Chat/index.js:199
 msgid "Очистить историю у меня"
 msgstr ""
 
 #: src/generalComponents/fileMenuHelper.js:80
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:56
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:42
 msgid "ошибка"
 msgstr "error"
 
@@ -2957,16 +3015,15 @@ msgstr "error"
 msgid "Ошибка загрузки количества файлов"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/index.js:82
-msgid "Ошибка загрузки сообщения"
+#: src/Pages/Cabinet/Components/Tasks/Tasks.js:18
+msgid "Ошибка при получении задач"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteTask/DeleteTask.js:16
-msgid "Ошибка при удалении задачи"
+#: src/Pages/Cabinet/Components/Tasks/ManagementPanel/ManagementPanel.js:43
+msgid "Ошибка при получении разделов"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Chat/index.js:114
-#: src/Pages/Cabinet/Components/Chat/index.js:130
+#: src/Pages/Cabinet/Components/Chat/index.js:115
 msgid "Ошибка удаления всех сообщений"
 msgstr ""
 
@@ -3011,8 +3068,7 @@ msgstr "Folder is empty"
 msgid "Папка удалена"
 msgstr ""
 
-#: src/generalComponents/collections.js:657
-#: src/Pages/Cabinet/Components/Journal/index.js:177
+#: src/generalComponents/collections.js:689
 #: src/Pages/Cabinet/Components/MyFolders/index.js:273
 msgid "Папки"
 msgstr "Folders"
@@ -3091,18 +3147,28 @@ msgstr "Transfer Administrator's rights"
 msgid "Перейти"
 msgstr "Follow"
 
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:80
-#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:77
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:107
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:94
 msgid "Перейти к задаче"
 msgstr "Go to the task"
 
-#: src/generalComponents/collections.js:155
-#: src/generalComponents/collections.js:405
+#: src/generalComponents/collections.js:157
+#: src/generalComponents/collections.js:437
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:128
 msgid "Переместить в архив"
 msgstr "Move to Archive"
 
-#: src/generalComponents/collections.js:417
+#: src/generalComponents/collections.js:778
+#: src/generalComponents/collections.js:918
+msgid "Перенести все встречи"
+msgstr ""
+
+#: src/generalComponents/collections.js:777
+#: src/generalComponents/collections.js:917
+msgid "Перенести встречу"
+msgstr ""
+
+#: src/generalComponents/collections.js:449
 msgid "Переслать"
 msgstr "Forward"
 
@@ -3119,7 +3185,7 @@ msgid "Перетащите Файл или Нажмите"
 msgstr "Drag a file or click"
 
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkBars/index.js:93
-#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:132
+#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:166
 msgid "Перетащите файл или нажмите загрузить"
 msgstr "Drag a file or click Upload"
 
@@ -3128,14 +3194,22 @@ msgstr "Drag a file or click Upload"
 msgid "Персонализация"
 msgstr "Personalization"
 
-#: src/generalComponents/collections.js:164
-#: src/generalComponents/collections.js:677
+#: src/generalComponents/collections.js:166
+#: src/generalComponents/collections.js:709
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:209
 msgid "Печать"
 msgstr "Print"
 
-#: src/generalComponents/collections.js:706
+#: src/generalComponents/collections.js:738
 msgid "Письма"
+msgstr ""
+
+#: src/generalComponents/collections.js:865
+msgid "Письмо добавлено"
+msgstr ""
+
+#: src/generalComponents/collections.js:868
+msgid "Письмо изменено"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:16
@@ -3150,28 +3224,37 @@ msgstr ""
 "Letter with access rights has been sent to your e-mail address "
 "mailgmail@gmail.com"
 
+#: src/generalComponents/collections.js:755
+msgid "Плановые адачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:46
+msgid "Плановые задачи"
+msgstr ""
+
 #: src/generalComponents/CalendarHelper.js:85
 msgid "Пн"
 msgstr "Mon"
 
-#: src/generalComponents/collections.js:193
-#: src/generalComponents/collections.js:194
-#: src/Pages/Cabinet/Components/ServePanel/index.js:163
+#: src/generalComponents/collections.js:195
+#: src/generalComponents/collections.js:196
+#: src/Pages/Cabinet/Components/ServePanel/index.js:212
 msgid "По дате архивирования"
 msgstr "By archiving date"
 
-#: src/generalComponents/collections.js:199
-#: src/generalComponents/collections.js:200
+#: src/generalComponents/collections.js:201
+#: src/generalComponents/collections.js:202
 msgid "По дате добавления/создания"
 msgstr "By adding/creating date"
 
-#: src/generalComponents/collections.js:205
-#: src/generalComponents/collections.js:206
+#: src/generalComponents/collections.js:207
+#: src/generalComponents/collections.js:208
+#: src/generalComponents/collections.js:257
 msgid "По дате изменения"
 msgstr "By changing name"
 
-#: src/generalComponents/collections.js:211
-#: src/generalComponents/collections.js:212
+#: src/generalComponents/collections.js:213
+#: src/generalComponents/collections.js:214
 msgid "По дате последнего открытия"
 msgstr "By date of last opening"
 
@@ -3179,33 +3262,45 @@ msgstr "By date of last opening"
 msgid "По значкам"
 msgstr "By sign"
 
-#: src/generalComponents/collections.js:187
+#: src/generalComponents/collections.js:189
+#: src/generalComponents/collections.js:252
 msgid "По имени от А до Я"
 msgstr "By name from A to Z"
 
-#: src/generalComponents/collections.js:188
+#: src/generalComponents/collections.js:190
+#: src/generalComponents/collections.js:253
 msgid "По имени от Я до А"
 msgstr "By name from Z to A "
 
-#: src/generalComponents/collections.js:217
+#: src/generalComponents/collections.js:219
 msgid "По размеру (от больших к малым)"
 msgstr "By size (large to small)"
 
-#: src/generalComponents/collections.js:218
-#: src/generalComponents/collections.js:223
+#: src/generalComponents/collections.js:220
+#: src/generalComponents/collections.js:225
 msgid "По размеру (от малых к большим)"
 msgstr "By size (small to large)"
 
-#: src/generalComponents/collections.js:229
+#: src/generalComponents/collections.js:261
+msgid "По размеру (С больших)"
+msgstr ""
+
+#: src/generalComponents/collections.js:262
+msgid "По размеру (С маленьких)"
+msgstr ""
+
+#: src/generalComponents/collections.js:231
+#: src/generalComponents/collections.js:266
 msgid "По типу"
 msgstr "By type"
 
-#: src/generalComponents/collections.js:230
+#: src/generalComponents/collections.js:232
 msgid "По типу U+21FD"
 msgstr "By type U+21FD"
 
-#: src/generalComponents/collections.js:235
-#: src/generalComponents/collections.js:236
+#: src/generalComponents/collections.js:237
+#: src/generalComponents/collections.js:238
+#: src/generalComponents/collections.js:270
 msgid "По тэгам"
 msgstr "By tag"
 
@@ -3295,19 +3390,19 @@ msgstr "Confirm"
 msgid "Позволяют удалеть переписку по таймеру"
 msgstr "Allows you to delete chat by timer"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:44
-#: src/Pages/Cabinet/Components/Chat/index.js:173
-#: src/Pages/Cabinet/Components/Chat/index.js:575
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:44
+#: src/Pages/Cabinet/Components/Chat/index.js:172
+#: src/Pages/Cabinet/Components/Chat/index.js:576
 #: src/Pages/Cabinet/Components/Project/Project.js:370
 msgid "Покинуть"
 msgstr "Leave"
 
-#: src/generalComponents/collections.js:481
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:39
+#: src/generalComponents/collections.js:513
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:39
 msgid "Покинуть группу"
 msgstr "Leave the group"
 
-#: src/generalComponents/collections.js:280
+#: src/generalComponents/collections.js:312
 #: src/Pages/Cabinet/Components/Project/Project.js:138
 msgid "Покинуть проект"
 msgstr "Leave the project"
@@ -3325,7 +3420,7 @@ msgid "Политику конфиденциальности"
 msgstr "Privacy Policy"
 
 #: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:68
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:44
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:40
 msgid "Получатель"
 msgstr "Receiver"
 
@@ -3375,7 +3470,7 @@ msgstr "Deal of the day"
 msgid "Предоставить все прова"
 msgstr "Provide all rights"
 
-#: src/generalComponents/collections.js:388
+#: src/generalComponents/collections.js:420
 #: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:45
 #: src/Pages/Cabinet/Components/Safe/index.js:130
 msgid "Предоставить доступ"
@@ -3436,11 +3531,11 @@ msgstr "providing access to administer a resource"
 msgid "Предыдущие версии"
 msgstr "Previous Versions"
 
-#: src/generalComponents/collections.js:257
+#: src/generalComponents/collections.js:289
 msgid "Презентация Google"
 msgstr "Google Presentation"
 
-#: src/generalComponents/collections.js:252
+#: src/generalComponents/collections.js:284
 msgid "Презентация PowerPoint"
 msgstr "PowerPoint Presentation"
 
@@ -3503,11 +3598,11 @@ msgstr "The program will appear in the list in the Favorite Programs tab"
 msgid "Программа успешно добавлена в избранные"
 msgstr "The program has been successfully added to favorites"
 
-#: src/generalComponents/collections.js:618
+#: src/generalComponents/collections.js:650
 msgid "Программист"
 msgstr "Programmer"
 
-#: src/generalComponents/collections.js:619
+#: src/generalComponents/collections.js:651
 msgid "Программист 1С"
 msgstr "1C programmer"
 
@@ -3517,7 +3612,7 @@ msgstr "1C programmer"
 msgid "Программы"
 msgstr "Programs"
 
-#: src/generalComponents/collections.js:620
+#: src/generalComponents/collections.js:652
 msgid "Продакт-менеджер"
 msgstr "Product Manager"
 
@@ -3544,7 +3639,7 @@ msgstr "A project with the same name already exists"
 msgid "Проект удален"
 msgstr "Project deleted"
 
-#: src/generalComponents/collections.js:609
+#: src/generalComponents/collections.js:641
 msgid "Проектный менеджер"
 msgstr "Project Manager"
 
@@ -3557,7 +3652,7 @@ msgstr "Skip"
 msgid "просматривать могут все у кого есть ссылка"
 msgstr "Anyone who has the link can view"
 
-#: src/generalComponents/collections.js:686
+#: src/generalComponents/collections.js:718
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:118
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:122
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:171
@@ -3567,6 +3662,7 @@ msgstr "Anyone who has the link can view"
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:161
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:24
 #: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:40
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
 msgid "Просмотр"
 msgstr "View"
 
@@ -3593,19 +3689,19 @@ msgstr "registration process"
 msgid "Прочитанные"
 msgstr ""
 
-#: src/generalComponents/collections.js:29
+#: src/generalComponents/collections.js:31
 msgid "Работа"
 msgstr "Work"
 
-#: src/generalComponents/collections.js:715
+#: src/generalComponents/collections.js:763
 msgid "Рабочие задачи"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:70
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:52
 msgid "Разархивировать"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Chat/index.js:418
+#: src/Pages/Cabinet/Components/Chat/index.js:417
 #: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:71
 msgid "развернуть"
 msgstr "expand"
@@ -3615,7 +3711,7 @@ msgstr "expand"
 msgid "Развернуть"
 msgstr "Expand"
 
-#: src/generalComponents/collections.js:31
+#: src/generalComponents/collections.js:33
 msgid "Развлечения"
 msgstr "Entertainment"
 
@@ -3624,12 +3720,21 @@ msgstr "Entertainment"
 msgid "Разграничение прав доступа к файлам"
 msgstr "Differentiation of access rights to files"
 
+#: src/generalComponents/collections.js:819
 #: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:38
 msgid "Раздел добавлен"
 msgstr ""
 
+#: src/generalComponents/collections.js:820
+msgid "Раздел изменен"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:38
 msgid "Раздел изменён"
+msgstr ""
+
+#: src/generalComponents/collections.js:822
+msgid "Раздел удален"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:33
@@ -3642,7 +3747,6 @@ msgstr "Size:"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:241
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:113
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:228
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:46
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:228
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:291
@@ -3653,7 +3757,7 @@ msgstr "Size"
 msgid "Размытие"
 msgstr "Blur"
 
-#: src/generalComponents/collections.js:621
+#: src/generalComponents/collections.js:653
 msgid "Разработчик игр"
 msgstr "Game Developer"
 
@@ -3663,7 +3767,6 @@ msgid "Разработчикам"
 msgstr "Developers"
 
 #: src/Pages/Cabinet/Components/Archive/index.js:105
-#: src/Pages/Cabinet/Components/Journal/index.js:109
 msgid "Распечатать файл"
 msgstr "Print file"
 
@@ -3686,11 +3789,11 @@ msgstr "Tell friends"
 msgid "Расшаренные файлы"
 msgstr "Shared files"
 
-#: src/generalComponents/collections.js:147
-#: src/generalComponents/collections.js:302
-#: src/generalComponents/collections.js:317
-#: src/generalComponents/collections.js:402
-#: src/generalComponents/collections.js:667
+#: src/generalComponents/collections.js:149
+#: src/generalComponents/collections.js:334
+#: src/generalComponents/collections.js:349
+#: src/generalComponents/collections.js:434
+#: src/generalComponents/collections.js:699
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:57
 #: src/Pages/Cabinet/Components/MyFolders/index.js:216
 #: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:124
@@ -3713,11 +3816,15 @@ msgstr "Registration"
 msgid "Регистрация прошла успешно"
 msgstr "Registration completed successfully"
 
-#: src/generalComponents/collections.js:151
-#: src/generalComponents/collections.js:671
+#: src/generalComponents/collections.js:153
+#: src/generalComponents/collections.js:703
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:109
 msgid "Ред. несколько файлов"
 msgstr "Edit multiple files"
+
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
+msgid "Редактирование"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/MyFolders/index.js:210
 #: src/Pages/Cabinet/Components/Project/Project.js:147
@@ -3738,33 +3845,30 @@ msgstr "Employee editing"
 
 #: src/Pages/Cabinet/Components/Archive/index.js:64
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:98
-#: src/Pages/Cabinet/Components/Journal/index.js:68
 #: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:44
 msgid "Редактирование файла"
 msgstr "File editing"
 
 #: src/Pages/Cabinet/Components/Archive/index.js:70
-#: src/Pages/Cabinet/Components/Journal/index.js:74
 msgid "Редактирование файлов"
 msgstr "Files editing"
 
-#: src/generalComponents/collections.js:269
 #: src/generalComponents/collections.js:301
-#: src/generalComponents/collections.js:316
-#: src/generalComponents/collections.js:389
-#: src/generalComponents/collections.js:404
-#: src/generalComponents/collections.js:467
-#: src/generalComponents/collections.js:478
-#: src/generalComponents/collections.js:548
-#: src/generalComponents/collections.js:688
-#: src/generalComponents/collections.js:728
-#: src/generalComponents/collections.js:783
-#: src/generalComponents/collections.js:792
+#: src/generalComponents/collections.js:333
+#: src/generalComponents/collections.js:348
+#: src/generalComponents/collections.js:421
+#: src/generalComponents/collections.js:436
+#: src/generalComponents/collections.js:499
+#: src/generalComponents/collections.js:510
+#: src/generalComponents/collections.js:580
+#: src/generalComponents/collections.js:720
+#: src/generalComponents/collections.js:937
+#: src/generalComponents/collections.js:946
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:42
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:54
 #: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:23
 #: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:35
-#: src/Pages/Cabinet/Components/Chat/index.js:156
+#: src/Pages/Cabinet/Components/Chat/index.js:155
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:132
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:136
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:170
@@ -3782,6 +3886,11 @@ msgstr "Files editing"
 msgid "Редактировать"
 msgstr "Edit"
 
+#: src/generalComponents/collections.js:779
+#: src/generalComponents/collections.js:928
+msgid "Редактировать встречу"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:117
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:98
 #: src/Pages/Cabinet/Components/FileLoader/index.js:100
@@ -3791,13 +3900,21 @@ msgstr "Edit"
 msgid "Редактировать выбранные файлы"
 msgstr "Edit selected files"
 
-#: src/generalComponents/collections.js:774
+#: src/generalComponents/collections.js:788
+#: src/generalComponents/collections.js:927
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuTask.js:15
 msgid "Редактировать задачу"
 msgstr ""
 
-#: src/generalComponents/collections.js:766
+#: src/generalComponents/collections.js:794
+#: src/generalComponents/collections.js:914
+#: src/generalComponents/collections.js:930
 msgid "Редактировать заметку"
+msgstr ""
+
+#: src/generalComponents/collections.js:784
+#: src/generalComponents/collections.js:929
+msgid "Редактировать звонок"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:160
@@ -3809,12 +3926,12 @@ msgstr "Edit contact"
 msgid "Редактировать папку"
 msgstr "Edit folder"
 
-#: src/generalComponents/collections.js:763
+#: src/generalComponents/collections.js:911
 msgid "Редактировать раздел"
 msgstr ""
 
-#: src/generalComponents/collections.js:530
-#: src/Pages/Cabinet/Components/Chat/index.js:293
+#: src/generalComponents/collections.js:562
+#: src/Pages/Cabinet/Components/Chat/index.js:292
 msgid "Редактировать сообщение"
 msgstr "Edit message"
 
@@ -3822,8 +3939,8 @@ msgstr "Edit message"
 msgid "Редактировать сотрудника"
 msgstr "Edit employee"
 
-#: src/generalComponents/collections.js:149
-#: src/generalComponents/collections.js:669
+#: src/generalComponents/collections.js:151
+#: src/generalComponents/collections.js:701
 #: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:51
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:89
 msgid "Редактировать файл"
@@ -3835,16 +3952,15 @@ msgstr "Project editing"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:246
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:118
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:233
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:51
 msgid "Резрешение"
 msgstr "Resolution"
 
-#: src/generalComponents/collections.js:606
+#: src/generalComponents/collections.js:638
 msgid "Рекрутер"
 msgstr "Recruiter"
 
-#: src/generalComponents/collections.js:568
+#: src/generalComponents/collections.js:600
 msgid "Руководитель компании"
 msgstr "Company Manager"
 
@@ -3877,7 +3993,7 @@ msgstr ""
 msgid "Сб"
 msgstr "Sat"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:418
+#: src/Pages/Cabinet/Components/Chat/index.js:417
 #: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:71
 msgid "свернуть"
 msgstr "hide"
@@ -3887,19 +4003,17 @@ msgstr "hide"
 msgid "Свернуть"
 msgstr "Hide"
 
-#: src/generalComponents/collections.js:162
-#: src/generalComponents/collections.js:273
-#: src/generalComponents/collections.js:291
+#: src/generalComponents/collections.js:164
 #: src/generalComponents/collections.js:305
 #: src/generalComponents/collections.js:323
-#: src/generalComponents/collections.js:391
-#: src/generalComponents/collections.js:406
-#: src/generalComponents/collections.js:675
+#: src/generalComponents/collections.js:337
+#: src/generalComponents/collections.js:355
+#: src/generalComponents/collections.js:423
+#: src/generalComponents/collections.js:438
+#: src/generalComponents/collections.js:707
 #: src/Pages/Cabinet/Components/Archive/index.js:93
 #: src/Pages/Cabinet/Components/Archive/index.js:95
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:178
-#: src/Pages/Cabinet/Components/Journal/index.js:97
-#: src/Pages/Cabinet/Components/Journal/index.js:99
 #: src/Pages/Cabinet/Components/MyFolders/index.js:201
 #: src/Pages/Cabinet/Components/MyFolders/index.js:234
 #: src/Pages/Cabinet/Components/Project/Project.js:123
@@ -3910,9 +4024,8 @@ msgid "Свойства"
 msgstr "Properties"
 
 #: src/generalComponents/CalendarHelper.js:205
-#: src/generalComponents/collections.js:651
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/Media/index.js:87
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/Media/index.js:96
+#: src/generalComponents/collections.js:683
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/Media/Media.js:152
 msgid "Сегодня"
 msgstr "Today"
 
@@ -3930,7 +4043,7 @@ msgstr "A Safe with the same name is already exists"
 msgid "Сейф удален"
 msgstr "Safe removed"
 
-#: src/generalComponents/collections.js:580
+#: src/generalComponents/collections.js:612
 msgid "Секретарь"
 msgstr "Secretary"
 
@@ -3943,7 +4056,7 @@ msgstr "secret"
 msgid "Секретный чат"
 msgstr "Secret chat"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:371
+#: src/Pages/Cabinet/Components/Chat/index.js:370
 msgid "Секретный чат удален"
 msgstr "Secret chat removed"
 
@@ -3953,7 +4066,6 @@ msgstr "Secret chat created successfully"
 
 #: src/generalComponents/CalendarHelper.js:45
 #: src/Pages/Cabinet/Components/Archive/helper.js:32
-#: src/Pages/Cabinet/Components/Journal/helper.js:32
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:36
 msgid "Сентябрь"
 msgstr "September"
@@ -3966,7 +4078,7 @@ msgstr "September"
 msgid "Сепия"
 msgstr "Sepia"
 
-#: src/generalComponents/collections.js:156
+#: src/generalComponents/collections.js:158
 #: src/Pages/Cabinet/Components/Library/WorkSpace/WorkSpace.js:106
 #: src/Pages/Cabinet/Components/MyFiles/WorkSpace/index.js:181
 #: src/Pages/Cabinet/Components/MyFolders/WorkSpace/index.js:143
@@ -3978,13 +4090,12 @@ msgstr "ZIP"
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:144
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:152
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:169
-#: src/Pages/Cabinet/Components/Journal/index.js:86
 #: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:108
 #: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:30
 msgid "Сжать в ZIP"
 msgstr "ZIP"
 
-#: src/generalComponents/collections.js:158
+#: src/generalComponents/collections.js:160
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:161
 msgid "Сжать несколько файлов в Zip"
 msgstr "ZIP multiple files"
@@ -4014,18 +4125,18 @@ msgstr "Sync project collaboration with built-in tools"
 msgid "Система"
 msgstr "System"
 
-#: src/generalComponents/collections.js:622
+#: src/generalComponents/collections.js:654
 msgid "Системный администратор"
 msgstr "System Administrator"
 
-#: src/generalComponents/collections.js:623
+#: src/generalComponents/collections.js:655
 msgid "Системный аналитик"
 msgstr "System Analyst"
 
-#: src/generalComponents/collections.js:163
-#: src/generalComponents/collections.js:531
-#: src/generalComponents/collections.js:676
-#: src/Pages/Cabinet/Components/Chat/index.js:299
+#: src/generalComponents/collections.js:165
+#: src/generalComponents/collections.js:563
+#: src/generalComponents/collections.js:708
+#: src/Pages/Cabinet/Components/Chat/index.js:298
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:193
 msgid "Скачать"
 msgstr "Download"
@@ -4034,22 +4145,24 @@ msgstr "Download"
 msgid "Скачать папку"
 msgstr "Download folder"
 
-#: src/generalComponents/collections.js:687
+#: src/generalComponents/collections.js:719
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:245
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:125
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:126
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:163
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:164
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:54
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
 msgid "Скачивание"
 msgstr "Downloading"
 
-#: src/generalComponents/collections.js:148
-#: src/generalComponents/collections.js:267
-#: src/generalComponents/collections.js:303
-#: src/generalComponents/collections.js:319
-#: src/generalComponents/collections.js:403
-#: src/generalComponents/collections.js:418
-#: src/generalComponents/collections.js:668
+#: src/generalComponents/collections.js:150
+#: src/generalComponents/collections.js:299
+#: src/generalComponents/collections.js:335
+#: src/generalComponents/collections.js:351
+#: src/generalComponents/collections.js:435
+#: src/generalComponents/collections.js:450
+#: src/generalComponents/collections.js:700
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:73
 msgid "Скопировать ссылку"
 msgstr "Copy link"
@@ -4066,7 +4179,7 @@ msgstr "Copy link"
 msgid "Скрыть комментарии"
 msgstr "Hide comments"
 
-#: src/generalComponents/collections.js:175
+#: src/generalComponents/collections.js:177
 #: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:59
 #: src/Pages/Cabinet/Components/MyProfile/index.js:59
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:60
@@ -4081,7 +4194,7 @@ msgstr "Emoji"
 msgid "Сменить пакет"
 msgstr "Change plan"
 
-#: src/generalComponents/collections.js:390
+#: src/generalComponents/collections.js:422
 #: src/Pages/Cabinet/Components/Safe/index.js:142
 msgid "Сменить пароль"
 msgstr "Change password"
@@ -4090,7 +4203,7 @@ msgstr "Change password"
 msgid "Смещение цветов"
 msgstr "Color shift"
 
-#: src/generalComponents/generalHelpers.js:104
+#: src/generalComponents/generalHelpers.js:105
 msgid "Снимок экрана"
 msgstr "Screenshot"
 
@@ -4148,7 +4261,6 @@ msgstr "Create a password for the Safe with passwords"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:231
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:103
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:218
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:36
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:220
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:283
@@ -4168,7 +4280,7 @@ msgstr "Create Safe"
 #: src/Pages/Cabinet/Components/CreateFile/index.js:366
 #: src/Pages/Cabinet/Components/Project/CreateProject/index.js:200
 #: src/Pages/Cabinet/Components/Safe/Popups/NoSafe/index.js:54
-#: src/Pages/Cabinet/Components/ServePanel/index.js:337
+#: src/Pages/Cabinet/Components/ServePanel/index.js:429
 msgid "Создать"
 msgstr "Create"
 
@@ -4176,20 +4288,20 @@ msgstr "Create"
 msgid "Создать аккаунт"
 msgstr "Create account"
 
-#: src/generalComponents/collections.js:768
+#: src/generalComponents/collections.js:916
 msgid "Создать встречу"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Calendar/index.js:62
+#: src/Pages/Cabinet/Components/Calendar/index.js:67
 msgid "Создать задачу"
 msgstr ""
 
-#: src/generalComponents/collections.js:765
-#: src/Pages/Cabinet/Components/Tasks/Notes/Notes.js:28
+#: src/generalComponents/collections.js:913
+#: src/Pages/Cabinet/Components/Tasks/Notes/Notes.js:70
 msgid "Создать заметку"
 msgstr ""
 
-#: src/generalComponents/collections.js:769
+#: src/generalComponents/collections.js:919
 msgid "Создать звонок"
 msgstr ""
 
@@ -4201,8 +4313,12 @@ msgstr "Create and open in editor"
 msgid "Создать лист"
 msgstr "Create Sheet"
 
-#: src/generalComponents/collections.js:773
+#: src/generalComponents/collections.js:923
 msgid "Создать напоминание"
+msgstr ""
+
+#: src/generalComponents/collections.js:739
+msgid "Создать новую задачу"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Project/ProjectItem/ProjectItem.js:183
@@ -4213,12 +4329,12 @@ msgstr "Create new folder"
 msgid "Создать новый раздел"
 msgstr ""
 
-#: src/generalComponents/collections.js:268
+#: src/generalComponents/collections.js:300
 #: src/Pages/Cabinet/Components/MyFolders/index.js:353
 msgid "Создать папку"
 msgstr "Create folder"
 
-#: src/generalComponents/collections.js:770
+#: src/generalComponents/collections.js:920
 msgid "Создать письмо"
 msgstr ""
 
@@ -4226,9 +4342,9 @@ msgstr ""
 msgid "Создать проект"
 msgstr "Create project"
 
-#: src/generalComponents/collections.js:762
-#: src/generalComponents/collections.js:791
-#: src/Pages/Cabinet/Components/Tasks/ManagementPanel/ManagementPanel.js:110
+#: src/generalComponents/collections.js:910
+#: src/generalComponents/collections.js:945
+#: src/Pages/Cabinet/Components/Tasks/ManagementPanel/ManagementPanel.js:122
 msgid "Создать раздел"
 msgstr ""
 
@@ -4267,7 +4383,7 @@ msgstr "Employee successfully added"
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:184
 #: src/Pages/Cabinet/Components/CreateSafePassword/index.js:147
 #: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:236
-#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:16
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:19
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:119
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:225
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:357
@@ -4286,7 +4402,7 @@ msgstr "Save and Continue"
 msgid "Сохранить пароль во вкладку сейф с паролями"
 msgstr "Save password to Password Safe tab"
 
-#: src/generalComponents/collections.js:826
+#: src/generalComponents/collections.js:980
 msgid "Спам"
 msgstr ""
 
@@ -4310,7 +4426,7 @@ msgstr ""
 msgid "Список программ пуст"
 msgstr "Program list is empty"
 
-#: src/generalComponents/collections.js:30
+#: src/generalComponents/collections.js:32
 msgid "Спорт"
 msgstr "Sport"
 
@@ -4322,12 +4438,12 @@ msgstr "Wed"
 msgid "Сравнить документы/файлы"
 msgstr "Compare documents/files"
 
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:35
-#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:56
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:52
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:70
 msgid "Срок"
 msgstr "Term"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:135
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:133
 msgid "Срок выполнения"
 msgstr ""
 
@@ -4365,9 +4481,10 @@ msgstr "File storage period"
 msgid "Срок хранения файла/папки"
 msgstr "File/Folder storage period"
 
-#: src/Pages/Cabinet/Components/Calendar/ListTaskItem/index.js:48
-msgid "Сроки"
-msgstr "Terms"
+#: src/generalComponents/collections.js:754
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:24
+msgid "Срочные задачи"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:71
 msgid "Ссылка на файл не найдена"
@@ -4388,7 +4505,7 @@ msgstr "Link sent to e-mail"
 msgid "Ссылка скопирована"
 msgstr "Link copied"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:66
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:81
 msgid "Ссылки"
 msgstr "Links"
 
@@ -4401,10 +4518,11 @@ msgid "Старый пароль"
 msgstr "Old password"
 
 #: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:109
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TaskItem/TaskItem.js:111
 msgid "Статус"
 msgstr "Status"
 
-#: src/generalComponents/collections.js:753
+#: src/generalComponents/collections.js:901
 msgid "Статьи"
 msgstr ""
 
@@ -4412,7 +4530,7 @@ msgstr ""
 msgid "Сфера деятельности"
 msgstr "Field of activity"
 
-#: src/generalComponents/collections.js:256
+#: src/generalComponents/collections.js:288
 msgid "Таблица Google"
 msgstr "Google Sheets"
 
@@ -4431,11 +4549,9 @@ msgid "Творчество"
 msgstr "Art"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:222
-#: src/Pages/Cabinet/Components/Calendar/ListTaskItem/index.js:53
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:40
-#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:61
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:57
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:75
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:98
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:209
 #: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:76
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:31
 msgid "Тег"
@@ -4448,22 +4564,16 @@ msgstr "Tag"
 msgid "Теги"
 msgstr "Tags"
 
-#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:73
-msgid ""
-"Текст большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для "
-"распечатки образцов. Lorem Ipsum не только успешно пережил без заметных "
-"изменений пять веков"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:117
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:140
 msgid "Текст задачи"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:49
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:38
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/MeetingNote/MeetingNote.js:27
 msgid "Текст заметки"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:49
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:48
 msgid "Текст письма"
 msgstr ""
 
@@ -4500,7 +4610,7 @@ msgstr "Phone number:"
 msgid "Тема"
 msgstr "Theme"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:36
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:32
 msgid "Тема письма"
 msgstr ""
 
@@ -4509,9 +4619,13 @@ msgstr ""
 msgid "Темный"
 msgstr ""
 
-#: src/generalComponents/collections.js:624
+#: src/generalComponents/collections.js:656
 msgid "Тестировщик"
 msgstr "QA Engineer"
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:67
+msgid "Тип встречи"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:23
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:23
@@ -4525,15 +4639,19 @@ msgstr "File type:"
 msgid "только что"
 msgstr "just now"
 
-#: src/generalComponents/collections.js:600
+#: src/generalComponents/collections.js:632
 msgid "Торговый агент"
 msgstr "Trading Agent"
 
-#: src/generalComponents/collections.js:599
+#: src/generalComponents/collections.js:631
 msgid "Торговый представитель"
 msgstr "Sales Representative"
 
-#: src/generalComponents/collections.js:605
+#: src/generalComponents/collections.js:805
+msgid "Требует уточнения"
+msgstr ""
+
+#: src/generalComponents/collections.js:637
 msgid "Тренинг-менеджер"
 msgstr "Training Manager"
 
@@ -4553,7 +4671,7 @@ msgstr "Do you already have an account?"
 msgid "Уведомить пользователя"
 msgstr "Notify user"
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:121
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:121
 #: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:53
 msgid "Уведомления"
 msgstr "Notification"
@@ -4562,7 +4680,7 @@ msgstr "Notification"
 msgid "Увеличьте Объем Хранилища"
 msgstr "Increase Storage"
 
-#: src/generalComponents/collections.js:771
+#: src/generalComponents/collections.js:921
 msgid "Удаление задачи"
 msgstr ""
 
@@ -4582,7 +4700,7 @@ msgstr "Folder deleting"
 msgid "Удаление проекта"
 msgstr "Project deleting"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:20
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:23
 msgid "Удаление раздела"
 msgstr ""
 
@@ -4597,8 +4715,6 @@ msgstr "Delete employee"
 #: src/Pages/Cabinet/Components/Archive/index.js:114
 #: src/Pages/Cabinet/Components/Archive/WorkElements/FileLine/index.js:109
 #: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:57
-#: src/Pages/Cabinet/Components/Journal/index.js:118
-#: src/Pages/Cabinet/Components/Journal/WorkElements/FileLine/index.js:107
 #: src/Pages/Guest/ServePanel/index.js:243
 msgid "Удаление файла"
 msgstr "File deleting"
@@ -4608,32 +4724,31 @@ msgstr "File deleting"
 msgid "Удаление файлов"
 msgstr "Files deleting"
 
-#: src/generalComponents/collections.js:166
-#: src/generalComponents/collections.js:393
-#: src/generalComponents/collections.js:408
-#: src/generalComponents/collections.js:420
-#: src/generalComponents/collections.js:468
-#: src/generalComponents/collections.js:479
-#: src/generalComponents/collections.js:486
-#: src/generalComponents/collections.js:516
-#: src/generalComponents/collections.js:550
-#: src/generalComponents/collections.js:679
+#: src/generalComponents/collections.js:168
+#: src/generalComponents/collections.js:425
+#: src/generalComponents/collections.js:440
+#: src/generalComponents/collections.js:452
+#: src/generalComponents/collections.js:500
+#: src/generalComponents/collections.js:511
+#: src/generalComponents/collections.js:518
+#: src/generalComponents/collections.js:548
+#: src/generalComponents/collections.js:582
+#: src/generalComponents/collections.js:711
 #: src/Pages/Cabinet/Components/Archive/index.js:202
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:107
 #: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:43
 #: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:310
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:33
-#: src/Pages/Cabinet/Components/Chat/index.js:162
-#: src/Pages/Cabinet/Components/Chat/index.js:186
-#: src/Pages/Cabinet/Components/Chat/index.js:552
-#: src/Pages/Cabinet/Components/Chat/index.js:592
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:33
+#: src/Pages/Cabinet/Components/Chat/index.js:161
+#: src/Pages/Cabinet/Components/Chat/index.js:185
+#: src/Pages/Cabinet/Components/Chat/index.js:553
+#: src/Pages/Cabinet/Components/Chat/index.js:593
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:81
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:228
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:54
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuTask.js:27
-#: src/Pages/Cabinet/Components/Journal/index.js:228
-#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:19
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:24
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:22
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:27
 #: src/Pages/Cabinet/Components/MyFolders/index.js:406
 #: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:141
 #: src/Pages/Cabinet/Components/Project/Project.js:358
@@ -4643,24 +4758,36 @@ msgstr "Files deleting"
 msgid "Удалить"
 msgstr "Delete"
 
+#: src/generalComponents/collections.js:781
+msgid "Удалить "
+msgstr ""
+
 #: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:140
 msgid "Удалить безвозвратно"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/index.js:28
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:28
 msgid "Удалить группу"
 msgstr "Delete group"
 
-#: src/generalComponents/collections.js:729
+#: src/generalComponents/collections.js:791
 msgid "Удалить задачу"
 msgstr ""
 
-#: src/generalComponents/collections.js:492
-#: src/Pages/Cabinet/Components/Chat/index.js:233
+#: src/generalComponents/collections.js:795
+msgid "Удалить заметку "
+msgstr ""
+
+#: src/generalComponents/collections.js:785
+msgid "Удалить звонок "
+msgstr ""
+
+#: src/generalComponents/collections.js:524
+#: src/Pages/Cabinet/Components/Chat/index.js:232
 msgid "Удалить из группы"
 msgstr "Remove from group"
 
-#: src/Pages/Cabinet/Components/Chat/index.js:142
+#: src/Pages/Cabinet/Components/Chat/index.js:141
 msgid "Удалить контакт"
 msgstr "Remove contact"
 
@@ -4668,22 +4795,22 @@ msgstr "Remove contact"
 msgid "удалить линию"
 msgstr "delete line"
 
-#: src/generalComponents/collections.js:306
-#: src/generalComponents/collections.js:324
+#: src/generalComponents/collections.js:338
+#: src/generalComponents/collections.js:356
 msgid "Удалить папку"
 msgstr "Delete folder"
 
-#: src/generalComponents/collections.js:281
+#: src/generalComponents/collections.js:313
 msgid "Удалить проект"
 msgstr "Delete project"
 
-#: src/generalComponents/collections.js:764
-#: src/generalComponents/collections.js:784
+#: src/generalComponents/collections.js:912
+#: src/generalComponents/collections.js:938
 msgid "Удалить раздел"
 msgstr ""
 
-#: src/generalComponents/collections.js:532
-#: src/Pages/Cabinet/Components/Chat/index.js:312
+#: src/generalComponents/collections.js:564
+#: src/Pages/Cabinet/Components/Chat/index.js:311
 msgid "Удалить сообщение"
 msgstr "Delete message"
 
@@ -4714,11 +4841,11 @@ msgstr "Enter your phone number"
 msgid "Укажите время хранения"
 msgstr "Specify storage period"
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:54
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:85
 msgid "Укажите дату и время встречи"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:17
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:62
 msgid "Укажите дату и время звонка"
 msgstr ""
 
@@ -4731,6 +4858,11 @@ msgstr "Specify storage date"
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:50
 msgid "Укажите даты хранения"
 msgstr "Specify storage dates"
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:113
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:59
+msgid "Укажите новую дату встречи"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:45
 msgid "Укажите разрещение доступа"
@@ -4808,7 +4940,7 @@ msgstr "Set password"
 msgid "Устройство заблокировано"
 msgstr "Device is blocked"
 
-#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:167
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:165
 msgid "Участники (введите email или выбирите из списка)"
 msgstr "Participants (enter an e-mail or select from the list )"
 
@@ -4874,7 +5006,7 @@ msgstr ""
 msgid "Файл успешно отправлен"
 msgstr "File sent successfully"
 
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:46
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:32
 msgid "Файл успешно разархивирован"
 msgstr ""
 
@@ -4882,7 +5014,7 @@ msgstr ""
 msgid "Файлообменник"
 msgstr "Filesharing "
 
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:35
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:47
 #: src/Pages/Cabinet/Components/Project/WorkSpace/index.js:114
 msgid "Файлы"
 msgstr "Files"
@@ -4904,13 +5036,13 @@ msgstr "Project files"
 msgid "Файлы расшаренные мне"
 msgstr "Files shared with me"
 
-#: src/generalComponents/collections.js:537
-#: src/Pages/Cabinet/Components/Chat/index.js:329
+#: src/generalComponents/collections.js:569
+#: src/Pages/Cabinet/Components/Chat/index.js:328
 msgid "Файлы с компьютера"
 msgstr "Computer files"
 
-#: src/generalComponents/collections.js:536
-#: src/Pages/Cabinet/Components/Chat/index.js:324
+#: src/generalComponents/collections.js:568
+#: src/Pages/Cabinet/Components/Chat/index.js:323
 msgid "Файлы с системы 4Hub"
 msgstr "4Hub files"
 
@@ -4938,7 +5070,6 @@ msgstr "Surname"
 
 #: src/generalComponents/CalendarHelper.js:20
 #: src/Pages/Cabinet/Components/Archive/helper.js:25
-#: src/Pages/Cabinet/Components/Journal/helper.js:25
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:29
 msgid "Февраль"
 msgstr "February"
@@ -4947,27 +5078,27 @@ msgstr "February"
 msgid "Февраля"
 msgstr "February"
 
-#: src/generalComponents/collections.js:16
+#: src/generalComponents/collections.js:18
 #: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:63
 msgid "Фильмы"
 msgstr "Movies"
 
-#: src/generalComponents/collections.js:584
+#: src/generalComponents/collections.js:616
 msgid "Финансист"
 msgstr "Financier"
 
-#: src/generalComponents/collections.js:571
-#: src/generalComponents/collections.js:578
+#: src/generalComponents/collections.js:603
+#: src/generalComponents/collections.js:610
 msgid "Финансовый директор"
 msgstr "Financial Director"
 
-#: src/generalComponents/collections.js:585
+#: src/generalComponents/collections.js:617
 msgid "Финансовый консультант"
 msgstr "Financial Consultant"
 
-#: src/generalComponents/collections.js:26
-#: src/generalComponents/collections.js:741
-#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:43
+#: src/generalComponents/collections.js:28
+#: src/generalComponents/collections.js:889
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:58
 msgid "Фото"
 msgstr "Photo"
 
@@ -4989,18 +5120,21 @@ msgstr "Safe will help you keep important data and passwords in a safe place"
 msgid "Хранилище"
 msgstr "Storage"
 
-#: src/generalComponents/collections.js:625
+#: src/generalComponents/collections.js:657
 msgid "Художник компьютерной графики"
 msgstr "Graphic Designer"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:189
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:83
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:176
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:16
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:190
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:253
 msgid "Цвет"
 msgstr "Colour"
+
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:27
+msgid "Цели на сегодня"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:113
 #: src/Pages/Cabinet/Components/Project/CreateProject/index.js:126
@@ -5028,11 +5162,11 @@ msgid "Чат"
 msgstr "Chat"
 
 #: src/Pages/Cabinet/Components/Chat/ChatList/index.js:236
-#: src/Pages/Cabinet/Components/Chat/index.js:444
+#: src/Pages/Cabinet/Components/Chat/index.js:443
 msgid "Чаты"
 msgstr "Chats"
 
-#: src/generalComponents/collections.js:814
+#: src/generalComponents/collections.js:968
 msgid "Черновик"
 msgstr ""
 
@@ -5045,9 +5179,34 @@ msgid "Что такое 4Hub ?"
 msgstr "What is 4Hub?"
 
 #: src/generalComponents/fileMenuHelper.js:79
-#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:55
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:41
 msgid "что-то пошло не так"
 msgstr "something went wrong"
+
+#: src/generalComponents/collections.js:823
+msgid "Что-то пошло не так"
+msgstr ""
+
+#: src/generalComponents/collections.js:816
+#: src/generalComponents/collections.js:819
+#: src/generalComponents/collections.js:820
+#: src/generalComponents/collections.js:827
+#: src/generalComponents/collections.js:831
+#: src/generalComponents/collections.js:835
+#: src/generalComponents/collections.js:841
+#: src/generalComponents/collections.js:843
+#: src/generalComponents/collections.js:848
+#: src/generalComponents/collections.js:852
+#: src/generalComponents/collections.js:856
+#: src/generalComponents/collections.js:860
+#: src/generalComponents/collections.js:861
+#: src/generalComponents/collections.js:866
+#: src/generalComponents/collections.js:868
+#: src/generalComponents/collections.js:871
+#: src/generalComponents/collections.js:872
+#: src/generalComponents/collections.js:876
+msgid "Что-то пошло не так, попробуйте еще раз"
+msgstr ""
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:79
 #: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:80
@@ -5062,8 +5221,10 @@ msgid "Что-то пошло не так. Повторите попытку п�
 msgstr "Something went wrong. Please, try again later."
 
 #: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:97
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:33
-#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:67
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:74
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:97
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:93
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:100
 msgid "ЧЧ"
 msgstr ""
 
@@ -5071,7 +5232,7 @@ msgstr ""
 msgid "Шифрование файлов"
 msgstr "File encryption"
 
-#: src/generalComponents/collections.js:586
+#: src/generalComponents/collections.js:618
 msgid "Экономист"
 msgstr "Economist"
 
@@ -5086,7 +5247,6 @@ msgstr "E-mail"
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:204
 #: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:88
-#: src/Pages/Cabinet/Components/Journal/WorkElements/WorkLinesPreview/index.js:191
 #: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:21
 #: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:212
 #: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:275
@@ -5120,7 +5280,7 @@ msgid ""
 "является стандартной \"рыбой\" для текстов на латинице с начала XVI века."
 msgstr ""
 
-#: src/generalComponents/collections.js:587
+#: src/generalComponents/collections.js:619
 msgid "Юрист"
 msgstr "Lawyer"
 
@@ -5140,7 +5300,6 @@ msgstr "Interface language"
 
 #: src/generalComponents/CalendarHelper.js:13
 #: src/Pages/Cabinet/Components/Archive/helper.js:24
-#: src/Pages/Cabinet/Components/Journal/helper.js:24
 #: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:28
 msgid "Январь"
 msgstr "January"

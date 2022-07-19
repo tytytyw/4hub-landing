@@ -6,6 +6,7 @@ const en = { file: fs.readFileSync(path.join(__dirname, "en.po")), name: "en" };
 const uk = { file: fs.readFileSync(path.join(__dirname, "uk.po")), name: "uk" };
 const pl = { file: fs.readFileSync(path.join(__dirname, "pl.po")), name: "pl" };
 const de = { file: fs.readFileSync(path.join(__dirname, "de.po")), name: "de" };
+const fr = { file: fs.readFileSync(path.join(__dirname, "fr.po")), name: "fr" };
 
 // const enJson = gettextParser.po.parse(en);
 // const ukJson = gettextParser.po.parse(uk);
@@ -24,4 +25,4 @@ function po2json(arrayLang) {
   });
 }
 
-po2json([en, uk, pl, de]);
+po2json([en, uk, pl, de, fr]);
