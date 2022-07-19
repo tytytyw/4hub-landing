@@ -14,12 +14,10 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../../generalComponents/Hooks";
 import {
   onAddRecentFiles,
-  onChangeSortFile,
   onChooseFiles,
   onGetArchiveFiles,
   onLoadFiles,
-  onSetGroupFiles,
-  onSetWorkElementsView
+  onSetSortFiles
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -29,7 +27,7 @@ import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/File";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { callbackArrMain } from "types/CallbackArrMain";
-import { CART, JOURNAL } from "../../../../../generalComponents/globalVariables";
+import { CART } from "../../../../../generalComponents/globalVariables";
 import { cancelRequest } from "../../../../../api";
 import { LOADING_STATE, VIEW_TYPE } from "../../../../../generalComponents/globalVariables";
 import { CHOOSE_FILES } from "Store/types";
@@ -82,17 +80,6 @@ const WorkSpace = ({
     if (pathname.startsWith("/archive")) dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
     if (pathname.startsWith("/cart")) dispatch(onLoadFiles(CART.API_GET_FILES, 1, type));
-    if (pathname.startsWith("/journal")) {
-      dispatch(onSetGroupFiles("mtime"));
-      dispatch(onChangeSortFile(JOURNAL.SORT_DATE_CHANGE));
-      dispatch(onLoadFiles(JOURNAL.API_GET_JOURNAL_FILES, 1));
-      dispatch(onSetWorkElementsView(VIEW_TYPE.LINES));
-
-      return () => {
-        dispatch(onChangeSortFile(""));
-      };
-    }
-
     setFilesPage(2);
     //TODO: need dispatch downloaded-files
     if (pathname.startsWith("/downloaded-files"))
@@ -110,7 +97,7 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
       cancelRequest(CART.API_GET_FILES).then(() => console.log(`${CART.API_GET_FILES}.php was cancelled`));
-      dispatch(onSetGroupFiles(""));
+      dispatch(onSetSortFiles(""));
     };
   }, [pathname]); // eslint-disable-line
 

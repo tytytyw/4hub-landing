@@ -72,12 +72,11 @@ import {
   GET_MAIL,
   NULLIFY_MAILS,
   SET_FOLDER_PATH,
-  GROUP_FILES_JOURNAL,
+  SET_SORT_FILE,
   FILES_USER_SHARED,
   GET_JOURNAL_FOLDERS,
   SET_MESSAGES_TO_READ,
   DATE_FILTER,
-  SORT_TYPE,
   SET_CHAT_CALLROOM
 } from "../types";
 import { CHAT_CALLROOM, MODALS } from "../../generalComponents/globalVariables";
@@ -112,6 +111,7 @@ const INITIAL_STATE = {
   //SORT && FILTER
   fileCriterion: {
     sorting: "byDateCreated&sort_reverse=1&group=ctime",
+    sort_reverse: 1,
     reverse: { byName: false },
     filters: {
       color: "",
@@ -545,10 +545,10 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
 
     // SORT FILES
-    case GROUP_FILES_JOURNAL: {
+    case SET_SORT_FILE: {
       return {
         ...state,
-        fileCriterion: { ...state.fileCriterion, group: action.payload }
+        fileCriterion: { ...state.fileCriterion, ...action.payload }
       };
     }
     case SORT_FILES: {
@@ -779,16 +779,6 @@ export default function startPage(state = INITIAL_STATE, action) {
       return {
         ...state,
         fileCriterion: { ...state.fileCriterion, dateFilter: { ...state.dateFilter, ...action.payload } }
-      };
-    }
-
-    case SORT_TYPE: {
-      return {
-        ...state,
-        fileCriterion: {
-          ...state.fileCriterion,
-          sort: action.payload
-        }
       };
     }
   }
