@@ -126,8 +126,6 @@ export function useWebRTC(socket, config) {
           if (msg.data.peerID !== userInfo.id_user) {
             peerConnections.current[msg.data.peerID].addIceCandidate(new RTCIceCandidate(msg.data.iceCandidate));
             console.log(peerConnections.current);
-            console.log(localMediaStream.current);
-            console.log(peerMediaElements.current);
           }
           break;
         }
@@ -193,9 +191,6 @@ export function useWebRTC(socket, config) {
             })
           );
         })
-        .then(() => {
-          handleNewPeer({ peerID: LOCAL_CLIENT, createOffer: false });
-        })
         .catch((err) => {
           dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
           console.log(err);
@@ -256,7 +251,7 @@ export function useWebRTC(socket, config) {
     );
   }
 
-  const debounceCallback = useDebounce(handleNewCandidate, 300);
+  const debounceCallback = useDebounce(handleNewCandidate, 100);
 
   const handleNewPeer = useCallback(
     async ({ peerID, createOffer }) => {
@@ -277,6 +272,9 @@ export function useWebRTC(socket, config) {
           debounceCallback(event.candidate);
         }
       };
+
+      peerConnections.current[peerID].oniceconnectionstatechange = () =>
+        console.log(peerConnections.current[peerID].iceConnectionState, peerConnections.current[peerID]);
 
       let tracksNumber = 0;
       peerConnections.current[peerID].ontrack = ({ streams: [remoteStream] }) => {

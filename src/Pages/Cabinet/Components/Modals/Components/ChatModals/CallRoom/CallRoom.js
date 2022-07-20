@@ -31,7 +31,6 @@ function CallRoom() {
     state,
     callType
   });
-  console.log(clients);
 
   const acceptCall = () => {
     handleNewPeer({ peerID: user_id, createOffer: true });
@@ -97,7 +96,7 @@ function CallRoom() {
         {state === CHAT_CALLROOM.INCOMING_CALL ? renderIncomingCall() : renderCallOngoing()}
         {clients.map((clientID, i) => {
           return (
-            <div key={i} id={clientID}>
+            <div key={i}>
               <video
                 ref={(instance) => {
                   provideMediaRef(clientID, instance);
@@ -105,6 +104,7 @@ function CallRoom() {
                 autoPlay
                 playsInline
                 muted={clientID === LOCAL_CLIENT}
+                style={{ display: callType === CHAT_CALLROOM.VOICE_CALL ? "none" : "block" }}
               />
             </div>
           );
