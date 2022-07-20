@@ -125,12 +125,17 @@ export function useWebRTC(socket, config) {
         case CHAT_CALLROOM_ACTIONS.ICE_CANDIDIATE: {
           if (msg.data.peerID !== userInfo.id_user) {
             peerConnections.current[msg.data.peerID].addIceCandidate(new RTCIceCandidate(msg.data.iceCandidate));
+            console.log(peerConnections.current);
+            console.log(localMediaStream.current);
+            console.log(peerMediaElements.current);
           }
           break;
         }
         case CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION: {
-          if (!peerConnections.current[msg.data.peerID] && msg.data.peerID !== userInfo.id_user) {
-            await handleNewPeer({ peerID: msg.data.peerID });
+          if (msg.data.peerID !== userInfo.id_user) {
+            if (!peerConnections.current[msg.data.peerID]) {
+              await handleNewPeer({ peerID: msg.data.peerID });
+            }
             setRemoteMedia({ peerID: msg.data.peerID, sessionDescription: msg.data.sessionDescription });
           }
           break;
@@ -147,11 +152,12 @@ export function useWebRTC(socket, config) {
     localMediaStream.current = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: {
-        width: 800,
-        height: 600
+        width: 100,
+        height: 50
       }
     });
 
+    // peerIDs.forEach((peerID) => {
     addNewClient(LOCAL_CLIENT, () => {
       const localVideoElement = peerMediaElements.current[LOCAL_CLIENT];
 
@@ -160,13 +166,14 @@ export function useWebRTC(socket, config) {
         localVideoElement.srcObject = localMediaStream.current;
       }
     });
+    // });
   }
 
   useEffect(() => {
     socket.addEventListener("message", handleCallRoomMessages);
 
     if (config.state === CHAT_CALLROOM.OUTGOING_CALL) {
-      startCall()
+      startCall(config.contacts)
         .then(() => {
           // initializing call
           socket.send(
@@ -258,7 +265,7 @@ export function useWebRTC(socket, config) {
       }
 
       if (!localMediaStream.current) {
-        await startCall();
+        await startCall([peerID]);
       }
 
       peerConnections.current[peerID] = await new RTCPeerConnection({

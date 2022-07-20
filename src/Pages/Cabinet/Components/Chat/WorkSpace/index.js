@@ -61,7 +61,7 @@ const WorkSpace = ({
   // webSockets
   const onConnectOpen = () => {
     console.log(`Socket connection for user ${uid} opened`);
-    socket.send(JSON.stringify({ action: "uid", uid }));
+    socket.send(JSON.stringify({ action: "uid", uid, id_user: userInfo.id_user }));
   };
 
   const onWebSocketsMessage = (e) => {
@@ -147,7 +147,7 @@ const WorkSpace = ({
                 state: CHAT_CALLROOM.INCOMING_CALL,
                 contacts: [...data.users_to.filter((it) => it !== userId), data.data.from.id_user],
                 socket,
-                user_id: userId,
+                user_id: data.data.from.id_user,
                 icon: data.data.from.icon
               })
             );
@@ -279,12 +279,12 @@ const WorkSpace = ({
   );
 
   useEffect(() => {
-    if (socketReconnect) {
+    if (socketReconnect && userInfo.id_user) {
       setSocketReconnect(false);
       setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
     }
     return () => socket?.close();
-  }, [socketReconnect]); //eslint-disable-line
+  }, [socketReconnect, userInfo.id_user]); //eslint-disable-line
 
   useEffect(() => {
     //TODO: move to Store

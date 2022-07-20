@@ -31,12 +31,12 @@ function CallRoom() {
     state,
     callType
   });
+  console.log(clients);
 
   const acceptCall = () => {
-    handleNewPeer({ peerID: LOCAL_CLIENT, createOffer: true });
+    handleNewPeer({ peerID: user_id, createOffer: true });
   };
 
-  console.log(clients);
   //eslint-disable-next-line
   const renderCallOngoing = () => (
     <>
@@ -95,9 +95,9 @@ function CallRoom() {
     <PopUp set={closeCallRoom}>
       <div className={styles.callRoom}>
         {state === CHAT_CALLROOM.INCOMING_CALL ? renderIncomingCall() : renderCallOngoing()}
-        {clients.map((clientID) => {
+        {clients.map((clientID, i) => {
           return (
-            <div key={clientID} id={clientID}>
+            <div key={i} id={clientID}>
               <video
                 ref={(instance) => {
                   provideMediaRef(clientID, instance);
