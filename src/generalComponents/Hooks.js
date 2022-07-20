@@ -93,7 +93,7 @@ export const useElementResize = () => {
 export function useWebRTC(socket, config) {
   const { __ } = useLocales();
   const icon = useSelector((s) => s.user.userInfo?.icon[0]);
-  const userInfo = useSelector((s) => s.user.userInfo);
+  const { userInfo, uid } = useSelector((s) => s.user);
   const dispatch = useDispatch();
   const [clients, updateClients] = useStateWithCallback([]);
 
@@ -129,7 +129,7 @@ export function useWebRTC(socket, config) {
           break;
         }
         case CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION: {
-          if (peerConnections.current[msg.data.peerID]) {
+          if (!peerConnections.current[msg.data.peerID] && msg.data.peerID !== userInfo.id_user) {
             await handleNewPeer({ peerID: msg.data.peerID });
             setRemoteMedia({ peerID: msg.data.peerID, sessionDescription: msg.data.sessionDescription });
           }
@@ -173,6 +173,8 @@ export function useWebRTC(socket, config) {
             JSON.stringify({
               action: CHAT_CALLROOM_SOCKET_ACTION,
               users_to: config.contacts,
+              uid,
+              id_user: config.from,
               data: {
                 method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
                 call_type: CHAT_CALLROOM.VOICE_CALL,
@@ -214,22 +216,19 @@ export function useWebRTC(socket, config) {
 
     if (remoteDescription.type === "offer") {
       const answer = await peerConnections.current[peerID].createAnswer();
-      console.log(answer);
 
       await peerConnections.current[peerID].setLocalDescription(answer);
-      // console.log("peerConnections.current", peerConnections.current);
 
-      // socket.send(
-      //   JSON.stringify({
-      //     action: CHAT_CALLROOM_SOCKET_ACTION,
-      //     users_to: [],
-      //     data: {
-      //       method: CHAT_CALLROOM_ACTIONS.ICE_CANDIDIATE,
-      //       peerID: userInfo.id_user,
-      //       sessionDescription: answer
-      //     }
-      //   })
-      // );
+      socket.send(
+        JSON.stringify({
+          action: CHAT_CALLROOM_SOCKET_ACTION,
+          data: {
+            method: CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION,
+            peerID: userInfo.id_user,
+            sessionDescription: answer
+          }
+        })
+      );
     }
   }
   async function handleNewCandidate(event) {
@@ -265,7 +264,6 @@ export function useWebRTC(socket, config) {
       peerConnections.current[peerID] = await new RTCPeerConnection({
         iceServers: freeice()
       });
-      console.log("123", peerConnections.current[peerID]);
 
       peerConnections.current[peerID].onicecandidate = (event) => {
         if (event.candidate) {
