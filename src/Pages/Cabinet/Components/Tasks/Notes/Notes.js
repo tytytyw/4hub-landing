@@ -73,23 +73,22 @@ function Notes() {
           alt="img"
           className={styles.corner}
         />
+
+        {myTasks.length === 0 && (
+          <>
+            <img
+              className={styles.emptyImg}
+              src={`${imageSrc}assets/PrivateCabinet/create_arrow.svg`}
+              alt="Create Arrow"
+            />
+            <img
+              className={styles.inscription}
+              src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/notes.svg`}
+              alt="inscription"
+            />
+          </>
+        )}
       </div>
-
-      {myTasks.length === 0 && (
-        <>
-          <img
-            className={styles.emptyImg}
-            src={`${imageSrc}assets/PrivateCabinet/create_arrow.svg`}
-            alt="Create Arrow"
-          />
-          <img
-            className={styles.inscription}
-            src={`${imageSrc}assets/PrivateCabinet/tasks/inscriptions/notes.svg`}
-            alt="inscription"
-          />
-        </>
-      )}
-
       {myTasks.length > 0 && myTasks.map((note) => <Note key={note.id} note={note} setMouseParams={setMouseParams} />)}
 
       {mouseParams !== null && (

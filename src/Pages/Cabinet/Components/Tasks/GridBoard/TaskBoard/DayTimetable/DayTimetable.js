@@ -4,20 +4,36 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { taskTypes } from "types/Tasks";
-import { contextMenuTask, imageSrc, MODALS, TASK_MODALS, TASK_TYPES } from "generalComponents/globalVariables";
+import {
+  contextMenuTask,
+  imageSrc,
+  MIDNIGHT,
+  MODALS,
+  TaskFilters,
+  TASK_MODALS,
+  TASK_TYPES
+} from "generalComponents/globalVariables";
 import ContextMenu from "generalComponents/ContextMenu";
 import ContextMenuItem from "generalComponents/ContextMenu/ContextMenuItem";
 import { useContextMenuTasks } from "generalComponents/collections";
 import { onSetModals } from "Store/actions/CabinetActions";
 import TaskTimeItem from "./TaskTimeItem/TaskTimeItem";
 import { getFormatDate, getFormatTime } from "generalComponents/generalHelpers";
+import { createArrayOfHoursPerDay, useMonths } from "generalComponents/CalendarHelper";
+import { getWeekOfMonth } from "date-fns";
+import { useLocales } from "react-localized";
 
-function DayTimetable({ timePeriod, tasks, type }) {
+function DayTimetable({ tasks, type }) {
+  const { __ } = useLocales();
   const dispatch = useDispatch();
+  const months = useMonths();
+
   const { theme } = useSelector((s) => s.user.userInfo);
   const chosenTask = useSelector((s) => s.Tasks.chosenTask);
+  const filters = useSelector((s) => s.Tasks.filters);
   const contextMenu = useContextMenuTasks();
   const [mouseParams, setMouseParams] = useState(null);
+  const timePeriod = createArrayOfHoursPerDay(new Date("1971-01-01 " + MIDNIGHT), 1);
 
   const callbacks = {
     [contextMenuTask.DELETE]: () => {
@@ -102,10 +118,63 @@ function DayTimetable({ timePeriod, tasks, type }) {
       </div>
     ));
 
+  const renderDaysYear = () => {
+    const taskDays = tasks
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+      .reduce((acc, item) => {
+        const key = new Date(item.date_start.split("T")[0]).getMonth();
+        acc[key] = acc[key] ? [...acc[key], item] : [item];
+        return acc;
+      }, {});
+    return Object.entries(taskDays).map(([key, item]) => (
+      <div key={key}>
+        <div className={styles.subTitle}>{months().find((el) => el.id === +key)?.name}</div>
+        <div>
+          {item.map((el) => (
+            <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} isDate={true} />
+          ))}
+        </div>
+      </div>
+    ));
+  };
+
+  const renderDaysMonth = () => {
+    const taskDays = tasks
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+      .reduce((acc, item) => {
+        const key = getWeekOfMonth(new Date(item.date_start));
+        acc[key] = acc[key] ? [...acc[key], item] : [item];
+        return acc;
+      }, {});
+
+    return Object.entries(taskDays).map(([key, item]) => (
+      <div key={key}>
+        <div className={styles.subTitle}>
+          {__("Неделя")}&nbsp;{key}
+        </div>
+        <div>
+          {item.map((el) => (
+            <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} isDate={true} />
+          ))}
+        </div>
+      </div>
+    ));
+  };
+
+  const renderDaysWeek = () => {
+    return tasks
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+      .map((el) => <TaskTimeItem key={el.id} task={el} setMouseParams={setMouseParams} isDate={true} />);
+  };
+
   return (
     <div className={classNames(styles.dayTimetableWrap, `scrollbar-medium-${theme}`)}>
-      {renderTimetableLine()}
-      {mouseParams !== null && (
+      {filters.type === TaskFilters.BY_YEAR && renderDaysYear()}
+      {filters.type === TaskFilters.BY_MONTH && renderDaysMonth()}
+      {filters.type === TaskFilters.BY_WEEK && renderDaysWeek()}
+      {(filters.type === TaskFilters.BY_DAY || filters.type === TaskFilters.TODAY || !filters.type) &&
+        renderTimetableLine()}
+      {mouseParams && (
         <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <div className={styles.mainMenuItems}>
             {contextMenu[type].map((item, i) => (
@@ -127,12 +196,7 @@ function DayTimetable({ timePeriod, tasks, type }) {
 
 export default DayTimetable;
 
-DayTimetable.defaultProps = {
-  timePeriod: []
-};
-
 DayTimetable.propTypes = {
-  timePeriod: PropTypes.arrayOf(PropTypes.string), //list of hours per day
   tasks: PropTypes.arrayOf(taskTypes),
   type: PropTypes.string
 };

@@ -8,14 +8,16 @@ import { imageSrc, TASK_MODALS } from "generalComponents/globalVariables";
 import { onDeleteDepartment } from "Store/actions/TasksActions";
 import { ReactComponent as Bag } from "assets/PrivateCabinet/tasks/bag.svg";
 import { useTaskMessages } from "generalComponents/collections";
+import { useDepartmentsOfTasks } from "generalComponents/Hooks";
 
 const DeleteSection = ({ closeModal, icon }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const messages = useTaskMessages();
+  const departments = useDepartmentsOfTasks();
 
   const deleteDepartment = () => {
-    dispatch(onDeleteDepartment(messages[TASK_MODALS.DELETE_SECTION]));
+    dispatch(onDeleteDepartment(messages[TASK_MODALS.DELETE_SECTION], departments[0]));
   };
 
   return (

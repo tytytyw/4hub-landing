@@ -11,24 +11,29 @@
     justify-content: space-between
     align-items: center
     width: 100%
-    min-height: 40px
     height: max-content
     font-size: 11px
     color: $color-text-grey
     font-family: "SF Pro Regular", sans-serif
-    padding: 0 10px
-    border-bottom: 1px solid $color-border-dark
-
+    padding: 10px
+    border-bottom: 1px solid $color-gray-light
     .time
       margin-right: 12px
     .name
       flex: 1
   .fill
-    background: $color-grey-secondary
+    background: $color-border-grey
     cursor: pointer
     &:hover
       background: $color-blue-light
+  .subTitle
+    text-align: center
+    padding: 10px
+    color: $color-text-grey
+    border-bottom: 1px solid $color-gray-light
+
 .noteBox
+  position: relative
   & > div > div > div >div:last-child
     padding: 10px
     white-space: normal

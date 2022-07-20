@@ -250,6 +250,16 @@ export const TaskFields = {
   ID_STATUS: "id_status"
 };
 
+export const taskDepartmentKey = "taskDepartment";
+
+export const TaskFilters = {
+  TODAY: "today",
+  BY_DAY: "byDay",
+  BY_WEEK: "byWeek",
+  BY_MONTH: "byMonth",
+  BY_YEAR: "byYear"
+};
+
 // MAIL
 
 export const MAIL_MODALS = {
