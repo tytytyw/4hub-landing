@@ -73,3 +73,12 @@ export const taskTypes = PropTypes.exact({
   comments: PropTypes.arrayOf(taskCommentTypes),
   width: PropTypes.number
 });
+
+export const taskDepartmentTypes = PropTypes.exact({
+  name: PropTypes.string,
+  id: PropTypes.string,
+  icon: PropTypes.string,
+  id_parent: PropTypes.string,
+  id_user: PropTypes.string,
+  is_system: PropTypes.string
+});

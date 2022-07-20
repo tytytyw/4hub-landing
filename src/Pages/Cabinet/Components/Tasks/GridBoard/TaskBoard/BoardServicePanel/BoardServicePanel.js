@@ -19,13 +19,23 @@ import { ReactComponent as CalendarIcon } from "assets/PrivateCabinet/tasks/cale
 import { ReactComponent as ListIcon } from "assets/PrivateCabinet/tasks/list.svg";
 import TabsPicker from "../../../../../../../generalComponents/TabsPicker/TabsPicker";
 import { onSetModals } from "../../../../../../../Store/actions/CabinetActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getStorageItem } from "generalComponents/StorageHelper";
+import { useLocales } from "react-localized";
+import PopUp from "generalComponents/PopUp";
+import CalendarMonth from "../../../Calendar/CalendarMonth";
+import CalendarYear from "../../../Calendar/CalendarYear";
+import { TasksTypes } from "Store/types";
 
 function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists }) {
+  const { __ } = useLocales();
   const TITLE = useTaskBoardTitle();
   const dispatch = useDispatch();
+  const isHistory = useSelector((s) => s.Tasks.isHistory);
+
   const [tabSelect, setTabSelect] = useState(2);
+  const [openMonthCalendar, setOpenMonthCalendar] = useState(false);
+  const [openYearCalendar, setOpenYearCalendar] = useState(null);
   const ELEMENTS = [ListIcon, BarsIcon, LinesIcon, CalendarIcon];
   const renderAddImage = () => (
     <>
@@ -49,7 +59,13 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_MEETING,
-          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.ONLINE_MEETING }
+          params: {
+            width: 420,
+            date_start: "",
+            name: "",
+            id_type: TASK_TYPES.ONLINE_MEETING,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }
@@ -57,7 +73,13 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_CALL,
-          params: { width: 420, date_start: "", name: "", id_type: TASK_TYPES.CALLS }
+          params: {
+            width: 420,
+            date_start: "",
+            name: "",
+            id_type: TASK_TYPES.CALLS,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }
@@ -65,7 +87,14 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
       dispatch(
         onSetModals(MODALS.TASKS, {
           type: TASK_MODALS.ADD_LETTER,
-          params: { width: 420, name: "", emails: "", prim: "", id_type: TASK_TYPES.MAILS }
+          params: {
+            width: 420,
+            name: "",
+            emails: "",
+            prim: "",
+            id_type: TASK_TYPES.MAILS,
+            id_dep: JSON.parse(getStorageItem("taskDepartment"))?.id
+          }
         })
       );
     }
@@ -119,6 +148,15 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
     }
   };
 
+  const handleHistory = () => {
+    if (isHistory) {
+      dispatch({ type: TasksTypes.IS_HISTORY, payload: false });
+    } else {
+      dispatch({ type: TasksTypes.IS_HISTORY, payload: true });
+      setOpenMonthCalendar(true);
+    }
+  };
+
   return (
     <div className={styles.boardServicePanelWrap}>
       {type === TASK_TYPES.TASK && (
@@ -130,6 +168,12 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
       <span className={styles.boardTitle}>{TITLE[type]}</span>
       <div className={styles.buttonsWrap}>
         <FrameIcon className={styles.frameIcon} onClick={onExpand} />
+        {type === TASK_TYPES.TASK && (
+          <div className={classNames(styles.history, { [styles.isHistoryActive]: isHistory })} onClick={handleHistory}>
+            {__("История задач")}
+          </div>
+        )}
+
         {!isLastElement ? (
           <div className={styles.addIconWrap}>
             <AddIcon className={classNames(styles.addIcon)} onClick={onAdd} />
@@ -138,6 +182,16 @@ function BoardServicePanel({ type, isLastElement, setSchema, schema, taskExists 
         ) : null}
         {isLastElement ? <TabsPicker ELEMENTS={ELEMENTS} selected={tabSelect} onClick={setTabSelect} /> : null}
       </div>
+      {openMonthCalendar && (
+        <PopUp set={setOpenMonthCalendar} zIndex={102}>
+          <CalendarMonth setShowCalendar={setOpenMonthCalendar} setOpenYearCalendar={setOpenYearCalendar} />
+        </PopUp>
+      )}
+      {openYearCalendar && (
+        <PopUp>
+          <CalendarYear year={openYearCalendar} setOpenYearCalendar={setOpenYearCalendar} />
+        </PopUp>
+      )}
     </div>
   );
 }

@@ -2,20 +2,25 @@
 
 .panelWrap
   display: flex
-  align-items: center
   gap: 10px
-  padding: 0 20px
+  padding: 9px 20px
   width: 100%
-  height: 50px
-  min-height: 50px
   border-bottom: 1px solid $color-border-grey
-  .addIcon
-    width: 18px
-    height: 18px
-  .playIcon
-    transform: rotateZ(270deg)
-  .text
-    flex: 1
-    text-align: center
-.mainMenuItems
-  margin: 10px 0
+  & > div
+    height: auto
+    position: relative
+.addIcon
+  width: 18px
+  height: 18px
+.text
+  flex: 1
+  text-align: center
+.calendarIcon
+  padding: 7px
+  box-shadow: 0 2px 4px $color-shadow
+  border: 1px solid $color-border-grey
+  width: 32px
+  height: 32px
+  cursor: pointer
+  &:hover
+    border: 1px solid $color-primary

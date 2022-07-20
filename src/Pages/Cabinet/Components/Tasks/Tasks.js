@@ -23,7 +23,7 @@ function Tasks() {
       <Header />
       <Notes />
       <ManagementPanel />
-      <BreadCrumbs path={["Рабочие задачи", "TEST", "PATH"]} />
+      <BreadCrumbs />
       <GridBoard />
       <BottomPanel />
     </div>
