@@ -1,0 +1,5253 @@
+#: src/generalComponents/collections.js:226
+#: src/Pages/Cabinet/Components/Archive/index.js:100
+#: src/Pages/Cabinet/Components/Archive/index.js:106
+#: src/Pages/Cabinet/Components/Archive/index.js:51
+#: src/Pages/Cabinet/Components/Archive/index.js:52
+#: src/Pages/Cabinet/Components/Archive/index.js:57
+#: src/Pages/Cabinet/Components/Archive/index.js:58
+#: src/Pages/Cabinet/Components/Archive/index.js:61
+#: src/Pages/Cabinet/Components/Archive/index.js:65
+#: src/Pages/Cabinet/Components/Archive/index.js:71
+#: src/Pages/Cabinet/Components/Archive/index.js:83
+#: src/Pages/Cabinet/Components/Archive/index.js:94
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:55
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/styledComponents/Header/index.js:27
+#: src/Pages/Cabinet/Components/Chat/ContactList/index.js:85
+#: src/Pages/Cabinet/Components/Chat/index.js:294
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:110
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:145
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:162
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:179
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:194
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:210
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:43
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:58
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:74
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:90
+#: src/Pages/Cabinet/Components/MyFolders/index.js:196
+#: src/Pages/Cabinet/Components/MyFolders/index.js:202
+#: src/Pages/Cabinet/Components/MyFolders/index.js:211
+#: src/Pages/Cabinet/Components/MyFolders/index.js:217
+#: src/Pages/Cabinet/Components/MyFolders/index.js:223
+#: src/Pages/Cabinet/Components/MyFolders/index.js:229
+#: src/Pages/Cabinet/Components/MyFolders/index.js:235
+#: src/Pages/Guest/index.js:100
+#: src/Pages/Guest/index.js:105
+#: src/Pages/Guest/index.js:106
+#: src/Pages/Guest/index.js:112
+#: src/Pages/Guest/index.js:118
+#: src/Pages/Guest/index.js:99
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:99
+msgid " Вы действительно хотите переместить в архив выбранные файлы?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:152
+msgid "_ _ : _ _ "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:86
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:106
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:79
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:70
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:93
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:122
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:68
+msgid "_ _._ _._ _ _ _"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:51
+msgid ""
+", восстановите через вкладку \"Забыли пароль\" или войдите с помощью Вашего "
+"номера телефона"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:99
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:32
+msgid "#Дизайн сайта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:117
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:128
+msgid "+38"
+msgstr ""
+
+#: src/generalComponents/collections.js:727
+msgid "1 день"
+msgstr ""
+
+#: src/generalComponents/collections.js:729
+msgid "1 месяц"
+msgstr ""
+
+#: src/generalComponents/collections.js:557
+#: src/Pages/Cabinet/Components/Chat/index.js:274
+msgid "1 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:728
+msgid "1 неделя"
+msgstr ""
+
+#: src/generalComponents/collections.js:551
+#: src/Pages/Cabinet/Components/Chat/index.js:244
+msgid "1 час"
+msgstr ""
+
+#: src/generalComponents/collections.js:555
+#: src/Pages/Cabinet/Components/Chat/index.js:264
+msgid "10 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:554
+#: src/Pages/Cabinet/Components/Chat/index.js:259
+msgid "15 мин."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:37
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:15
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:32
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:50
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:67
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:37
+msgid "2 000 ГБ места для безопасного хранения файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:559
+#: src/Pages/Cabinet/Components/Chat/index.js:285
+msgid "20 сек."
+msgstr ""
+
+#: src/generalComponents/collections.js:553
+#: src/Pages/Cabinet/Components/Chat/index.js:254
+msgid "30 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:558
+#: src/Pages/Cabinet/Components/Chat/index.js:280
+msgid "30 сек."
+msgstr ""
+
+#: src/generalComponents/collections.js:660
+msgid "3D-визуализатор"
+msgstr ""
+
+#: src/generalComponents/collections.js:552
+#: src/Pages/Cabinet/Components/Chat/index.js:249
+msgid "45 мин."
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:234
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:106
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:251
+msgid "4Hub"
+msgstr ""
+
+#: src/generalComponents/collections.js:556
+#: src/Pages/Cabinet/Components/Chat/index.js:269
+msgid "5 мин."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:38
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:58
+msgid "60-х годах и, в более недавнее время, программы электронной"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:247
+msgid "72 х 72"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:58
+msgid "a"
+msgstr ""
+
+#: src/generalComponents/collections.js:668
+msgid "Android-разработчик"
+msgstr ""
+
+#: src/generalComponents/collections.js:663
+msgid "Backend-разработчик"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:79
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:99
+msgid "C"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:201
+msgid "Cекретный чат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:131
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:131
+msgid "Cистематизация данных в одном пространстве"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:14
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:57
+msgid "Cодержит не менее 8 симв."
+msgstr ""
+
+#: src/Pages/StartPage/index.js:69
+msgid "Cтраница в разработке"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:142
+msgid "deleteContact"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:139
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:154
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:103
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:158
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:20
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:174
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:175
+#: src/Pages/StartPage/Components/InfoPage.js:58
+msgid "Email"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:167
+msgid "Email (2)"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:62
+#: src/Pages/StartPage/Components/ForgotPassword.js:89
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:174
+msgid "Email / Телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:159
+msgid "email не указан"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:176
+#: src/Pages/StartPage/Components/UploadFile.js:183
+msgid "Email отправителя"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:165
+#: src/Pages/StartPage/Components/UploadFile.js:172
+msgid "Email получателя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:198
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:110
+msgid "Email:"
+msgstr ""
+
+#: src/generalComponents/collections.js:628
+msgid "Event-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:238
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:238
+msgid "figma"
+msgstr ""
+
+#: src/generalComponents/collections.js:661
+msgid "Flash-программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:662
+msgid "Frontend-разработчик"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:60
+msgid "Gif"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:228
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:228
+msgid "google calendar"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:233
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:233
+msgid "google drive"
+msgstr ""
+
+#: src/generalComponents/collections.js:640
+msgid "HR-директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:639
+msgid "HR-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:86
+msgid "iP адрес"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:91
+msgid "IT"
+msgstr ""
+
+#: src/generalComponents/ListItem/ListItem.js:39
+#: src/Pages/Cabinet/Components/MyFolders/CustomFolderItem/index.js:79
+msgid "Kоличество файлов в папке не обновлено"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:25
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:45
+msgid ""
+"Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, "
+"программы "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:29
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:49
+msgid ""
+"Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, "
+"программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее "
+"время, программы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Confident/index.js:16
+#: src/Pages/Cabinet/Components/MyProfile/Confident/index.js:21
+#: src/Pages/Cabinet/Components/MyProfile/Confident/index.js:26
+msgid ""
+"Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и "
+"вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на "
+"латинице с начала XVI века. В то время некий безымянный печатник создал "
+"большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для "
+"распечатки образцов. Lorem Ipsum не только успешно пережил без заметных "
+"изменений пять веков, но и перешагнул в электронный дизайн. Его "
+"популяризации в новое время послужили публикация листов Letraset с "
+"образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы "
+"электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется "
+"Lorem Ipsum."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:104
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:50
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:68
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:86
+msgid ""
+"Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. "
+"Lorem Ipsum является стандартной Это текст-\"рыба\", часто используемый в и "
+"вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и "
+"вэб-дизайне. Lorem Ipsum является стандартной"
+msgstr ""
+
+#: src/generalComponents/collections.js:280
+msgid "ONLYOFFICE"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Confident/index.js:31
+msgid ""
+"PageMaker, в шаблонах которых используется Lorem Ipsum. Lorem Ipsum - это "
+"текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum "
+"является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В "
+"то время некий безымянный печатник создал большую коллекцию размеров и форм "
+"шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не "
+"только успешно пережил без заметных изменений пять веков, но и перешагнул в "
+"электронный дизайн. Его популяризации в новое время послужили публикация "
+"листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее "
+"время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах "
+"которых используется Lorem Ipsum."
+msgstr ""
+
+#: src/generalComponents/collections.js:664
+msgid "PHP-программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:629
+msgid "PR-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:270
+msgid "Premium plus"
+msgstr ""
+
+#: src/generalComponents/collections.js:659
+msgid "Python-разработчик"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:45
+#: src/Pages/StartPage/Components/Intro.js:14
+msgid "Remote WorkSpace"
+msgstr ""
+
+#: src/generalComponents/collections.js:658
+msgid "SEO-специалист"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:253
+msgid "skype"
+msgstr ""
+
+#: src/generalComponents/collections.js:665
+msgid "SMM специалист"
+msgstr ""
+
+#: src/generalComponents/collections.js:667
+msgid "Team leader"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:223
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:223
+msgid "telegram"
+msgstr ""
+
+#: src/generalComponents/collections.js:666
+msgid "UX-дизайнер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:243
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:243
+msgid "viber"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:248
+msgid "whatsapp"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:218
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:218
+msgid "youtube"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:38
+#: src/Pages/Cabinet/Components/Archive/helper.js:31
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:35
+msgid "Август"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:39
+msgid "Августа"
+msgstr ""
+
+#: src/generalComponents/collections.js:620
+msgid "Адвокат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:82
+msgid "Адрес"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:94
+msgid "Активность"
+msgstr ""
+
+#: src/generalComponents/LangPicker/index.js:17
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:16
+msgid "Английский"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:28
+#: src/Pages/Cabinet/Components/Archive/helper.js:27
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:31
+msgid "Апрель"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:29
+msgid "Апреля"
+msgstr ""
+
+#: src/generalComponents/collections.js:604
+msgid "Арт-директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:964
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:149
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:63
+msgid "Архив"
+msgstr ""
+
+#: src/generalComponents/collections.js:302
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:102
+#: src/Pages/Cabinet/Components/Project/Project.js:381
+msgid "Архивировать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:98
+msgid "Архивировать выбранные файлы"
+msgstr ""
+
+#: src/generalComponents/collections.js:613
+msgid "Ассистент руководителя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:72
+msgid "Аудио"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:74
+msgid "Аудио смс"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:155
+msgid "аудио сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:238
+msgid "Аудио сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:44
+msgid "База контактов успешно добавлен в Вашу книгу контактов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:43
+msgid "База контактов успешно добавлена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:111
+msgid "базу контактов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/index.js:27
+msgid "Баланс:"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:59
+msgid "Без ограничений"
+msgstr ""
+
+#: src/generalComponents/collections.js:589
+#: src/generalComponents/collections.js:807
+msgid "Без статуса"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:36
+msgid "Безопасность"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:20
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:21
+msgid "Безопасноть"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/Settings/index.js:30
+msgid "Белый"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:151
+msgid "Берюзовый"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessUserList.js:44
+msgid "Бесконечный"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:60
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:29
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:34
+msgid "Бессрочно"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Library/LibraryList/LibraryList.js:58
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:154
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:68
+msgid "Библиотека"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:145
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:15
+msgid "Бизнес версия"
+msgstr ""
+
+#: src/generalComponents/collections.js:621
+msgid "Бизнес-аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:622
+msgid "Бизнес-консультант"
+msgstr ""
+
+#: src/generalComponents/collections.js:633
+msgid "Бизнес-тренер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:122
+msgid "Благодарим за обратную связь!"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:35
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:36
+msgid "Блог"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/OptionButtomLine/index.js:22
+msgid "Блокировать"
+msgstr ""
+
+#: src/generalComponents/collections.js:386
+#: src/generalComponents/collections.js:407
+msgid "Блокировать несколько"
+msgstr ""
+
+#: src/generalComponents/collections.js:402
+msgid "Блокировать пользователя"
+msgstr ""
+
+#: src/generalComponents/collections.js:381
+msgid "Блокировать устройство"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:79
+msgid "более 10"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:79
+msgid "более 100"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:19
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:79
+msgid "более 50"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFiles/index.js:114
+#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:196
+msgid "Более года назад"
+msgstr ""
+
+#: src/generalComponents/collections.js:685
+msgid "Более недели"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:74
+msgid "Браузер"
+msgstr ""
+
+#: src/generalComponents/collections.js:630
+msgid "Бренд-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:615
+msgid "Бухгалтер"
+msgstr ""
+
+#: src/generalComponents/collections.js:687
+msgid "В прошлом месяце"
+msgstr ""
+
+#: src/generalComponents/collections.js:804
+msgid "В работе"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:54
+msgid "в сети"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:18
+#: src/Pages/StartPage/Components/InfoPage.helper.js:24
+#: src/Pages/StartPage/Components/InfoPage.helper.js:30
+#: src/Pages/StartPage/Components/InfoPage.helper.js:44
+#: src/Pages/StartPage/Components/InfoPage.helper.js:50
+#: src/Pages/StartPage/Components/InfoPage.helper.js:56
+#: src/Pages/StartPage/Components/InfoPage.helper.js:70
+#: src/Pages/StartPage/Components/InfoPage.helper.js:76
+#: src/Pages/StartPage/Components/InfoPage.helper.js:82
+msgid ""
+"В то время некий безымянный печатник создал большую коллекцию размеров и "
+"форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не "
+"только успешно пережил без заметных изменений пять веков, но и перешагнул в "
+"электронный дизайн. Его популяризации в новое время послужили публикация "
+"листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее "
+"время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах "
+"которых используется Lorem Ipsum."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:243
+#: src/Pages/Cabinet/Components/Safe/Popups/SuccessPass/index.js:38
+#: src/Pages/StartPage/Components/ForgotPassword.js:49
+msgid ""
+"В целях безопасности, на Email Вашей учетной записи отправлено "
+"подтверждение этого изменения"
+msgstr ""
+
+#: src/generalComponents/collections.js:688
+msgid "В этом году"
+msgstr ""
+
+#: src/generalComponents/collections.js:686
+msgid "В этом месяце"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:32
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:33
+msgid "Вакансии"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/SuccessPass/index.js:25
+#: src/Pages/StartPage/Components/ForgotPassword.js:110
+#: src/Pages/StartPage/Components/RenewPassword.js:160
+msgid "Ваш пароль обновлён"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/index.js:19
+msgid "Ваш текущий тарифный план:"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SendSuccess.js:41
+msgid ""
+"Ваш файл успешно отправлен на указанный email так же вы можете скопировать "
+"ссылку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:155
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:269
+msgid "Введите @mail:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:144
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:216
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:159
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:37
+msgid "Введите email"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:60
+msgid ""
+"Введите Email / Телефон указанный при регистрации, Вам будет направлен код "
+"для восстановления пароля"
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:83
+msgid ""
+"Введите Email / Телефон указанный при регистрации, Вам будет направлено "
+"письмо с ссылкой для восстановления пароля."
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:65
+msgid "Введите Ваш вопрос"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:132
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:129
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:233
+msgid "Введите Ваш номер телефона"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:101
+msgid "Введите Ваше Имя и Фамилию"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:155
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:172
+msgid "Введите запасной email"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:70
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactList/ContactSearch/ContactSearch.js:11
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactSearch/ContactSearch.js:11
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:71
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactList/ContactSearch/ContactSearch.js:11
+msgid "Введите имя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:232
+msgid "Введите имя группы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:290
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:310
+msgid "Введите имя или email"
+msgstr ""
+
+#: src/generalComponents/SearchField/index.js:11
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:212
+msgid "Введите имя пользователя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/CodePopup/index.js:47
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:144
+msgid "Введите код"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:50
+msgid "введите название должности"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/CategoryList/CategoryList.js:17
+msgid "Введите название программы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SearchField/index.js:74
+#: src/Pages/Guest/SearchField/index.js:38
+msgid "Введите название файла/папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:215
+msgid "Введите номер телефона"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:119
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:233
+msgid "Введите номер телефона:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:84
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:87
+msgid "Введите отчество"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:215
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:120
+msgid "Введите пароль"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFile.js:111
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:115
+msgid "Введите пароль указанный на почте"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:216
+msgid "Введите повторно пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/TextArea/index.js:107
+msgid "Введите текст сообщения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:89
+msgid "Введите тему"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:56
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:55
+msgid "Введите фамилию"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:39
+msgid "Ввести все поля самостоятельно закерепив за собой все права администратора"
+msgstr ""
+
+#: src/generalComponents/collections.js:642
+msgid "Веб-аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:643
+msgid "Веб-дизайнер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:20
+msgid "Верефикация компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:18
+msgid "Верефикация прошла успешно"
+msgstr ""
+
+#: src/generalComponents/collections.js:644
+msgid "Верстальщик"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:189
+msgid "Взаимодействие с информацией в сейфе"
+msgstr ""
+
+#: src/generalComponents/collections.js:29
+#: src/generalComponents/collections.js:893
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:59
+msgid "Видео"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:156
+msgid "видео сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:248
+msgid "Видео сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:52
+msgid "Визия"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Mail/CardMail/CardMail.js:31
+msgid "Вложенных файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:157
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:157
+msgid "Возможность организации конференций"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:158
+msgid "Войти"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/settings.js:65
+msgid "Вопросы о 4HUB"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/PrevVersions/index.js:57
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/PrevVersions/index.js:55
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:42
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/PrevVersions/index.js:62
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/PrevVersions/index.js:60
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/PrevVersions/index.js:53
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:148
+msgid "Восстановить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:55
+#: src/Pages/StartPage/Components/ForgotPassword.js:81
+msgid "Восстановление пароля"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:165
+msgid "Временный пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:148
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:61
+msgid "Время"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:130
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:76
+msgid "Время встречи"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Вс"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/index.js:36
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:15
+msgid "Все контакты"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ServePanel/AddUserToGroup/index.js:81
+msgid "все контакты уже добавлены в группу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:222
+msgid ""
+"Все пользователи, которым предоставлен доступ к сейфу, могут просматривать "
+"содержание сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:197
+msgid ""
+"Все пользователи, которым предоставлен доступ к сейфу, могут редактировать "
+"его содержание"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:247
+msgid ""
+"Все пользователи, которым предоставлен доступ к сейфу, могут скачать "
+"содержание сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:62
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:97
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:61
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:96
+msgid "Все у кого есть ссылка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:95
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:94
+msgid "Все у кого есть эта ссылка, смогут изменять файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:60
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:59
+msgid "Все у кого есть эта ссылка, смогут просматривать файл"
+msgstr ""
+
+#: src/generalComponents/collections.js:303
+msgid "Все участники"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:193
+msgid "Вставить файл"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:250
+msgid "Встреча offline"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:249
+msgid "Встреча online"
+msgstr ""
+
+#: src/generalComponents/collections.js:847
+msgid "Встреча добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:851
+msgid "Встреча изменена"
+msgstr ""
+
+#: src/generalComponents/collections.js:826
+msgid "Встреча перенесена"
+msgstr ""
+
+#: src/generalComponents/collections.js:736
+msgid "Встречи"
+msgstr ""
+
+#: src/generalComponents/collections.js:830
+msgid "Встречи перенесены"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:206
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:206
+msgid "Встроенный магазин программного обеспечения"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Вт"
+msgstr ""
+
+#: src/Pages/Guest/index.js:156
+#: src/Pages/StartPage/Components/EnterProfile.js:119
+#: src/Pages/StartPage/Components/EnterProfile.js:58
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:283
+#: src/Pages/StartPage/index.js:57
+msgid "Вход"
+msgstr ""
+
+#: src/generalComponents/collections.js:956
+msgid "Входящие"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/ChatModals/CallRoom/CallRoom.js:79
+msgid "Входящий звонок"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:206
+msgid "Вчера"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:100
+msgid ""
+"Вы будете добавлены в Компанию как обычный сотрудник. Ваши \n"
+"                                полномочия и права доступа сможет "
+"определить указанный \n"
+"                                Администратор. Указанный Администратор "
+"получит на почту \n"
+"                                уведомление о назначении."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/FileLoader/index.js:486
+msgid ""
+"Вы действительно хотите закрыть окно с загрузкой? Все незавершенные "
+"загрузки будут отменены"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteTask/DeleteTask.js:25
+msgid "Вы действительно хотите удалить выбранную заметку?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:51
+#: src/Pages/Cabinet/Components/MyFolders/index.js:241
+#: src/Pages/Cabinet/Components/Project/Project.js:166
+msgid "Вы действительно хотите удалить выбранную папку?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:71
+#: src/Pages/Guest/index.js:195
+msgid "Вы действительно хотите удалить выбранные файлы?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:24
+msgid "Вы действительно хотите удалить выбранный раздел?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuChat/DeleteMessage/index.js:30
+msgid "Вы действительно хотите удалить сообщение?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:58
+msgid "Вы действительно хотите удалить файл?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/PrevVersions/index.js:52
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/PrevVersions/index.js:50
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/PrevVersions/index.js:57
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/PrevVersions/index.js:55
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/PrevVersions/index.js:48
+msgid ""
+"Вы можете восстановить старую версию файла из резервной копии для "
+"восстановления старого файла нажмите кнопку восстановить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:82
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:61
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:167
+msgid "Вы можете установить пароль на данный файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:65
+msgid ""
+"Вы можите заполнить информацию позже но вы не сможете полноценно "
+"пользоваться всеми услузами сервиса"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:364
+msgid "Вы покинули группу"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:93
+msgid ""
+"Вы сможете самостоятельно верифицировать компанию, добавлять и \n"
+"                                редактировать информацию, открывать и "
+"закрывать вакансии и добавлять \n"
+"                                кандидатов."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:67
+msgid "Вы уверены, что хотите удалить файлы навсегда?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:190
+msgid ""
+"Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/WorkBarsPreview/index.js:172
+msgid "Выберите группу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:126
+msgid "Выберите из списка или введите вручную"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/ProjectIcons/ProjectIcons.js:21
+msgid "Выберите иконку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/ShareToMessengers/ShareToMessengers.js:42
+msgid "Выберите мессенджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:68
+msgid "Выберите способ восстановления"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:68
+msgid "Выберите способ приглашения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:330
+msgid "Выберите файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/Settings/index.js:59
+msgid "Выберите фон чата"
+msgstr ""
+
+#: src/generalComponents/Elements/Colors.js:11
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:28
+msgid "Выберите цвет"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:119
+msgid "Выберите цвет Задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:31
+msgid "Выберите цвет Заметки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateFile/index.js:355
+msgid "Выберите цвет файла"
+msgstr ""
+
+#: src/generalComponents/SelectCustomIcon/SelectCustomIcon.js:21
+msgid "Выбирите иконку раздела"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:55
+#: src/Pages/Cabinet/Components/Safe/index.js:236
+msgid "Выбранные файлы добавлено в архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:109
+msgid "Выбранные файлы успешно сжато в Zip"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:110
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:176
+#: src/Pages/Cabinet/Components/ServePanel/index.js:361
+#: src/Pages/Guest/ServePanel/index.js:198
+msgid "Выбрать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:41
+msgid "Выбрать год"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:59
+msgid "Выбрать день"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/DateBlock/index.js:50
+msgid "Выбрать месяц"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/ChatModals/CallRoom/CallRoom.js:46
+msgid "Вызов"
+msgstr ""
+
+#: src/generalComponents/collections.js:180
+msgid "Выход"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:44
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:45
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:64
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:72
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:88
+msgid "ГБ"
+msgstr ""
+
+#: src/generalComponents/collections.js:645
+msgid "Геймдизайнер"
+msgstr ""
+
+#: src/generalComponents/collections.js:601
+msgid "Генеральный директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:614
+msgid "Главный бухгалтер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SearchField/index.js:58
+msgid "Глобальный"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Calendar.js:111
+msgid "Год"
+msgstr ""
+
+#: src/generalComponents/collections.js:803
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:207
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:24
+#: src/Pages/Cabinet/Components/Business/SuccessPopup/index.js:24
+#: src/Pages/Cabinet/Components/Chat/SuccessPopup/index.js:12
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/index.js:48
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:122
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/index.js:61
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:299
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:352
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/index.js:48
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:142
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/index.js:48
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/index.js:48
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:319
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:354
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:119
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:92
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:153
+#: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:49
+#: src/Pages/StartPage/Components/RenewPassword.js:154
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:87
+msgid "Готово"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:358
+msgid "Группа удалена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:206
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:216
+msgid "групповой"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:247
+msgid "Группы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:86
+msgid "Дабавьте участника (ов)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:196
+#: src/Pages/Cabinet/Components/MyProfile/CodePopup/index.js:59
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:158
+msgid "Далее"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/settings.js:60
+msgid "Данные и память"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:242
+msgid "Данные успешно обновлены"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:57
+msgid ""
+"Данный контакт отсутсвует в системе 4Hub отправьте приглашения что бы Вы "
+"могли вести диалог в системе"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:136
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:57
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:65
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:88
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:117
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:63
+msgid "Дата"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalDate/index.js:24
+msgid "Дата архивирования: "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:114
+msgid "Дата завершения задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalDate/index.js:18
+msgid "Дата загрузки: "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:41
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/PrevVersions/index.js:24
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:41
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/PrevVersions/index.js:24
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:44
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/PrevVersions/index.js:27
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:42
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/PrevVersions/index.js:25
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:39
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/PrevVersions/index.js:22
+msgid "Дата изменения:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:106
+msgid "Дата начала задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:37
+msgid "Дата создание:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:37
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:40
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:38
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:35
+msgid "Дата создания:"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:66
+#: src/Pages/Cabinet/Components/Archive/helper.js:35
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:39
+msgid "Декабрь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:67
+msgid "Декабря"
+msgstr ""
+
+#: src/generalComponents/collections.js:591
+msgid "Декретный отпуск"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:248
+msgid "День рождение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:215
+msgid "День рождения:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:69
+msgid "Дизайн Moto"
+msgstr ""
+
+#: src/Pages/Guest/index.js:171
+msgid "Дизайн файлообменика"
+msgstr ""
+
+#: src/generalComponents/collections.js:634
+msgid "Директор по персоналу"
+msgstr ""
+
+#: src/generalComponents/collections.js:606
+msgid "Директор по производству"
+msgstr ""
+
+#: src/generalComponents/collections.js:607
+msgid "Директор по развитию"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:29
+msgid "Для бизнеса"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:20
+msgid "Для личных целей"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:78
+msgid "для мессенджеров"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:207
+msgid "Для отмены отпустите курсор вне поля"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:37
+msgid ""
+"Для подтверждения Email Вам было отправлено контрольное письмо, перейдя по "
+"ссылке Вы сможете завершить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:254
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:270
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:194
+msgid "для того чтобы отправить ссылку нажмите кнопку копировать ссылку"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFile.js:48
+msgid "дней"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:81
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:74
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:54
+msgid "До"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:56
+msgid "Добавил"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:182
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:72
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:110
+#: src/Pages/Cabinet/Components/Chat/ServePanel/AddUserToGroup/index.js:61
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:257
+#: src/Pages/Cabinet/Components/CreateFile/index.js:366
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:250
+#: src/Pages/Cabinet/Components/Modals/Components/MailModals/SubmitButtons/SubmitButtons.js:32
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:25
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:257
+msgid "Добавить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:176
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:289
+msgid "Добавить @mail:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:182
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:295
+msgid "Добавить день рождения:"
+msgstr ""
+
+#: src/generalComponents/collections.js:924
+msgid "Добавить заметку к встрече"
+msgstr ""
+
+#: src/generalComponents/Elements/Signs.js:12
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:94
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:125
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:27
+msgid "Добавить знак"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:217
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:208
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:271
+msgid "Добавить знаки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/Comments/Comments.js:59
+msgid "Добавить комментарий"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:156
+msgid "Добавить комментарий к Сейфу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:156
+msgid "Добавить комментарий к файлу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactList/ContactList.js:56
+#: src/Pages/Cabinet/Components/Chat/ContactList/index.js:84
+#: src/Pages/Cabinet/Components/Chat/ContactList/index.js:89
+#: src/Pages/Cabinet/Components/Chat/ContactList/index.js:94
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:160
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/index.js:24
+msgid "Добавить контакт"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:324
+msgid "Добавить мессенджеры:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:141
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:255
+msgid "Добавить номер телефона:"
+msgstr ""
+
+#: src/generalComponents/collections.js:322
+#: src/generalComponents/collections.js:336
+#: src/Pages/Cabinet/Components/MyFolders/index.js:195
+#: src/Pages/Cabinet/Components/MyFolders/index.js:228
+#: src/Pages/Cabinet/Components/Project/Project.js:99
+msgid "Добавить папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:925
+msgid "Добавить пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:197
+msgid "Добавить профиль соц.сети:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:267
+msgid "Добавить Руководителя компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:244
+msgid "Добавить сообщение"
+msgstr ""
+
+#: src/generalComponents/collections.js:579
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:261
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:45
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:69
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:74
+msgid "Добавить сотрудника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:61
+#: src/Pages/Cabinet/Components/Business/Company/index.js:70
+#: src/Pages/Cabinet/Components/Business/Company/index.js:79
+msgid "Добавить сотрудников"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:226
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:186
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:249
+msgid "Добавить тег"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:79
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:12
+msgid "Добавить теги"
+msgstr ""
+
+#: src/generalComponents/collections.js:298
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:94
+#: src/Pages/Cabinet/Components/Project/Project.js:93
+msgid "Добавить участника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ServePanel/AddUserToGroup/index.js:60
+#: src/Pages/Cabinet/Components/Chat/ServePanel/index.js:81
+msgid "Добавить участников в группу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:427
+#: src/Pages/Cabinet/Components/Safe/index.js:448
+msgid "Добавить файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:76
+#: src/Pages/Cabinet/Components/Project/Project.js:117
+msgid "Добавить файл в архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:199
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:200
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:263
+msgid "Добавить цвет"
+msgstr ""
+
+#: src/generalComponents/Elements/Emoji.js:12
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:208
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:216
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:279
+msgid "Добавить эмоджи"
+msgstr ""
+
+#: src/generalComponents/collections.js:915
+msgid "Добавление задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:140
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:145
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:150
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:188
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:193
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:198
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:140
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:145
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:150
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:188
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:193
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:198
+msgid "добавление файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Library/Library.js:134
+#: src/Pages/Cabinet/Components/MyFiles/index.js:255
+#: src/Pages/Cabinet/Components/MyFolders/index.js:362
+msgid "Добавление файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:198
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:169
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:181
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:114
+msgid "Добавте #Тег"
+msgstr ""
+
+#: src/generalComponents/TagPicker/TagPicker.js:54
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:198
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:209
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:297
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:135
+#: src/Pages/Cabinet/Components/CreateFile/index.js:287
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:188
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:148
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:184
+msgid "Добавьте #Тег"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:73
+msgid "Добавьте документ"
+msgstr ""
+
+#: src/generalComponents/collections.js:287
+msgid "Документ Google"
+msgstr ""
+
+#: src/generalComponents/collections.js:282
+msgid "Документ Word"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:65
+msgid "документ удален"
+msgstr ""
+
+#: src/generalComponents/collections.js:21
+#: src/generalComponents/collections.js:35
+#: src/generalComponents/collections.js:897
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:66
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:87
+msgid "Документы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:100
+msgid "Должность"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/Security/index.js:49
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/Security/index.js:50
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/Security/index.js:50
+msgid ""
+"Дополнительные настройки взаимодействия с файлом (разрешение/запрет на "
+"изменение, чтение и тд) с возможностью изменить:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:129
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:142
+msgid "Дополнительный телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:153
+msgid "Доступ и экспорт"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:213
+msgid "Доступ к ссылке"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:59
+msgid "Доступ на добовления сотрудников"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:64
+msgid "Доступ на редактирование системных параметров"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/Security/index.js:30
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/Security/index.js:28
+msgid "Доступ не предоставлен никому"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:327
+msgid "Доступ ограниченный"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:174
+msgid "Доступ успешно изменён"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:313
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:333
+msgid "Доступные пользователи, у которых есть ссылка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:331
+msgid "Доступные пользователям, у которых есть ссылка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/index.js:44
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/index.js:31
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/index.js:31
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/index.js:31
+msgid "Доступы"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:252
+#: src/generalComponents/collections.js:36
+msgid "Другое"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:117
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/TellFriend.js:85
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:173
+msgid "Ещё"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:159
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:73
+msgid "Журнал"
+msgstr ""
+
+#: src/generalComponents/collections.js:522
+#: src/generalComponents/collections.js:532
+#: src/generalComponents/collections.js:542
+#: src/Pages/Cabinet/Components/Chat/index.js:138
+#: src/Pages/Cabinet/Components/Chat/index.js:221
+msgid "Заблокировать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:130
+#: src/Pages/StartPage/Components/EnterProfile.js:116
+msgid "Забыли пароль?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditSection/EditSection.js:40
+msgid "Заголовок"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:144
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:58
+msgid "Загруженные файлы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:78
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:29
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:110
+msgid "Загрузите"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/DrawZone/DrawZone.js:127
+msgid "Загрузите файл для сравнения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:185
+msgid "Загрузите фото контакта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:102
+#: src/Pages/Cabinet/Components/ServePanel/index.js:378
+#: src/Pages/StartPage/Components/UploadFile.js:114
+msgid "Загрузить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:22
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:29
+msgid "Загрузить Лого"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFiles/index.js:192
+msgid "Загрузить файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/FileLoader/index.js:405
+msgid "Загрузка завершена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:99
+#: src/Pages/Guest/index.js:117
+msgid "Загрузка файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:24
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:56
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:23
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:67
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:33
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:67
+msgid "Загрузка..."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:102
+msgid "Задайте вопрос"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/index.js:84
+msgid "задач"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:247
+#: src/generalComponents/collections.js:926
+msgid "Задача"
+msgstr ""
+
+#: src/generalComponents/collections.js:871
+msgid "Задача добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:872
+msgid "Задача изменена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:57
+msgid "Задача успешно отредактирована"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:18
+msgid "Задача успешно создана"
+msgstr ""
+
+#: src/generalComponents/collections.js:815
+msgid "Задача успешно удалена"
+msgstr ""
+
+#: src/generalComponents/Error/index.js:24
+#: src/Pages/Cabinet/Components/FileLoader/index.js:489
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:59
+#: src/Pages/StartPage/Components/InfoPage.js:100
+msgid "Закрыть"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/FileLoader/index.js:485
+msgid "Закрыть загрузки"
+msgstr ""
+
+#: src/generalComponents/collections.js:780
+msgid "Заметка"
+msgstr ""
+
+#: src/generalComponents/collections.js:840
+#: src/generalComponents/collections.js:855
+msgid "Заметка добавлена"
+msgstr ""
+
+#: src/generalComponents/collections.js:843
+msgid "Заметка изменена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:344
+msgid "Заметки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:172
+msgid "запасной email не указан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:23
+msgid ""
+"Заполните информацию о компании или предоставьте доступ для заполнения для "
+"комфортного пользования сервисом"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:32
+msgid "Заполнить самостоятельно"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:121
+#: src/Pages/StartPage/Components/InfoPage.js:80
+msgid "Запрос успешно отправлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:737
+msgid "Звонки"
+msgstr ""
+
+#: src/generalComponents/collections.js:860
+msgid "Звонок добавлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:861
+msgid "Звонок изменен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:57
+msgid "Звуковое оповещение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:213
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:93
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:26
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:204
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:267
+msgid "Знаки"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:235
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:107
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:253
+msgid "и"
+msgstr ""
+
+#: src/generalComponents/collections.js:34
+msgid "Игры"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:152
+msgid "Идет процесс созадния ZIP архива"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:44
+msgid "из"
+msgstr ""
+
+#: src/generalComponents/collections.js:972
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/index.js:30
+msgid "Избранное"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:236
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:108
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:41
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:224
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:287
+msgid "Изменен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/increase_storage.js:15
+msgid "Изменить тарифный план можно в любой момент"
+msgstr ""
+
+#: src/generalComponents/collections.js:20
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:71
+msgid "Изображения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:107
+#: src/Pages/StartPage/Components/EnterProfile.js:121
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:260
+msgid "или"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:194
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:66
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:81
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:106
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:132
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:129
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:130
+#: src/Pages/StartPage/Components/InfoPage.js:52
+msgid "Имя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:47
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:65
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:23
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:87
+msgid "Имя задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:72
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:90
+msgid "Имя категории"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:154
+msgid "Имя компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:189
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:160
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:172
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:179
+msgid "Имя папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:120
+msgid "Имя проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:65
+msgid "Имя раздела"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:185
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:171
+msgid "Имя сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:106
+msgid "Имя сейфа (по умолчанию Пароли)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:202
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:289
+#: src/Pages/Cabinet/Components/CreateFile/index.js:280
+msgid "Имя файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:96
+msgid "Имя Фамилия:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:90
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:175
+msgid "Имя:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:59
+msgid "Инверсия"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:204
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:204
+msgid "Интеграция необходимых сервисов"
+msgstr ""
+
+#: src/generalComponents/collections.js:646
+msgid "Интернет-маркетолог"
+msgstr ""
+
+#: src/generalComponents/collections.js:581
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:31
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:94
+msgid "Информация о сотруднике"
+msgstr ""
+
+#: src/generalComponents/collections.js:602
+msgid "Исполнительный директор"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:42
+msgid "Использовано: "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/SecretChatStartWallpaper/index.js:13
+msgid "Используют оконечное шифрование"
+msgstr ""
+
+#: src/generalComponents/collections.js:593
+msgid "Испытательный срок"
+msgstr ""
+
+#: src/generalComponents/collections.js:960
+msgid "Исходящие"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:35
+#: src/Pages/Cabinet/Components/Archive/helper.js:30
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:34
+msgid "Июль"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:35
+msgid "Июля"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:34
+#: src/Pages/Cabinet/Components/Archive/helper.js:29
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:33
+msgid "Июнь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:34
+msgid "Июня"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:18
+msgid "Как защитить мои данные?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:13
+msgid "Как увеличить обьем хранилища?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:79
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:102
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:127
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:73
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:119
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:23
+msgid "Календарь"
+msgstr ""
+
+#: src/generalComponents/collections.js:567
+#: src/Pages/Cabinet/Components/Chat/index.js:318
+msgid "Камера"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:44
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:45
+msgid "Карта сайта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/СhooseAspectRatio/index.js:11
+msgid "Квадрат"
+msgstr ""
+
+#: src/generalComponents/collections.js:283
+msgid "Книга Excel"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:100
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:130
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:160
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:190
+msgid "Кнопка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:15
+msgid "код"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:76
+msgid "Количество сотрудников в компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:58
+msgid "Команда"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/Comments/Comments.js:48
+msgid "Комментарии отсутствуют"
+msgstr ""
+
+#: src/generalComponents/collections.js:789
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:59
+msgid "Комментарий"
+msgstr ""
+
+#: src/generalComponents/collections.js:834
+msgid "Комментарий добавлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:922
+msgid "Комментарий к задаче"
+msgstr ""
+
+#: src/generalComponents/collections.js:608
+msgid "Коммерческий директор"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:89
+msgid "Компания"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:224
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:104
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:211
+msgid "Компания:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:129
+#: src/Pages/Cabinet/Components/Modals/Components/MailModals/NewMail/NewMail.js:15
+msgid "Кому"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:136
+msgid "Кому:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:32
+msgid "Контакт удален"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:53
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:41
+#: src/Pages/Cabinet/Components/Chat/index.js:427
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:286
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:292
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:306
+#: src/Pages/Cabinet/Components/MyProfile/index.js:69
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:126
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:182
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:42
+msgid "Контакты"
+msgstr ""
+
+#: src/generalComponents/collections.js:647
+msgid "Контент-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:23
+msgid "Контраст"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:47
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:48
+msgid "Конфиденсальность"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/settings.js:50
+msgid "Конфиденциальность"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:179
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:179
+msgid "Конфиденциальность и безопасность"
+msgstr ""
+
+#: src/generalComponents/collections.js:648
+msgid "Копирайтер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:262
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:278
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:203
+#: src/Pages/StartPage/Components/SendSuccess.js:55
+msgid "Копировать ссылку"
+msgstr ""
+
+#: src/generalComponents/collections.js:984
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:164
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:78
+msgid "Корзина"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:52
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/TariffCard/index.js:53
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:52
+msgid "Купить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/index.js:54
+msgid "Личные данные"
+msgstr ""
+
+#: src/generalComponents/collections.js:767
+msgid "Личные задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SearchField/index.js:59
+msgid "Локальный"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:33
+#: src/Pages/Cabinet/Components/Archive/helper.js:28
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:32
+msgid "Май"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:71
+msgid "Мангуш Ирина Николаевна"
+msgstr ""
+
+#: src/generalComponents/collections.js:605
+msgid "Маркетинговый директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:623
+msgid "Маркетолог"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:25
+#: src/Pages/Cabinet/Components/Archive/helper.js:26
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:30
+msgid "Март"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:25
+msgid "Марта"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:33
+msgid "Мая"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:71
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:80
+msgid "МБ"
+msgstr ""
+
+#: src/generalComponents/collections.js:624
+msgid "Менеджер по закупкам"
+msgstr ""
+
+#: src/generalComponents/collections.js:625
+msgid "Менеджер по качеству"
+msgstr ""
+
+#: src/generalComponents/collections.js:635
+msgid "Менеджер по персоналу"
+msgstr ""
+
+#: src/generalComponents/collections.js:627
+msgid "Менеджер по продажам"
+msgstr ""
+
+#: src/generalComponents/collections.js:626
+msgid "Менеджер по развитию"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:90
+msgid "менее минуты назад"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/index.js:65
+msgid "МЕНЮ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:263
+msgid "Мессенджеры:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:51
+msgid "Миссия компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:105
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:76
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:99
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:101
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:102
+msgid "ММ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:119
+msgid "Мне"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:58
+msgid "Может просматривать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:94
+msgid "Может редактировать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:139
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:177
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:70
+msgid "Может упорядочивать, добавлять и редактировать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:114
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:28
+msgid "Мои задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:104
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:8
+msgid "Мои папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/index.js:163
+msgid "Мои устройства"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:109
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:13
+msgid "Мои файлы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:94
+msgid "Мой отдел"
+msgstr ""
+
+#: src/generalComponents/collections.js:176
+msgid "Мой профиль"
+msgstr ""
+
+#: src/generalComponents/collections.js:19
+#: src/generalComponents/collections.js:30
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:75
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:79
+msgid "Музыка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:56
+msgid "Мультимедиа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/CodePopup/index.js:45
+msgid "на ваш контактный email отправлен код-пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:140
+msgid "на номер {codeSentTo} отправлен код-пароль для доступа к сейфу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:33
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:26
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:44
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:61
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:9
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:33
+msgid "На пользователя в месяц начиная с 3 польз."
+msgstr ""
+
+#: src/generalComponents/collections.js:684
+msgid "На этой неделе"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:180
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:180
+msgid "Надежная защита личных и корпоративных данных"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/Settings/index.js:56
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/ShareToMessengers/ShareToMessengers.js:70
+msgid "Назад"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:71
+msgid "Назад на главную"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:60
+msgid "Название встречи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:54
+msgid "Название звонка"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:99
+msgid "Назначить другого человека администратором Компании"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:106
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:92
+msgid "Назначить меня администратором Компании"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:251
+#: src/generalComponents/collections.js:790
+msgid "Напоминание"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/index.js:222
+msgid "Настроить доступ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:185
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:98
+msgid "Настройка доступа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:50
+msgid "Настройка доступа папки"
+msgstr ""
+
+#: src/generalComponents/collections.js:178
+#: src/Pages/Cabinet/Components/Business/Company/index.js:76
+#: src/Pages/Cabinet/Components/Chat/index.js:451
+msgid "Настройки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:62
+#: src/Pages/Cabinet/Components/Business/Company/index.js:71
+#: src/Pages/Cabinet/Components/Business/Company/index.js:80
+msgid "Настройки доступа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:32
+msgid "Насыщенность"
+msgstr ""
+
+#: src/generalComponents/collections.js:636
+msgid "Начальник отдела кадров"
+msgstr ""
+
+#: src/generalComponents/collections.js:609
+msgid "Начальник отдела продаж"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:250
+msgid "Начать секретный чат"
+msgstr ""
+
+#: src/generalComponents/collections.js:806
+msgid "Не выполненно"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:103
+msgid "Не задан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/SecretChatStartWallpaper/index.js:16
+msgid "Не позволяют пересылать сообщения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/CodePopup/index.js:54
+msgid "Не пришел код?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:42
+msgid "Не пришло письмо ?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CodePopup/index.js:151
+msgid "Не пришол код?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:27
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:72
+msgid "Не содержит ваше имя или адрес электронной почты"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:53
+msgid "Не удалось добавить задачу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/Previews/Previews.js:122
+msgid "Не удалось загрузить изображение, попробуйте еще раз"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:166
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/SharedFilesInfo/SharedFilesInfo.js:51
+msgid "Не удалось загрузить список пользователей"
+msgstr ""
+
+#: src/generalComponents/Hooks.js:191
+msgid "Не удалось захватить аудио/видео контент"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:57
+msgid "Не удалось изменить задачу"
+msgstr ""
+
+#: src/generalComponents/fileMenuHelper.js:34
+msgid "Не удалось удалить файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:126
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:55
+msgid "не указана"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:71
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:87
+msgid "не указано"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/SecretChatStartWallpaper/index.js:14
+msgid "Не хранятся на серверах"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:32
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:77
+msgid "Не часто используется или предыдущий пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessUserList.js:42
+msgid "неверный"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:35
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:49
+msgid "Неверный"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:91
+msgid "Неверный логин или пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/RecentFolders/index.js:31
+#: src/Pages/Cabinet/Components/Safe/RecentFolders/index.js:50
+msgid "Недавние"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:435
+msgid "Недавние звонки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/RecentFolders/index.js:31
+#: src/Pages/Cabinet/Components/Safe/RecentFolders/index.js:50
+msgid "Недавние Папки"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:63
+#: src/Pages/StartPage/Components/EnterProfile.js:83
+#: src/Pages/StartPage/Components/ForgotPassword.js:90
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:155
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:175
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:192
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:227
+#: src/Pages/StartPage/Components/RenewPassword.js:122
+#: src/Pages/StartPage/Components/RenewPassword.js:88
+msgid "Некорректный ввод данных"
+msgstr ""
+
+#: src/generalComponents/LangPicker/index.js:19
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:19
+msgid "Немецкий"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:106
+msgid "необходимо загрузить изображение менее 5мб"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:84
+msgid "необходимо загрузить файл с раширением .doc или .docx"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Mail/WorkLine/WorkLine.js:39
+msgid "Непрочитанные"
+msgstr ""
+
+#: src/Pages/Guest/index.js:181
+msgid "Нет файлов..."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkBars/index.js:112
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkBarsPreview/index.js:142
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLines/index.js:77
+#: src/Pages/Cabinet/Components/WorkElements/WorkBars/index.js:47
+#: src/Pages/Cabinet/Components/WorkElements/WorkBarsPreview/index.js:187
+#: src/Pages/Cabinet/Components/WorkElements/WorkLines/index.js:36
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:297
+#: src/Pages/Guest/WorkElements/WorkBarsPreview/index.js:141
+msgid "Нет элементов удовлетворяющих условиям поиска"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/LoadingFailed/index.js:10
+msgid "Неудалось загрузить данные"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:201
+msgid "Новая группа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:152
+msgid "Новая группа успешно создана"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/CustomFolderItem/index.js:322
+#: src/Pages/Cabinet/Components/Project/Project.js:331
+#: src/Pages/Cabinet/Components/Safe/CustomFolderItem/index.js:149
+msgid "Новая папка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Mail/MailList/MailList.js:25
+msgid "Новое письмо"
+msgstr ""
+
+#: src/generalComponents/collections.js:993
+msgid "Новое сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:113
+#: src/Pages/StartPage/Components/RenewPassword.js:87
+msgid "Новый пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:94
+msgid "Номер телефона"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:59
+#: src/Pages/Cabinet/Components/Archive/helper.js:34
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:38
+msgid "Ноябрь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:60
+msgid "Ноября"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:29
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:30
+msgid "О 4Hub"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:10
+msgid "О проекте"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:89
+#: src/Pages/StartPage/Components/RenewPassword.js:84
+msgid "Обновите пароль"
+msgstr ""
+
+#: src/generalComponents/collections.js:885
+msgid "Образование"
+msgstr ""
+
+#: src/generalComponents/collections.js:17
+msgid "Общая папка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/index.js:38
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/index.js:25
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/index.js:25
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/index.js:25
+msgid "Общие"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:47
+msgid "Общие сведения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/WorkBarsPreview/index.js:176
+msgid "объектов"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:14
+msgid "Обычная версия"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:59
+msgid "ов"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:52
+#: src/Pages/Cabinet/Components/Archive/helper.js:33
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:37
+msgid "Октябрь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:53
+msgid "Октября"
+msgstr ""
+
+#: src/generalComponents/collections.js:746
+msgid "Онлайн"
+msgstr ""
+
+#: src/generalComponents/collections.js:649
+msgid "Оператор ПК"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:96
+msgid "Описание задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:178
+msgid "Опишите задачу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:156
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:156
+msgid "Оптимизация командной работы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:121
+msgid "Оранжевый"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:67
+msgid "Орг. Структура"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/СhooseAspectRatio/index.js:10
+msgid "Оригинал"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:81
+#: src/Pages/StartPage/Components/InfoPage.js:47
+msgid "Остались вопросы?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/FileLoader/index.js:447
+msgid "Осталось меньше минуты"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/FileLoader/index.js:449
+msgid "Осталось около 1 часа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MailModals/NewMail/NewMail.js:11
+msgid "От"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/PreviewWithComment/PreviewWithComment.js:123
+msgid "Ответить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/Comments/Comments.js:30
+msgid "Отзыв успешно добавлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/ProgramItem/ProgramItem.js:59
+msgid "Отзывы"
+msgstr ""
+
+#: src/generalComponents/collections.js:390
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:99
+msgid "Отключить"
+msgstr ""
+
+#: src/generalComponents/collections.js:391
+msgid "Отключить несколько"
+msgstr ""
+
+#: src/generalComponents/collections.js:592
+msgid "Открытая вакансия"
+msgstr ""
+
+#: src/generalComponents/collections.js:448
+msgid "Открыть"
+msgstr ""
+
+#: src/generalComponents/OpenInFolderButton/OpenInFolderButton.js:27
+msgid "Открыть в системе 4Hub"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:90
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:110
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:84
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FilePeriodEdit/FilePeriodEdit.js:62
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:57
+msgid "Открыть календарь"
+msgstr ""
+
+#: src/generalComponents/collections.js:976
+msgid "Отложенные"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:164
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:222
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:184
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:93
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:120
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:37
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:76
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/index.js:198
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/СhooseAspectRatio/index.js:30
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuChat/DeleteMessage/index.js:44
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:232
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/index.js:45
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SetPassword/SetPassword.js:73
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:268
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:254
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:342
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/index.js:58
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:235
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:349
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:242
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/index.js:45
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:225
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:181
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/index.js:45
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/index.js:45
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:95
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:251
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:351
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:102
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:191
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:116
+#: src/Pages/Cabinet/Components/CreateFile/index.js:363
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:247
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:145
+#: src/Pages/Cabinet/Components/Devices/OptionButtomLine/index.js:13
+#: src/Pages/Cabinet/Components/FileLoader/index.js:469
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:227
+#: src/Pages/Cabinet/Components/Modals/Components/MailModals/SubmitButtons/SubmitButtons.js:31
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:58
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:78
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:116
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:222
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:354
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:219
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:223
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:197
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:254
+#: src/Pages/Cabinet/Components/Safe/Popups/NoSafe/index.js:44
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:100
+msgid "Отмена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/MiniToolBar/MiniToolBar.js:385
+msgid "Отменить"
+msgstr ""
+
+#: src/generalComponents/collections.js:534
+#: src/generalComponents/collections.js:544
+#: src/Pages/Cabinet/Components/Chat/index.js:139
+msgid "Отметить непрочитанным"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:64
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:80
+msgid "Отправитель"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:78
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:99
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:276
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:238
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:254
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:199
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/ShareToMessengers/ShareToMessengers.js:74
+#: src/Pages/Cabinet/Components/Mail/Components/MailBottomMenu/MailBottomMenu.js:21
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:192
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddComments/AddComments.js:79
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:113
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:152
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/TellFriend.js:92
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:208
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:84
+#: src/Pages/Cabinet/Components/WorkElements/MiniToolBar/MiniToolBar.js:411
+#: src/Pages/StartPage/Components/ForgotPassword.js:105
+#: src/Pages/StartPage/Components/UploadFile.js:188
+msgid "Отправить"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:44
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:43
+msgid "Отправить заново"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:40
+msgid "Отправить файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:148
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:148
+msgid "Отправить через мессенджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:92
+msgid "Отправка прошла успешно"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:71
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:88
+msgid "Отправлено"
+msgstr ""
+
+#: src/generalComponents/collections.js:590
+msgid "Отпуск"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:41
+msgid "Оттенки серого"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:210
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:142
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:143
+msgid "Отчество"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:25
+msgid "Офис"
+msgstr ""
+
+#: src/generalComponents/collections.js:611
+msgid "Офис-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:747
+msgid "Офлайн"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:50
+msgid "Очистить историю"
+msgstr ""
+
+#: src/generalComponents/collections.js:521
+#: src/generalComponents/collections.js:531
+#: src/generalComponents/collections.js:541
+#: src/Pages/Cabinet/Components/Chat/index.js:125
+#: src/Pages/Cabinet/Components/Chat/index.js:210
+msgid "Очистить историю у всех"
+msgstr ""
+
+#: src/generalComponents/collections.js:520
+#: src/generalComponents/collections.js:530
+#: src/generalComponents/collections.js:540
+#: src/Pages/Cabinet/Components/Chat/index.js:109
+#: src/Pages/Cabinet/Components/Chat/index.js:199
+msgid "Очистить историю у меня"
+msgstr ""
+
+#: src/generalComponents/fileMenuHelper.js:80
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:42
+msgid "ошибка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:50
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:53
+msgid "Ошибка загрузки количества файлов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Tasks/Tasks.js:18
+msgid "Ошибка при получении задач"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Tasks/ManagementPanel/ManagementPanel.js:43
+msgid "Ошибка при получении разделов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:115
+msgid "Ошибка удаления всех сообщений"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:93
+msgid "Пакет на использование 100 ГБ хранилища действителед до 26.12.2020"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:27
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:25
+msgid "Папка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:94
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:98
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:65
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:69
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:78
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:82
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:189
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:255
+msgid "Папка не добавлена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:42
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:45
+#: src/Pages/Cabinet/Components/MyFolders/index.js:258
+#: src/Pages/Cabinet/Components/MyFolders/index.js:265
+#: src/Pages/Cabinet/Components/Project/Project.js:255
+#: src/Pages/Cabinet/Components/Project/Project.js:258
+msgid "Папка не удалена. Попробуйте еще раз!"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/CustomFolderItem/index.js:206
+msgid "Папка перемещена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:184
+msgid "Папка пустая"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:40
+msgid "Папка удалена"
+msgstr ""
+
+#: src/generalComponents/collections.js:689
+#: src/Pages/Cabinet/Components/MyFolders/index.js:273
+msgid "Папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:88
+msgid "Пароли"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:17
+msgid "пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SetPassword/SetPassword.js:49
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:226
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:314
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:81
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:214
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:185
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:197
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:72
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:75
+#: src/Pages/Cabinet/Components/CreateFile/index.js:318
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:220
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:173
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:193
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:194
+#: src/Pages/StartPage/Components/EnterProfile.js:82
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:191
+msgid "Пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:151
+msgid "Пароль для сейфа не создан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:34
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:51
+msgid "Пароль для сейфа обновлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:120
+msgid ""
+"Пароль на файл успешно установлен при передаче файла, на email получателя "
+"прийдет указанный Вами пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:108
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:116
+msgid "Пароль не добавлен"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RenewPassword.js:54
+msgid "Пароль успешно обновлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:123
+msgid "Пароль успешно установлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:46
+msgid "пароль установлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:132
+msgid "Пер. в архив"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:82
+msgid "Передача прав Администратора"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:26
+#: src/Pages/StartPage/Components/Intro.js:35
+msgid "Перейти"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:107
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:94
+msgid "Перейти к задаче"
+msgstr ""
+
+#: src/generalComponents/collections.js:157
+#: src/generalComponents/collections.js:437
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:128
+msgid "Переместить в архив"
+msgstr ""
+
+#: src/generalComponents/collections.js:778
+#: src/generalComponents/collections.js:918
+msgid "Перенести все встречи"
+msgstr ""
+
+#: src/generalComponents/collections.js:777
+#: src/generalComponents/collections.js:917
+msgid "Перенести встречу"
+msgstr ""
+
+#: src/generalComponents/collections.js:449
+msgid "Переслать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:77
+msgid "Перетащите сюда файл или"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:27
+msgid "Перетащите сюда фото или"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:113
+msgid "Перетащите Файл или Нажмите"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkBars/index.js:93
+#: src/Pages/Cabinet/Components/WorkElements/ItemsList/ItemsList.js:166
+msgid "Перетащите файл или нажмите загрузить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:48
+#: src/Pages/Cabinet/Components/MyProfile/settings.js:55
+msgid "Персонализация"
+msgstr ""
+
+#: src/generalComponents/collections.js:166
+#: src/generalComponents/collections.js:709
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:209
+msgid "Печать"
+msgstr ""
+
+#: src/generalComponents/collections.js:738
+msgid "Письма"
+msgstr ""
+
+#: src/generalComponents/collections.js:865
+msgid "Письмо добавлено"
+msgstr ""
+
+#: src/generalComponents/collections.js:868
+msgid "Письмо изменено"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:16
+msgid "Письмо отправлено на почту"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:20
+msgid ""
+"Письмо с правами доступа отправленно на указанный вами email "
+"mailgmail@gmail.com"
+msgstr ""
+
+#: src/generalComponents/collections.js:755
+msgid "Плановые адачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:46
+msgid "Плановые задачи"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Пн"
+msgstr ""
+
+#: src/generalComponents/collections.js:195
+#: src/generalComponents/collections.js:196
+#: src/Pages/Cabinet/Components/ServePanel/index.js:212
+msgid "По дате архивирования"
+msgstr ""
+
+#: src/generalComponents/collections.js:201
+#: src/generalComponents/collections.js:202
+msgid "По дате добавления/создания"
+msgstr ""
+
+#: src/generalComponents/collections.js:207
+#: src/generalComponents/collections.js:208
+#: src/generalComponents/collections.js:257
+msgid "По дате изменения"
+msgstr ""
+
+#: src/generalComponents/collections.js:213
+#: src/generalComponents/collections.js:214
+msgid "По дате последнего открытия"
+msgstr ""
+
+#: src/Pages/Guest/ServePanel/index.js:273
+msgid "По значкам"
+msgstr ""
+
+#: src/generalComponents/collections.js:189
+#: src/generalComponents/collections.js:252
+msgid "По имени от А до Я"
+msgstr ""
+
+#: src/generalComponents/collections.js:190
+#: src/generalComponents/collections.js:253
+msgid "По имени от Я до А"
+msgstr ""
+
+#: src/generalComponents/collections.js:219
+msgid "По размеру (от больших к малым)"
+msgstr ""
+
+#: src/generalComponents/collections.js:220
+#: src/generalComponents/collections.js:225
+msgid "По размеру (от малых к большим)"
+msgstr ""
+
+#: src/generalComponents/collections.js:261
+msgid "По размеру (С больших)"
+msgstr ""
+
+#: src/generalComponents/collections.js:262
+msgid "По размеру (С маленьких)"
+msgstr ""
+
+#: src/generalComponents/collections.js:231
+#: src/generalComponents/collections.js:266
+msgid "По типу"
+msgstr ""
+
+#: src/generalComponents/collections.js:232
+msgid "По типу U+21FD"
+msgstr ""
+
+#: src/generalComponents/collections.js:237
+#: src/generalComponents/collections.js:238
+#: src/generalComponents/collections.js:270
+msgid "По тэгам"
+msgstr ""
+
+#: src/Pages/Guest/ServePanel/index.js:265
+msgid "По цвету"
+msgstr ""
+
+#: src/Pages/Guest/ServePanel/index.js:281
+msgid "По эмоджи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SetPassword/SetPassword.js:63
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:240
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:328
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:228
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CreateFolder/index.js:199
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:211
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:166
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:85
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:91
+#: src/Pages/Cabinet/Components/CreateFolder/index.js:234
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:182
+#: src/Pages/StartPage/Components/RenewPassword.js:121
+msgid "Повторите пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:191
+msgid "Повторите Пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:49
+msgid "Повторите попытку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/LoadingFailed/index.js:12
+#: src/Pages/Cabinet/Components/FileLoader/index.js:469
+#: src/Pages/Cabinet/Components/Safe/Popups/ErrorPass/index.js:62
+msgid "Повторить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:133
+msgid "Повторить пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:39
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:40
+msgid "Поддержка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:41
+msgid "Поделиться"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:69
+msgid "Поделиться контактом"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/SendFriend.js:82
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/TellFriend.js:57
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:142
+msgid "Поделиться с помощью:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/ConnectedContacts/index.js:57
+msgid "Подключенные пользователи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/index.js:74
+msgid "Подключенные прораммы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:43
+msgid "Подключенные устройства"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:209
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:210
+msgid "Подтвердите пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:102
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:38
+msgid "Подтвердить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/SecretChatStartWallpaper/index.js:15
+msgid "Позволяют удалеть переписку по таймеру"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:44
+#: src/Pages/Cabinet/Components/Chat/index.js:172
+#: src/Pages/Cabinet/Components/Chat/index.js:576
+#: src/Pages/Cabinet/Components/Project/Project.js:370
+msgid "Покинуть"
+msgstr ""
+
+#: src/generalComponents/collections.js:513
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:39
+msgid "Покинуть группу"
+msgstr ""
+
+#: src/generalComponents/collections.js:312
+#: src/Pages/Cabinet/Components/Project/Project.js:138
+msgid "Покинуть проект"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:236
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:108
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:254
+msgid "Политику интелектуальной собственности"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:235
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:107
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:252
+msgid "Политику конфиденциальности"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:68
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:40
+msgid "Получатель"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:78
+msgid "Пользователь не владелец сейфа или сейф не найден"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:76
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:97
+msgid "Пользователь не найден"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:33
+msgid "Пользователя нет в системе 4Hub"
+msgstr ""
+
+#: src/generalComponents/LangPicker/index.js:18
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:18
+msgid "Польский"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/index.js:32
+msgid "Пополнить баланс"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:118
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:138
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:112
+msgid ""
+"После завершения срока хранения в 23:59 ссылка автоматитески будет "
+"недоступна"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:142
+msgid "Посмотреть в гостевом режиме"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:269
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/TariffCard/index.js:19
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:269
+msgid "Предложение дня"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:52
+msgid "Предоставить все прова"
+msgstr ""
+
+#: src/generalComponents/collections.js:420
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:45
+#: src/Pages/Cabinet/Components/Safe/index.js:130
+msgid "Предоставить доступ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:60
+msgid "предоставить доступ для работы с кадрами"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:129
+msgid "Предоставить доступ с помощью"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:53
+msgid ""
+"предоставление всех прав дает возможность редактировать, изменять удалять "
+"всю информацию в системе"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:22
+msgid "Предоставление доступа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:132
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:132
+msgid "Предоставление доступа к загруженным файлам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:52
+msgid ""
+"предоставления доступа дает возможность третим лицам заполнять данные о "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:26
+msgid ""
+"Предоставления доступа дает возможность третим лицам заполнять данные о "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:203
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:271
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:221
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:287
+msgid "Предоставьте доступ пользователям и группам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:65
+msgid "предостовление доступа для администрирования ресурса"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/index.js:50
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/index.js:37
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/index.js:37
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/index.js:37
+msgid "Предыдущие версии"
+msgstr ""
+
+#: src/generalComponents/collections.js:289
+msgid "Презентация Google"
+msgstr ""
+
+#: src/generalComponents/collections.js:284
+msgid "Презентация PowerPoint"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/ShareToMessengers/ShareToMessengers.js:46
+msgid ""
+"При отправке через мессенджер будет открыто выбранное приложение на Вашем "
+"устройстве"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:72
+msgid ""
+"При отправки через месенжер будет открыто выбранное приложение на Вашем "
+"устройстве"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:161
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:161
+msgid "Приватная работа с документами"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:56
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:57
+msgid "Пригласите друзей"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:60
+msgid "Пригласить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InviteUser/index.js:28
+msgid "Приглашение успешно отправлено"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:67
+msgid "Придумайте пароль для файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:138
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:240
+msgid ""
+"Примечание: на указанный контактный номер телефона будет отправлено "
+"код-пароль для доступа к сейфу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:90
+msgid "Провайдер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/ProgramItem/ProgramItem.js:24
+msgid "Программа появится в списке во вкладке избраные программы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/ProgramItem/ProgramItem.js:25
+msgid "Программа успешно добавлена в избранные"
+msgstr ""
+
+#: src/generalComponents/collections.js:650
+msgid "Программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:651
+msgid "Программист 1С"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/CategoryList/CategoryList.js:46
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:129
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:33
+msgid "Программы"
+msgstr ""
+
+#: src/generalComponents/collections.js:652
+msgid "Продакт-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:94
+msgid "Продлить"
+msgstr ""
+
+#: src/generalComponents/Success/index.js:25
+#: src/Pages/Cabinet/Components/MyProfile/AlertPopup/index.js:31
+#: src/Pages/Cabinet/Components/Safe/Popups/SuccessPass/index.js:51
+msgid "Продолжить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:22
+msgid "Проект"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:70
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:68
+msgid "Проект с таким именем уже существует"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:237
+msgid "Проект удален"
+msgstr ""
+
+#: src/generalComponents/collections.js:641
+msgid "Проектный менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:58
+msgid "Пропустить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:314
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:334
+msgid "просматривать могут все у кого есть ссылка"
+msgstr ""
+
+#: src/generalComponents/collections.js:718
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:118
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:122
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:171
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:25
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:156
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:160
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:161
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:24
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:40
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
+msgid "Просмотр"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:42
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:19
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:36
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:54
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/consts.js:71
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:42
+msgid ""
+"Простые инструменты для храннения и предоставления доступа и совместной "
+"работы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:239
+msgid "Профиль соц. сетей:"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:39
+msgid "процесс регистрации"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Mail/WorkLine/WorkLine.js:38
+msgid "Прочитанные"
+msgstr ""
+
+#: src/generalComponents/collections.js:31
+msgid "Работа"
+msgstr ""
+
+#: src/generalComponents/collections.js:763
+msgid "Рабочие задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:52
+msgid "Разархивировать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:417
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:71
+msgid "развернуть"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/ConnectedContacts/index.js:65
+#: src/Pages/Cabinet/Components/List/index.js:38
+msgid "Развернуть"
+msgstr ""
+
+#: src/generalComponents/collections.js:33
+msgid "Развлечения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:133
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:133
+msgid "Разграничение прав доступа к файлам"
+msgstr ""
+
+#: src/generalComponents/collections.js:819
+#: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:38
+msgid "Раздел добавлен"
+msgstr ""
+
+#: src/generalComponents/collections.js:820
+msgid "Раздел изменен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:38
+msgid "Раздел изменён"
+msgstr ""
+
+#: src/generalComponents/collections.js:822
+msgid "Раздел удален"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:33
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:33
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:36
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:34
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:31
+msgid "Размер:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:241
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:113
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:46
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:228
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:291
+msgid "Размеры"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:77
+msgid "Размытие"
+msgstr ""
+
+#: src/generalComponents/collections.js:653
+msgid "Разработчик игр"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:53
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:54
+msgid "Разработчикам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:105
+msgid "Распечатать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:27
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:27
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:30
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:28
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:25
+msgid "Расположение:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/index.js:80
+#: src/Pages/Cabinet/Components/MyProfile/settings.js:72
+#: src/Pages/Cabinet/Components/MyProfile/TellFriends/TellFriend.js:45
+msgid "Рассказать друзьям"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:66
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:139
+msgid "Расшаренные файлы"
+msgstr ""
+
+#: src/generalComponents/collections.js:149
+#: src/generalComponents/collections.js:334
+#: src/generalComponents/collections.js:349
+#: src/generalComponents/collections.js:434
+#: src/generalComponents/collections.js:699
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:57
+#: src/Pages/Cabinet/Components/MyFolders/index.js:216
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:124
+msgid "Расшарить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:78
+msgid "Регион"
+msgstr ""
+
+#: src/Pages/Guest/index.js:157
+#: src/Pages/StartPage/Components/EnterProfile.js:144
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:147
+#: src/Pages/StartPage/index.js:60
+msgid "Регистрация"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:30
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:21
+msgid "Регистрация прошла успешно"
+msgstr ""
+
+#: src/generalComponents/collections.js:153
+#: src/generalComponents/collections.js:703
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:109
+msgid "Ред. несколько файлов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
+msgid "Редактирование"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/index.js:210
+#: src/Pages/Cabinet/Components/Project/Project.js:147
+msgid "Редактирование папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:111
+msgid "Редактирование проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:128
+msgid "Редактирование сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:100
+msgid "Редактирование сотрудника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:64
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:98
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:44
+msgid "Редактирование файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:70
+msgid "Редактирование файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:301
+#: src/generalComponents/collections.js:333
+#: src/generalComponents/collections.js:348
+#: src/generalComponents/collections.js:421
+#: src/generalComponents/collections.js:436
+#: src/generalComponents/collections.js:499
+#: src/generalComponents/collections.js:510
+#: src/generalComponents/collections.js:580
+#: src/generalComponents/collections.js:720
+#: src/generalComponents/collections.js:937
+#: src/generalComponents/collections.js:946
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:42
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:54
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:23
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:35
+#: src/Pages/Cabinet/Components/Chat/index.js:155
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:132
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:136
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:170
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:174
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:175
+#: src/Pages/Cabinet/Components/Library/WorkSpace/WorkSpace.js:106
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:68
+#: src/Pages/Cabinet/Components/MyFiles/WorkSpace/index.js:181
+#: src/Pages/Cabinet/Components/MyFolders/WorkSpace/index.js:143
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:232
+#: src/Pages/Cabinet/Components/Safe/index.js:136
+#: src/Pages/Cabinet/Components/Safe/WorkSpace/index.js:195
+#: src/Pages/Cabinet/Components/WorkElements/MiniToolBar/MiniToolBar.js:388
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:116
+msgid "Редактировать"
+msgstr ""
+
+#: src/generalComponents/collections.js:779
+#: src/generalComponents/collections.js:928
+msgid "Редактировать встречу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:117
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:98
+#: src/Pages/Cabinet/Components/FileLoader/index.js:100
+#: src/Pages/Cabinet/Components/Project/Project.js:445
+#: src/Pages/Cabinet/Components/Safe/WorkSpace/index.js:221
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:44
+msgid "Редактировать выбранные файлы"
+msgstr ""
+
+#: src/generalComponents/collections.js:788
+#: src/generalComponents/collections.js:927
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuTask.js:15
+msgid "Редактировать задачу"
+msgstr ""
+
+#: src/generalComponents/collections.js:794
+#: src/generalComponents/collections.js:914
+#: src/generalComponents/collections.js:930
+msgid "Редактировать заметку"
+msgstr ""
+
+#: src/generalComponents/collections.js:784
+#: src/generalComponents/collections.js:929
+msgid "Редактировать звонок"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:160
+msgid "Редактировать контакт"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/index.js:422
+#: src/Pages/Cabinet/Components/Project/Project.js:341
+msgid "Редактировать папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:911
+msgid "Редактировать раздел"
+msgstr ""
+
+#: src/generalComponents/collections.js:562
+#: src/Pages/Cabinet/Components/Chat/index.js:292
+msgid "Редактировать сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:31
+msgid "Редактировать сотрудника"
+msgstr ""
+
+#: src/generalComponents/collections.js:151
+#: src/generalComponents/collections.js:701
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:51
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:89
+msgid "Редактировать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:388
+msgid "Редатирование проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:246
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:118
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:51
+msgid "Резрешение"
+msgstr ""
+
+#: src/generalComponents/collections.js:638
+msgid "Рекрутер"
+msgstr ""
+
+#: src/generalComponents/collections.js:600
+msgid "Руководитель компании"
+msgstr ""
+
+#: src/generalComponents/LangPicker/index.js:15
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:15
+msgid "Русский"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:16
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:31
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше  сейчас делаю его на 3 строки можно больше "
+"можно меньше"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:22
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше  сейчас делаю его на 3 строкиможно больше "
+"можно меньше"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Сб"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:417
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:71
+msgid "свернуть"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/ConnectedContacts/index.js:65
+#: src/Pages/Cabinet/Components/List/index.js:38
+msgid "Свернуть"
+msgstr ""
+
+#: src/generalComponents/collections.js:164
+#: src/generalComponents/collections.js:305
+#: src/generalComponents/collections.js:323
+#: src/generalComponents/collections.js:337
+#: src/generalComponents/collections.js:355
+#: src/generalComponents/collections.js:423
+#: src/generalComponents/collections.js:438
+#: src/generalComponents/collections.js:707
+#: src/Pages/Cabinet/Components/Archive/index.js:93
+#: src/Pages/Cabinet/Components/Archive/index.js:95
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:178
+#: src/Pages/Cabinet/Components/MyFolders/index.js:201
+#: src/Pages/Cabinet/Components/MyFolders/index.js:234
+#: src/Pages/Cabinet/Components/Project/Project.js:123
+#: src/Pages/Cabinet/Components/Project/Project.js:159
+#: src/Pages/Cabinet/Components/Safe/index.js:148
+#: src/Pages/Guest/index.js:111
+msgid "Свойства"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:205
+#: src/generalComponents/collections.js:683
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/Media/Media.js:152
+msgid "Сегодня"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:24
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:134
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:38
+msgid "Сейф"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:76
+msgid "Сейф с таким именем уже существует"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/index.js:190
+msgid "Сейф удален"
+msgstr ""
+
+#: src/generalComponents/collections.js:612
+msgid "Секретарь"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:206
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:216
+msgid "секретный"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/SecretChatStartWallpaper/index.js:11
+msgid "Секретный чат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:370
+msgid "Секретный чат удален"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:151
+msgid "Секретный чат успешно создан"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:45
+#: src/Pages/Cabinet/Components/Archive/helper.js:32
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:36
+msgid "Сентябрь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:46
+msgid "Сентября"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:68
+msgid "Сепия"
+msgstr ""
+
+#: src/generalComponents/collections.js:158
+#: src/Pages/Cabinet/Components/Library/WorkSpace/WorkSpace.js:106
+#: src/Pages/Cabinet/Components/MyFiles/WorkSpace/index.js:181
+#: src/Pages/Cabinet/Components/MyFolders/WorkSpace/index.js:143
+#: src/Pages/Cabinet/Components/Safe/WorkSpace/index.js:195
+msgid "Сжать в Zip"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:82
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:144
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:152
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:169
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:108
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:30
+msgid "Сжать в ZIP"
+msgstr ""
+
+#: src/generalComponents/collections.js:160
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:161
+msgid "Сжать несколько файлов в Zip"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:91
+msgid "Синий"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:213
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:213
+msgid "синхронизация"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:205
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:205
+msgid "Синхронизация со сторонними сервисами"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:159
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:159
+msgid ""
+"Синхронизация совместной работы над проектами с использованием встроенных "
+"инструментов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkSpace/index.js:70
+msgid "Система"
+msgstr ""
+
+#: src/generalComponents/collections.js:654
+msgid "Системный администратор"
+msgstr ""
+
+#: src/generalComponents/collections.js:655
+msgid "Системный аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:165
+#: src/generalComponents/collections.js:563
+#: src/generalComponents/collections.js:708
+#: src/Pages/Cabinet/Components/Chat/index.js:298
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:193
+msgid "Скачать"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:104
+msgid "Скачать папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:719
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:245
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:125
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:126
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:163
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:164
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessUserList/FileAccessEdit/FileAccessEdit.js:54
+#: src/Pages/Cabinet/Components/WorkElements/JournalFileLine/JournalFileLine.js:40
+msgid "Скачивание"
+msgstr ""
+
+#: src/generalComponents/collections.js:150
+#: src/generalComponents/collections.js:299
+#: src/generalComponents/collections.js:335
+#: src/generalComponents/collections.js:351
+#: src/generalComponents/collections.js:435
+#: src/generalComponents/collections.js:450
+#: src/generalComponents/collections.js:700
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:73
+msgid "Скопировать ссылку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:105
+msgid "Скопировать ссылку и поделиться"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:252
+msgid "Скопируйте ссылку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/Comments/Comments.js:56
+msgid "Скрыть комментарии"
+msgstr ""
+
+#: src/generalComponents/collections.js:177
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:59
+#: src/Pages/Cabinet/Components/MyProfile/index.js:59
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:60
+msgid "Служба поддержки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:260
+msgid "Смайлики"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:99
+msgid "Сменить пакет"
+msgstr ""
+
+#: src/generalComponents/collections.js:422
+#: src/Pages/Cabinet/Components/Safe/index.js:142
+msgid "Сменить пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:50
+msgid "Смещение цветов"
+msgstr ""
+
+#: src/generalComponents/generalHelpers.js:105
+msgid "Снимок экрана"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:72
+msgid "Совместное редактирование"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:67
+msgid "Совместное редактирование.png"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:272
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:288
+msgid "совместный доступ не настроен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:168
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:173
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:168
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:173
+msgid "совместный проект"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:48
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:99
+msgid "Совместный проект"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:17
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:62
+msgid "Содержит как строчные (a-z), так и прописные буквы (A-Z)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:22
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/PassInfo/index.js:67
+msgid "Содержит по крайней мере одну цифру (0-9) или символ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:281
+msgid "СОЗДАЙТЕ Ваш первый проект"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/index.js:311
+msgid "СОЗДАЙТЕ Ваш первый СЕЙФ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/index.js:383
+#: src/Pages/Cabinet/Components/Project/Project.js:455
+msgid "Создайте пароль для сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFiles/index.js:275
+msgid "Создайте пароль для Сейфа с паролями"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:231
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:103
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:36
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:220
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:283
+msgid "Создан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:323
+msgid "Создание проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:130
+msgid "Создание сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:197
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:261
+#: src/Pages/Cabinet/Components/CreateFile/index.js:366
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:200
+#: src/Pages/Cabinet/Components/Safe/Popups/NoSafe/index.js:54
+#: src/Pages/Cabinet/Components/ServePanel/index.js:429
+msgid "Создать"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:258
+msgid "Создать аккаунт"
+msgstr ""
+
+#: src/generalComponents/collections.js:916
+msgid "Создать встречу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/index.js:67
+msgid "Создать задачу"
+msgstr ""
+
+#: src/generalComponents/collections.js:913
+#: src/Pages/Cabinet/Components/Tasks/Notes/Notes.js:70
+msgid "Создать заметку"
+msgstr ""
+
+#: src/generalComponents/collections.js:919
+msgid "Создать звонок"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateFile/index.js:370
+msgid "Создать и открыть в редакторе"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/ProjectItem/ProjectItem.js:173
+msgid "Создать лист"
+msgstr ""
+
+#: src/generalComponents/collections.js:923
+msgid "Создать напоминание"
+msgstr ""
+
+#: src/generalComponents/collections.js:739
+msgid "Создать новую задачу"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/ProjectItem/ProjectItem.js:183
+msgid "Создать новую папку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Library/LibraryList/LibraryList.js:65
+msgid "Создать новый раздел"
+msgstr ""
+
+#: src/generalComponents/collections.js:300
+#: src/Pages/Cabinet/Components/MyFolders/index.js:353
+msgid "Создать папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:920
+msgid "Создать письмо"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:266
+msgid "Создать проект"
+msgstr ""
+
+#: src/generalComponents/collections.js:910
+#: src/generalComponents/collections.js:945
+#: src/Pages/Cabinet/Components/Tasks/ManagementPanel/ManagementPanel.js:122
+msgid "Создать раздел"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFiles/index.js:255
+#: src/Pages/Cabinet/Components/MyFolders/index.js:362
+#: src/Pages/Cabinet/Components/Project/Project.js:427
+#: src/Pages/Cabinet/Components/Safe/index.js:448
+msgid "Создать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:51
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:52
+msgid "Сообщество"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:83
+msgid "Сопроводительный текст"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:189
+msgid "Сотрудник успешно добавлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:231
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:207
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:129
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/index.js:220
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/index.js:236
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/index.js:254
+#: src/Pages/Cabinet/Components/Chat/CreateChat/index.js:197
+#: src/Pages/Cabinet/Components/Chat/Settings/index.js:61
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:235
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:351
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CustomizeFolder/index.js:245
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeFolder/index.js:228
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:184
+#: src/Pages/Cabinet/Components/CreateSafePassword/index.js:147
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:236
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:19
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:119
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:225
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:357
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:228
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:226
+#: src/Pages/Cabinet/Components/WorkElements/MiniToolBar/MiniToolBar.js:388
+msgid "Сохранить"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:245
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:113
+msgid "Сохранить и продолжить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateFile/index.js:353
+msgid "Сохранить пароль во вкладку сейф с паролями"
+msgstr ""
+
+#: src/generalComponents/collections.js:980
+msgid "Спам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/Security/index.js:44
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/Security/index.js:58
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/Security/index.js:56
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/Security/index.js:45
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/Security/index.js:45
+msgid ""
+"Список пользователей, которым предоставлен доступ с возможностью изменить "
+"разрешение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:214
+msgid "Список пользователей, у кого есть доступ к ссылке"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Programs/WorkSpace/index.js:20
+msgid "Список программ пуст"
+msgstr ""
+
+#: src/generalComponents/collections.js:32
+msgid "Спорт"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Ср"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:138
+msgid "Сравнить документы/файлы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:52
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:70
+msgid "Срок"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:133
+msgid "Срок выполнения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:54
+msgid "Срок Выполнения"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:74
+msgid ""
+"Срок удаления файла по умолчанию (23:59), после завершения срока хранения "
+"ссылка автоматически будет недоступна"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:130
+msgid "Срок хранения"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:137
+msgid "Срок хранения папки"
+msgstr ""
+
+#: src/Pages/Guest/ServePanel/index.js:222
+msgid "Срок хранения папки ( 1 день  до 12.08.2020, 08:45 )"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:43
+msgid "Срок хранения файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:69
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:68
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:179
+msgid "Срок хранения файла/папки"
+msgstr ""
+
+#: src/generalComponents/collections.js:754
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:24
+msgid "Срочные задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:71
+msgid "Ссылка на файл не найдена"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:74
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:70
+msgid "Ссылка на файл не найдена. Попробуйте еще раз"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:187
+msgid "Ссылка отправлена на почту"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:81
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare/index.js:117
+#: src/Pages/Cabinet/Components/Modals/Components/FileAccessRights/FileAccessRights.js:93
+msgid "Ссылка скопирована"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:81
+msgid "Ссылки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:50
+msgid "Стандарты компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/RefreshPass/index.js:95
+msgid "Старый пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:109
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TaskItem/TaskItem.js:111
+msgid "Статус"
+msgstr ""
+
+#: src/generalComponents/collections.js:901
+msgid "Статьи"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:90
+msgid "Сфера деятельности"
+msgstr ""
+
+#: src/generalComponents/collections.js:288
+msgid "Таблица Google"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/ChatBoardFooter/index.js:268
+msgid "Таймер сообщений"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:17
+#: src/Pages/Cabinet/Components/MyProfile/index.js:64
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:18
+msgid "Тарифный план"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:20
+msgid "Творчество"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:222
+#: src/Pages/Cabinet/Components/Calendar/TableListTaskItem/index.js:57
+#: src/Pages/Cabinet/Components/Calendar/TableTaskItem/PopoverTaskItem/index.js:75
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:98
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/SuccessCreated/index.js:76
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:31
+msgid "Тег"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:78
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:11
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:182
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:245
+msgid "Теги"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditTask/EditTask.js:140
+msgid "Текст задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/AddNote/AddNote.js:38
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/MeetingNote/MeetingNote.js:27
+msgid "Текст заметки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:48
+msgid "Текст письма"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:52
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/TariffCard/index.js:53
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:52
+msgid "Текущий план"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:123
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:208
+#: src/Pages/Cabinet/Components/Safe/Popups/RecoverPass/index.js:21
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:157
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:158
+msgid "Телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:137
+msgid "Телефон (2)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:128
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:142
+msgid "телефон не указан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:181
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:124
+msgid "Телефон:"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MailModals/NewMail/NewMail.js:19
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:72
+msgid "Тема"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditLetter/EditLetter.js:32
+msgid "Тема письма"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/Settings/index.js:32
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:181
+msgid "Темный"
+msgstr ""
+
+#: src/generalComponents/collections.js:656
+msgid "Тестировщик"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:67
+msgid "Тип встречи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SafeProperty/General/index.js:23
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/FileProperty/General/index.js:23
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/FolderProperty/General/index.js:26
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/FolderProperty/General/index.js:24
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ProjectProperty/General/index.js:21
+msgid "Тип файла:"
+msgstr ""
+
+#: src/generalComponents/chatHelper.js:89
+msgid "только что"
+msgstr ""
+
+#: src/generalComponents/collections.js:632
+msgid "Торговый агент"
+msgstr ""
+
+#: src/generalComponents/collections.js:631
+msgid "Торговый представитель"
+msgstr ""
+
+#: src/generalComponents/collections.js:805
+msgid "Требует уточнения"
+msgstr ""
+
+#: src/generalComponents/collections.js:637
+msgid "Тренинг-менеджер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/NoSafe/index.js:25
+msgid "У Вас еще нет ни одного сейфа"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:143
+msgid "У Вас нет аккаунта ?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:282
+msgid "У Вас уже есть аккаунт ?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/CopyLinkFolder/index.js:222
+msgid "Уведомить пользователя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:121
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:53
+msgid "Уведомления"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/TariffPlan/increase_storage.js:14
+msgid "Увеличьте Объем Хранилища"
+msgstr ""
+
+#: src/generalComponents/collections.js:921
+msgid "Удаление задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:48
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/UserInfo/UserInfo.js:72
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:140
+msgid "Удаление контакта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:50
+#: src/Pages/Cabinet/Components/MyFolders/index.js:240
+#: src/Pages/Cabinet/Components/Project/Project.js:165
+msgid "Удаление папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/Project.js:132
+msgid "Удаление проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:23
+msgid "Удаление раздела"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/index.js:158
+msgid "Удаление сейфа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:80
+msgid "Удаление сотрудника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:114
+#: src/Pages/Cabinet/Components/Archive/WorkElements/FileLine/index.js:109
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:57
+#: src/Pages/Guest/ServePanel/index.js:243
+msgid "Удаление файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:77
+#: src/Pages/Guest/index.js:194
+msgid "Удаление файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:168
+#: src/generalComponents/collections.js:425
+#: src/generalComponents/collections.js:440
+#: src/generalComponents/collections.js:452
+#: src/generalComponents/collections.js:500
+#: src/generalComponents/collections.js:511
+#: src/generalComponents/collections.js:518
+#: src/generalComponents/collections.js:548
+#: src/generalComponents/collections.js:582
+#: src/generalComponents/collections.js:711
+#: src/Pages/Cabinet/Components/Archive/index.js:202
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:107
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:43
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:310
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:33
+#: src/Pages/Cabinet/Components/Chat/index.js:161
+#: src/Pages/Cabinet/Components/Chat/index.js:185
+#: src/Pages/Cabinet/Components/Chat/index.js:553
+#: src/Pages/Cabinet/Components/Chat/index.js:593
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:81
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:228
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/DeleteFolder/DeleteFolder.js:54
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuTask.js:27
+#: src/Pages/Cabinet/Components/Modals/Components/SubmitButtons/SubmitButtons.js:22
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/DeleteSection/DeleteSection.js:27
+#: src/Pages/Cabinet/Components/MyFolders/index.js:406
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/ContactsData/ContactsData.js:141
+#: src/Pages/Cabinet/Components/Project/Project.js:358
+#: src/Pages/Cabinet/Components/Project/Project.js:415
+#: src/Pages/Cabinet/Components/Safe/index.js:407
+#: src/Pages/Guest/index.js:198
+msgid "Удалить"
+msgstr ""
+
+#: src/generalComponents/collections.js:781
+msgid "Удалить "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:140
+msgid "Удалить безвозвратно"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/MainPanel/MainPanel.js:28
+msgid "Удалить группу"
+msgstr ""
+
+#: src/generalComponents/collections.js:791
+msgid "Удалить задачу"
+msgstr ""
+
+#: src/generalComponents/collections.js:795
+msgid "Удалить заметку "
+msgstr ""
+
+#: src/generalComponents/collections.js:785
+msgid "Удалить звонок "
+msgstr ""
+
+#: src/generalComponents/collections.js:524
+#: src/Pages/Cabinet/Components/Chat/index.js:232
+msgid "Удалить из группы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/index.js:141
+msgid "Удалить контакт"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:291
+msgid "удалить линию"
+msgstr ""
+
+#: src/generalComponents/collections.js:338
+#: src/generalComponents/collections.js:356
+msgid "Удалить папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:313
+msgid "Удалить проект"
+msgstr ""
+
+#: src/generalComponents/collections.js:912
+#: src/generalComponents/collections.js:938
+msgid "Удалить раздел"
+msgstr ""
+
+#: src/generalComponents/collections.js:564
+#: src/Pages/Cabinet/Components/Chat/index.js:311
+msgid "Удалить сообщение"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuChat/DeleteMessage/index.js:53
+msgid "Удалить у всех"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuChat/DeleteMessage/index.js:50
+msgid "Удалить у меня"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:77
+msgid "Удалить файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:32
+msgid "Укажите Email"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/AddSocials.js:76
+msgid "Укажите Ваш контактный номер"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:97
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:117
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:91
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:61
+msgid "Укажите время хранения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:85
+msgid "Укажите дату и время встречи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:62
+msgid "Укажите дату и время звонка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:68
+msgid "Укажите дату хранения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/StoragePeriod/StoragePeriod.js:76
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/StoragePeriod/StoragePeriod.js:96
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:50
+msgid "Укажите даты хранения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:113
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:59
+msgid "Укажите новую дату встречи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:45
+msgid "Укажите разрещение доступа"
+msgstr ""
+
+#: src/generalComponents/LangPicker/index.js:16
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:17
+msgid "Украинский"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Landing.js:16
+#: src/Pages/StartPage/Components/Landing/Landing.js:16
+msgid "Умное рабочее пространство"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:149
+msgid "Упс... Такая папка не найдена"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFile.js:140
+msgid "Упс... Такой файл не найден"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:113
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:34
+#: src/Pages/StartPage/Components/RenewPassword.js:22
+#: src/Pages/StartPage/Components/UploadFile.js:216
+msgid "Упс.... что-то пошло не так. Попробуй еще раз!"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:234
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:106
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:251
+msgid "Условия использования"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:167
+msgid "Установите временный пароль для выбранного Вами пользователя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:181
+msgid "Установите срок доступа к сейфу для выбранного Вами пользователя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:70
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:69
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:181
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:62
+msgid "Установите срок хранения файла (после завершения файл будет удален)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/SetPassword/SetPassword.js:81
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:171
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:185
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:73
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFolder/ConfigAccessFolder/ConfigAccessFolder.js:85
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:72
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder.js:84
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/SetPassword/SetPassword.js:103
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/SetPassword/SetPassword.js:110
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:170
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:186
+msgid "Установить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:152
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:167
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:201
+#: src/Pages/StartPage/Components/UploadFile.js:137
+#: src/Pages/StartPage/Components/UploadFile.js:139
+msgid "Установить пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Devices/index.js:220
+msgid "Устройство заблокировано"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/CalendarModals/EditTask/EditTask.js:165
+msgid "Участники (введите email или выбирите из списка)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:121
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:134
+msgid "Участники (введите email или из списка)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:47
+#: src/Pages/Cabinet/Components/Safe/index.js:235
+msgid "Файл добавлен в архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/CustomFolderItem/index.js:216
+msgid "Файл не был перемещен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/CreateFile/index.js:376
+msgid "Файл не добавлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/MoveToArchive/MoveToArchive.js:65
+msgid "Файл не добавлен в архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CustomizeFile/index.js:356
+msgid "Файл не изменен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DownloadFile/DownloadFile.js:75
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DownloadFile/DownloadFile.js:94
+msgid "Файл не найден"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Modals/Components/MutualEdit/MutualEdit.js:102
+msgid "Файл не сохранен, попробуйте еще раз"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/CreateZip/index.js:262
+msgid "Файл не удалось сжать в ZIP архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyFolders/CustomFolderItem/index.js:220
+msgid "Файл перемещен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:48
+#: src/Pages/Cabinet/Components/Safe/index.js:221
+msgid "Файл перемещен в корзину"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:59
+msgid "Файл удалён из системы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFileList.js:45
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/Buttons/index.js:49
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:82
+msgid "Файл успешно восстановлен"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SendSuccess.js:26
+msgid "Файл успешно отправлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:32
+msgid "Файл успешно разархивирован"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:130
+msgid "Файлообменник"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:47
+#: src/Pages/Cabinet/Components/Project/WorkSpace/index.js:114
+msgid "Файлы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:96
+msgid "Файлы которые расшарил я"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:44
+#: src/Pages/Cabinet/Components/Safe/index.js:210
+msgid "Файлы перемещено в корзину"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/WorkSpace/index.js:114
+msgid "Файлы проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:119
+msgid "Файлы расшаренные мне"
+msgstr ""
+
+#: src/generalComponents/collections.js:569
+#: src/Pages/Cabinet/Components/Chat/index.js:328
+msgid "Файлы с компьютера"
+msgstr ""
+
+#: src/generalComponents/collections.js:568
+#: src/Pages/Cabinet/Components/Chat/index.js:323
+msgid "Файлы с системы 4Hub"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuFile/DeleteFile/DeleteFIle.js:56
+msgid "Файлы удалены из системы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/WorkElements/OptionButtomLine/index.js:79
+msgid "Файлы успешно восстановлены"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:202
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:50
+#: src/Pages/Cabinet/Components/Chat/AddContact/index.js:85
+#: src/Pages/Cabinet/Components/MyProfile/UserForm/index.js:143
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:116
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:117
+msgid "Фамилия"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/EditContact.js:97
+#: src/Pages/Cabinet/Components/MyProfile/Contacts/FormContact/FormContact.js:196
+msgid "Фамилия:"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:20
+#: src/Pages/Cabinet/Components/Archive/helper.js:25
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:29
+msgid "Февраль"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:21
+msgid "Февраля"
+msgstr ""
+
+#: src/generalComponents/collections.js:18
+#: src/Pages/Cabinet/Components/MyProfile/DataMemory/index.js:63
+msgid "Фильмы"
+msgstr ""
+
+#: src/generalComponents/collections.js:616
+msgid "Финансист"
+msgstr ""
+
+#: src/generalComponents/collections.js:603
+#: src/generalComponents/collections.js:610
+msgid "Финансовый директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:617
+msgid "Финансовый консультант"
+msgstr ""
+
+#: src/generalComponents/collections.js:28
+#: src/generalComponents/collections.js:889
+#: src/Pages/Cabinet/Components/Chat/ChatBoard/InfoPanel/index.js:58
+msgid "Фото"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:24
+msgid "Фото выписки с ЕДР"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:23
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:24
+msgid "Функции"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Safe/Popups/NoSafe/index.js:38
+msgid "Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:260
+#: src/Pages/StartPage/Components/InfoPage.helper.js:62
+msgid "Хранилище"
+msgstr ""
+
+#: src/generalComponents/collections.js:657
+msgid "Художник компьютерной графики"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:189
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:83
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:16
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:190
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:253
+msgid "Цвет"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Tasks/GridBoard/TaskBoard/MyTasks/TasksLine/TasksLine.js:27
+msgid "Цели на сегодня"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:113
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:126
+msgid "Цель проекта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Support/index.js:78
+msgid "Часто задаваемые вопросы"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:21
+#: src/Pages/StartPage/Components/InfoPage.helper.js:27
+#: src/Pages/StartPage/Components/InfoPage.helper.js:47
+#: src/Pages/StartPage/Components/InfoPage.helper.js:53
+#: src/Pages/StartPage/Components/InfoPage.helper.js:73
+#: src/Pages/StartPage/Components/InfoPage.helper.js:79
+msgid ""
+"часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "
+"\"рыбой\" для текстов на латинице с начала XVI века."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:124
+#: src/Pages/Cabinet/Components/SideMenu/listHelper.js:18
+msgid "Чат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/ChatList/index.js:236
+#: src/Pages/Cabinet/Components/Chat/index.js:443
+msgid "Чаты"
+msgstr ""
+
+#: src/generalComponents/collections.js:968
+msgid "Черновик"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:85
+msgid "Чт"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:10
+msgid "Что такое 4Hub ?"
+msgstr ""
+
+#: src/generalComponents/fileMenuHelper.js:79
+#: src/Pages/Cabinet/Components/WorkElements/FileLine/OptionalButton/index.js:41
+msgid "что-то пошло не так"
+msgstr ""
+
+#: src/generalComponents/collections.js:823
+msgid "Что-то пошло не так"
+msgstr ""
+
+#: src/generalComponents/collections.js:816
+#: src/generalComponents/collections.js:819
+#: src/generalComponents/collections.js:820
+#: src/generalComponents/collections.js:827
+#: src/generalComponents/collections.js:831
+#: src/generalComponents/collections.js:835
+#: src/generalComponents/collections.js:841
+#: src/generalComponents/collections.js:843
+#: src/generalComponents/collections.js:848
+#: src/generalComponents/collections.js:852
+#: src/generalComponents/collections.js:856
+#: src/generalComponents/collections.js:860
+#: src/generalComponents/collections.js:861
+#: src/generalComponents/collections.js:866
+#: src/generalComponents/collections.js:868
+#: src/generalComponents/collections.js:871
+#: src/generalComponents/collections.js:872
+#: src/generalComponents/collections.js:876
+msgid "Что-то пошло не так, попробуйте еще раз"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe.js:79
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:80
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContextMenuProject/CustomizeProject/index.js:73
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:99
+#: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:51
+#: src/Pages/Cabinet/Components/Modals/Components/LibraryModals/EditSection/EditSection.js:55
+#: src/Pages/Cabinet/Components/Project/CreateProject/index.js:71
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:79
+#: src/Pages/Cabinet/Components/Safe/Popups/CreateSafe/index.js:84
+msgid "Что-то пошло не так. Повторите попытку позже"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/StoragePeriod/StoragePeriod.js:97
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditCall/EditCall.js:74
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/EditMeeting/EditMeeting.js:97
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleAll.js:93
+#: src/Pages/Cabinet/Components/Modals/Components/TaskModals/RescheduleMeeting/RescheduleOne.js:100
+msgid "ЧЧ"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:181
+msgid "Шифрование файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:618
+msgid "Экономист"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe.js:138
+#: src/Pages/Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/Share/Share.js:143
+msgid "Эл.адрес или имя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Project/AddMember/index.js:115
+msgid "Электронная почта "
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:204
+#: src/Pages/Cabinet/Components/Devices/WorkElements/WorkBarsPreview/index.js:88
+#: src/Pages/Cabinet/Components/Project/WorkElements/InfoPopover/index.js:21
+#: src/Pages/Cabinet/Components/Safe/WorkElements/WorkLinesPreview/index.js:212
+#: src/Pages/Cabinet/Components/WorkElements/WorkLinesPreview/index.js:275
+msgid "Эмоджи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:45
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:63
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:81
+#: src/Pages/Cabinet/Components/MyProfile/Programs/index.js:99
+msgid ""
+"Это текст-\"рыба\", часто используемый в и вэб-дизайне. Lorem Ipsum "
+"является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum "
+"является стандартной Это текст-\"рыба\", часто используемый в и"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:262
+msgid ""
+"Это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem\n"
+"\t\t\t\t\tIpsum является стандартной \"рыбой\" для текстов на латинице с "
+"начала\n"
+"\t\t\t\t\tXVI века."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:262
+#: src/Pages/StartPage/Components/InfoPage.helper.js:15
+#: src/Pages/StartPage/Components/InfoPage.helper.js:41
+#: src/Pages/StartPage/Components/InfoPage.helper.js:67
+msgid ""
+"Это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum "
+"является стандартной \"рыбой\" для текстов на латинице с начала XVI века."
+msgstr ""
+
+#: src/generalComponents/collections.js:619
+msgid "Юрист"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/SharedFiles/SideMenu/SideMenu.js:96
+msgid "Я"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:234
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:105
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:250
+msgid "Я принимаю"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/MyProfile/Personal/Personal.js:197
+msgid "Язык интерфейса"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:13
+#: src/Pages/Cabinet/Components/Archive/helper.js:24
+#: src/Pages/Cabinet/Components/MyFiles/DateFilter/helper.js:28
+msgid "Январь"
+msgstr ""
+
+#: src/generalComponents/CalendarHelper.js:14
+msgid "Января"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Chat/CreateCameraMedia/Buttons/FilterSettings/index.js:14
+msgid "Яркость"
+msgstr ""
