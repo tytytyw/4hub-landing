@@ -3,12 +3,18 @@
 .panelWrap
   display: flex
   gap: 10px
+  flex-direction: column
+  flex-wrap: wrap
+  align-content: flex-start
   padding: 9px 20px
-  width: 100%
   border-bottom: 1px solid $color-border-grey
-  & > div
-    height: auto
-    position: relative
+  overflow-x: scroll
+  height: 52px
+
+.panelWrap::-webkit-scrollbar
+  width: 0
+  height: 0
+
 .addIcon
   width: 18px
   height: 18px

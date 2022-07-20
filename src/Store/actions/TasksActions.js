@@ -35,7 +35,10 @@ export const onCreateTaskDepartment = (messages) => async (dispatch, getState) =
       `/ajax/task_dep_add.php?uid=${uid}&name=${params.title}&icon=${params.icon ? params.icon : ""}`
     );
     checkResponseStatus(data.ok);
-    dispatch({ type: TasksTypes.ADD_TASK_DEPARTMENT, payload: { name: data.name, id: data.id, icon: data.icon } });
+    dispatch({
+      type: TasksTypes.ADD_TASK_DEPARTMENT,
+      payload: { name: data.name, id: data.id, icon: data.icon, is_system: "0" }
+    });
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,
@@ -67,7 +70,10 @@ export const onEditTaskDepartment = (messages) => async (dispatch, getState) => 
     );
     checkResponseStatus(data.ok);
 
-    dispatch({ type: TasksTypes.EDIT_TASK_DEPARTMENT, payload: { name: data.name, id: data.id, icon: data.icon } });
+    dispatch({
+      type: TasksTypes.EDIT_TASK_DEPARTMENT,
+      payload: { name: data.name, id: data.id, icon: data.icon, is_system: "0" }
+    });
     dispatch(
       onSetModals(MODALS.SUCCESS, {
         open: true,

@@ -757,20 +757,6 @@ export function useUrgencyTask() {
   ];
 }
 
-export function useStandartTasksDepartment() {
-  const { __ } = useLocales();
-  return {
-    WORK_TASK: {
-      name: __("Рабочие задачи"),
-      id: "worktask"
-    },
-    HOME_TASK: {
-      name: __("Личные задачи"),
-      id: "hometask"
-    }
-  };
-}
-
 export function useContextMenuTasks() {
   const { __ } = useLocales();
   return {
