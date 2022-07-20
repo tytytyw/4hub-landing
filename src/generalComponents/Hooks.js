@@ -96,52 +96,95 @@ export const useElementResize = () => {
 export function useWebRTC(socket, config) {
   const { __ } = useLocales();
   const icon = useSelector((s) => s.user.userInfo?.icon[0]);
+  const { userInfo, uid } = useSelector((s) => s.user);
   const dispatch = useDispatch();
   const [clients, updateClients] = useStateWithCallback([]);
 
   const peerConnections = useRef({});
   const localMediaStream = useRef(null);
-  const peerMediaElements = useRef({
-    [LOCAL_CLIENT]: null
-  });
+  const peerMediaElements = useRef({});
 
   const addNewClient = useCallback(
-    (client, cb) => {
-      if (!clients.includes(client)) {
-        updateClients((state) => [...state, client], cb);
-      }
+    (newClient, cb) => {
+      updateClients((list) => {
+        if (!list.includes(newClient)) {
+          return [...list, newClient];
+        }
+
+        return list;
+      }, cb);
     },
+    //eslint-disable-next-line
     [clients, updateClients]
   );
 
-  useEffect(() => {
-    async function startCall() {
-      localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-        audio: true
-        // video: {
-        //   width: 800,
-        //   height: 600
-        // }
-      });
-
-      addNewClient(LOCAL_CLIENT, () => {
-        const localVideoElement = peerMediaElements.current[LOCAL_CLIENT];
-
-        if (localVideoElement) {
-          localVideoElement.volume = 0;
-          localVideoElement.srcObject = localMediaStream.current;
+  const handleCallRoomMessages = async (e) => {
+    const msg = JSON.parse(e.data);
+    if (msg.action === "call_room") {
+      switch (msg.data.method) {
+        case CHAT_CALLROOM_ACTIONS.ACCEPT_CALL: {
+          break;
         }
-      });
+        case CHAT_CALLROOM_ACTIONS.ICE_CANDIDIATE: {
+          if (msg.data.peerID !== userInfo.id_user) {
+            peerConnections.current[msg.data.peerID].addIceCandidate(new RTCIceCandidate(msg.data.iceCandidate));
+            console.log(peerConnections.current);
+            console.log(localMediaStream.current);
+            console.log(peerMediaElements.current);
+          }
+          break;
+        }
+        case CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION: {
+          if (msg.data.peerID !== userInfo.id_user) {
+            if (!peerConnections.current[msg.data.peerID]) {
+              await handleNewPeer({ peerID: msg.data.peerID });
+            }
+            setRemoteMedia({ peerID: msg.data.peerID, sessionDescription: msg.data.sessionDescription });
+          }
+          break;
+        }
+        default: {
+          console.log(CHAT_CALLROOM_SOCKET_ACTION, msg.data.method, "not used");
+          break;
+        }
+      }
     }
+  };
+
+  async function startCall() {
+    localMediaStream.current = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: {
+        width: 100,
+        height: 50
+      }
+    });
+
+    // peerIDs.forEach((peerID) => {
+    addNewClient(LOCAL_CLIENT, () => {
+      const localVideoElement = peerMediaElements.current[LOCAL_CLIENT];
+
+      if (localVideoElement) {
+        localVideoElement.volume = 0;
+        localVideoElement.srcObject = localMediaStream.current;
+      }
+    });
+    // });
+  }
+
+  useEffect(() => {
+    socket.addEventListener("message", handleCallRoomMessages);
 
     if (config.state === CHAT_CALLROOM.OUTGOING_CALL) {
-      startCall()
+      startCall(config.contacts)
         .then(() => {
           // initializing call
           socket.send(
             JSON.stringify({
               action: CHAT_CALLROOM_SOCKET_ACTION,
               users_to: config.contacts,
+              uid,
+              id_user: config.from,
               data: {
                 method: CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT,
                 call_type: CHAT_CALLROOM.VOICE_CALL,
@@ -152,6 +195,9 @@ export function useWebRTC(socket, config) {
               }
             })
           );
+        })
+        .then(() => {
+          handleNewPeer({ peerID: LOCAL_CLIENT, createOffer: false });
         })
         .catch((err) => {
           dispatch(onSetModals(MODALS.ERROR, { open: true, message: __("Не удалось захватить аудио/видео контент") }));
@@ -167,6 +213,7 @@ export function useWebRTC(socket, config) {
           data: {}
         })
       );
+      socket?.removeEventListener("message", handleCallRoomMessages);
     };
   }, []); //eslint-disable-line
 
@@ -174,51 +221,92 @@ export function useWebRTC(socket, config) {
     peerMediaElements.current[id] = node;
   }, []);
 
+  async function setRemoteMedia({ peerID, sessionDescription: remoteDescription }) {
+    await peerConnections.current[peerID]?.setRemoteDescription(new RTCSessionDescription(remoteDescription));
+
+    if (remoteDescription.type === "offer") {
+      const answer = await peerConnections.current[peerID].createAnswer();
+
+      await peerConnections.current[peerID].setLocalDescription(answer);
+
+      socket.send(
+        JSON.stringify({
+          action: CHAT_CALLROOM_SOCKET_ACTION,
+          data: {
+            method: CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION,
+            peerID: userInfo.id_user,
+            sessionDescription: answer
+          }
+        })
+      );
+    }
+  }
+  async function handleNewCandidate(event) {
+    await socket.send(
+      JSON.stringify({
+        action: CHAT_CALLROOM_SOCKET_ACTION,
+        data: {
+          method: CHAT_CALLROOM_ACTIONS.ICE_CANDIDIATE,
+          callType: config.callType,
+          peerID: userInfo.id_user,
+          iceCandidate: {
+            candidate: event.candidate,
+            sdpMid: event.sdpMid,
+            sdpMLineIndex: event.sdpMLineIndex
+          }
+        }
+      })
+    );
+  }
+
+  const debounceCallback = useDebounce(handleNewCandidate, 300);
+
   const handleNewPeer = useCallback(
     async ({ peerID, createOffer }) => {
       if (peerID in peerConnections.current) {
         return console.warn(`Already connected to peer ${peerID}`);
       }
 
-      peerConnections.current[peerID] = new RTCPeerConnection({
+      if (!localMediaStream.current) {
+        await startCall([peerID]);
+      }
+
+      peerConnections.current[peerID] = await new RTCPeerConnection({
         iceServers: freeice()
       });
 
       peerConnections.current[peerID].onicecandidate = (event) => {
         if (event.candidate) {
-          socket.send(
-            JSON.stringify({
-              action: CHAT_CALLROOM_SOCKET_ACTION,
-              data: {
-                method: CHAT_CALLROOM_ACTIONS.RELAY_ICE,
-                callType: config.callType,
-                peerID,
-                iceCandidate: event.candidate
-              }
-            })
-          );
+          debounceCallback(event.candidate);
         }
       };
 
+      let tracksNumber = 0;
       peerConnections.current[peerID].ontrack = ({ streams: [remoteStream] }) => {
-        addNewClient(peerID, () => {
-          if (peerMediaElements.current[peerID]) {
-            peerMediaElements.current[peerID].srcObject = remoteStream;
-          } else {
-            // FIX LONG RENDER IN CASE OF MANY CLIENTS
-            let settled = false;
-            const interval = setInterval(() => {
-              if (peerMediaElements.current[peerID]) {
-                peerMediaElements.current[peerID].srcObject = remoteStream;
-                settled = true;
-              }
+        tracksNumber++;
 
-              if (settled) {
-                clearInterval(interval);
-              }
-            }, 1000);
-          }
-        });
+        if (tracksNumber === 2) {
+          // video & audio tracks received
+          tracksNumber = 0;
+          addNewClient(peerID, () => {
+            if (peerMediaElements.current[peerID]) {
+              peerMediaElements.current[peerID].srcObject = remoteStream;
+            } else {
+              // FIX LONG RENDER IN CASE OF MANY CLIENTS
+              let settled = false;
+              const interval = setInterval(() => {
+                if (peerMediaElements.current[peerID]) {
+                  peerMediaElements.current[peerID].srcObject = remoteStream;
+                  settled = true;
+                }
+
+                if (settled) {
+                  clearInterval(interval);
+                }
+              }, 1000);
+            }
+          });
+        }
       };
 
       localMediaStream.current.getTracks().forEach((track) => {
@@ -234,14 +322,15 @@ export function useWebRTC(socket, config) {
           JSON.stringify({
             action: CHAT_CALLROOM_SOCKET_ACTION,
             data: {
-              type: CHAT_CALLROOM_ACTIONS.RELAY_SDP,
-              peerID,
+              method: CHAT_CALLROOM_ACTIONS.SESSION_DESCRIPTION,
+              peerID: userInfo.id_user,
               sessionDescription: offer
             }
           })
         );
       }
     },
+    //eslint-disable-next-line
     [addNewClient, socket, config]
   );
 

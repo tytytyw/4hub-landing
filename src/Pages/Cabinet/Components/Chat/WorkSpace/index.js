@@ -43,8 +43,9 @@ const WorkSpace = ({
   setSocket
 }) => {
   const [socketReconnect, setSocketReconnect] = useState(true);
-  const { uid } = useSelector((state) => state.user);
+  const { uid, userInfo } = useSelector((state) => state.user);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
+  const callRoom = useSelector((state) => state.Cabinet.chat.callRoom);
   const id_company = useSelector((state) => state.user.id_company);
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const WorkSpace = ({
   // webSockets
   const onConnectOpen = () => {
     console.log(`Socket connection for user ${uid} opened`);
-    socket.send(JSON.stringify({ action: "uid", uid }));
+    socket.send(JSON.stringify({ action: "uid", uid, id_user: userInfo.id_user }));
   };
 
   const onWebSocketsMessage = (e) => {
@@ -139,15 +140,14 @@ const WorkSpace = ({
     if (data.action === "call_room") {
       switch (data.data.method) {
         case CHAT_CALLROOM_ACTIONS.ASK_TO_CONNECT: {
-          // TODO - mkortelov - get info from user.userInfo.id_user_chat from STORE - await BE
-          // if (data.data.from !== userInfo.id_user_chat) {
-          if (data.data.from.id_user !== userId) {
+          if (data.data.from.id_user !== userInfo.id_user) {
             dispatch(
               setCallRoom({
+                ...callRoom,
                 state: CHAT_CALLROOM.INCOMING_CALL,
                 contacts: [...data.users_to.filter((it) => it !== userId), data.data.from.id_user],
                 socket,
-                user_id: userId,
+                user_id: data.data.from.id_user,
                 icon: data.data.from.icon
               })
             );
@@ -155,7 +155,6 @@ const WorkSpace = ({
           break;
         }
         default: {
-          console.log("call_room", data.data.method, "not used");
           break;
         }
       }
@@ -280,12 +279,12 @@ const WorkSpace = ({
   );
 
   useEffect(() => {
-    if (socketReconnect) {
+    if (socketReconnect && userInfo.id_user) {
       setSocketReconnect(false);
       setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
     }
     return () => socket?.close();
-  }, [socketReconnect]); //eslint-disable-line
+  }, [socketReconnect, userInfo.id_user]); //eslint-disable-line
 
   useEffect(() => {
     //TODO: move to Store

@@ -114,7 +114,8 @@ export const CHAT_CALLROOM_ACTIONS = {
   RELAY_SDP: "RELAY_SDP",
   RELAY_ICE: "RELAY_ICE",
   ICE_CANDIDIATE: "ICE_CANDIDIATE",
-  SESSION_DESCRIPTION: "SESSION_DESCRIPTION"
+  SESSION_DESCRIPTION: "SESSION_DESCRIPTION",
+  ACCEPT_CALL: "ACCEPT_CALL"
 };
 
 //Customable button
@@ -323,4 +324,14 @@ export const CART = {
 export const JOURNAL = {
   API_GET_JOURNAL_FILES: "history_get",
   SORT_DATE_CHANGE: "byDateChanged"
+};
+
+// SORT FILES
+
+export const SORT_FILES = {
+  NAME: "byName",
+  GROUP: "mtime",
+  SIZE: "bySize",
+  TYPE: "byType",
+  TAGS: "byTags"
 };
